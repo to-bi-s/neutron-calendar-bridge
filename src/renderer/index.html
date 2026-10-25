@@ -545,33 +545,11 @@
                         <div class="developer-options" id="developer-options" hidden>
                             <section class="developer-section" aria-labelledby="developer-invitations-title">
                             <p class="panel-kicker" id="developer-invitations-title">Invitation emails</p>
-                            <div class="settings-grid">
-                                <label class="setting-field setting-field-span2">
-                                    <select id="setting-invitation-mode" aria-label="Invitation emails">
-                                        <option value="live">Live: like Proton Calendar</option>
-                                        <option value="test">Test: only to the addresses below</option>
-                                        <option value="dry-run">Dry run: send nothing, log what would be sent</option>
-                                    </select>
-                                </label>
-                            </div>
-                            <p class="setting-copy setting-hint" id="invitation-mode-hint"></p>
-                            <label class="setting-field setting-field-block" id="invitation-allowlist-field">
-                                <span>Allowed addresses in test mode (one per line)</span>
-                                <textarea id="setting-invitation-allowlist" rows="3" spellcheck="false" autocomplete="off" data-i18n-skip
-                                    placeholder="second-account@proton.me&#10;you@outlook.com"></textarea>
-                            </label>
-                            <div class="button-row setting-actions" id="invitation-allowlist-actions">
-                                <button type="button" class="secondary-button" id="save-invitation-allowlist">Save Addresses</button>
-                                <span class="setting-note" id="invitation-settings-note"></span>
-                            </div>
-                            <div class="card-divider" aria-hidden="true"></div>
                             <label class="toggle">
-                                <input id="setting-apply-emailed-answers" type="checkbox">
-                                <span>Apply answers that guests outside Proton send by email</span>
+                                <input id="setting-send-emails" type="checkbox">
+                                <span>Send invitation emails</span>
                             </label>
-                            <p class="setting-copy setting-hint" id="emailed-answers-hint">
-                                Proton usually records guests' answers by itself. With this on, the bridge also reads the replies to your meetings (on this Mac only) and applies answers Proton missed.
-                            </p>
+                            <p class="setting-copy setting-hint" id="invitation-mode-hint"></p>
                             </section>
                             <section class="developer-section" aria-labelledby="developer-logging-title">
                             <p class="panel-kicker" id="developer-logging-title">Detailed logging</p>
@@ -604,9 +582,9 @@
                 <section class="nav-page" id="page-info" hidden>
                     <header class="page-header">
                         <h1>Neutron Calendar Bridge <span class="app-version" data-app-version></span></h1>
-                        <p class="app-subtitle">Bridge for Proton Calendar</p>
-                        <p class="panel-copy">A local CalDAV bridge that puts your Proton calendars into Calendar.app, with two-way sync. Everything stays on this Mac.</p>
-                        <p class="panel-copy unofficial-note">Unofficial: not affiliated with or endorsed by Proton AG. Proton and Proton Calendar are trademarks of Proton AG.</p>
+                        <p class="app-subtitle">Proton Calendar in Calendar.app and Thunderbird</p>
+                        <p class="panel-copy">Signs in to Proton, keeps an encrypted copy of your calendars on this Mac and serves it to Calendar.app, Thunderbird or any other CalDAV app, with changes flowing both ways. Your calendars are decrypted here only and never pass through anyone else's server.</p>
+                        <p class="panel-copy unofficial-note">Unofficial: not affiliated with or endorsed by Proton AG. Proton and Proton Calendar are trademarks of Proton AG. Free and open source (GPL-3.0).</p>
                     </header>
 
                     <div class="card info-card">
@@ -627,6 +605,22 @@
                     <div class="card info-card">
                         <div class="card-header">
                             <div>
+                                <p class="panel-kicker">Help</p>
+                                <h3>Manual and Source Code</h3>
+                            </div>
+                        </div>
+                        <p class="panel-copy">The app's home is its GitHub repository: the manual, the detailed rules, everything about building it, the changelog and the place to report a problem. The links open in your browser.</p>
+                        <div class="button-row help-links">
+                            <button type="button" class="secondary-button external-link" data-href="https://github.com/to-bi-s/neutron-calendar-bridge#readme">Manual (README)</button>
+                            <button type="button" class="secondary-button external-link" data-href="https://github.com/to-bi-s/neutron-calendar-bridge/blob/main/docs/BEHAVIOUR.md">What the Bridge Does, in Detail</button>
+                            <button type="button" class="secondary-button external-link" data-href="https://github.com/to-bi-s/neutron-calendar-bridge/blob/main/docs/DEVELOPMENT.md">Building and Developing</button>
+                            <button type="button" class="secondary-button external-link" data-href="https://github.com/to-bi-s/neutron-calendar-bridge/issues">Report a Problem</button>
+                        </div>
+                    </div>
+
+                    <div class="card info-card">
+                        <div class="card-header">
+                            <div>
                                 <p class="panel-kicker">Credits</p>
                                 <h3>Who Made This</h3>
                             </div>
@@ -642,7 +636,8 @@
                             <div>
                                 <dt>This Fork</dt>
                                 <dd data-i18n-html>
-                                    <strong>Tobi</strong> forked it as <em>Neutron Calendar Bridge</em> and added: <ul class="feature-list"><li>Meetings like in Proton Calendar: invitations, answers, updates and cancellations emailed from Calendar.app — end-to-end to Proton users, in Proton's 34 languages — plus guest autocomplete and availability</li><li>Repeating events in both directions, exceptions included</li><li>Reminders (alerts) in both directions</li><li>Several Proton accounts, each as its own account in Calendar.app</li><li>One-click Calendar.app setup (a configuration profile) and a sign-in under the bridge's own name — authenticator codes and Proton's CAPTCHA included</li><li>Proton Meet and Zoom links straight from Calendar.app ("Proton Meet" or "Zoom" as the location)</li><li>Calendars created, renamed and recoloured from Calendar.app</li><li>Changes made while offline kept and sent once Proton is back</li><li>Private by design: an encrypted local copy, a checked CalDAV password, a quiet log — nothing leaves this Mac</li><li>Light on Proton: its change feeds instead of listing everything, and quick to notice a change</li><li>Six languages, light and dark, and a menu-bar menu like Proton Mail Bridge's</li></ul> <a href="#" class="external-link" data-href="https://github.com/to-bi-s">github.com/to-bi-s</a>
+                                    <strong>Tobi</strong> forked it as <em>Neutron Calendar Bridge</em> and added what makes it a daily driver: meetings like in Proton Calendar (invitations, answers, updates and cancellations emailed from your calendar app, end-to-end to Proton users, in Proton's 34 languages), repeating events and reminders in both directions, Thunderbird and other CalDAV apps, several accounts, Proton Meet and Zoom links, offline edits, one-click setup, the sign-in under the bridge's own name, automatic updates, six languages — and privacy throughout: an encrypted local copy, a quiet log, nothing reported anywhere.
+                                    <a href="#" class="external-link" data-href="https://github.com/to-bi-s/neutron-calendar-bridge">github.com/to-bi-s/neutron-calendar-bridge</a>
                                 </dd>
                             </div>
                             <div>

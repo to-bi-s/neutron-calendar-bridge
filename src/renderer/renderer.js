@@ -119,17 +119,11 @@ const elements = {
     // Invitations
     invitationSupportNote: document.getElementById('invitation-support-note'),
     settingLanguage: document.getElementById('setting-language'),
-    settingInvitationMode: document.getElementById('setting-invitation-mode'),
+    settingSendEmails: document.getElementById('setting-send-emails'),
     settingInvitationLanguage: document.getElementById('setting-invitation-language'),
     invitationLanguageHint: document.getElementById('invitation-language-hint'),
-    settingInvitationAllowlist: document.getElementById('setting-invitation-allowlist'),
-    saveInvitationAllowlist: document.getElementById('save-invitation-allowlist'),
-    invitationSettingsNote: document.getElementById('invitation-settings-note'),
     invitationModeHint: document.getElementById('invitation-mode-hint'),
     invitationModeWarning: document.getElementById('invitation-mode-warning'),
-    invitationAllowlistField: document.getElementById('invitation-allowlist-field'),
-    invitationAllowlistActions: document.getElementById('invitation-allowlist-actions'),
-    settingApplyEmailedAnswers: document.getElementById('setting-apply-emailed-answers'),
     settingDeveloperMode: document.getElementById('setting-developer-mode'),
     settingNotifications: document.getElementById('setting-notifications'),
     settingAutoUpdate: document.getElementById('setting-auto-update'),
@@ -152,7 +146,6 @@ const elements = {
     developerOptions: document.getElementById('developer-options'),
     developerStats: document.getElementById('developer-stats'),
     developerStatsList: document.getElementById('developer-stats-list'),
-    emailedAnswersHint: document.getElementById('emailed-answers-hint')
 };
 
 /** The window's texts (0.32): English keys, translated by the catalog the main process sends. */
@@ -935,9 +928,9 @@ const renderCalDAVLogin = (bridgeState) => {
 
 const EMAIL_MODE_LABELS = /* i18n */ { test: 'Test', 'dry-run': 'Dry run', live: 'Live' };
 const EMAIL_MODE_HINTS = /* i18n */ {
-    test: 'Only addresses on the list get emails; a change that would email anyone else is refused.',
-    'dry-run': 'Nothing is sent and nothing changes in Proton; the emails are only written to the log.',
-    live: 'Invitations, updates, cancellations and answers are emailed just like from Proton Calendar.'
+    test: 'Test mode (set in the configuration file): only the listed addresses get emails; a change that would email anyone else is refused.',
+    'dry-run': 'Off: nothing is sent and nothing changes in Proton; the emails that would have gone out are written to the log and listed on the Overview. For trying things out without emailing anyone.',
+    live: 'On: invitations, updates, cancellations and answers are emailed just like from Proton Calendar.'
 };
 const ANSWER_LABELS = /* i18n */ { ACCEPTED: 'Accepted', TENTATIVE: 'Maybe', DECLINED: 'Declined', 'NEEDS-ACTION': 'No answer yet' };
 const KIND_LABELS = /* i18n */ { invitation: 'Invitation', update: 'Update', cancellation: 'Cancellation', received: 'Answer by email' };
@@ -952,11 +945,8 @@ const OUTCOME_LABELS = /* i18n */ {
     note: 'Note'
 };
 
-/** The hints as they stand in index.html (the English keys), for when the renderer puts them back. */
-const EMAILED_ANSWERS_HINT = /* i18n */ 'Proton usually records guests\' answers by itself. With this on, the bridge also reads the replies to your meetings (on this Mac only) and applies answers Proton missed.';
+/** The hint as it stands in index.html (the English key), for when the renderer puts it back. */
 const DETAILED_LOGGING_HINT = /* i18n */ 'The log normally leaves out private details such as event titles and addresses. Switch this on only while tracing a problem.';
-
-let allowlistDirty = false;
 
 const formatLogTime = (timestamp) => {
     const when = new Date(timestamp);
@@ -975,19 +965,10 @@ const renderInvitations = (bridgeState) => {
     // The mode in force (live unless developer options are on) and the setting the select shows.
     const mode = bridgeState.invitationEmailMode || 'live';
     const modeSetting = bridgeState.invitationEmailModeSetting || mode;
-    const allowlist = bridgeState.invitationEmailAllowlist || [];
 
-    // Settings card
+    // Settings card. 1.0.4: one switch — on = live, off = dry run (test mode stays reachable in the configuration file).
     elements.invitationSupportNote.hidden = supported || !bridgeState.signedIn;
-    if (document.activeElement !== elements.settingInvitationMode) {
-        elements.settingInvitationMode.value = modeSetting;
-    }
-    if (!allowlistDirty && document.activeElement !== elements.settingInvitationAllowlist) {
-        elements.settingInvitationAllowlist.value = allowlist.join('\n');
-    }
-    elements.settingInvitationAllowlist.disabled = modeSetting !== 'test';
-    elements.invitationAllowlistField.hidden = modeSetting !== 'test';
-    elements.invitationAllowlistActions.hidden = modeSetting !== 'test';
+    elements.settingSendEmails.checked = modeSetting !== 'dry-run';
     elements.invitationModeHint.textContent = EMAIL_MODE_HINTS[modeSetting] ? t(EMAIL_MODE_HINTS[modeSetting]) : '';
     const warning = supported && bridgeState.signedIn && EMAIL_MODE_WARNINGS[mode] ? t(EMAIL_MODE_WARNINGS[mode]) : '';
     elements.invitationModeWarning.textContent = warning;
@@ -1020,13 +1001,6 @@ const renderInvitations = (bridgeState) => {
     const developerMode = Boolean(bridgeState.developerMode);
     elements.settingDeveloperMode.checked = developerMode;
     elements.developerOptions.hidden = !developerMode;
-    const emailedSupported = Boolean(bridgeState.emailedAnswersSupported);
-    elements.settingApplyEmailedAnswers.checked = Boolean(bridgeState.applyEmailedAnswers);
-    elements.settingApplyEmailedAnswers.disabled = !developerMode || !emailedSupported;
-    elements.emailedAnswersHint.textContent =
-        emailedSupported || !bridgeState.signedIn
-            ? t(EMAILED_ANSWERS_HINT)
-            : t('The linked proton-calendar-client cannot read emailed answers yet. Rebuild it with the stage 4 patch.');
     const detailed = bridgeState.detailedLogging || 'off';
     if (document.activeElement !== elements.settingDetailedLogging) {
         elements.settingDetailedLogging.value = detailed;
@@ -1305,7 +1279,6 @@ const applyLanguage = async (bridgeState) => {
     invitationLanguagesKey = '';
     appLanguagesKey = '';
     // Notes written earlier in the old language and not rebuilt by renderState.
-    elements.invitationSettingsNote.textContent = '';
     elements.calendarAppError.hidden = true;
 };
 
@@ -1814,27 +1787,14 @@ elements.settingInvitationLanguage.addEventListener('change', async () => {
     }
 });
 
-elements.settingInvitationMode.addEventListener('change', async () => {
-    const mode = elements.settingInvitationMode.value;
-    if (
-        mode === 'live' &&
-        !confirm(t('Live mode: answers from Calendar.app are emailed to the real organizers. Switch to live?'))
-    ) {
-        elements.settingInvitationMode.value = state.bridgeState?.invitationEmailModeSetting || 'live';
+elements.settingSendEmails.addEventListener('change', async () => {
+    const mode = elements.settingSendEmails.checked ? 'live' : 'dry-run';
+    if (mode === 'live' && !confirm(t('Live mode: answers from Calendar.app are emailed to the real organizers. Switch to live?'))) {
+        elements.settingSendEmails.checked = false;
         return;
     }
     try {
         await window.bridgeApi.updateConfig({ invitationEmailMode: mode });
-        elements.invitationSettingsNote.textContent = t('Mode: {mode}', { mode: t(EMAIL_MODE_LABELS[mode] || mode) });
-        await renderState();
-    } catch (error) {
-        setDashboardError(error instanceof Error ? error.message : String(error));
-    }
-});
-
-elements.settingApplyEmailedAnswers.addEventListener('change', async () => {
-    try {
-        await window.bridgeApi.updateConfig({ applyEmailedAnswers: elements.settingApplyEmailedAnswers.checked });
         await renderState();
     } catch (error) {
         setDashboardError(error instanceof Error ? error.message : String(error));
@@ -1997,32 +1957,6 @@ elements.settingDeveloperMode.addEventListener('change', async () => {
     } catch (error) {
         setDashboardError(error instanceof Error ? error.message : String(error));
     }
-});
-
-elements.settingInvitationAllowlist.addEventListener('input', () => {
-    allowlistDirty = true;
-    elements.invitationSettingsNote.textContent = t('Not saved yet');
-});
-
-elements.saveInvitationAllowlist.addEventListener('click', async () => {
-    const entered = elements.settingInvitationAllowlist.value
-        .split(/[\s,;]+/)
-        .map((entry) => entry.trim())
-        .filter(Boolean);
-    await withLoading(elements.saveInvitationAllowlist, async () => {
-        try {
-            const next = await window.bridgeApi.updateConfig({ invitationEmailAllowlist: entered });
-            const saved = (next.accounts?.[0] || next.signingIn || {}).invitationEmailAllowlist || [];
-            const skipped = entered.length - saved.length;
-            allowlistDirty = false;
-            elements.invitationSettingsNote.textContent =
-                tn('Saved {count} address', 'Saved {count} addresses', saved.length) +
-                (skipped > 0 ? ` ${t('({count} skipped: not an address or listed twice)', { count: skipped })}` : '');
-            await renderState();
-        } catch (error) {
-            setDashboardError(error instanceof Error ? error.message : String(error));
-        }
-    });
 });
 
 // Links on the Info page open in the default browser, never inside the app window.

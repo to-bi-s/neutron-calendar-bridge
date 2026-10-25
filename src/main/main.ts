@@ -900,7 +900,12 @@ const setApplicationMenu = () => {
             },
             {
                 role: 'help',
-                submenu: [{ label: t('Proton Calendar on the Web'), click: () => void openWebCalendar() }]
+                submenu: [
+                    { label: t('Open GitHub (Manual and Source Code)'), click: () => void shell.openExternal('https://github.com/to-bi-s/neutron-calendar-bridge#readme') },
+                    { label: t('Report a Problem'), click: () => void shell.openExternal('https://github.com/to-bi-s/neutron-calendar-bridge/issues') },
+                    { type: 'separator' },
+                    { label: t('Proton Calendar on the Web'), click: () => void openWebCalendar() }
+                ]
             }
         ])
     );

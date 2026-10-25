@@ -464,7 +464,8 @@ input:focus {
 
 .app-shell {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    /* 1.0.4: as wide as Proton Mail's side panel, so account addresses are not cut off */
+    grid-template-columns: 280px 1fr;
     height: 100vh;
     overflow: hidden;
 }

@@ -2,6 +2,13 @@
 
 Neutron Calendar Bridge — Bridge for Proton Calendar, a fork of proton-calendar-sync by Tactless Autist. Versions before 1.0 were 0.x, x = patch number; from 1.0.0 on, major.minor.patch.
 
+## 1.0.4 (Tobi's list after the public release)
+- **Info page in the words of the new README**: what the app is and that it is free software; a new **Help** card between Version and Credits with the manual (README), the detailed rules (BEHAVIOUR.md), building and developing (DEVELOPMENT.md) and "Report a Problem" — all on GitHub, opened in the browser; the credits name the public repository. The app's **Help menu** has "Open GitHub (Manual and Source Code)" and "Report a Problem".
+- **The side panel is as wide as Proton Mail's** (280 instead of 220 pixels), so account addresses are no longer cut off.
+- **Developer Options, simplified**: "Invitation emails" is one switch, **Send invitation emails** — on is live, off is the dry run (nothing sent, nothing changed in Proton, the would-be emails logged and listed). The test mode with its address list is out of the window (it stays in the code for the live tests: `invitationEmailMode: "test"` in the account's `config.json`). "Apply answers that guests outside Proton send by email" is out of the window too — tested, not needed, Proton records those answers itself; the code stays (`applyEmailedAnswers: true` in `config.json`).
+- DEVELOPMENT.md without the "Updating from very old versions" section.
+- Updating: `git am` the patch, `npm run check`, `npm run package:mac:release`.
+
 ## 1.0.3 (file names the updater can find; the README for users)
 - **Release files without spaces in their names.** GitHub renames an uploaded `Neutron Calendar Bridge-….zip` to `Neutron.Calendar.Bridge-….zip`, while the updater asks for `Neutron-Calendar-Bridge-….zip` — so an app on 1.0.2 could have found a later release but not downloaded it. From 1.0.3 the ZIPs are `neutron-calendar-bridge-<version>-<arch>.zip` and the DMGs `neutron-calendar-bridge-<arch>.dmg` (no version in the name, so the README's download buttons always point at the newest release); the DMG window still shows the version. Apps on 1.0.2 read 1.0.3's `latest-mac.yml` and download fine — 1.0.2 is the only version this ever touched, and only going forward.
 - **README rewritten for users**: who the app is for and what it solves, a graphical abstract, two download buttons, the ten things you get, setup for Calendar.app and Thunderbird with pictures, everyday use, privacy, limitations. The detailed rules moved to `docs/BEHAVIOUR.md`, everything about building, signing, releasing and translating to `docs/DEVELOPMENT.md`.

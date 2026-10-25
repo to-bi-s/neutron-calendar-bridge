@@ -5,9 +5,6 @@
   "\"{name}\" is one of Proton's own folders: choose Bin or Archive instead, or another name": [
     "src/main/bridge-service.ts"
   ],
-  "({count} skipped: not an address or listed twice)": [
-    "src/renderer/renderer.js"
-  ],
   "{app} asked for this change to be saved without telling your guests (SCHEDULE-AGENT=NONE). Proton Calendar always tells guests about a change, so nothing was saved or sent. Make the change again, or change it in Proton Calendar.": [
     "src/main/recurrence.ts"
   ],
@@ -95,7 +92,7 @@
   "<strong>Tactless Autist</strong> wrote <em>proton-calendar-sync</em> and the <em>proton-calendar-client</em> library it builds on. <a href=\"#\" class=\"external-link\" data-href=\"https://github.com/TactlessAutist\">github.com/TactlessAutist</a>": [
     "index.html (html)"
   ],
-  "<strong>Tobi</strong> forked it as <em>Neutron Calendar Bridge</em> and added: <ul class=\"feature-list\"><li>Meetings like in Proton Calendar: invitations, answers, updates and cancellations emailed from Calendar.app — end-to-end to Proton users, in Proton's 34 languages — plus guest autocomplete and availability</li><li>Repeating events in both directions, exceptions included</li><li>Reminders (alerts) in both directions</li><li>Several Proton accounts, each as its own account in Calendar.app</li><li>One-click Calendar.app setup (a configuration profile) and a sign-in under the bridge's own name — authenticator codes and Proton's CAPTCHA included</li><li>Proton Meet and Zoom links straight from Calendar.app (\"Proton Meet\" or \"Zoom\" as the location)</li><li>Calendars created, renamed and recoloured from Calendar.app</li><li>Changes made while offline kept and sent once Proton is back</li><li>Private by design: an encrypted local copy, a checked CalDAV password, a quiet log — nothing leaves this Mac</li><li>Light on Proton: its change feeds instead of listing everything, and quick to notice a change</li><li>Six languages, light and dark, and a menu-bar menu like Proton Mail Bridge's</li></ul> <a href=\"#\" class=\"external-link\" data-href=\"https://github.com/to-bi-s\">github.com/to-bi-s</a>": [
+  "<strong>Tobi</strong> forked it as <em>Neutron Calendar Bridge</em> and added what makes it a daily driver: meetings like in Proton Calendar (invitations, answers, updates and cancellations emailed from your calendar app, end-to-end to Proton users, in Proton's 34 languages), repeating events and reminders in both directions, Thunderbird and other CalDAV apps, several accounts, Proton Meet and Zoom links, offline edits, one-click setup, the sign-in under the bridge's own name, automatic updates, six languages — and privacy throughout: an encrypted local copy, a quiet log, nothing reported anywhere. <a href=\"#\" class=\"external-link\" data-href=\"https://github.com/to-bi-s/neutron-calendar-bridge\">github.com/to-bi-s/neutron-calendar-bridge</a>": [
     "index.html (html)"
   ],
   "1 minute": [
@@ -147,9 +144,6 @@
   "A folder name can have at most 100 characters": [
     "src/main/bridge-service.ts"
   ],
-  "A local CalDAV bridge that puts your Proton calendars into Calendar.app, with two-way sync. Everything stays on this Mac.": [
-    "index.html"
-  ],
   "A minute after the app starts and then once a day, the app asks GitHub for a newer version and downloads it in the background; you choose when to restart. Off: only the button on the Info page checks.": [
     "index.html"
   ],
@@ -188,9 +182,6 @@
   "Adds the \"{account}\" account (your Proton calendars, served on this Mac by {app}) to Calendar.app. Made by the bridge on this Mac; remove it to remove the account.": [
     "src/main/bridge-service.ts"
   ],
-  "Allowed addresses in test mode (one per line)": [
-    "index.html"
-  ],
   "an event": [
     "src/renderer/renderer.js"
   ],
@@ -212,9 +203,6 @@
   "Applied": [
     "src/renderer/renderer.js (map)"
   ],
-  "Apply answers that guests outside Proton send by email": [
-    "index.html"
-  ],
   "Auto Setup": [
     "index.html"
   ],
@@ -233,10 +221,10 @@
   "Bridge disconnected. Sign in to Proton to serve CalDAV.": [
     "src/main/caldav-server.ts"
   ],
-  "Bridge for Proton Calendar": [
+  "Bridge Proton Calendar into Calendar.app": [
     "index.html"
   ],
-  "Bridge Proton Calendar into Calendar.app": [
+  "Building and Developing": [
     "index.html"
   ],
   "Built On": [
@@ -427,9 +415,6 @@
   "Dry run: {count} email would be moved to {destination}.|Dry run: {count} emails would be moved to {destination}.": [
     "src/renderer/renderer.js"
   ],
-  "Dry run: send nothing, log what would be sent": [
-    "index.html"
-  ],
   "Each account shows up as its own account in Calendar.app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this Mac.": [
     "index.html"
   ],
@@ -534,6 +519,9 @@
   "Healthy": [
     "src/renderer/renderer.js (map)"
   ],
+  "Help": [
+    "index.html"
+  ],
   "Hide {app}": [
     "src/main/main.ts"
   ],
@@ -595,8 +583,7 @@
     "src/renderer/renderer.js (map)"
   ],
   "Invitation emails": [
-    "index.html",
-    "index.html (attribute)"
+    "index.html"
   ],
   "Invitation Emails": [
     "src/renderer/renderer.js"
@@ -606,9 +593,6 @@
   ],
   "Invitations can only be sent from your own addresses. This event names someone else as its organizer.": [
     "src/main/recurrence.ts"
-  ],
-  "Invitations, updates, cancellations and answers are emailed just like from Proton Calendar.": [
-    "src/renderer/renderer.js (map)"
   ],
   "Invitations: Accept, Maybe and Decline in Calendar.app email your answer to the organizer, and meetings you organize email your guests, like from Proton Calendar. The language of the emails is under <strong>Settings → Emails</strong>.": [
     "index.html (html)"
@@ -662,9 +646,6 @@
   "Live mode: answers from Calendar.app are emailed to the real organizers. Switch to live?": [
     "src/renderer/renderer.js"
   ],
-  "Live: like Proton Calendar": [
-    "index.html"
-  ],
   "Loading Proton's verification…": [
     "src/main/main.ts"
   ],
@@ -710,6 +691,12 @@
   "Manage calendars in Proton. Creating, renaming and deleting calendars from {app} is not supported.": [
     "src/main/bridge-service.ts"
   ],
+  "Manual (README)": [
+    "index.html"
+  ],
+  "Manual and Source Code": [
+    "index.html"
+  ],
   "Manual Setup": [
     "index.html"
   ],
@@ -717,9 +704,6 @@
     "src/renderer/renderer.js (map)"
   ],
   "Methods: {methods}": [
-    "src/renderer/renderer.js"
-  ],
-  "Mode: {mode}": [
     "src/renderer/renderer.js"
   ],
   "More Details": [
@@ -807,9 +791,6 @@
   "Not every guest was emailed": [
     "src/main/bridge-service.ts"
   ],
-  "Not saved yet": [
-    "src/renderer/renderer.js"
-  ],
   "not sent": [
     "src/main/bridge-service.ts"
   ],
@@ -838,11 +819,11 @@
   "Nothing is lost: changes wait until then.": [
     "src/main/bridge-service.ts"
   ],
-  "Nothing is sent and nothing changes in Proton; the emails are only written to the log.": [
-    "src/renderer/renderer.js (map)"
-  ],
   "Off": [
     "index.html"
+  ],
+  "Off: nothing is sent and nothing changes in Proton; the emails that would have gone out are written to the log and listed on the Overview. For trying things out without emailing anyone.": [
+    "src/renderer/renderer.js (map)"
   ],
   "Off: notifications show no event names, calendars or addresses — useful if others can see your screen.": [
     "index.html"
@@ -859,6 +840,9 @@
   "On until switched off": [
     "index.html"
   ],
+  "On: invitations, updates, cancellations and answers are emailed just like from Proton Calendar.": [
+    "src/renderer/renderer.js (map)"
+  ],
   "On: the log includes private details (titles, addresses, email text) until you switch it off.": [
     "src/renderer/renderer.js"
   ],
@@ -874,9 +858,6 @@
   "Only Accept, Maybe and Decline can be sent to the organizer. Answer in Proton Calendar instead.": [
     "src/main/recurrence.ts"
   ],
-  "Only addresses on the list get emails; a change that would email anyone else is refused.": [
-    "src/renderer/renderer.js (map)"
-  ],
   "Only apps on this Mac can reach the bridge; a phone or another computer cannot.": [
     "index.html"
   ],
@@ -885,6 +866,9 @@
   ],
   "Open Calendar.app and add an <strong>Other CalDAV Account</strong>.": [
     "index.html (html)"
+  ],
+  "Open GitHub (Manual and Source Code)": [
+    "src/main/main.ts"
   ],
   "Open on startup": [
     "index.html"
@@ -995,6 +979,9 @@
   "Proton Calendar has no tasks: a task list (VTODO) is refused. Events, repeats, alerts, invitations and answers are supported.": [
     "index.html"
   ],
+  "Proton Calendar in Calendar.app and Thunderbird": [
+    "index.html"
+  ],
   "Proton Calendar on the Web": [
     "src/main/main.ts"
   ],
@@ -1040,10 +1027,6 @@
   ],
   "Proton takes one answer for the whole series (or for occurrences the organizer changed). In Thunderbird, right-click the event → Attendance → Complete Series; or answer this occurrence in Proton Calendar.": [
     "src/main/recurrence.ts"
-  ],
-  "Proton usually records guests' answers by itself. With this on, the bridge also reads the replies to your meetings (on this Mac only) and applies answers Proton missed.": [
-    "index.html",
-    "src/renderer/renderer.js (constant)"
   ],
   "Proton Verification": [
     "src/main/main.ts"
@@ -1117,6 +1100,10 @@
     "src/main/sync-schedule.ts",
     "src/renderer/renderer.js"
   ],
+  "Report a Problem": [
+    "index.html",
+    "src/main/main.ts"
+  ],
   "Requests to Proton": [
     "index.html"
   ],
@@ -1135,12 +1122,6 @@
     "src/renderer/renderer.js"
   ],
   "Same as Proton Calendar ({language})": [
-    "src/renderer/renderer.js"
-  ],
-  "Save Addresses": [
-    "index.html"
-  ],
-  "Saved {count} address|Saved {count} addresses": [
     "src/renderer/renderer.js"
   ],
   "Saved without {guests}; the other changes went through. Fix the address or the allowlist and add them again.": [
@@ -1162,6 +1143,9 @@
     "index.html"
   ],
   "Select the calendars to be synced by Neutron Calendar Bridge.": [
+    "index.html"
+  ],
+  "Send invitation emails": [
     "index.html"
   ],
   "Sent": [
@@ -1281,6 +1265,9 @@
   "Signing in was not finished in time (Proton asked for your mailbox password).": [
     "src/main/bridge-service.ts"
   ],
+  "Signs in to Proton, keeps an encrypted copy of your calendars on this Mac and serves it to Calendar.app, Thunderbird or any other CalDAV app, with changes flowing both ways. Your calendars are decrypted here only and never pass through anyone else's server.": [
+    "index.html"
+  ],
   "Since the app started: {count} email moved to {destination}.|Since the app started: {count} emails moved to {destination}.": [
     "src/renderer/renderer.js"
   ],
@@ -1366,13 +1353,16 @@
   "Test · {count} address allowed|Test · {count} addresses allowed": [
     "src/renderer/renderer.js"
   ],
+  "Test mode (set in the configuration file): only the listed addresses get emails; a change that would email anyone else is refused.": [
+    "src/renderer/renderer.js (map)"
+  ],
   "Test mode is on (Developer Options): emails go only to the allowed addresses.": [
     "src/renderer/renderer.js (map)"
   ],
-  "Test: only to the addresses below": [
+  "The account is tied to the profile: to remove it later, remove the profile in System Settings. The profile file is kept in the app's folder for a few minutes only, because it holds the bridge's password.": [
     "index.html"
   ],
-  "The account is tied to the profile: to remove it later, remove the profile in System Settings. The profile file is kept in the app's folder for a few minutes only, because it holds the bridge's password.": [
+  "The app's home is its GitHub repository: the manual, the detailed rules, everything about building it, the changelog and the place to report a problem. The links open in your browser.": [
     "index.html"
   ],
   "The bridge can tidy your Inbox like Outlook does: invitations and updates once you have answered them, cancellations once they are in your calendar, guests' answers once Proton has them.": [
@@ -1420,9 +1410,6 @@
   ],
   "The linked proton-calendar-client cannot handle invitations yet. Rebuild it with the invitations patch.": [
     "index.html"
-  ],
-  "The linked proton-calendar-client cannot read emailed answers yet. Rebuild it with the stage 4 patch.": [
-    "src/renderer/renderer.js"
   ],
   "The linked proton-calendar-client has no translations yet (rebuild it with the languages patch); emails are in English.": [
     "src/renderer/renderer.js"
@@ -1510,7 +1497,7 @@
   "Unknown startup error": [
     "src/main/main.ts"
   ],
-  "Unofficial: not affiliated with or endorsed by Proton AG. Proton and Proton Calendar are trademarks of Proton AG.": [
+  "Unofficial: not affiliated with or endorsed by Proton AG. Proton and Proton Calendar are trademarks of Proton AG. Free and open source (GPL-3.0).": [
     "index.html"
   ],
   "Untested": [
@@ -1563,6 +1550,9 @@
   "Web Calendar": [
     "src/main/main.ts",
     "src/main/tray-menu.ts"
+  ],
+  "What the Bridge Does, in Detail": [
+    "index.html"
   ],
   "When a change from Calendar.app could not be saved, when Proton cannot be reached for 5 minutes, and for mailbox problems.": [
     "index.html"

@@ -102,11 +102,7 @@ The app's own texts come in English, German, Dutch, French, Spanish and Italian.
 
 Settings → Developer Options (off by default; active only while "Enable developer options" is ticked):
 
-- **Invitation emails**: *live* (the default, like Proton Calendar), *test* (only to the addresses you list; a change that would email anyone else is refused as a whole), *dry run* (nothing is sent; the emails that would have gone out are listed on the Overview and in `bridge.log`). While test or dry run is in force, the Emails card in Settings says so.
-- **Apply answers that guests outside Proton send by email**: a safety net for the rare case that Proton does not record an emailed answer itself; see [BEHAVIOUR.md](BEHAVIOUR.md#answers-from-guests-outside-proton).
+- **Send invitation emails** (1.0.4: one switch): on = live, like Proton Calendar; off = dry run — nothing is sent and nothing changes in Proton, the emails that would have gone out are listed on the Overview and in `bridge.log`. While it is off, the Emails card in Settings says so. The old *test* mode (emails only to an allowlist, anything else refused) still exists for the live tests but is no longer in the window: `invitationEmailMode: "test"` and `invitationEmailAllowlist` in the account's `config.json`.
+- Not in the window any more (1.0.4), still in the code: `applyEmailedAnswers: true` in the account's `config.json` makes the bridge read guests' emailed answers itself, as a safety net for the case that Proton does not record one; tested and not needed in practice (see [BEHAVIOUR.md](BEHAVIOUR.md#answers-from-guests-outside-proton)).
 - **Detailed logging**: `bridge.log` with titles, addresses, subjects and email texts, for 24 hours or until switched off; "Delete the Logs" afterwards.
 - Request statistics and the sync passes of the last hour.
-
-## Updating from very old versions
-
-Backups made before 0.24 (Time Machine, snapshots) still hold the unencrypted local copy and the old logs. To remove those: in Time Machine, browse to `~/Library/Application Support/neutron-calendar-bridge` and `~/Library/Logs/neutron-calendar-bridge`, select the folders and choose "Delete All Backups of …" from the action menu; local snapshots are listed with `tmutil listlocalsnapshots /` and removed with `sudo tmutil deletelocalsnapshots <date>` (they also expire on their own within a day). An account signed in before 0.45 is not resumed by 1.0 and later (the former sign-in identity); it asks for one sign-in.

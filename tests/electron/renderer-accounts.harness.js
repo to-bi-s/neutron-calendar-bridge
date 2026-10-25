@@ -335,7 +335,8 @@ contextBridge.exposeInMainWorld('bridgeApi', api);`
     await navigate('calendars', 'a1');
     await shot('13-calendar-switches');
     await navigate('info');
-    check('info: feature list', (await q('.feature-list li')) >= 8);
+    // 1.0.4: the Help card's links (the feature list became a sentence in the credits).
+    check('info: help links to GitHub', (await q('.help-links .external-link')) === 4);
     await shot('14-info');
     // 0.37.1: the manual values always shown; the address card (two addresses) at the bottom of the Calendars page.
     await navigate('setup');
