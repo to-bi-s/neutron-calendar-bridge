@@ -45,10 +45,12 @@ export interface TrayAccount extends TrayState {
 export interface TrayAppState {
     accounts: TrayAccount[];
     signingIn: TrayState | null;
+    /** 1.0.2: a newer version on its way or ready (null: nothing to show). */
+    update?: { status: string; version: string | null; percent: number | null } | null;
 }
 
 export type TrayPage = 'overview' | 'calendars' | 'setup' | 'settings' | 'info';
-export type TrayAction = { open: TrayPage; account?: string } | { sync: string | null } | { web: string | null } | 'web' | 'quit';
+export type TrayAction = { open: TrayPage; account?: string } | { sync: string | null } | { web: string | null } | 'web' | 'quit' | 'install-update';
 
 export type TrayMenuItem =
     | { type: 'separator' }
@@ -217,6 +219,13 @@ export const trayMenuItems = (state: TrayAppState | null): TrayMenuItem[] => {
     }
     for (const account of accounts) {
         items.push(...accountItems(account, accounts.length === 1), { type: 'separator' });
+    }
+    // 1.0.2: an update on its way or ready, above the pages.
+    const update = state?.update;
+    if (update?.status === 'downloaded' && update.version) {
+        items.push({ type: 'item', label: t('Update to {version} — Restart to Update', { version: update.version }), action: 'install-update' }, { type: 'separator' });
+    } else if (update?.status === 'downloading' && update.version) {
+        items.push({ type: 'item', label: t('Downloading update {version}…', { version: update.version }), action: { open: 'info' }, enabled: false }, { type: 'separator' });
     }
     items.push(
         { type: 'item', label: t('Setup'), accelerator: 'CommandOrControl+U', action: { open: 'setup' } },

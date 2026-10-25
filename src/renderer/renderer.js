@@ -132,6 +132,10 @@ const elements = {
     settingApplyEmailedAnswers: document.getElementById('setting-apply-emailed-answers'),
     settingDeveloperMode: document.getElementById('setting-developer-mode'),
     settingNotifications: document.getElementById('setting-notifications'),
+    settingAutoUpdate: document.getElementById('setting-auto-update'),
+    checkForUpdates: document.getElementById('check-for-updates'),
+    installUpdate: document.getElementById('install-update'),
+    updateStatus: document.getElementById('update-status'),
     settingNotificationTitles: document.getElementById('setting-notification-titles'),
     settingDetailedLogging: document.getElementById('setting-detailed-logging'),
     detailedLoggingHint: document.getElementById('detailed-logging-hint'),
@@ -992,6 +996,7 @@ const renderInvitations = (bridgeState) => {
     elements.settingNotifications.checked = bridgeState.notifications !== false;
     elements.settingNotificationTitles.checked = bridgeState.notificationTitles !== false;
     elements.settingNotificationTitles.disabled = bridgeState.notifications === false;
+    elements.settingAutoUpdate.checked = bridgeState.autoUpdate !== false;
 
     // Emails about meetings
     const calendarEmailsSupported = Boolean(bridgeState.calendarEmailsSupported);
@@ -1365,6 +1370,7 @@ const renderState = async () => {
     renderNavTabs(app);
     renderNavAccounts(app);
     renderOverview(app);
+    renderUpdate(app.update);
     renderSettingsAccounts(app);
     renderAccountSwitcher(elements.setupAccountSwitcher, app);
     renderAccountSwitcher(elements.emailsAccountSwitcher, app);
@@ -1875,6 +1881,53 @@ elements.settingCalendarEmailsFolder.addEventListener('input', () => {
 elements.settingCalendarEmailsFolder.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
         elements.settingCalendarEmailsFolder.blur(); // saves (change event)
+    }
+});
+
+// 1.0.2: the Info card's update line and buttons, from the updater's state (main.ts).
+const renderUpdate = (update) => {
+    const status = update?.status || 'unsupported';
+    const version = update?.version || '';
+    const texts = {
+        unsupported: t('Updates are checked in the installed app only.'),
+        idle: update?.automatic ? t('Checked automatically a minute after start and then daily; new versions come from GitHub Releases.') : t('Automatic checks are off (Settings → General); the button checks now.'),
+        checking: t('Checking for updates…'),
+        'up-to-date': t('You have the newest version.'),
+        downloading: t('Downloading {version}… {percent}%', { version, percent: update?.percent ?? 0 }),
+        downloaded: t('Version {version} is downloaded. Restart to Update installs it now; otherwise it is installed when the app quits.', { version }),
+        error: t('The check failed: {error}', { error: update?.error || '' })
+    };
+    elements.updateStatus.textContent = texts[status] || texts.idle;
+    elements.updateStatus.classList.toggle('setting-error', status === 'error');
+    elements.checkForUpdates.disabled = status === 'unsupported' || status === 'checking' || status === 'downloading' || status === 'downloaded';
+    elements.checkForUpdates.title = status === 'unsupported' ? t('Updates are checked in the installed app only.') : '';
+    elements.installUpdate.hidden = status !== 'downloaded';
+};
+
+elements.checkForUpdates.addEventListener('click', async () => {
+    elements.checkForUpdates.disabled = true;
+    try {
+        renderUpdate(await window.bridgeApi.checkForUpdates());
+    } catch (error) {
+        setDashboardError(error instanceof Error ? error.message : String(error));
+    }
+    await renderState();
+});
+
+elements.installUpdate.addEventListener('click', async () => {
+    try {
+        await window.bridgeApi.installUpdate();
+    } catch (error) {
+        setDashboardError(error instanceof Error ? error.message : String(error));
+    }
+});
+
+elements.settingAutoUpdate.addEventListener('change', async () => {
+    try {
+        await window.bridgeApi.updateConfig({ autoUpdate: elements.settingAutoUpdate.checked });
+        await renderState();
+    } catch (error) {
+        setDashboardError(error instanceof Error ? error.message : String(error));
     }
 });
 

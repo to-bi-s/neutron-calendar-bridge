@@ -1191,6 +1191,10 @@ button.sync-control:focus-visible {
     font-size: 0.85rem;
 }
 
+.setting-hint.setting-error {
+    color: var(--danger);
+}
+
 .setting-field-span2 {
     grid-column: span 2;
 }

@@ -1329,6 +1329,7 @@ export class BridgeService {
             'newCalendarAddress',
             'notifications',
             'notificationTitles',
+            'autoUpdate',
             'detailedLogging'
         ];
         const patch = Object.fromEntries(
@@ -1350,7 +1351,7 @@ export class BridgeService {
         if (patch.detailedLogging !== undefined && !['off', '24h', 'on'].includes(patch.detailedLogging)) {
             throw new Error(`Unknown choice for detailed logging: ${patch.detailedLogging}`);
         }
-        for (const key of ['applyEmailedAnswers', 'developerMode', 'notifications', 'notificationTitles'] as const) {
+        for (const key of ['applyEmailedAnswers', 'developerMode', 'notifications', 'notificationTitles', 'autoUpdate'] as const) {
             if (patch[key] !== undefined && typeof patch[key] !== 'boolean') {
                 throw new Error(`${key} must be true or false`);
             }
@@ -1430,6 +1431,9 @@ export class BridgeService {
         }
         if (patch.developerMode !== undefined) {
             console.log(`[settings] developer options: ${patch.developerMode ? 'on' : 'off'}`);
+        }
+        if (patch.autoUpdate !== undefined) {
+            console.log(`[settings] automatic update checks: ${patch.autoUpdate ? 'on' : 'off'}`);
         }
         if (patch.notifications !== undefined) {
             console.log(`[settings] notifications: ${patch.notifications ? 'on' : 'off'}`);
@@ -1890,6 +1894,7 @@ export class BridgeService {
             calendarEmailsSupported: this.supportsCalendarEmails(),
             calendarEmailsStatus: config.calendarEmailsAfter === 'leave' ? null : this.calendarEmailsStatus,
             notifications: config.notifications,
+            autoUpdate: config.autoUpdate,
             notificationTitles: config.notificationTitles,
             detailedLogging: config.detailedLogging,
             detailedLoggingUntil: config.detailedLogging === '24h' ? config.detailedLoggingUntil : null,

@@ -8,9 +8,11 @@ Copyright (c) 2026 Tactless Autist (original work). Copyright (c) 2026 Tobi (mod
 
 ## Install
 
-Download the DMG for your Mac from [Releases](https://github.com/to-bi-s/neutron-calendar-bridge/releases): `…-arm64.dmg` for Apple silicon (M1 and later), `…-x64.dmg` for Intel. Both are signed with a Developer ID and notarized, so macOS opens them without a warning, drag the app to Applications and open it. It lives in the menu bar; the window opens from there. Then sign in on the Setup page and set up [Calendar.app](#setting-up-calendarapp) or Thunderbird (the Setup page has a card for each, and one for other CalDAV apps). Updating: see [Updating](#updating).
+The app is distributed on the [Releases](https://github.com/to-bi-s/neutron-calendar-bridge/releases) page of this repository: every version has a signed and notarized DMG for Apple silicon (`…-arm64.dmg`, M1 and later) and one for Intel Macs (`…-x64.dmg`). Download the one for your Mac, open it, drag the app to Applications and open it; macOS shows no warning beyond the usual "downloaded from the internet". The app lives in the menu bar; its window opens from there. Then sign in on the Setup page and set up [Calendar.app](#setting-up-calendarapp) or Thunderbird (the Setup page has a card for each, and one for other CalDAV apps).
 
-What it needs from you: a Proton account (free or paid), a Mac (developed on Apple silicon with macOS 26, checked on an Intel Mac; the Electron it runs on supports macOS 11 and newer), and once at sign-in a CAPTCHA and your authenticator code if you use one. What it keeps on the Mac: Proton's session (not your password), an encrypted local copy of your calendars, and the generated password Calendar.app uses towards the bridge — all encrypted with a key in your Keychain. Nothing is sent anywhere but Proton.
+Once installed, the app keeps itself current: it asks GitHub for a newer version a minute after starting and then once a day, downloads it in the background and installs it when you click **Restart to Update** on the Info page (or at the next quit). Settings → General switches the automatic check off; the button on the Info page checks at any time. A Mac App Store version is planned; until it exists, Releases is the only place to get the app. There is no Homebrew cask (yet).
+
+What it needs from you: a Proton account (free or paid), a Mac (developed on Apple silicon with macOS 26, checked on an Intel Mac; the Electron it runs on supports macOS 11 and newer), and once at sign-in a CAPTCHA and your authenticator code if you use one. What it keeps on the Mac: Proton's session (not your password), an encrypted local copy of your calendars, and the generated password Calendar.app uses towards the bridge — all encrypted with a key in your Keychain. Nothing is sent anywhere but Proton — and, for the update check, GitHub (a request for the release list, carrying the app's name and version; switch it off and nothing goes there).
 
 ## Screenshots
 
@@ -121,7 +123,7 @@ The lock file is committed; `npm ci` installs exactly those versions. `npm run c
 A packaged app:
 
 ```bash
-npm run package:mac  # → release/Neutron Calendar Bridge-<version>-arm64.dmg and …-x64.dmg (both architectures, from either kind of Mac)
+npm run package:mac  # → release/Neutron Calendar Bridge-<version>-arm64.dmg and …-x64.dmg (both architectures, from either kind of Mac), the .zip files and latest-mac.yml the installed apps update from
 ```
 
 This build is not signed or notarized (unless a Developer ID certificate is in your Keychain, which electron-builder then uses). macOS therefore blocks the first start: right-click the app in Applications → **Open**, or allow it under System Settings → Privacy & Security after the first refusal. The app keeps its data in `~/Library/Application Support/neutron-calendar-bridge` and its log in `~/Library/Logs/neutron-calendar-bridge/bridge.log`.
@@ -179,7 +181,7 @@ The Setup page's **Thunderbird** card gives one location per account (its calend
 
 ## Updating
 
-Quit the bridge (menu-bar icon → Quit Bridge), replace the app in Applications, open it. At the first start of a version signed differently from the one before (an unsigned build replaced by a signed one, say) macOS asks whether the app may use the Keychain item "neutron-calendar-bridge Safe Storage": choose **Always Allow** (if you chose Deny, quit, reopen and choose Always Allow: the saved login is left untouched until then). Your data, saved login and Calendar.app accounts carry over between versions; the CHANGELOG says when a version needs more.
+Since 1.0.2 the installed app updates itself from the Releases page (see [Install](#install)); the Info page shows what it found and the menu-bar menu offers **Restart to Update** once a version is downloaded. By hand it still works the old way: quit the bridge (menu-bar icon → Quit Bridge), replace the app in Applications, open it. At the first start of a version signed differently from the one before (an unsigned build replaced by a signed one, say) macOS asks whether the app may use the Keychain item "neutron-calendar-bridge Safe Storage": choose **Always Allow** (if you chose Deny, quit, reopen and choose Always Allow: the saved login is left untouched until then). Your data, saved login and Calendar.app accounts carry over between versions; the CHANGELOG says when a version needs more.
 
 ## Limitations
 

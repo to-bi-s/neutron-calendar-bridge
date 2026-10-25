@@ -76,9 +76,12 @@ const builds = readdirSync(release)
         const arch = name === 'mac' ? 'x64' : 'arm64';
         const app = join(release, name, `${build.productName}.app`);
         const dmg = join(release, `${build.productName}-${version}-${arch}.dmg`);
-        return { arch, app, dmg };
+        const zip = join(release, `${build.productName}-${version}-${arch}.zip`);
+        return { arch, app, dmg, zip };
     })
     .filter(({ dmg }) => existsSync(dmg));
+// 1.0.2: automatic updates install from the ZIPs; latest-mac.yml names them (and their blockmaps).
+const updateFeed = join(release, 'latest-mac.yml');
 if (!builds.length || (!quick && builds.length < 2)) {
     fail(`Built app(s) and DMG(s) for ${version} not found in ${release} (found: ${builds.map((entry) => entry.arch).join(', ') || 'none'})`);
 }
@@ -126,8 +129,17 @@ for (const { arch, app, dmg } of builds) {
     }
 }
 
+for (const { arch, zip } of builds) {
+    check(`update archive (${arch}) built`, existsSync(zip), zip);
+    check(`its blockmap built`, existsSync(`${zip}.blockmap`));
+}
+check('latest-mac.yml (the update feed) built', existsSync(updateFeed), updateFeed);
 if (checks.some((ok) => !ok)) {
     fail('Some checks failed (above).');
 }
 const list = builds.map(({ dmg }) => dmg).join('\n  ');
 console.log(quick ? `\nApp signed and notarized, DMG signed (--quick, for testing):\n  ${list}` : `\nSigned and notarized:\n  ${list}`);
+if (!quick) {
+    const uploads = [...builds.flatMap(({ dmg, zip }) => [dmg, zip, `${zip}.blockmap`]), updateFeed];
+    console.log(`\nAttach to the GitHub Release v${version} (all of them; the installed apps update from the .zip files through latest-mac.yml):\n  ${uploads.join('\n  ')}`);
+}

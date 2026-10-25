@@ -150,6 +150,9 @@
   "A local CalDAV bridge that puts your Proton calendars into Calendar.app, with two-way sync. Everything stays on this Mac.": [
     "index.html"
   ],
+  "A minute after the app starts and then once a day, the app asks GitHub for a newer version and downloads it in the background; you choose when to restart. Off: only the button on the Info page checks.": [
+    "index.html"
+  ],
   "A recurring invitation is answered from the occurrence you open; the bridge passes that on as your answer for the whole series, as Proton Calendar does (Proton takes one answer per series). The Attendance entries in the context menu stay empty without an email identity.": [
     "index.html"
   ],
@@ -215,8 +218,8 @@
   "Auto Setup": [
     "index.html"
   ],
-  "Automatic updates come later; until then new versions are installed by hand.": [
-    "index.html"
+  "Automatic checks are off (Settings → General); the button checks now.": [
+    "src/renderer/renderer.js"
   ],
   "Back to your accounts": [
     "index.html"
@@ -295,10 +298,19 @@
   "Check for Updates": [
     "index.html"
   ],
+  "Check for updates automatically": [
+    "index.html"
+  ],
   "Checked {when}": [
     "src/renderer/renderer.js"
   ],
   "Checked {when}.": [
+    "src/renderer/renderer.js"
+  ],
+  "Checked automatically a minute after start and then daily; new versions come from GitHub Releases.": [
+    "src/renderer/renderer.js"
+  ],
+  "Checking for updates…": [
     "src/renderer/renderer.js"
   ],
   "Checks & Window": [
@@ -323,9 +335,6 @@
   "Code": [
     "index.html",
     "src/renderer/renderer.js"
-  ],
-  "Coming in a later version": [
-    "index.html (attribute)"
   ],
   "Complete Proton's verification step below. The bridge will finish signing in automatically.": [
     "src/main/main.ts"
@@ -402,6 +411,12 @@
   "Disconnected": [
     "index.html",
     "src/renderer/renderer.js (map)"
+  ],
+  "Downloading {version}… {percent}%": [
+    "src/renderer/renderer.js"
+  ],
+  "Downloading update {version}…": [
+    "src/main/tray-menu.ts"
   ],
   "Dry run": [
     "src/renderer/renderer.js (map)"
@@ -1105,6 +1120,9 @@
   "Requests to Proton": [
     "index.html"
   ],
+  "Restart to Update": [
+    "index.html"
+  ],
   "Same as macOS": [
     "index.html",
     "src/renderer/renderer.js"
@@ -1384,6 +1402,9 @@
   "The calendar stays in Proton Calendar. To see it in {app} again, tick it on the Calendars page.": [
     "src/main/bridge-service.ts"
   ],
+  "The check failed: {error}": [
+    "src/renderer/renderer.js"
+  ],
   "The code was not accepted. Codes change every 30 seconds: enter the current one.": [
     "src/renderer/renderer.js"
   ],
@@ -1502,6 +1523,12 @@
   "Update": [
     "src/renderer/renderer.js (map)"
   ],
+  "Update to {version} — Restart to Update": [
+    "src/main/tray-menu.ts"
+  ],
+  "Updates are checked in the installed app only.": [
+    "src/renderer/renderer.js"
+  ],
   "Use a folder name without \"/\" (only folders at the top level)": [
     "src/main/bridge-service.ts"
   ],
@@ -1527,6 +1554,9 @@
   "Version": [
     "index.html"
   ],
+  "Version {version} is downloaded. Restart to Update installs it now; otherwise it is installed when the app quits.": [
+    "src/renderer/renderer.js"
+  ],
   "View": [
     "src/main/main.ts"
   ],
@@ -1548,6 +1578,9 @@
   ],
   "With Reminders left on, Reminders keeps asking the bridge for a task list (refused, harmless).": [
     "index.html"
+  ],
+  "You have the newest version.": [
+    "src/renderer/renderer.js"
   ],
   "You were invited to this event, so only its organizer can change it.": [
     "src/main/recurrence.ts"

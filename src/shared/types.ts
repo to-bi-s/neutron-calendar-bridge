@@ -127,6 +127,8 @@ export interface BridgeConfig {
     notifications: boolean;
     /** Notifications name the event and calendar, and show addresses (default on); off: only what happened. */
     notificationTitles: boolean;
+    /** 1.0.2: check GitHub Releases for a newer version a minute after starting and then daily (default on). */
+    autoUpdate: boolean;
     /** Developer option: bridge.log with titles, addresses, subjects and email text (default off; see private-log.ts). */
     detailedLogging: DetailedLogging;
     /** detailedLogging '24h': switched off at this time. */
@@ -436,6 +438,7 @@ export interface BridgeState {
     calendarEmailsStatus: CalendarEmailsStatus | null;
     notifications: boolean;
     notificationTitles: boolean;
+    autoUpdate: boolean;
     detailedLogging: DetailedLogging;
     detailedLoggingUntil: number | null;
 }
@@ -458,9 +461,25 @@ export type BridgeConfigPatch = Partial<
         | 'newCalendarAddress'
         | 'notifications'
         | 'notificationTitles'
+        | 'autoUpdate'
         | 'detailedLogging'
     >
 >;
+
+/** 1.0.2: where the app stands with updates (Info page, menu-bar menu). */
+export type UpdateStatus = 'unsupported' | 'idle' | 'checking' | 'up-to-date' | 'downloading' | 'downloaded' | 'error';
+export interface UpdateState {
+    status: UpdateStatus;
+    /** The newer version being downloaded or ready to install. */
+    version: string | null;
+    /** Download progress, 0–100. */
+    percent: number | null;
+    error: string | null;
+    /** When the last check finished (manual or scheduled). */
+    checkedAt: number | null;
+    /** The setting: scheduled checks on. */
+    automatic: boolean;
+}
 
 /**
  * 0.36: what the window shows — the accounts in their order, and the account being signed in (the
@@ -471,6 +490,8 @@ export interface BridgeAppState {
     signingIn: BridgeState | null;
     /** True while "Add Account" is open although accounts exist (the sign-in page offers a way back). */
     addingAccount: boolean;
+    /** 1.0.2: updates (filled in by main.ts; the tests' manager leaves it out). */
+    update?: UpdateState;
 }
 
 /** 0.36: an account's sign-in flow is addressed by its ID (an account being added: null). */
@@ -521,6 +542,10 @@ export interface RendererBridgeApi {
     onStateChanged(callback: () => void): void;
     /** The bundled CHANGELOG.md (Markdown), for the Info page. */
     getChangelog(): Promise<string>;
+    /** 1.0.2: checks GitHub Releases now; the state comes back (and in getBridgeState). */
+    checkForUpdates(): Promise<UpdateState>;
+    /** 1.0.2: quits and installs a downloaded update. */
+    installUpdate(): Promise<boolean>;
     /** Developer settings: bridge.log and bridge.log.1 deleted, a new bridge.log started. */
     deleteLogs(): Promise<void>;
     /** The CalDAV password to the clipboard (removed again after 90 s if still there). */

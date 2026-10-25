@@ -36,6 +36,8 @@ const api: RendererBridgeApi = {
         ipcRenderer.on('bridge:state-changed', () => callback());
     },
     getChangelog: () => ipcRenderer.invoke('bridge:get-changelog'),
+    checkForUpdates: () => ipcRenderer.invoke('bridge:check-for-updates'),
+    installUpdate: () => ipcRenderer.invoke('bridge:install-update'),
     deleteLogs: () => ipcRenderer.invoke('bridge:delete-logs'),
     copyCalDAVPassword: (accountId) => ipcRenderer.invoke('bridge:copy-caldav-password', accountId)
 };

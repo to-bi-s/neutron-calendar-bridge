@@ -16,6 +16,7 @@ import { logPrefix } from './account-context';
 import type { BridgeAppState } from '../shared/types';
 import { PROFILE_FILE_NAME } from './caldav-profile';
 import { catalogFor, currentLanguage, resolveLanguage, setLanguage, t, tn } from './i18n';
+import { Updater } from './updater';
 import type { CalendarAppSetupResult } from '../shared/types';
 
 /** The name people see (menus, window, Dock, About, notifications). */
@@ -90,6 +91,10 @@ let isQuitting = false;
 /** 0.36: the accounts (one BridgeService each), in their order. */
 let accounts: AccountManager | null = null;
 let caldavServer: CalDAVServer | null = null;
+/** 1.0.2: updates from GitHub Releases; created with the window and the menu so both can show its state. */
+let updater: Updater | null = null;
+/** The app state with the updater's part (what the window gets). */
+const appStateWithUpdate = async (state: Promise<BridgeAppState> | BridgeAppState): Promise<BridgeAppState> => ({ ...(await state), ...(updater ? { update: updater.getState() } : {}) });
 /** How many accounts the application menu was built for ("Refresh Now" / "Refresh All Accounts"). */
 let menuAccountCount = -1;
 let completingVerification = false;
@@ -429,6 +434,10 @@ const syncNowFromMenu = async (accountId: string | null = null) => {
 const runTrayAction = (action: TrayAction) => {
     if (action === 'quit') {
         app.quit();
+    } else if (action === 'install-update') {
+        if (!updater?.install()) {
+            void openBridge('info', null);
+        }
     } else if (action === 'web') {
         void openWebCalendar();
     } else if ('web' in action) {
@@ -725,7 +734,7 @@ const spinnerFrames = (folder: 'spinner' | 'spinner-warning' | 'spinner-initial'
  * account has its line, with what it is doing (restoring its login, its first pass…), instead of
  * waiting until all of them have signed in and synced.
  */
-const currentTrayState = (): TrayAppState | null => (accounts?.isLoaded() ? accounts.getTrayState() : null);
+const currentTrayState = (): TrayAppState | null => (accounts?.isLoaded() ? { ...accounts.getTrayState(), update: updater?.getState() ?? null } : null);
 
 /** Menu-bar icon with its menu; left and right click both open the menu (like Proton Mail Bridge). */
 const ensureTray = () => {
@@ -945,7 +954,9 @@ const registerIpcHandlers = () => {
         return manager().getAppState();
     });
 
-    ipcMain.handle('bridge:get-state', async () => manager().getAppState());
+    ipcMain.handle('bridge:get-state', async () => appStateWithUpdate(manager().getAppState()));
+    ipcMain.handle('bridge:check-for-updates', async () => (updater ? updater.check(true) : null));
+    ipcMain.handle('bridge:install-update', async () => Boolean(updater?.install()));
     ipcMain.handle('bridge:get-calendars', async (_event, accountId: string) => manager().serviceOf(accountId).getCalendars());
     ipcMain.handle('bridge:get-caldav-config', async (_event, accountId: string | null) => manager().serviceOf(accountId).getCalDAVConfig());
     ipcMain.handle('bridge:get-translations', async () => ({ language: currentLanguage(), catalog: catalogFor(currentLanguage()), locale: app.getLocale() }));
@@ -991,11 +1002,14 @@ const registerIpcHandlers = () => {
         if (patch && typeof patch.theme === 'string') {
             applyThemeSource(current.getThemePreference());
         }
+        if (patch && typeof patch.autoUpdate === 'boolean') {
+            updater?.setAutomatic(patch.autoUpdate);
+        }
         if (patch && typeof patch.appLanguage === 'string') {
             applyLanguage(current.getAppLanguagePreference());
-            return current.getAppState(); // with the language now in use
+            return appStateWithUpdate(current.getAppState()); // with the language now in use
         }
-        return state;
+        return appStateWithUpdate(state);
     });
     ipcMain.handle('bridge:open-external', async (_event, url: unknown) => {
         // Only web links, and only ones the app itself put on the page.
@@ -1127,6 +1141,13 @@ if (gotLock) {
 
             await showWindow();
             await refreshTrayMenu();
+            updater = new Updater(() => {
+                if (mainWindow && !mainWindow.isDestroyed()) {
+                    mainWindow.webContents.send('bridge:state-changed');
+                }
+                void refreshTrayMenu();
+            });
+            updater.start(manager.sharedConfig.load().autoUpdate);
         })
         .catch((error) => {
             dialog.showErrorBox(t('Startup Error'), error instanceof Error ? error.message : t('Unknown startup error'));
@@ -1145,6 +1166,7 @@ app.on('activate', () => {
 });
 
 app.on('will-quit', async () => {
+    updater?.stop();
     if (pendingTrayMenuTimer) {
         clearInterval(pendingTrayMenuTimer);
         pendingTrayMenuTimer = null;

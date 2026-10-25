@@ -523,6 +523,11 @@
                             <span>Show event titles in notifications</span>
                         </label>
                         <p class="setting-copy setting-hint">Off: notifications show no event names, calendars or addresses — useful if others can see your screen.</p>
+                        <label class="toggle toggle-block">
+                            <input id="setting-auto-update" type="checkbox">
+                            <span>Check for updates automatically</span>
+                        </label>
+                        <p class="setting-copy setting-hint">A minute after the app starts and then once a day, the app asks GitHub for a newer version and downloads it in the background; you choose when to restart. Off: only the button on the Info page checks.</p>
                     </div>
 
                     <div class="card" id="developer-card">
@@ -613,10 +618,10 @@
                         </div>
                         <div class="button-row version-actions">
                             <button type="button" class="secondary-button" id="open-changelog">Changelog</button>
-                            <button type="button" class="secondary-button" id="check-for-updates" disabled
-                                title="Coming in a later version">Check for Updates</button>
+                            <button type="button" class="secondary-button" id="check-for-updates">Check for Updates</button>
+                            <button type="button" class="primary-button" id="install-update" hidden>Restart to Update</button>
                         </div>
-                        <p class="setting-copy setting-hint">Automatic updates come later; until then new versions are installed by hand.</p>
+                        <p class="setting-copy setting-hint" id="update-status"></p>
                     </div>
 
                     <div class="card info-card">
