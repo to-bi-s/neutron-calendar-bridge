@@ -4,7 +4,7 @@ Neutron Calendar Bridge — Bridge for Proton Calendar, a fork of proton-calenda
 
 ## 1.0.4 (Tobi's list after the public release)
 - **Info page in the words of the new README**: what the app is and that it is free software; a new **Help** card between Version and Credits with the manual (README), the detailed rules (BEHAVIOUR.md), building and developing (DEVELOPMENT.md) and "Report a Problem" — all on GitHub, opened in the browser; the credits name the public repository. The app's **Help menu** has "Open GitHub (Manual and Source Code)" and "Report a Problem".
-- **The side panel is as wide as Proton Mail's** (280 instead of 220 pixels), so account addresses are no longer cut off.
+- **The side panel is as wide as Proton Calendar's** (250 instead of 220 pixels), so account addresses are no longer cut off.
 - **Developer Options, simplified**: "Invitation emails" is one switch, **Send invitation emails** — on is live, off is the dry run (nothing sent, nothing changed in Proton, the would-be emails logged and listed). The test mode with its address list is out of the window (it stays in the code for the live tests: `invitationEmailMode: "test"` in the account's `config.json`). "Apply answers that guests outside Proton send by email" is out of the window too — tested, not needed, Proton records those answers itself; the code stays (`applyEmailedAnswers: true` in `config.json`).
 - DEVELOPMENT.md without the "Updating from very old versions" section.
 - Updating: `git am` the patch, `npm run check`, `npm run package:mac:release`.
