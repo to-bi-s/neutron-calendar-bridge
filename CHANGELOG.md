@@ -2,6 +2,11 @@
 
 Neutron Calendar Bridge — Bridge for Proton Calendar, a fork of proton-calendar-sync by Tactless Autist. Versions before 1.0 were 0.x, x = patch number; from 1.0.0 on, major.minor.patch.
 
+## 1.0.1 (Intel Macs)
+- **A build for Intel Macs.** `npm run package:mac` and `npm run package:mac:release` now produce two DMGs, `…-arm64.dmg` (Apple silicon) and `…-x64.dmg` (Intel), from one run on either kind of Mac: SQLCipher is compiled per architecture by electron-builder as before, and the menu-spinner module is built for both and joined into one fat binary (`scripts/build-native.mjs`, lipo). Each DMG is signed, notarized, stapled and checked on its own; `--quick` builds this Mac's architecture only. The macOS workflow checks both bundles.
+- README: the Install section names both downloads.
+- Updating: `git am` the patch, `npm run check`, `npm run package:mac:release` (two notarizations, so about twice the wait).
+
 ## 1.0.0 (public release)
 - **1.0.0 is 0.50.4 with a number that says the app is done.** Everything from the roadmap's parts A–C and stage 16 is in: Calendar.app and Thunderbird over local CalDAV, invitations in both directions, recurring meetings, reminders, video links, free/busy, several accounts, six languages, signed and notarized builds, one honest identity towards Proton. The repository is public from this version; its history starts here (the private history before it holds the earlier sign-in code, parked in a private side repository). The changelog below is kept as it was.
 - Every plain event written to Proton (created or updated) is now one log line with the time it took, next to the 0.49.13 lines that say why a save was a write — so a "superfluous write" can be seen directly in bridge.log.

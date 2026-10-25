@@ -1,6 +1,6 @@
 {
   "name": "neutron-calendar-bridge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Neutron Calendar Bridge — Bridge for Proton Calendar: a local CalDAV bridge between Proton Calendar and Calendar.app (unofficial)",
   "private": true,
   "workspaces": [
@@ -68,8 +68,15 @@
     "mac": {
       "category": "public.app-category.productivity",
       "target": [
-        "dmg"
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
       ],
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
       "extendInfo": {
         "LSUIElement": true
       },

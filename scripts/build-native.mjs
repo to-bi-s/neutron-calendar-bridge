@@ -7,9 +7,12 @@
  *   node scripts/build-native.mjs [--force]   (skips the build when the .node is newer than the sources and
  *   was made on this platform/arch; --force always builds, and a failure then fails the script — without
  *   --force a failed build is only reported, the app runs with the symbol standing still)
+ * 1.0.1: on macOS the module is built for arm64 and x86_64 and joined with lipo into one fat .node, so the
+ * same file serves the Apple-silicon and the Intel build of the app (electron-builder packs both from it).
+ * If the second architecture cannot be built, the host's alone is used and said so.
  */
 import { spawnSync } from 'node:child_process';
-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -28,10 +31,13 @@ if (!existsSync(nodeGyp)) {
     process.exit(1);
 }
 
-const stampText = `${process.platform}-${process.arch}-napi${process.versions.napi}`;
+/** The architectures built: on macOS both (fat binary), elsewhere the host's. */
+const archs = process.platform === 'darwin' ? ['arm64', 'x64'] : [process.arch];
+const stampText = `${process.platform}-${archs.join('+')}-napi${process.versions.napi}`;
 for (const name of modules) {
     const dir = join(root, 'native', name);
-    const built = join(dir, 'build', 'Release', `${name.replace(/-/g, '_')}.node`);
+    const fileName = `${name.replace(/-/g, '_')}.node`;
+    const built = join(dir, 'build', 'Release', fileName);
     const stamp = join(dir, 'build', '.stamp');
     const sources = Math.max(newest(join(dir, 'src')), statSync(join(dir, 'binding.gyp')).mtimeMs);
     const sameMachine = existsSync(stamp) && readFileSync(stamp, 'utf8') === stampText;
@@ -39,17 +45,46 @@ for (const name of modules) {
         console.log(`native/${name}: up to date`);
         continue;
     }
-    console.log(`native/${name}: building with node-gyp…`);
-    const result = spawnSync(nodeGyp, ['rebuild'], { cwd: dir, stdio: 'inherit', shell: process.platform === 'win32' });
-    if (result.status !== 0) {
-        const why = result.error ? ` (${result.error.message})` : '';
+    const perArch = [];
+    let failed = null;
+    for (const arch of archs) {
+        console.log(`native/${name}: building with node-gyp (${arch})…`);
+        const result = spawnSync(nodeGyp, ['rebuild', `--arch=${arch}`], { cwd: dir, stdio: 'inherit', shell: process.platform === 'win32' });
+        if (result.status !== 0) {
+            failed = { arch, why: result.error ? ` (${result.error.message})` : '' };
+            if (arch === process.arch) break; // the host's own build failed: nothing to fall back to
+            console.warn(`native/${name}: the ${arch} build failed${failed.why}; the module is built for ${process.arch} only.`);
+            failed = null;
+            continue;
+        }
+        if (archs.length > 1) {
+            mkdirSync(join(dir, 'build', 'arch'), { recursive: true });
+            const copy = join(dir, 'build', 'arch', `${arch}-${fileName}`);
+            copyFileSync(built, copy);
+            perArch.push({ arch, copy });
+        }
+    }
+    if (failed) {
         const hint = process.platform === 'darwin' ? " Install Xcode's command-line tools (xcode-select --install) and run npm run build:native." : '';
         if (force) {
-            console.error(`native/${name}: the build failed${why}.${hint}`);
-            process.exit(result.status ?? 1);
+            console.error(`native/${name}: the build failed${failed.why}.${hint}`);
+            process.exit(1);
         }
-        console.warn(`native/${name}: the build failed${why}. The app still runs; the sync symbol in the menu stays still.${hint}`);
+        console.warn(`native/${name}: the build failed${failed.why}. The app still runs; the sync symbol in the menu stays still.${hint}`);
         continue;
     }
-    writeFileSync(stamp, stampText);
+    if (perArch.length > 1) {
+        // One fat binary from the per-architecture builds (the last node-gyp run left only its own in Release/).
+        const lipo = spawnSync('lipo', ['-create', ...perArch.map((entry) => entry.copy), '-output', built], { stdio: 'inherit' });
+        if (lipo.status !== 0) {
+            console.warn(`native/${name}: lipo failed; the module is built for ${perArch.at(-1).arch} only.`);
+            copyFileSync(perArch.at(-1).copy, built);
+        } else {
+            const info = spawnSync('lipo', ['-archs', built], { encoding: 'utf8' });
+            console.log(`native/${name}: fat binary (${(info.stdout || '').trim()})`);
+        }
+    } else if (perArch.length === 1) {
+        copyFileSync(perArch[0].copy, built);
+    }
+    writeFileSync(stamp, perArch.length === archs.length ? stampText : `${process.platform}-${process.arch}-napi${process.versions.napi}`);
 }

@@ -8,9 +8,9 @@ Copyright (c) 2026 Tactless Autist (original work). Copyright (c) 2026 Tobi (mod
 
 ## Install
 
-Download `Neutron Calendar Bridge-<version>-arm64.dmg` from [Releases](https://github.com/to-bi-s/neutron-calendar-bridge/releases) (Apple silicon; signed with a Developer ID and notarized, so macOS opens it without a warning), drag the app to Applications and open it. It lives in the menu bar; the window opens from there. Then sign in on the Setup page and set up [Calendar.app](#setting-up-calendarapp) or Thunderbird (the Setup page has a card for each, and one for other CalDAV apps). Updating: see [Updating](#updating).
+Download the DMG for your Mac from [Releases](https://github.com/to-bi-s/neutron-calendar-bridge/releases): `…-arm64.dmg` for Apple silicon (M1 and later), `…-x64.dmg` for Intel. Both are signed with a Developer ID and notarized, so macOS opens them without a warning, drag the app to Applications and open it. It lives in the menu bar; the window opens from there. Then sign in on the Setup page and set up [Calendar.app](#setting-up-calendarapp) or Thunderbird (the Setup page has a card for each, and one for other CalDAV apps). Updating: see [Updating](#updating).
 
-What it needs from you: a Proton account (free or paid), a Mac with Apple silicon (developed and tested on macOS 26; the Electron it runs on supports macOS 11 and newer), and once at sign-in a CAPTCHA and your authenticator code if you use one. What it keeps on the Mac: Proton's session (not your password), an encrypted local copy of your calendars, and the generated password Calendar.app uses towards the bridge — all encrypted with a key in your Keychain. Nothing is sent anywhere but Proton.
+What it needs from you: a Proton account (free or paid), a Mac (developed on Apple silicon with macOS 26, checked on an Intel Mac; the Electron it runs on supports macOS 11 and newer), and once at sign-in a CAPTCHA and your authenticator code if you use one. What it keeps on the Mac: Proton's session (not your password), an encrypted local copy of your calendars, and the generated password Calendar.app uses towards the bridge — all encrypted with a key in your Keychain. Nothing is sent anywhere but Proton.
 
 ## Screenshots
 
@@ -121,7 +121,7 @@ The lock file is committed; `npm ci` installs exactly those versions. `npm run c
 A packaged app:
 
 ```bash
-npm run package:mac  # → release/Neutron Calendar Bridge-<version>-arm64.dmg
+npm run package:mac  # → release/Neutron Calendar Bridge-<version>-arm64.dmg and …-x64.dmg (both architectures, from either kind of Mac)
 ```
 
 This build is not signed or notarized (unless a Developer ID certificate is in your Keychain, which electron-builder then uses). macOS therefore blocks the first start: right-click the app in Applications → **Open**, or allow it under System Settings → Privacy & Security after the first refusal. The app keeps its data in `~/Library/Application Support/neutron-calendar-bridge` and its log in `~/Library/Logs/neutron-calendar-bridge/bridge.log`.

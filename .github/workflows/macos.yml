@@ -55,9 +55,10 @@ jobs:
       - name: Check the bundle
         run: |
           set -euo pipefail
-          app="release/mac-arm64/Neutron Calendar Bridge.app"
+          for app in "release/mac-arm64/Neutron Calendar Bridge.app" "release/mac/Neutron Calendar Bridge.app"; do
           plist="$app/Contents/Info.plist"
           test -d "$app"
+          lipo -archs "$app/Contents/MacOS/Neutron Calendar Bridge"
           id=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$plist")
           version=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$plist")
           menuOnly=$(/usr/libexec/PlistBuddy -c 'Print :LSUIElement' "$plist")
@@ -74,7 +75,11 @@ jobs:
           grep -qx '/node_modules/proton-calendar-client/dist/index.mjs' asar.txt
           grep -qx '/dist/main/main.js' asar.txt
           if grep -q '^/client/' asar.txt; then echo 'the client/ sources were packed'; exit 1; fi
+          done
+          lipo -archs "release/mac-arm64/Neutron Calendar Bridge.app/Contents/Resources/app.asar.unpacked/native/menu-spinner/build/Release/menu_spinner.node" | grep -q 'x86_64 arm64\|arm64 x86_64'
           ls -lh release/*.dmg
+          test -f "release/Neutron Calendar Bridge-$expected-arm64.dmg"
+          test -f "release/Neutron Calendar Bridge-$expected-x64.dmg"
       - uses: actions/upload-artifact@v7
         with:
           name: neutron-calendar-bridge-dmg

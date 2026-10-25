@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Stage 16: a signed, notarized build for the Mac (`npm run package:mac:release`), run on Tobi's Mac.
+ * Stage 16: signed, notarized builds for the Mac (`npm run package:mac:release`), run on Tobi's Mac;
+ * 1.0.1: one DMG for Apple silicon and one for Intel from the same run.
  *
  * Needs, once (see README → "Signed builds"):
  *   - a "Developer ID Application" certificate in the login Keychain (Xcode → Settings → Accounts →
@@ -60,56 +61,73 @@ if (history.status !== 0) {
     fail(`No notarization profile "${profile}" in the Keychain (or Apple refused it). Store it with:\n  xcrun notarytool store-credentials ${profile} --apple-id <Apple ID> --team-id <Team ID>`);
 }
 
-// 3. Build, sign, notarize and staple the app.
+// 3. Build, sign, notarize and staple the app(s). 1.0.1: Apple silicon and Intel (package.json: both
+// architectures); --quick builds this Mac's architecture only.
 run('npm', ['run', 'build']);
-run('npx', ['electron-builder', '--mac', '--publish', 'never'], {
+run('npx', ['electron-builder', '--mac', ...(quick ? [`--${process.arch}`] : []), '--publish', 'never'], {
     env: { ...process.env, CSC_IDENTITY_AUTO_DISCOVERY: 'true', CSC_NAME: identity.replace(/^Developer ID Application: /, ''), APPLE_KEYCHAIN_PROFILE: profile }
 });
 
 const release = join(root, build.directories.output);
-const appDir = readdirSync(release).find((name) => /^mac/.test(name) && existsSync(join(release, name, `${build.productName}.app`)));
-const app = appDir && join(release, appDir, `${build.productName}.app`);
-const dmg = readdirSync(release).map((name) => join(release, name)).find((path) => path.endsWith('.dmg') && path.includes(version));
-if (!app || !dmg) {
-    fail(`Built app or DMG for ${version} not found in ${release}`);
+/** Each built architecture: electron-builder puts the x64 app in mac/, the arm64 one in mac-arm64/. */
+const builds = readdirSync(release)
+    .filter((name) => /^mac(-arm64)?$/.test(name) && existsSync(join(release, name, `${build.productName}.app`)))
+    .map((name) => {
+        const arch = name === 'mac' ? 'x64' : 'arm64';
+        const app = join(release, name, `${build.productName}.app`);
+        const dmg = join(release, `${build.productName}-${version}-${arch}.dmg`);
+        return { arch, app, dmg };
+    })
+    .filter(({ dmg }) => existsSync(dmg));
+if (!builds.length || (!quick && builds.length < 2)) {
+    fail(`Built app(s) and DMG(s) for ${version} not found in ${release} (found: ${builds.map((entry) => entry.arch).join(', ') || 'none'})`);
 }
 
-// 4. The DMG: signed, notarized, stapled (so it opens without a warning, also offline). --quick: signed only.
-run('codesign', ['--sign', identity, '--timestamp', '--force', dmg]);
-if (!quick) {
-    run('xcrun', ['notarytool', 'submit', dmg, '--keychain-profile', profile, '--wait']);
-    run('xcrun', ['stapler', 'staple', dmg]);
-} else {
+// 4. The DMGs: signed, notarized, stapled (so they open without a warning, also offline). --quick: signed only.
+for (const { arch, dmg } of builds) {
+    console.log(`\nDMG (${arch}): ${dmg}`);
+    run('codesign', ['--sign', identity, '--timestamp', '--force', dmg]);
+    if (!quick) {
+        run('xcrun', ['notarytool', 'submit', dmg, '--keychain-profile', profile, '--wait']);
+        run('xcrun', ['stapler', 'staple', dmg]);
+    }
+}
+if (quick) {
     console.log('\n--quick: the DMG is signed, not notarized (the app inside is notarized and stapled)');
 }
 
-// 5. Checks, as Gatekeeper does them.
-console.log('\nChecks:');
+// 5. Checks, as Gatekeeper does them, per architecture.
 const checks = [];
 const check = (label, ok, detail = '') => {
     checks.push(ok);
     console.log(`${ok ? '✓' : '✗'} ${label}${detail ? ` — ${detail}` : ''}`);
 };
-const verify = spawnSync('codesign', ['--verify', '--deep', '--strict', app], { encoding: 'utf8' });
-check('app signature valid (deep, strict)', verify.status === 0, verify.stderr.trim());
-const details = output('codesign', ['-dv', '--verbose=2', app]);
-check('signed with the Developer ID', details.includes(`Authority=${identity}`));
-check('hardened runtime', /flags=0x[0-9a-f]+\([^)]*runtime[^)]*\)/.test(details));
-const entitlements = output('codesign', ['-d', '--entitlements', '-', '--xml', app]);
-check('library validation on (no disable-library-validation)', !entitlements.includes('disable-library-validation'));
-const assessApp = output('spctl', ['--assess', '--type', 'execute', '-vv', app]);
-check('Gatekeeper accepts the app', /accepted/.test(assessApp) && /Notarized Developer ID/.test(assessApp), assessApp.match(/source=.*$/m)?.[0]);
-check('app ticket stapled', spawnSync('xcrun', ['stapler', 'validate', app]).status === 0);
-if (quick) {
-    const dmgSignature = spawnSync('codesign', ['--verify', '--strict', dmg], { encoding: 'utf8' });
-    check('DMG signed (--quick: not notarized)', dmgSignature.status === 0, dmgSignature.stderr.trim());
-} else {
-    const assessDmg = output('spctl', ['--assess', '--type', 'open', '--context', 'context:primary-signature', '-vv', dmg]);
-    check('Gatekeeper accepts the DMG', /accepted/.test(assessDmg), assessDmg.match(/source=.*$/m)?.[0]);
-    check('DMG ticket stapled', spawnSync('xcrun', ['stapler', 'validate', dmg]).status === 0);
+for (const { arch, app, dmg } of builds) {
+    console.log(`\nChecks (${arch}):`);
+    const archs = output('lipo', ['-archs', join(app, 'Contents', 'MacOS', build.productName)]).trim();
+    check(`the app binary is ${arch === 'x64' ? 'x86_64' : 'arm64'}`, archs === (arch === 'x64' ? 'x86_64' : 'arm64'), archs);
+    const verify = spawnSync('codesign', ['--verify', '--deep', '--strict', app], { encoding: 'utf8' });
+    check('app signature valid (deep, strict)', verify.status === 0, verify.stderr.trim());
+    const details = output('codesign', ['-dv', '--verbose=2', app]);
+    check('signed with the Developer ID', details.includes(`Authority=${identity}`));
+    check('hardened runtime', /flags=0x[0-9a-f]+\([^)]*runtime[^)]*\)/.test(details));
+    const entitlements = output('codesign', ['-d', '--entitlements', '-', '--xml', app]);
+    check('library validation on (no disable-library-validation)', !entitlements.includes('disable-library-validation'));
+    const assessApp = output('spctl', ['--assess', '--type', 'execute', '-vv', app]);
+    check('Gatekeeper accepts the app', /accepted/.test(assessApp) && /Notarized Developer ID/.test(assessApp), assessApp.match(/source=.*$/m)?.[0]);
+    check('app ticket stapled', spawnSync('xcrun', ['stapler', 'validate', app]).status === 0);
+    if (quick) {
+        const dmgSignature = spawnSync('codesign', ['--verify', '--strict', dmg], { encoding: 'utf8' });
+        check('DMG signed (--quick: not notarized)', dmgSignature.status === 0, dmgSignature.stderr.trim());
+    } else {
+        const assessDmg = output('spctl', ['--assess', '--type', 'open', '--context', 'context:primary-signature', '-vv', dmg]);
+        check('Gatekeeper accepts the DMG', /accepted/.test(assessDmg), assessDmg.match(/source=.*$/m)?.[0]);
+        check('DMG ticket stapled', spawnSync('xcrun', ['stapler', 'validate', dmg]).status === 0);
+    }
 }
 
 if (checks.some((ok) => !ok)) {
     fail('Some checks failed (above).');
 }
-console.log(quick ? `\nApp signed and notarized, DMG signed (--quick, for testing): ${dmg}` : `\nSigned and notarized: ${dmg}`);
+const list = builds.map(({ dmg }) => dmg).join('\n  ');
+console.log(quick ? `\nApp signed and notarized, DMG signed (--quick, for testing):\n  ${list}` : `\nSigned and notarized:\n  ${list}`);
