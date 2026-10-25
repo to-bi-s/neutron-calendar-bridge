@@ -2,6 +2,18 @@
 
 Everything a contributor or maintainer needs that a user does not: how the app is built, tested, signed, released and translated, and how it is put together. The user side is in the [README](../README.md); what the app does in detail is in [BEHAVIOUR.md](BEHAVIOUR.md).
 
+## If you have never built an app like this
+
+You don't need to be a programmer to build or poke at this app, but a few words help when the instructions below say "Node", "npm" or "Electron":
+
+- **Node.js** is a program that runs JavaScript outside a browser — the same language web pages use, but on your Mac as an ordinary program. This app is written in TypeScript (JavaScript with type annotations) and everything that builds, tests and packages it is a Node.js script. Get it from [nodejs.org](https://nodejs.org) (the "LTS" installer; version 20 or newer) or, if you use Homebrew, `brew install node`. Afterwards `node --version` in the Terminal prints the version.
+- **npm** comes with Node.js. It downloads the open-source packages the app depends on (`npm install` reads `package.json`, fetches them into `node_modules/`) and runs the project's named commands (`npm run check`, `npm start`, … — the list is the `scripts` section of `package.json`).
+- **Electron** is what turns a web-technology app into a Mac app: a window with Chromium inside for the interface (`src/renderer/`), and Node.js behind it for the real work (`src/main/`: talking to Proton, the local database, the CalDAV server). npm installs it like any other package.
+- **The Xcode Command Line Tools** are Apple's compilers. Two small pieces of the app are not JavaScript — the encrypted database (SQLCipher) and the module that animates the menu-bar menu — and are compiled on your Mac during `npm install` and `npm run build`. `xcode-select --install` gets them (a few hundred MB, no Apple ID needed). Signing and notarizing a build for others (further down) is the one step that needs an Apple Developer account; running the app from source does not.
+- **git** is how the source is fetched and how changes are tracked; it is part of the Command Line Tools.
+
+With those four in place, the five commands under "Building from source" are all there is: clone, install, check, start. Everything the app does is in `src/` and `client/src/`, in files whose names say what they hold; the comments at the top of each file explain the rest.
+
 ## How it works
 
 - `src/main/proton-adapter.ts` — wraps the library in `client/` (proton-calendar-client, the fork of Tactless Autist's library): sign-in (CAPTCHA via a window with Proton's own verification page, second factor, mailbox password), session handling, reading and writing events.
@@ -17,7 +29,7 @@ The app identifies itself to Proton as `NeutronCalendarBridge/<version>` with Pr
 
 ## Building from source
 
-You need macOS, Node.js 20 or newer, and the Xcode Command Line Tools (`xcode-select --install`): the encrypted local copy (SQLCipher) is compiled during `npm install`, and `npm run build` compiles the small native module that turns the sync symbol in the menu-bar menu (`native/menu-spinner`, for Apple silicon and Intel in one fat binary). The library is an npm workspace in `client/`, so one install at the top covers both (the library's `prepare` script builds it):
+You need macOS, Node.js 20 or newer, and the Xcode Command Line Tools (see above): the encrypted local copy (SQLCipher) is compiled during `npm install`, and `npm run build` compiles the small native module that turns the sync symbol in the menu-bar menu (`native/menu-spinner`, for Apple silicon and Intel in one fat binary). The library is an npm workspace in `client/`, so one install at the top covers both (the library's `prepare` script builds it):
 
 ```bash
 git clone https://github.com/to-bi-s/neutron-calendar-bridge.git

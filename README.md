@@ -6,7 +6,7 @@ If you use Proton Calendar and have been waiting for it to show up in Calendar.a
 
 <p align="center"><img src="docs/images/graphical-abstract.svg" width="900" alt="Proton Calendar on the left, Calendar.app and Thunderbird on the right, Neutron Calendar Bridge in between: a bridge carrying a CalDAV server on your Mac, with arrows both ways"></p>
 
-Unofficial: not affiliated with or endorsed by Proton AG (Proton, Proton Calendar and Proton Mail are trademarks of Proton AG). It talks to Proton's servers the way Proton's own apps do, under its own name. Free and open source (GPL-3.0), a fork of [proton-calendar-sync](https://github.com/TactlessAutist/proton-calendar-sync) by Tactless Autist.
+Unofficial: not affiliated with or endorsed by Proton AG (Proton, Proton Calendar and Proton Mail are trademarks of Proton AG). It talks to Proton's servers the way Proton's own apps do, under its own name. Free and open source (GPL-3.0), a fork of [proton-calendar-sync](https://github.com/TactlessAutist/proton-calendar-sync) and the [proton-calendar-client](https://github.com/TactlessAutist/proton-calendar-client) library it builds on by [**Tactless Autist**](https://github.com/TactlessAutist).
 
 ## Install
 
@@ -133,4 +133,4 @@ Bug reports and findings with other calendar apps are welcome as [issues](https:
 
 ## Credits and licence
 
-[proton-calendar-sync](https://github.com/TactlessAutist/proton-calendar-sync) and the [proton-calendar-client](https://github.com/TactlessAutist/proton-calendar-client) library it builds on were written by **Tactless Autist**; this fork and its changes are by **Tobi**. The library's fork lives in [`client/`](client/) of this repository. GPL-3.0-only: original work copyright Tactless Autist, modifications copyright Tobi; the embedded Proton code is GPL-3.0, so the app is too (see `LICENSE` and `client/NOTICE.md`).
+[proton-calendar-sync](https://github.com/TactlessAutist/proton-calendar-sync) and the [proton-calendar-client](https://github.com/TactlessAutist/proton-calendar-client) library it builds on were written by [**Tactless Autist**](https://github.com/TactlessAutist); this fork and its changes are by [**Tobi**](https://github.com/to-bi-s). The library's fork lives in [`client/`](client/) of this repository. GPL-3.0-only: original work copyright Tactless Autist, modifications copyright Tobi; the embedded Proton code is GPL-3.0, so the app is too (see `LICENSE` and `client/NOTICE.md`).
