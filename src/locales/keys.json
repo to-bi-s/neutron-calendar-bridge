@@ -1,0 +1,1564 @@
+{
+  "\"{address}\" is not one of this account's addresses": [
+    "src/main/bridge-service.ts"
+  ],
+  "\"{name}\" is one of Proton's own folders: choose Bin or Archive instead, or another name": [
+    "src/main/bridge-service.ts"
+  ],
+  "({count} skipped: not an address or listed twice)": [
+    "src/renderer/renderer.js"
+  ],
+  "{app} asked for this change to be saved without telling your guests (SCHEDULE-AGENT=NONE). Proton Calendar always tells guests about a change, so nothing was saved or sent. Make the change again, or change it in Proton Calendar.": [
+    "src/main/recurrence.ts"
+  ],
+  "{app} Cannot Sign In": [
+    "src/renderer/renderer.js"
+  ],
+  "{app} cannot sign in to the bridge": [
+    "src/main/bridge-service.ts"
+  ],
+  "{app} cannot sign in to the bridge. The Setup page shows the password to enter in {app}.": [
+    "src/main/bridge-service.ts"
+  ],
+  "{app} connects again": [
+    "src/main/bridge-service.ts"
+  ],
+  "{app} is connected (last request {when}).": [
+    "src/renderer/renderer.js"
+  ],
+  "{app} just tried to move this meeting to another calendar; that was refused, so the meeting stays here. Deleting it now would cancel it for all guests. Move it in Proton Calendar, or delete it again in a few minutes.": [
+    "src/main/recurrence.ts"
+  ],
+  "{app} last asked {when}.": [
+    "src/renderer/renderer.js"
+  ],
+  "{app} sent a password the bridge does not know ({tries} since {since}). macOS did not let the app read its saved login (Keychain), which holds the password {app} was given. Quit and reopen the app and choose \"Always Allow\" when macOS asks; {app} then signs in again by itself.": [
+    "src/renderer/renderer.js"
+  ],
+  "{app} sent a wrong password for the bridge {tries} since {since} (last at {last}) — probably one from before. Give it the password shown below:": [
+    "src/renderer/renderer.js"
+  ],
+  "{app} sent a wrong password for the bridge {tries} since {since}. The Setup page shows the password to enter.": [
+    "src/renderer/renderer.js"
+  ],
+  "{app} signs in to the bridge with the right password.": [
+    "src/main/bridge-service.ts"
+  ],
+  "{app} uses an old password": [
+    "src/main/bridge-service.ts"
+  ],
+  "{app} wants to send the invitations for this event itself, which the bridge does not support. Invite your guests from the event in {app} again, or in Proton Calendar.": [
+    "src/main/recurrence.ts"
+  ],
+  "{count} change made while Proton could not be reached was dropped at sign-out.|{count} changes made while Proton could not be reached were dropped at sign-out.": [
+    "src/main/bridge-service.ts"
+  ],
+  "{count} change waits for Proton|{count} changes wait for Proton": [
+    "src/main/bridge-service.ts"
+  ],
+  "{count} change waits to be sent to Proton.|{count} changes wait to be sent to Proton.": [
+    "src/renderer/renderer.js"
+  ],
+  "{count} email to your guests waits for Proton.|{count} emails to your guests wait for Proton.": [
+    "src/renderer/renderer.js"
+  ],
+  "{count} email waited too long for Proton and was not sent. The Overview lists it.|{count} emails waited too long for Proton and were not sent. The Overview lists them.": [
+    "src/main/bridge-service.ts"
+  ],
+  "{count} event could not be decrypted|{count} events could not be decrypted": [
+    "src/main/bridge-service.ts"
+  ],
+  "{count} event synced|{count} events synced": [
+    "src/renderer/renderer.js"
+  ],
+  "{count} failed to decrypt": [
+    "src/renderer/renderer.js"
+  ],
+  "{hours}h ago": [
+    "src/renderer/renderer.js"
+  ],
+  "{minutes}m ago": [
+    "src/renderer/renderer.js"
+  ],
+  "{seconds}s ago": [
+    "src/renderer/renderer.js"
+  ],
+  "{time} · {answer} by email “{title}” ← {from}": [
+    "src/renderer/renderer.js"
+  ],
+  "{time} · {what}{where} failed ({status}): {message}": [
+    "src/renderer/renderer.js"
+  ],
+  "{why}. The bridge works, and tries again at the next start.": [
+    "src/main/bridge-service.ts"
+  ],
+  "<strong>Tactless Autist</strong> wrote <em>proton-calendar-sync</em> and the <em>proton-calendar-client</em> library it builds on. <a href=\"#\" class=\"external-link\" data-href=\"https://github.com/TactlessAutist\">github.com/TactlessAutist</a>": [
+    "index.html (html)"
+  ],
+  "<strong>Tobi</strong> forked it as <em>Neutron Calendar Bridge</em> and added: <ul class=\"feature-list\"><li>Meetings like in Proton Calendar: invitations, answers, updates and cancellations emailed from Calendar.app — end-to-end to Proton users, in Proton's 34 languages — plus guest autocomplete and availability</li><li>Repeating events in both directions, exceptions included</li><li>Reminders (alerts) in both directions</li><li>Several Proton accounts, each as its own account in Calendar.app</li><li>One-click Calendar.app setup (a configuration profile) and a sign-in under the bridge's own name — authenticator codes and Proton's CAPTCHA included</li><li>Proton Meet and Zoom links straight from Calendar.app (\"Proton Meet\" or \"Zoom\" as the location)</li><li>Calendars created, renamed and recoloured from Calendar.app</li><li>Changes made while offline kept and sent once Proton is back</li><li>Private by design: an encrypted local copy, a checked CalDAV password, a quiet log — nothing leaves this Mac</li><li>Light on Proton: its change feeds instead of listing everything, and quick to notice a change</li><li>Six languages, light and dark, and a menu-bar menu like Proton Mail Bridge's</li></ul> <a href=\"#\" class=\"external-link\" data-href=\"https://github.com/to-bi-s\">github.com/to-bi-s</a>": [
+    "index.html (html)"
+  ],
+  "1 minute": [
+    "index.html"
+  ],
+  "1 year": [
+    "index.html"
+  ],
+  "10 minutes": [
+    "index.html"
+  ],
+  "15 minutes": [
+    "index.html"
+  ],
+  "2 years": [
+    "index.html"
+  ],
+  "3 years": [
+    "index.html"
+  ],
+  "30 days": [
+    "index.html"
+  ],
+  "30 seconds": [
+    "index.html"
+  ],
+  "5 minutes": [
+    "index.html"
+  ],
+  "6 months": [
+    "index.html"
+  ],
+  "90 days": [
+    "index.html"
+  ],
+  "A calendar app": [
+    "src/main/bridge-service.ts",
+    "src/renderer/renderer.js"
+  ],
+  "A Calendar Fails — See Calendars": [
+    "src/main/tray-menu.ts"
+  ],
+  "A calendar made with File → New Calendar belongs to this address in Proton (its key, its invitations). Calendar.app cannot say which one, so it is set here.": [
+    "index.html"
+  ],
+  "A calendar needs a name.": [
+    "src/main/bridge-service.ts"
+  ],
+  "A folder name can have at most 100 characters": [
+    "src/main/bridge-service.ts"
+  ],
+  "A local CalDAV bridge that puts your Proton calendars into Calendar.app, with two-way sync. Everything stays on this Mac.": [
+    "index.html"
+  ],
+  "A recurring invitation is answered from the occurrence you open; the bridge passes that on as your answer for the whole series, as Proton Calendar does (Proton takes one answer per series). The Attendance entries in the context menu stay empty without an email identity.": [
+    "index.html"
+  ],
+  "About {app}": [
+    "src/main/main.ts"
+  ],
+  "Accepted": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Account": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Accounts": [
+    "index.html"
+  ],
+  "Active": [
+    "src/renderer/renderer.js"
+  ],
+  "Add Account": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Additional verification required to finish signing in.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Address for calendars created in Calendar.app": [
+    "index.html"
+  ],
+  "Adds all calendars of this account to Thunderbird in one go. Click a value to copy it.": [
+    "index.html"
+  ],
+  "Adds the \"{account}\" account (your Proton calendars, served on this Mac by {app}) to Calendar.app. Made by the bridge on this Mac; remove it to remove the account.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Allowed addresses in test mode (one per line)": [
+    "index.html"
+  ],
+  "an event": [
+    "src/renderer/renderer.js"
+  ],
+  "Another app": [
+    "src/renderer/renderer.js"
+  ],
+  "Answer": [
+    "src/renderer/renderer.js"
+  ],
+  "Answer by email": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Appearance": [
+    "index.html"
+  ],
+  "Apple Calendar": [
+    "index.html"
+  ],
+  "Applied": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Apply answers that guests outside Proton send by email": [
+    "index.html"
+  ],
+  "Auto Setup": [
+    "index.html"
+  ],
+  "Automatic updates come later; until then new versions are installed by hand.": [
+    "index.html"
+  ],
+  "Back to your accounts": [
+    "index.html"
+  ],
+  "Blocked": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Bridge connected": [
+    "src/main/bridge-service.ts"
+  ],
+  "Bridge disconnected. Sign in to Proton to serve CalDAV.": [
+    "src/main/caldav-server.ts"
+  ],
+  "Bridge for Proton Calendar": [
+    "index.html"
+  ],
+  "Bridge Proton Calendar into Calendar.app": [
+    "index.html"
+  ],
+  "Built On": [
+    "index.html"
+  ],
+  "Calendar": [
+    "index.html (attribute)"
+  ],
+  "Calendar home": [
+    "index.html"
+  ],
+  "Calendar not found": [
+    "src/main/bridge-service.ts"
+  ],
+  "Calendar removed from {app} only": [
+    "src/main/bridge-service.ts"
+  ],
+  "Calendar.app Cannot Sign In": [
+    "index.html"
+  ],
+  "Calendar.app is connected (last request {when}). Nothing to do.": [
+    "src/renderer/renderer.js"
+  ],
+  "Calendar.app last asked {when}. If the account is gone from Calendar.app, set it up again.": [
+    "src/renderer/renderer.js"
+  ],
+  "Calendar.app then shows your calendars under {account} within a minute.": [
+    "src/renderer/renderer.js"
+  ],
+  "Calendars": [
+    "index.html",
+    "src/main/main.ts",
+    "src/renderer/renderer.js"
+  ],
+  "Cancel": [
+    "index.html"
+  ],
+  "Cancellation": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Change failed": [
+    "src/main/bridge-service.ts"
+  ],
+  "Change not saved": [
+    "src/main/bridge-service.ts"
+  ],
+  "Changelog": [
+    "index.html"
+  ],
+  "Changes not sent": [
+    "src/main/bridge-service.ts"
+  ],
+  "Changes Waiting for Proton": [
+    "src/renderer/renderer.js"
+  ],
+  "Check for changes every": [
+    "index.html"
+  ],
+  "Check for Updates": [
+    "index.html"
+  ],
+  "Checked {when}": [
+    "src/renderer/renderer.js"
+  ],
+  "Checked {when}.": [
+    "src/renderer/renderer.js"
+  ],
+  "Checks & Window": [
+    "index.html"
+  ],
+  "Choose <strong>Advanced</strong> and enter the values above.": [
+    "index.html (html)"
+  ],
+  "Click Set Up Calendar.app and follow the steps.": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Click to copy": [
+    "index.html"
+  ],
+  "Close": [
+    "index.html"
+  ],
+  "Close Window": [
+    "src/main/main.ts"
+  ],
+  "Code": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Coming in a later version": [
+    "index.html (attribute)"
+  ],
+  "Complete Proton's verification step below. The bridge will finish signing in automatically.": [
+    "src/main/main.ts"
+  ],
+  "Connect Bridge": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Connected": [
+    "src/main/tray-menu.ts",
+    "src/renderer/renderer.js"
+  ],
+  "Connected to Proton again": [
+    "src/main/bridge-service.ts"
+  ],
+  "Connecting": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Connecting to Proton…": [
+    "src/main/bridge-service.ts",
+    "src/main/tray-menu.ts"
+  ],
+  "Connecting…": [
+    "src/main/tray-menu.ts"
+  ],
+  "Connection Limited": [
+    "src/main/tray-menu.ts"
+  ],
+  "Continue": [
+    "index.html"
+  ],
+  "Copied (for 90 s)": [
+    "src/renderer/renderer.js"
+  ],
+  "Copy Password": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Copy the password:": [
+    "index.html"
+  ],
+  "Credits": [
+    "index.html"
+  ],
+  "Dark": [
+    "index.html"
+  ],
+  "Declined": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Delete the Logs": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Deleted": [
+    "src/renderer/renderer.js"
+  ],
+  "Deleting an event": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Deleting the calendar": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Detailed logging": [
+    "index.html",
+    "index.html (attribute)"
+  ],
+  "Developer": [
+    "index.html"
+  ],
+  "Developer Options": [
+    "index.html"
+  ],
+  "Disconnected": [
+    "index.html",
+    "src/renderer/renderer.js (map)"
+  ],
+  "Dry run": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Dry run is on (Developer Options): nothing is sent and nothing changes in Proton.": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Dry run: {count} email would be moved to {destination}.|Dry run: {count} emails would be moved to {destination}.": [
+    "src/renderer/renderer.js"
+  ],
+  "Dry run: send nothing, log what would be sent": [
+    "index.html"
+  ],
+  "Each account shows up as its own account in Calendar.app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this Mac.": [
+    "index.html"
+  ],
+  "Email or username": [
+    "index.html"
+  ],
+  "Email: None": [
+    "index.html"
+  ],
+  "Emails": [
+    "index.html"
+  ],
+  "Emails About Meetings": [
+    "src/main/bridge-service.ts"
+  ],
+  "Emails Waiting for Proton": [
+    "src/renderer/renderer.js"
+  ],
+  "Enable developer options": [
+    "index.html"
+  ],
+  "Enter it when Calendar.app asks for the password of the bridge account, or in Calendar.app → <strong>Settings → Accounts</strong> → the bridge account → <strong>Server Settings</strong> → <strong>Password</strong>.": [
+    "index.html (html)"
+  ],
+  "Enter it when the app asks for the password of the bridge account, or replace the saved one in the app's password settings.": [
+    "index.html"
+  ],
+  "Enter the 6-digit code from your authenticator app (or an 8-character recovery code).": [
+    "src/main/bridge-service.ts"
+  ],
+  "Enter Your Authenticator Code": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Enter Your Mailbox Password": [
+    "src/renderer/renderer.js"
+  ],
+  "Enter your mailbox password.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Error": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Excluded from Sync": [
+    "src/renderer/renderer.js"
+  ],
+  "Expires {time}": [
+    "src/renderer/renderer.js"
+  ],
+  "Expires soon": [
+    "src/renderer/renderer.js"
+  ],
+  "Failed": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Failed to list Proton calendars": [
+    "src/main/bridge-service.ts"
+  ],
+  "Failed to restore session": [
+    "src/main/bridge-service.ts"
+  ],
+  "Failed to sign in to Proton": [
+    "src/main/bridge-service.ts"
+  ],
+  "Finish sign-in": [
+    "src/main/main.ts"
+  ],
+  "Finish Sign-In": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "First active address ({address})": [
+    "src/renderer/renderer.js"
+  ],
+  "Folder": [
+    "index.html"
+  ],
+  "Follow system": [
+    "index.html"
+  ],
+  "For each new calendar: right-click it → <strong>Properties</strong> → <strong>Email: None</strong>.": [
+    "index.html (html)"
+  ],
+  "For testing and troubleshooting. The bridge works fully without them; while this is off, none of them is active.": [
+    "index.html"
+  ],
+  "Free software: you may run, study, share and change it under the terms of the <a href=\"#\" class=\"external-link\" data-href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General Public License v3</a>. Copyright © 2026 Tactless Autist (original work) and Tobi (modifications). Unofficial: not affiliated with or endorsed by Proton AG.": [
+    "index.html (html)"
+  ],
+  "Full history: ~/Library/Logs/neutron-calendar-bridge/bridge.log": [
+    "src/renderer/renderer.js"
+  ],
+  "General": [
+    "index.html"
+  ],
+  "GPL-3.0-only": [
+    "index.html"
+  ],
+  "Guests' answers show as small icons next to each attendee when you open a meeting.": [
+    "index.html"
+  ],
+  "Healthy": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Hide {app}": [
+    "src/main/main.ts"
+  ],
+  "Hide Instructions": [
+    "src/renderer/renderer.js"
+  ],
+  "Hide Password": [
+    "src/renderer/renderer.js"
+  ],
+  "How often the bridge looks for changes while things are happening; after 10 quiet minutes it checks every 5 minutes. It also checks right away when your Mac wakes up or you change something in Calendar.app.": [
+    "index.html"
+  ],
+  "HTTP only on 127.0.0.1": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Human verification": [
+    "src/main/main.ts"
+  ],
+  "Human Verification": [
+    "index.html"
+  ],
+  "If the app can send invitations itself (an email identity or an \"invitations via\" setting), switch that off: the bridge emails invitations and answers through Proton.": [
+    "index.html"
+  ],
+  "If you had added the bridge to Calendar.app by hand before, remove that account (Calendar.app → Settings → Accounts) so the calendars are not listed twice. (An account added by hand can be named there; the one from the profile cannot be renamed.)": [
+    "index.html"
+  ],
+  "If you would rather not install a profile.": [
+    "index.html"
+  ],
+  "in “{name}”": [
+    "src/renderer/renderer.js"
+  ],
+  "In <strong>System Settings → General → Device Management</strong>, double-click <strong>Neutron Calendar Bridge</strong> and click <strong>Install</strong>.": [
+    "index.html (html)"
+  ],
+  "in Proton": [
+    "src/renderer/renderer.js"
+  ],
+  "In Sync": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "In the app, add a <strong>CalDAV</strong> account (often called \"Other CalDAV\", \"Generic CalDAV\" or \"On the Network\") with the server URL, username and password above.": [
+    "index.html (html)"
+  ],
+  "In Thunderbird's calendar: <strong>New Calendar → On the Network</strong>. Enter the username and location, click <strong>Find Calendars</strong>, and give the password when asked.": [
+    "index.html (html)"
+  ],
+  "In your Inbox: {waiting} waiting for your answer or for Proton, {left} left for you (reasons in bridge.log).": [
+    "src/renderer/renderer.js"
+  ],
+  "Info": [
+    "index.html",
+    "src/main/main.ts",
+    "src/main/tray-menu.ts"
+  ],
+  "Invitation": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Invitation emails": [
+    "index.html",
+    "index.html (attribute)"
+  ],
+  "Invitation Emails": [
+    "src/renderer/renderer.js"
+  ],
+  "Invitations and Mailbox": [
+    "index.html"
+  ],
+  "Invitations can only be sent from your own addresses. This event names someone else as its organizer.": [
+    "src/main/recurrence.ts"
+  ],
+  "Invitations, updates, cancellations and answers are emailed just like from Proton Calendar.": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Invitations: Accept, Maybe and Decline in Calendar.app email your answer to the organizer, and meetings you organize email your guests, like from Proton Calendar. The language of the emails is under <strong>Settings → Emails</strong>.": [
+    "index.html (html)"
+  ],
+  "just now": [
+    "src/renderer/renderer.js"
+  ],
+  "Just now": [
+    "src/renderer/renderer.js"
+  ],
+  "Language": [
+    "index.html"
+  ],
+  "Language of the emails": [
+    "index.html"
+  ],
+  "last change {when}": [
+    "src/renderer/renderer.js"
+  ],
+  "Last Failed Request from {app}": [
+    "src/renderer/renderer.js"
+  ],
+  "Last Sync": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Last Sync Detail": [
+    "src/renderer/renderer.js"
+  ],
+  "Leave <strong>SSL/TLS</strong> off: the bridge listens only on <strong>127.0.0.1</strong>. If the app asks for server, port and path separately, use the second row; if it finds no calendars from the server URL, try the calendar home.": [
+    "index.html (html)"
+  ],
+  "Leave <strong>Use SSL</strong> off — the bridge listens only on <strong>127.0.0.1</strong>.": [
+    "index.html (html)"
+  ],
+  "Leave them in the Inbox": [
+    "index.html"
+  ],
+  "Let the app find the calendars and tick the ones you want. Each Proton account has its own username: add one CalDAV account per Proton account.": [
+    "index.html"
+  ],
+  "License": [
+    "index.html"
+  ],
+  "Light": [
+    "index.html"
+  ],
+  "Live": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Live mode: answers from Calendar.app are emailed to the real organizers. Switch to live?": [
+    "src/renderer/renderer.js"
+  ],
+  "Live: like Proton Calendar": [
+    "index.html"
+  ],
+  "Loading Proton's verification…": [
+    "src/main/main.ts"
+  ],
+  "Local Copy": [
+    "src/renderer/renderer.js"
+  ],
+  "Local copy in memory only": [
+    "src/main/bridge-service.ts"
+  ],
+  "Location": [
+    "index.html"
+  ],
+  "Lookahead": [
+    "index.html"
+  ],
+  "Lookback": [
+    "index.html"
+  ],
+  "macOS did not let the app read its saved login (Keychain), which holds the password {app} knows. Quit and reopen the app and choose \"Always Allow\".": [
+    "src/main/bridge-service.ts"
+  ],
+  "macOS did not let the app read your saved login (Keychain). Quit and reopen the app and choose \"Always Allow\" when macOS asks.": [
+    "src/main/bridge-service.ts"
+  ],
+  "macOS did not take the profile{error}. Use \"Manual Setup\" below.": [
+    "src/renderer/renderer.js"
+  ],
+  "macOS turns <strong>Reminders</strong> on for every new account. Switch it off in <strong>System Settings → Internet Accounts</strong>: Proton Calendar has no tasks.": [
+    "index.html (html)"
+  ],
+  "Made in Calendar.app while Proton could not be reached. They are sent, in order, as soon as it answers again; a change Proton then refuses is undone here and reported.": [
+    "src/renderer/renderer.js"
+  ],
+  "Made while Proton could not be reached, refused now that it is back — the calendar shows Proton's version again: {error}": [
+    "src/main/bridge-service.ts"
+  ],
+  "Mailbox password": [
+    "src/renderer/renderer.js"
+  ],
+  "Make a test event in the app and look for it in Proton Calendar; then one in Proton and refresh the app. If the app refreshes rarely, shorten its interval.": [
+    "index.html"
+  ],
+  "Manage calendars in Proton. Creating, renaming and deleting calendars from {app} is not supported.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Manual Setup": [
+    "index.html"
+  ],
+  "Maybe": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Methods: {methods}": [
+    "src/renderer/renderer.js"
+  ],
+  "Mode: {mode}": [
+    "src/renderer/renderer.js"
+  ],
+  "More Details": [
+    "index.html"
+  ],
+  "Move Down": [
+    "src/renderer/renderer.js"
+  ],
+  "Move them to a folder": [
+    "index.html"
+  ],
+  "Move them to the Archive": [
+    "index.html"
+  ],
+  "Move them to the Bin": [
+    "index.html"
+  ],
+  "Move Up": [
+    "src/renderer/renderer.js"
+  ],
+  "My Calendars": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Needs Attention": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Needs Attention — See Calendars": [
+    "src/main/tray-menu.ts"
+  ],
+  "Neutron Calendar Bridge": [
+    "index.html"
+  ],
+  "never": [
+    "src/renderer/renderer.js"
+  ],
+  "Never": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "New calendars can be made here or in Proton. Deleting a calendar in Calendar.app only takes it out of Calendar.app (it stays in Proton; the Calendars page ticks it again).": [
+    "index.html"
+  ],
+  "No {provider} link could be made: {error}": [
+    "src/main/bridge-service.ts"
+  ],
+  "No answer for {minutes} minutes ({reason}). Syncing waits until it is back.": [
+    "src/main/bridge-service.ts"
+  ],
+  "No answer yet": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "No calendar could be synced": [
+    "src/main/bridge-service.ts"
+  ],
+  "No calendars mirrored yet.": [
+    "src/renderer/renderer.js"
+  ],
+  "no connection": [
+    "src/main/bridge-service.ts"
+  ],
+  "No Connection": [
+    "src/main/tray-menu.ts"
+  ],
+  "No Connection — Trying Again": [
+    "src/main/tray-menu.ts"
+  ],
+  "No connection to Proton: {message}": [
+    "src/main/sync-schedule.ts"
+  ],
+  "No connection to Proton. Signing in as soon as it can be reached.": [
+    "src/main/bridge-service.ts"
+  ],
+  "No invitation emails from Calendar.app or guests' emailed answers since the app started.": [
+    "src/renderer/renderer.js"
+  ],
+  "normal email": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Not applied": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Not Connected": [
+    "src/main/tray-menu.ts"
+  ],
+  "Not every guest was emailed": [
+    "src/main/bridge-service.ts"
+  ],
+  "Not saved yet": [
+    "src/renderer/renderer.js"
+  ],
+  "not sent": [
+    "src/main/bridge-service.ts"
+  ],
+  "Not set up": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Not Signed In": [
+    "src/main/tray-menu.ts"
+  ],
+  "Not Synced": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Not synced (unticked)": [
+    "src/main/sync-schedule.ts"
+  ],
+  "Not Working — See Overview": [
+    "src/main/tray-menu.ts"
+  ],
+  "Note": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Note from {guest}: {note}": [
+    "src/main/bridge-service.ts"
+  ],
+  "Nothing is lost: changes wait until then.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Nothing is sent and nothing changes in Proton; the emails are only written to the log.": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Off": [
+    "index.html"
+  ],
+  "Off: notifications show no event names, calendars or addresses — useful if others can see your screen.": [
+    "index.html"
+  ],
+  "On for 24 hours": [
+    "index.html"
+  ],
+  "On macOS 13 and 14 the profile is under <strong>Privacy &amp; Security → Profiles</strong>.": [
+    "index.html (html)"
+  ],
+  "On until {until}: the log includes private details (titles, addresses, email text).": [
+    "src/renderer/renderer.js"
+  ],
+  "On until switched off": [
+    "index.html"
+  ],
+  "On: the log includes private details (titles, addresses, email text) until you switch it off.": [
+    "src/renderer/renderer.js"
+  ],
+  "Once connected, set up again only for another Mac user account, or after the account was removed from Calendar.app.": [
+    "index.html"
+  ],
+  "Once dealt with": [
+    "index.html"
+  ],
+  "once|{count} times": [
+    "src/renderer/renderer.js"
+  ],
+  "Only Accept, Maybe and Decline can be sent to the organizer. Answer in Proton Calendar instead.": [
+    "src/main/recurrence.ts"
+  ],
+  "Only addresses on the list get emails; a change that would email anyone else is refused.": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Only apps on this Mac can reach the bridge; a phone or another computer cannot.": [
+    "index.html"
+  ],
+  "Only Inbox emails from the last 30 days. Starred emails, counter-proposals and answers with a note stay where they are. A missing folder is created.": [
+    "index.html"
+  ],
+  "Open Calendar.app and add an <strong>Other CalDAV Account</strong>.": [
+    "index.html (html)"
+  ],
+  "Open on startup": [
+    "index.html"
+  ],
+  "Open Setup": [
+    "src/renderer/renderer.js"
+  ],
+  "Open System Settings": [
+    "index.html"
+  ],
+  "Open the bridge and sign in again. Syncing waits until then.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Open the bridge to finish signing in. Syncing waits until then.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Open the secure verification window. The bridge will finish signing in automatically after verification succeeds.": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Open Verification": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Open Verification Window": [
+    "src/renderer/renderer.js"
+  ],
+  "or": [
+    "index.html"
+  ],
+  "Original Author": [
+    "index.html"
+  ],
+  "Other Calendar Apps": [
+    "index.html"
+  ],
+  "Overview": [
+    "index.html",
+    "src/main/main.ts"
+  ],
+  "Password": [
+    "index.html"
+  ],
+  "PGP": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Please tell what worked and what did not at <a href=\"#\" class=\"external-link\" data-href=\"https://github.com/to-bi-s/neutron-calendar-bridge/issues\">github.com/to-bi-s/neutron-calendar-bridge</a>. Detailed logging (Settings) shows every request in the log; mind that it then holds private details.": [
+    "index.html (html)"
+  ],
+  "Port": [
+    "index.html"
+  ],
+  "Private details already logged stay in the log until you delete it.": [
+    "index.html"
+  ],
+  "Problem": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Problem: {problem}": [
+    "src/renderer/renderer.js"
+  ],
+  "Proton accepted the password and asks for one more thing.": [
+    "src/renderer/renderer.js"
+  ],
+  "Proton accepted the password and asks for the 6-digit code from your authenticator app (your security key cannot be used by the bridge yet).": [
+    "src/renderer/renderer.js"
+  ],
+  "Proton accepted the password and asks for the 6-digit code from your authenticator app.": [
+    "src/renderer/renderer.js"
+  ],
+  "Proton Account": [
+    "src/main/tray-menu.ts",
+    "src/renderer/renderer.js"
+  ],
+  "Proton Accounts": [
+    "index.html"
+  ],
+  "Proton answers, but refused the calendar list: {message}. The bridge keeps trying with every sync.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton asked to slow down": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton Asked to Slow Down": [
+    "src/main/tray-menu.ts"
+  ],
+  "Proton asked to slow down while a change was being emailed. The change is saved; the email goes out as soon as the pause is over.": [
+    "src/renderer/renderer.js"
+  ],
+  "Proton asked to slow down. Syncing again at {when}.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton asks for your authenticator code": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton asks for your authenticator code.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton asks for your mailbox password": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton asks for your mailbox password.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton asks you to verify it is you": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton Calendar has no tasks: a task list (VTODO) is refused. Events, repeats, alerts, invitations and answers are supported.": [
+    "index.html"
+  ],
+  "Proton Calendar on the Web": [
+    "src/main/main.ts"
+  ],
+  "Proton cannot be reached": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton ended the session. Sign in again on the Setup page.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton ended the session. Sign in again.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton has no categories, attachments or links field, and no privacy setting: those are dropped on save. Links in the description and \"Show time as free\" are kept; a Tentative status is not (Proton has none).": [
+    "index.html"
+  ],
+  "Proton is not asking for anything right now.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton keeps the reminders of this series for all its events: an occurrence that was not changed on its own has no reminders of its own. Set the reminder on all events instead.": [
+    "src/main/recurrence.ts"
+  ],
+  "Proton no longer accepts this version": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton requested additional verification for this sign-in attempt.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton requested additional verification. Complete it in the secure window to finish signing in.": [
+    "src/renderer/renderer.js"
+  ],
+  "Proton requested additional verification. Complete it, then return here to finish signing in.": [
+    "src/renderer/renderer.js"
+  ],
+  "Proton requested an additional verification step for this sign-in attempt.": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Proton sent the calendar list again.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Proton takes one answer for the whole series (or for occurrences the organizer changed). Answer the whole series, or answer this occurrence in Proton Calendar.": [
+    "src/main/recurrence.ts"
+  ],
+  "Proton takes one answer for the whole series (or for occurrences the organizer changed). In Thunderbird, right-click the event → Attendance → Complete Series; or answer this occurrence in Proton Calendar.": [
+    "src/main/recurrence.ts"
+  ],
+  "Proton usually records guests' answers by itself. With this on, the bridge also reads the replies to your meetings (on this Mac only) and applies answers Proton missed.": [
+    "index.html",
+    "src/renderer/renderer.js (constant)"
+  ],
+  "Proton Verification": [
+    "src/main/main.ts"
+  ],
+  "Proton verification failed": [
+    "src/main/main.ts"
+  ],
+  "Proton, end-to-end": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Proton's open-source <a href=\"#\" class=\"external-link\" data-href=\"https://github.com/ProtonMail/WebClients\">WebClients</a> code for login, keys and event encryption, vendored into the client library.": [
+    "index.html (html)"
+  ],
+  "Public Holidays": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Public holidays are synced one calendar at a time.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Pulled from Proton": [
+    "src/renderer/renderer.js"
+  ],
+  "Pushed to Proton": [
+    "src/renderer/renderer.js"
+  ],
+  "Queued — click to take {name} off the queue": [
+    "src/renderer/renderer.js"
+  ],
+  "Queued by the regular sync": [
+    "src/renderer/renderer.js"
+  ],
+  "Quiet": [
+    "src/renderer/renderer.js"
+  ],
+  "Quit Bridge": [
+    "src/main/main.ts",
+    "src/main/tray-menu.ts"
+  ],
+  "Read-only ({reason})": [
+    "src/renderer/renderer.js"
+  ],
+  "Reading an event": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Reading the calendar": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Refresh": [
+    "index.html"
+  ],
+  "Refresh All Accounts": [
+    "src/main/main.ts"
+  ],
+  "Refresh Now": [
+    "src/main/main.ts",
+    "src/main/tray-menu.ts"
+  ],
+  "Refreshing…": [
+    "src/main/tray-menu.ts"
+  ],
+  "Remove": [
+    "src/renderer/renderer.js"
+  ],
+  "Remove {account} from the bridge? Its local copy, settings and Calendar.app password on this Mac are deleted; its calendars leave Calendar.app with the next refresh. Nothing changes in Proton.": [
+    "src/renderer/renderer.js"
+  ],
+  "Remove the account from the bridge (nothing changes in Proton)": [
+    "src/renderer/renderer.js"
+  ],
+  "Removed in Proton": [
+    "src/main/sync-schedule.ts",
+    "src/renderer/renderer.js"
+  ],
+  "Requests to Proton": [
+    "index.html"
+  ],
+  "Same as macOS": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Same as macOS ({language})": [
+    "src/renderer/renderer.js"
+  ],
+  "Same as Proton Calendar": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Same as Proton Calendar ({language})": [
+    "src/renderer/renderer.js"
+  ],
+  "Save Addresses": [
+    "index.html"
+  ],
+  "Saved {count} address|Saved {count} addresses": [
+    "src/renderer/renderer.js"
+  ],
+  "Saved without {guests}; the other changes went through. Fix the address or the allowlist and add them again.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Saved, but not every guest was emailed": [
+    "src/main/bridge-service.ts"
+  ],
+  "Saved, with changes": [
+    "src/main/bridge-service.ts"
+  ],
+  "Saving an event": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Saving the calendar": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Security": [
+    "index.html"
+  ],
+  "Select the calendars to be synced by Neutron Calendar Bridge.": [
+    "index.html"
+  ],
+  "Sent": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Server address": [
+    "index.html"
+  ],
+  "Server path": [
+    "index.html"
+  ],
+  "Server URL": [
+    "index.html"
+  ],
+  "Set Up Calendar.app": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Set Up Calendar.app Again": [
+    "src/renderer/renderer.js"
+  ],
+  "Settings": [
+    "index.html",
+    "src/main/tray-menu.ts"
+  ],
+  "Settings…": [
+    "src/main/main.ts"
+  ],
+  "Setup": [
+    "index.html",
+    "src/main/main.ts",
+    "src/main/tray-menu.ts"
+  ],
+  "Shared with Me": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Show event titles in notifications": [
+    "index.html"
+  ],
+  "Show Instructions": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Show notifications": [
+    "index.html"
+  ],
+  "Show Password": [
+    "src/renderer/renderer.js"
+  ],
+  "Shutdown Error": [
+    "src/main/main.ts"
+  ],
+  "Sign {account} out? Its calendars stop syncing until you sign it in again.": [
+    "src/renderer/renderer.js"
+  ],
+  "Sign In": [
+    "src/renderer/renderer.js"
+  ],
+  "Sign In Again": [
+    "src/renderer/renderer.js"
+  ],
+  "Sign in once, keep a warm Proton session, and mirror each Proton calendar as a local CalDAV collection.": [
+    "index.html"
+  ],
+  "Sign in to another Proton account": [
+    "index.html (attribute)"
+  ],
+  "Sign In to Proton": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Sign in to Proton first.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Sign in with the user name and password shown on the Setup page of Neutron Calendar Bridge.": [
+    "src/main/caldav-server.ts"
+  ],
+  "Sign in with your Proton address and password. Proton may ask you to solve a CAPTCHA once; the bridge then keeps a session, not your password.": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Sign Out": [
+    "src/renderer/renderer.js"
+  ],
+  "Sign out of Proton? Calendar.app will stop syncing until you sign back in.": [
+    "src/renderer/renderer.js"
+  ],
+  "Signed out": [
+    "index.html",
+    "src/main/bridge-service.ts",
+    "src/main/tray-menu.ts"
+  ],
+  "Signed Out": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Signed Out — Sign In on the Setup Page": [
+    "src/main/tray-menu.ts"
+  ],
+  "Signed out by Proton": [
+    "src/main/bridge-service.ts"
+  ],
+  "Signing In": [
+    "src/renderer/renderer.js"
+  ],
+  "Signing in again failed: {error}": [
+    "src/main/bridge-service.ts"
+  ],
+  "Signing in was cancelled (Proton asked for your authenticator code).": [
+    "src/main/bridge-service.ts"
+  ],
+  "Signing in was cancelled (Proton asked for your mailbox password).": [
+    "src/main/bridge-service.ts"
+  ],
+  "Signing in was not finished in time (Proton asked for your authenticator code).": [
+    "src/main/bridge-service.ts"
+  ],
+  "Signing in was not finished in time (Proton asked for your mailbox password).": [
+    "src/main/bridge-service.ts"
+  ],
+  "Since the app started: {count} email moved to {destination}.|Since the app started: {count} emails moved to {destination}.": [
+    "src/renderer/renderer.js"
+  ],
+  "Starts with the next sync.": [
+    "src/renderer/renderer.js"
+  ],
+  "Startup Error": [
+    "src/main/main.ts"
+  ],
+  "Status": [
+    "src/renderer/renderer.js"
+  ],
+  "Subscribed Calendars": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Switch Off Reminders": [
+    "index.html"
+  ],
+  "Sync {name} now": [
+    "src/renderer/renderer.js"
+  ],
+  "Sync {name} to Calendar.app": [
+    "src/renderer/renderer.js"
+  ],
+  "Sync every ticked calendar in {group}": [
+    "src/renderer/renderer.js"
+  ],
+  "Sync every ticked calendar now (public holidays are synced daily on their own)": [
+    "index.html (attribute)"
+  ],
+  "Sync failed": [
+    "src/main/bridge-service.ts"
+  ],
+  "sync failed for {calendars}": [
+    "src/main/bridge-service.ts"
+  ],
+  "Sync failed: {message}": [
+    "src/main/sync-schedule.ts"
+  ],
+  "Sync Schedule": [
+    "index.html"
+  ],
+  "Synced when the bridge signs in and every day at midnight; the arrows sync one now.": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Syncing": [
+    "src/renderer/renderer.js",
+    "src/renderer/renderer.js (map)"
+  ],
+  "Syncing — Needs Attention": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Syncing {name}…": [
+    "src/renderer/renderer.js"
+  ],
+  "Syncing calendars…": [
+    "src/main/bridge-service.ts"
+  ],
+  "Syncing has resumed.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Syncing keeps failing": [
+    "src/main/bridge-service.ts"
+  ],
+  "Syncing now.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Syncing works again": [
+    "src/main/bridge-service.ts"
+  ],
+  "System": [
+    "index.html"
+  ],
+  "System Settings → General → Device Management (Profiles)": [
+    "index.html (attribute)"
+  ],
+  "Tag of this account in bridge.log": [
+    "src/renderer/renderer.js"
+  ],
+  "Test": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Test · {count} address allowed|Test · {count} addresses allowed": [
+    "src/renderer/renderer.js"
+  ],
+  "Test mode is on (Developer Options): emails go only to the allowed addresses.": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Test: only to the addresses below": [
+    "index.html"
+  ],
+  "The account is tied to the profile: to remove it later, remove the profile in System Settings. The profile file is kept in the app's folder for a few minutes only, because it holds the bridge's password.": [
+    "index.html"
+  ],
+  "The bridge can tidy your Inbox like Outlook does: invitations and updates once you have answered them, cancellations once they are in your calendar, guests' answers once Proton has them.": [
+    "index.html"
+  ],
+  "The bridge is a CalDAV server on this Mac, so other calendar apps (BusyCal, Fantastical, …) should work with it too. Only Calendar.app and Thunderbird have been tried so far. Click a value to copy it.": [
+    "index.html"
+  ],
+  "The bridge is not started yet.": [
+    "src/main/main.ts"
+  ],
+  "The bridge is signing in again in the background; syncing waits until then.": [
+    "src/renderer/renderer.js"
+  ],
+  "the calendar": [
+    "src/renderer/renderer.js"
+  ],
+  "The calendar could not be changed in Proton: {error}": [
+    "src/main/bridge-service.ts"
+  ],
+  "The calendar could not be created in Proton: {error}": [
+    "src/main/bridge-service.ts"
+  ],
+  "The calendar stays in Proton Calendar; {count} change made while Proton could not be reached is dropped. To see the calendar in {app} again, tick it on the Calendars page.|The calendar stays in Proton Calendar; {count} changes made while Proton could not be reached are dropped. To see the calendar in {app} again, tick it on the Calendars page.": [
+    "src/main/bridge-service.ts"
+  ],
+  "The calendar stays in Proton Calendar. To see it in {app} again, tick it on the Calendars page.": [
+    "src/main/bridge-service.ts"
+  ],
+  "The code was not accepted. Codes change every 30 seconds: enter the current one.": [
+    "src/renderer/renderer.js"
+  ],
+  "The emails use Proton's own texts. \"Same as Proton Calendar\" follows the invitation language set in Proton Calendar.": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "The folder needs a name": [
+    "src/main/bridge-service.ts"
+  ],
+  "The linked proton-calendar-client cannot do this yet. Rebuild it with patch 20.": [
+    "index.html"
+  ],
+  "The linked proton-calendar-client cannot handle invitations yet. Rebuild it with the invitations patch.": [
+    "index.html"
+  ],
+  "The linked proton-calendar-client cannot read emailed answers yet. Rebuild it with the stage 4 patch.": [
+    "src/renderer/renderer.js"
+  ],
+  "The linked proton-calendar-client has no translations yet (rebuild it with the languages patch); emails are in English.": [
+    "src/renderer/renderer.js"
+  ],
+  "The local copy of your calendars is kept in memory this run ({why}). Everything works, but the copy is rebuilt from Proton at every start until this is solved.": [
+    "src/main/bridge-service.ts"
+  ],
+  "The log normally leaves out private details such as event titles and addresses. Switch this on only while tracing a problem.": [
+    "index.html",
+    "src/renderer/renderer.js (constant)"
+  ],
+  "The mailbox password was not accepted.": [
+    "src/renderer/renderer.js"
+  ],
+  "The password is the bridge's (the one Calendar.app uses), not your Proton password.": [
+    "index.html"
+  ],
+  "The profile shows as \"not verified\": it was made on this Mac by the bridge, not signed by Apple, and holds only the account settings listed under \"Manual Setup\" below.": [
+    "index.html"
+  ],
+  "The reminders could not be saved in Proton: {error}": [
+    "src/main/bridge-service.ts"
+  ],
+  "The verification window is open. The bridge finishes signing in by itself once the verification succeeds.": [
+    "src/renderer/renderer.js"
+  ],
+  "There is no pending verification challenge to complete.": [
+    "src/main/bridge-service.ts"
+  ],
+  "This account is signed out. Its calendars are listed again once you sign in.": [
+    "src/renderer/renderer.js"
+  ],
+  "This account unlocks its keys with a separate mailbox password (Proton's two-password mode). The bridge keeps only the derived key, not the password itself.": [
+    "src/renderer/renderer.js"
+  ],
+  "This calendar is not synced (unticked on the Calendars page).": [
+    "src/main/bridge-service.ts"
+  ],
+  "This calendar is not synced.": [
+    "src/main/bridge-service.ts"
+  ],
+  "This event was deleted meanwhile; nothing was saved. It disappears after the next refresh.": [
+    "src/main/bridge-service.ts"
+  ],
+  "This Fork": [
+    "index.html"
+  ],
+  "This invitation changed since {app} last read it; nothing was sent. {app} shows the current version after its next refresh.": [
+    "src/main/recurrence.ts"
+  ],
+  "This meeting changed since {app} last read it; nothing was sent. {app} shows the current version after its next refresh, then make your change again.": [
+    "src/main/recurrence.ts"
+  ],
+  "This meeting is already in another of your calendars. {app} moves events by copying and deleting them, which would send your guests a new invitation and then a cancellation. Move it in Proton Calendar instead.": [
+    "src/main/recurrence.ts"
+  ],
+  "Thunderbird": [
+    "index.html"
+  ],
+  "Thunderbird checks every 30 minutes; under Properties, \"Refresh Calendar: Every minute\" shows changes sooner.": [
+    "index.html"
+  ],
+  "Thunderbird's warning to assign an email identity can be closed: the bridge takes care of invitations.": [
+    "index.html"
+  ],
+  "Tick the calendars you want.": [
+    "index.html"
+  ],
+  "Tick to sync this calendar": [
+    "src/renderer/renderer.js"
+  ],
+  "Tried another app?": [
+    "index.html"
+  ],
+  "Two-Factor Authentication": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Two-Password Mode": [
+    "src/renderer/renderer.js"
+  ],
+  "Unknown error": [
+    "src/main/main.ts"
+  ],
+  "Unknown startup error": [
+    "src/main/main.ts"
+  ],
+  "Unofficial: not affiliated with or endorsed by Proton AG. Proton and Proton Calendar are trademarks of Proton AG.": [
+    "index.html"
+  ],
+  "Untested": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Untick to stop syncing this calendar": [
+    "src/renderer/renderer.js"
+  ],
+  "Update": [
+    "src/renderer/renderer.js (map)"
+  ],
+  "Use a folder name without \"/\" (only folders at the top level)": [
+    "src/main/bridge-service.ts"
+  ],
+  "Use Other Credentials": [
+    "src/renderer/renderer.js"
+  ],
+  "Username": [
+    "index.html"
+  ],
+  "verification": [
+    "src/renderer/renderer.js"
+  ],
+  "Verification Error": [
+    "src/main/main.ts"
+  ],
+  "Verification Needed — Open the Bridge": [
+    "src/main/tray-menu.ts"
+  ],
+  "Verification Requested": [
+    "index.html",
+    "src/renderer/renderer.js"
+  ],
+  "Version": [
+    "index.html"
+  ],
+  "View": [
+    "src/main/main.ts"
+  ],
+  "Web Calendar": [
+    "src/main/main.ts",
+    "src/main/tray-menu.ts"
+  ],
+  "When a change from Calendar.app could not be saved, when Proton cannot be reached for 5 minutes, and for mailbox problems.": [
+    "index.html"
+  ],
+  "Who Made This": [
+    "index.html"
+  ],
+  "Window": [
+    "src/main/main.ts"
+  ],
+  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them, as for Calendar.app.": [
+    "index.html (html)"
+  ],
+  "With Reminders left on, Reminders keeps asking the bridge for a task list (refused, harmless).": [
+    "index.html"
+  ],
+  "You were invited to this event, so only its organizer can change it.": [
+    "src/main/recurrence.ts"
+  ],
+  "your calendar app": [
+    "src/main/caldav-client.ts"
+  ],
+  "Zoom is not connected to your Proton account, so no Zoom link could be made. Connect it in Proton Calendar's settings, or type \"Proton Meet\" as the location.": [
+    "src/main/bridge-service.ts"
+  ],
+  "Zoom links are not included in your Proton plan, so no Zoom link could be made. Type \"Proton Meet\" as the location instead.": [
+    "src/main/bridge-service.ts"
+  ]
+}

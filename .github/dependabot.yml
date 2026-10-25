@@ -1,0 +1,7 @@
+# Keeps the workflow actions current (npm dependencies are updated by hand, with the lock).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

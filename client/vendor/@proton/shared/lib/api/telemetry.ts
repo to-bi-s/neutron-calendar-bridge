@@ -1,0 +1,820 @@
+import type { SimpleMap } from '../interfaces';
+
+// Reminder: both auth & un-auth measurement groups need to be whitelisted by the back-end. Make sure to specify it to the back-end or your measurement will be silently ignored.
+export enum TelemetryMeasurementGroups {
+    accountSignup = 'account.any.signup',
+    accountOrgLogoUpload = 'account.web.org_logo_upload',
+    accountSecurityCheckup = 'account.web.security_checkup',
+    accountSafetyReviewCtr = 'account.web.safety_review_ctr',
+    accountSafetyReviewScoreDiff = 'account.web.safety_review_score_diff',
+    accountRecoverySettings = 'account.web.recovery_settings',
+    accountPasswordReminder = 'account.web.password_reminder',
+    accountResetPassword = 'account.web.reset_password',
+    accountUnauthLost2FA = 'account.web.unauth_lost_2fa',
+    accountDashboard = 'account.web.dashboard',
+    accountUpgradePage = 'account.web.upgrade_page',
+    easySwitch = 'any.web.easy_switch',
+    referralDiscover = 'any.web.referral_discover',
+    alwaysOnUpsell = 'any.web.always_on_upsell',
+    calendarIcsSurgery = 'calendar.web.ics_surgery',
+    calendarTimeZoneSelector = 'calendar.web.timezone_selector',
+    calendarVideoConferencing = 'calendar.web.video_conferencing',
+    meetFunnelTelemetry = 'meet.web.meet_funnel_telemetry',
+    meetActions = 'meet.web.actions',
+    meetDashboard = 'meet.web.dashboard',
+    meetPerformance = 'meet.web.performance',
+    accountCancellation = 'account.web.cancellation',
+    accountCancellationFeedbackFirst = 'account.web.cancellation_feedback_first',
+    settingsHeartBeat = 'any.web.settings_heart_beat',
+    calendarSettingsHeartBeat = 'any.web.calendar_settings_heart_beat',
+    /** Not only calendar scope because party crasher on mail and drawer */
+    calendarInvite = 'any.web.calendar_invite',
+    keyTransparency = 'any.web.key_transparency',
+    subscriptionModal = 'any.web.subscription_modal',
+    mailOnboarding = 'mail.web.onboarding',
+    paidUsersNudge = 'any.web.paid_users_nudge',
+    mailPrivacyDropdown = 'mail.web.privacy_dropdown',
+    mailSelectAll = 'mail.web.select_all',
+    mailSnooze = 'mail.web.snooze',
+    mailSignup = 'mail.web.signup',
+    mailComposerAssistant = 'mail.web.composer_assistant',
+    mailLumo = 'mail.web.lumo',
+    mailProtonTips = 'mail.web.proton_tips',
+    postSubscriptionTourEvents = 'any.web.post_subscription_tour_events',
+    mailDesktopDefaultMailto = 'mail.desktop.default_mailto',
+    mailDesktopDailyStats = 'mail.desktop.daily_stats',
+    mailActions = 'mail.web.clicks_mail_actions',
+    mailListSettings = 'mail.web.list_settings',
+    mailPostSignupOneDollar = 'mail.web.post_signup_one_dollar',
+    mailPostSignupZeroNinetyNine = 'mail.web.post_signup_zero_ninety_nine',
+    mailPagingControls = 'mail.web.paging_controls',
+    mailExpandBlockquotes = 'mail.web.expand_blockquotes',
+    categoriesView = 'mail.any.categories_view',
+    passNudge = 'mail.web.pass_nudge',
+    /** Shared with mobile clients: compares Encrypted Search (searchVersion 'v1') against Content Search (searchVersion 'v2') */
+    contentSearch = 'mail.any.search',
+    /** Shared with mobile clients: indexing telemetry for the same v1/v2 comparison as `contentSearch` */
+    contentSearchIndex = 'mail.any.search_index',
+    mailNewsletterSubscriptions = 'mail.web.newsletter_subscriptions',
+    unlimitedOffer2025 = 'any.web.unlimited_offer_2025',
+    unlimitedToDuoOffer = 'any.web.unlimited_to_duo_offer',
+    unlimitedToDuoDiscountedOffer = 'any.web.unlimited_to_duo_discounted_offer',
+    esMigrationTool = 'mail.es_migration_tool',
+    /** Setting it to any even if mail only ATM. We will expand it to other apps soon */
+    securityCenter = 'any.web.security_center',
+    vpnDrawer = 'any.web.vpn_drawer',
+    paymentsFlow = 'payments.flow',
+    /** Drive Web */
+    driveWebFeaturePerformance = 'drive.web.feature_performance_unauth',
+    driveWebActions = 'drive.web.actions_unauth',
+    drivePostSignupOneDollar = 'drive.web.post_signup_one_dollar',
+    /** Shared */
+    collapsibleLeftSidebar = 'any.web.collapsible_left_sidebar',
+    smartBanner = 'any.web.smart_banner',
+    clientInstalls = 'common.any.client_installs',
+    clientSearch = 'any.web.client_search',
+    b2bOnboarding = 'any.web.b2b_onboarding',
+    bringYourOwnEmail = 'any.web.bring_your_own_email',
+    appSwitcher = 'any.web.app_switcher',
+    accountExploreApps = 'account.web.explore_apps',
+    preventWasmLoading = 'any.web.prevent_wasm_loading',
+    /** Docs */
+    docsSuggestions = 'common.web.suggestions',
+    docsHomepage = 'drive.docs.homepage',
+    docsEditor = 'drive.docs.editor',
+    /** Vpn TV */
+    vpnTv = 'vpn.any.tv_signin',
+    vpnAlwaysOnPolicy = 'vpn.web.always_on_policy',
+    vpnB2bUserActivity = 'vpn.web.b2b_user_activity',
+    mailForegroundActivity = 'mail.common.foreground_activity',
+}
+
+export enum TelemetryMailOnboardingEvents {
+    start_onboarding_modals = 'start_onboarding_modals',
+    finish_onboarding_modals = 'finish_onboarding_modals',
+    select_theme = 'select_theme',
+    enable_gmail_forwarding = 'enable_gmail_forwarding',
+    change_login = 'change_login',
+    change_login_checklist = 'change_login_checklist',
+    finish_change_login = 'finish_change_login',
+    download_desktop_app = 'download_desktop_app',
+    premium_features = 'premium_features',
+    close_checklist = 'close_checklist',
+    clicked_checklist_setting = 'clicked_checklist_setting',
+}
+
+export enum TelemetrySubscriptionModalEvents {
+    initialization = 'initialization',
+    payment = 'payment',
+    cancelledOnSameDay = 'cancelled_on_same_day',
+    addLumo = 'add_lumo',
+}
+
+export enum TelemetryMailTrial2024UpsellModal {
+    noThanks = 'no_thanks',
+    closeModal = 'close_modal',
+    upsell = 'upsell',
+}
+
+export enum TelemetryEasySwitchEvents {
+    importReportAction = 'import_report_action',
+    byoeAddressAction = 'byoe_address_action',
+    byoeClaimableAddressModalShown = 'byoe_claimable_address_modal_shown',
+    byoeClaimableAddressModalAction = 'byoe_claimable_address_modal_action',
+    byoeAddressLinkedModalShown = 'byoe_address_linked_modal_shown',
+    byoeAddressLinkedModalAction = 'byoe_address_linked_modal_action',
+}
+
+export enum TelemetryMailPagingControlsEvents {
+    move_to_previous_page = 'move_to_previous_page',
+    move_to_next_page = 'move_to_next_page',
+    clicked_load_more_search_results = 'clicked_load_more_search_results',
+    move_to_custom_page = 'move_to_custom_page',
+}
+
+export enum TelemetryListSetting {
+    list_filter_all = 'list_filter_all',
+    list_filter_read = 'list_filter_read',
+    list_filter_unread = 'list_filter_unread',
+    list_filter_file = 'list_filter_file',
+    list_order_new_first = 'list_order_new_first',
+    list_order_old_first = 'list_order_old_first',
+    list_order_large_first = 'list_order_large_first',
+    list_order_small_first = 'list_order_small_first',
+}
+
+export enum TelemetryCalendarEvents {
+    change_temporary_time_zone = 'change_temporary_time_zone',
+    answer_invite = 'answer_invite',
+}
+
+export enum TelemetryCalendarVideoConferencing {
+    video_conference_widget = 'video_conference_widget',
+    video_conference_settings_toggle = 'video_conference_settings_toggle',
+    video_conference_zoom_integration = 'video_conference_zoom_integration',
+    video_conference_proton_meet_integration = 'video_conference_proton_meet_integration',
+    video_conference_proton_meet_settings_toggle = 'video_conference_proton_meet_settings_toggle',
+}
+
+export enum TelemetryMeetFunnelTelemetry {
+    spotlight_displayed = 'spotlight_displayed',
+    explore_meet_clicked = 'explore_meet_clicked',
+    meeting_created = 'meeting_created',
+    meet_opened = 'meet_opened',
+}
+
+export enum TelemetryMeetActionsEvents {
+    prejoin_viewed = 'prejoin_viewed',
+    display_name_entered = 'display_name_entered',
+    waiting_room_toggled = 'waiting_room_toggled',
+    waiting_room_retry_clicked = 'waiting_room_retry_clicked',
+    desktop_app_banner_shown = 'desktop_app_banner_shown',
+    desktop_app_banner_clicked = 'desktop_app_banner_clicked',
+    join_clicked = 'join_clicked',
+    mic_toggled = 'mic_toggled',
+    camera_toggled = 'camera_toggled',
+    device_selected = 'device_selected',
+    camera_rotated = 'camera_rotated',
+    mic_test_completed = 'mic_test_completed',
+    speaker_test_completed = 'speaker_test_completed',
+    permission_requested = 'permission_requested',
+    permission_blocked_modal_shown = 'permission_blocked_modal_shown',
+    no_device_detected = 'no_device_detected',
+    noise_cancellation_toggled = 'noise_cancellation_toggled',
+    background_effect_selected = 'background_effect_selected',
+    custom_background_uploaded = 'custom_background_uploaded',
+    custom_background_deleted = 'custom_background_deleted',
+    screen_share_toggled = 'screen_share_toggled',
+    screen_share_leave_warning_answered = 'screen_share_leave_warning_answered',
+    picture_in_picture_toggled = 'picture_in_picture_toggled',
+    layout_changed = 'layout_changed',
+    self_view_toggled = 'self_view_toggled',
+    incoming_video_toggled = 'incoming_video_toggled',
+    participant_list_toggled = 'participant_list_toggled',
+    participant_muted_by_host = 'participant_muted_by_host',
+    participant_removed = 'participant_removed',
+    host_assigned = 'host_assigned',
+    hand_lowered_by_host = 'hand_lowered_by_host',
+    waiting_room_admission_handled = 'waiting_room_admission_handled',
+    poor_connection_indicator_shown = 'poor_connection_indicator_shown',
+    chat_toggled = 'chat_toggled',
+    chat_reaction_sent = 'chat_reaction_sent',
+    chat_mention_used = 'chat_mention_used',
+    chat_scrolled_to_message = 'chat_scrolled_to_message',
+    emoji_reaction_sent = 'emoji_reaction_sent',
+    hand_raise_toggled = 'hand_raise_toggled',
+    captions_toggled = 'captions_toggled',
+    captions_failed = 'captions_failed',
+    recording_toggled = 'recording_toggled',
+    recording_upsell_shown = 'recording_upsell_shown',
+    recording_upsell_clicked = 'recording_upsell_clicked',
+    recording_download_prompt_answered = 'recording_download_prompt_answered',
+    settings_opened = 'settings_opened',
+    meeting_lock_toggled = 'meeting_lock_toggled',
+    meeting_details_opened = 'meeting_details_opened',
+    connection_lost_modal_shown = 'connection_lost_modal_shown',
+    connection_lost_modal_answered = 'connection_lost_modal_answered',
+}
+
+export enum TelemetryMeetDashboardEvents {
+    dashboard_viewed = 'dashboard_viewed',
+    meeting_started_instant = 'meeting_started_instant',
+    join_with_link_opened = 'join_with_link_opened',
+    join_with_link_submitted = 'join_with_link_submitted',
+    schedule_meeting_opened = 'schedule_meeting_opened',
+    meeting_scheduled = 'meeting_scheduled',
+    room_created = 'room_created',
+    room_edited = 'room_edited',
+    meeting_deleted = 'meeting_deleted',
+    meeting_link_copied = 'meeting_link_copied',
+    personal_link_rotated = 'personal_link_rotated',
+    upsell_banner_shown = 'upsell_banner_shown',
+    upsell_banner_clicked = 'upsell_banner_clicked',
+    recordings_page_viewed = 'recordings_page_viewed',
+    recording_downloaded = 'recording_downloaded',
+    recording_deleted = 'recording_deleted',
+    sign_in_clicked = 'sign_in_clicked',
+    sign_up_clicked = 'sign_up_clicked',
+}
+
+export enum TelemetryMeetPerformanceEvents {
+    app_loaded = 'app_loaded',
+    join_succeeded = 'join_succeeded',
+}
+
+export enum TelemetryMailNewsletterSubscriptions {
+    newsletters_view_visit = 'newsletters_view_visit',
+    newsletter_action = 'newsletter_action',
+    newsletter_messages_action = 'newsletter_messages_action',
+    newsletters_list_sorting = 'newsletters_list_sorting',
+    newsletters_list_pagination = 'newsletters_list_pagination',
+}
+
+export enum TelemetryIcsSurgeryEvents {
+    import = 'import',
+    import_publish = 'import_publish',
+    invitation = 'invitation',
+    ics_parsing = 'ics_parsing',
+}
+
+export enum TelemetryAccountSignupEvents {
+    pageLoad = 'fe.page_load',
+    planSelect = 'user.plan_select',
+    cycleSelect = 'user.cycle_select',
+    currencySelect = 'user.currency_select',
+    paymentSelect = 'user.payment_select',
+    userCheckout = 'user.checkout',
+    userSignIn = 'user.sign_in',
+    interactAccountCreate = 'user.interact.account_create',
+    interactUpsell = 'user.interact.upsell',
+    interactCreditCard = 'user.interact.credit_card',
+    interactPassword = 'user.interact.password',
+    interactRecoveryKit = 'user.interact.recovery',
+    interactDownload = 'user.interact.download',
+    beAvailableExternal = 'be.available_external',
+    beSignInSuccess = 'be.sign_in_success',
+    beSignOutSuccess = 'be.sign_out_success',
+    bePaymentMethods = 'be.payments_available',
+    checkoutError = 'be.checkout_error',
+    onboardingStart = 'fe.onboarding_start',
+    onboardShown = 'fe.onboarding_shown',
+    onboardFinish = 'fe.onboarding_finish',
+    signupFinish = 'fe.signup_finish',
+}
+
+export enum TelemetryAccountCancellationEvents {
+    startCancellation = 'start_cancellation',
+    cancelPage = 'cancel_page',
+    cancelModal = 'cancel_modal',
+    feedbackModal = 'feedback_modal',
+    resubscribeModal = 'resubscribe_modal',
+    dashboardReactivate = 'dashboard_reactivate',
+    upsellModal = 'upsell_modal',
+}
+
+export enum TelemetryAccountCancellationFlowFeedbackEvents {
+    startCancellation = 'start_cancellation',
+    feedbackStep = 'feedback_step',
+    secondStep = 'second_step',
+    confirmCancellation = 'confirm_cancellation',
+    managedExternally = 'managed_externally',
+}
+
+export enum TelemetryAccountOrganizationLogoUploadEvents {
+    processStart = 'process_start',
+    processSuccess = 'process_success',
+    processFailure = 'process_failure',
+}
+
+export enum TelemetryAccountSecurityCheckupEvents {
+    pageLoad = 'page_load',
+
+    completeRecoveryMultiple = 'cohort_change.complete_recovery_multiple',
+    completeRecoverySingle = 'cohort_change.complete_recovery_single',
+    accountRecoveryEnabled = 'cohort_change.account_recovery_enabled',
+}
+
+export enum TelemetrySafetyReviewCtrEvents {
+    step_load = 'step_load',
+    step_exit = 'step_exit',
+    step_skip = 'step_skip',
+    step_success = 'step_success',
+}
+
+export enum TelemetrySafetyReviewScoreDiffEvents {
+    score_diff = 'score_diff',
+}
+
+export enum TelemetryAccountDashboardEvents {
+    pageLoad = 'page_load',
+    crossProductClick = 'cross_product_click',
+    featureCardClick = 'feature_card_click',
+    upgradeButtonClick = 'upgrade_button_click',
+    upsellCtaClick = 'upsell_cta_click',
+    downloadCtaClick = 'download_cta_click',
+}
+
+export enum TelemetryUpgradePageEvents {
+    page_load = 'page_load',
+    cta_click = 'cta_click',
+    subscription_success = 'subscription_success',
+}
+
+export enum TelemetryRecoverySettingsEvents {
+    page_load = 'page_load',
+    account_safety_review_click = 'account_safety_review_click',
+    setting_enabled = 'setting_enabled',
+}
+
+export enum TelemetryPasswordReminderEvents {
+    banner_display = 'banner_display',
+    open = 'open',
+    success = 'success',
+    wrong_password = 'wrong_password',
+    api_error = 'api_error',
+    close = 'close',
+    dismiss = 'dismiss',
+    forgot_password_exit = 'forgot_password_exit',
+    enable = 'enable',
+    disable = 'disable',
+    enforcement_enable = 'enforcement_enable',
+    enforcement_disable = 'enforcement_disable',
+}
+
+export enum TelemetryResetPasswordEvents {
+    page_load = 'page_load',
+    page_exit = 'page_exit',
+    step_load = 'step_load',
+    recovery_methods_requested = 'recovery_methods_requested',
+    code_sent = 'code_sent',
+    method_validated = 'method_validated',
+    success = 'success',
+    failure = 'failure',
+}
+
+export enum TelemetryReferralDiscoverEvents {
+    top_bar_button_view = 'top_bar_button_view',
+    top_bar_button_click = 'top_bar_button_click',
+    top_bar_spotlight_cta_click = 'top_bar_spotlight_cta_click',
+    settings_spotlight_view = 'settings_spotlight_view',
+    referral_page_view = 'referral_page_view',
+    drawer_app_view = 'drawer_app_view',
+    copy_link_drawer = 'copy_link_drawer',
+    copy_link_page = 'copy_link_page',
+    share = 'share',
+    send_email_invite = 'send_email_invite',
+}
+
+export enum TelemetryUnauthLost2FAEvents {
+    step_load = 'step_load',
+    flow_outcome = 'flow_outcome',
+}
+
+export enum TelemetryKeyTransparencyErrorEvents {
+    self_audit_error = 'self_audit_error',
+    key_verification_failure = 'key_verification_failure',
+}
+
+export enum TelemetryDesktopEvents {
+    client_first_launch = 'client_first_launch',
+}
+
+export enum TelemetryMailEvents {
+    privacy_dropdown_opened = 'privacy_dropdown_opened',
+    snooze_open_dropdown = 'snooze_open_dropdown',
+}
+
+export enum TelemetryMailForegroundEvents {
+    app_in_foreground = 'mail_foreground_event',
+}
+
+export enum TelemetryMailSelectAllEvents {
+    button_move_to_archive = 'button_move_to_archive',
+    button_move_to_trash = 'button_move_to_trash',
+    banner_move_to = 'banner_move_to',
+    banner_label_as = 'banner_label_as',
+    banner_mark_as_read = 'banner_mark_as_read',
+    banner_mark_as_unread = 'banner_mark_as_unread',
+    banner_permanent_delete = 'banner_permanent_delete',
+}
+
+export enum TelemetryMailComposerAssistantEvents {
+    show_assistant = 'show_assistant',
+    free_trial_start = 'free_trial_start',
+    download_model = 'download_model',
+    use_answer = 'use_answer',
+    not_use_answer = 'not_use_answer',
+    request_assistant = 'request_assistant',
+    assistant_error = 'assistant_error',
+    send_message = 'send_message',
+    pause_download = 'pause_download',
+    load_model = 'load_model',
+    unload_model = 'unload_model',
+    incompatible_assistant = 'incompatible_assistant',
+}
+
+export enum TelemetryMailLumoEvents {
+    assistant_opened = 'assistant_opened',
+    prompt_sent = 'prompt_sent',
+    chain_end = 'chain_end',
+    tool_end = 'tool_end',
+    confirm_answered = 'confirm_answered',
+    debug_report_opened = 'debug_report_opened',
+}
+
+export enum TelemetryCategoriesOnboardingEvents {
+    onboarding_reply = 'onboarding_reply',
+    category_nav = 'category_nav',
+    recategorize_email = 'recategorize_email',
+    settings_toggle_category_view = 'settings_toggle_category_view',
+    settings_toggle_category = 'settings_toggle_category',
+    settings_toggle_notification = 'settings_toggle_notification',
+    report_unread_count = 'report_unread_count',
+}
+
+export enum TelemetryHeartbeatEvents {
+    mail_heartbeat = 'mail_heartbeat',
+    calendar_heartbeat = 'calendar_heartbeat',
+}
+
+export enum TelemetryInboxDestkopEvents {
+    mailto_heartbeat = 'mailto_heartbeat',
+    daily_stats_heartbeat = 'daily_stats_heartbeat',
+}
+
+enum TelemetryChangelog {
+    opened = 'opened',
+}
+
+export enum TelemetrySecurityCenterEvents {
+    account_security_card = 'account_security_card',
+    proton_pass_discover_banner = 'proton_pass_discover_banner',
+    proton_pass_create_alias = 'proton_pass_create_alias',
+    proton_sentinel_toggle = 'proton_sentinel_toggle',
+}
+
+export enum TelemetryVPNDrawerEvents {
+    tooltip_displayed = 'tooltip_displayed',
+    tooltip_clicked = 'tooltip_clicked',
+    tooltip_dismissed = 'tooltip_dismissed',
+    drawer_displayed = 'drawer_displayed',
+    download_clicked = 'download_clicked',
+    status_changed = 'status_changed',
+}
+
+export enum TelemetryPaymentsEvents {
+    load_payment = 'load_payment',
+    payment_attempt = 'payment_attempt',
+    payment_success = 'payment_success',
+    payment_failure = 'payment_failure',
+}
+
+export enum TelemetryDriveWebFeature {
+    performance = 'drive_web_feature_performance_unauth',
+    actions = 'drive_web_actions_unauth',
+}
+
+export enum TelemetryCollapsibleLeftSidebarEvents {
+    toggleLeftSidebar = 'toggle_left_sidebar',
+}
+
+export enum TelemetryProtonTipsEvents {
+    tipDispayed = 'tip_displayed',
+    CTAButtonClicked = 'cta_clicked',
+    tipChangeState = 'tip_change_state',
+    closeButtonClicked = 'close_button_clicked',
+    tipSnoozed = 'tip_snoozed',
+}
+
+export enum TelemetryMailListEvents {
+    clicksMailListActions = 'clicks_mail_actions',
+}
+
+export enum TelemetryMailBlockquotes {
+    expandComposerBlockquotes = 'expand_composer_blockquotes',
+    createReply = 'create_reply',
+}
+
+export enum TelemetrySmartBannerEvents {
+    clickAppStoreLink = 'click_app_store_link',
+}
+
+export enum TelemetryDocsEvents {
+    suggestion_created = 'suggestion.created',
+    suggestion_resolved = 'suggestion.resolved',
+    suggestion_commented = 'suggestion.comment',
+}
+
+export enum TelemetryDocsEditorEvents {
+    table_of_contents_available = 'table_of_contents.available',
+    table_of_contents_opened = 'table_of_contents.opened',
+    table_of_contents_heading_clicked = 'table_of_contents.heading_clicked',
+}
+
+export enum TelemetryDocsHomepageEvents {
+    document_opened = 'document.opened',
+    document_opened_in_trash = 'document.opened_in_trash',
+    document_created = 'document.created',
+    document_shared = 'document.shared',
+    document_trashed = 'document.trashed',
+    document_restored = 'document.restored',
+    document_permanently_deleted = 'document.permanently_deleted',
+    document_renamed = 'document.renamed',
+    document_moved = 'document.moved',
+    document_source_opened = 'document.source.opened',
+    sorting_changed_to_name = 'sorting.changed.to_name',
+    sorting_changed_to_time = 'sorting.changed.to_time',
+    sorting_changed_to_owner = 'sorting.changed.to_owner',
+    sorting_changed_to_location = 'sorting.changed.to_location',
+    invite_accepted = 'invite.accepted',
+    invite_rejected = 'invite.rejected',
+    drive_opened = 'drive.opened',
+}
+
+export enum TelemetryPostSubscriptionTourEvents {
+    post_subscription_action = 'post_subscription_action',
+    start_feature_tour = 'start_feature_tour',
+    quit_feature_tour = 'quit_feature_tour',
+    finish_feature_tour = 'finish_feature_tour',
+    replaced_default_short_domain_address = 'replaced_default_short_domain_address',
+}
+
+export enum TelemetryEncryptedSearchEvents {
+    start_es_indexing = 'start_es_indexing',
+    end_es_indexing = 'end_es_indexing',
+    pause_es_indexing = 'pause_es_indexing',
+
+    perform_search = 'perform_search',
+    es_search_complete = 'es_search_complete',
+    clear_search_fields = 'clear_search_fields',
+
+    delete_es_data = 'delete_es_data',
+    switch_search_type = 'switch_search_type',
+}
+
+/** Events under `TelemetryMeasurementGroups.contentSearch`, shared with mobile's Content Search schema */
+export enum TelemetryContentSearchEvents {
+    query_completed = 'query_completed',
+    result_opened = 'result_opened',
+    result_action = 'result_action',
+    search_session_completed = 'search_session_completed',
+}
+
+/** Events under `TelemetryMeasurementGroups.contentSearchIndex`, shared with mobile's Content Search schema */
+export enum TelemetryContentSearchIndexEvents {
+    mailbox_index_completed = 'mailbox_index_completed',
+}
+
+export enum TelemetryB2BOnboardingEvents {
+    modal_displayed = 'modal_displayed',
+    click_modal_item = 'click_modal_item',
+    hide_navbar_button = 'hide_navbar_button',
+}
+
+export enum TelemetryBringYourOwnEmailEvents {
+    claim_proton_address = 'claim_proton_address',
+}
+
+// Offers telemetry events
+export enum TelemetryMailDrivePostSignupOneDollarEvents {
+    automaticModalOpen = 'automatic_modal_open',
+    clickUpsellButton = 'click_upsell_button',
+    clickTopNavbar = 'click_top_navbar',
+    closeOffer = 'close_offer',
+    userSubscribed = 'user_subscribed',
+}
+
+export enum TelemetryAlwaysOnUpsellEvents {
+    clickUpsellButton = 'click_upsell_button',
+    clickTopNavbar = 'click_top_navbar',
+    closeOffer = 'close_offer',
+    userSubscribed = 'user_subscribed',
+}
+
+export enum TelemetryPaidUsersNudge {
+    clickUpsellButton = 'click_upsell_button',
+    clickTopNavbar = 'click_top_navbar',
+    closeOffer = 'close_offer',
+    userSubscribed = 'user_subscribed',
+    clickHideOffer = 'click_hide_offer',
+}
+
+export enum TelemetryPassNudgeEvents {
+    banner_display = 'banner_display',
+    banner_interaction = 'banner_interaction',
+    pass_cta_click = 'pass_cta_click',
+}
+
+export enum TelemetryPassExtensionEvents {
+    pass_extension_installed = 'fe.pass_extension_installed',
+}
+
+export enum TelemetryUnlimitedOffer2025 {
+    clickTopNavbar = 'click_top_navbar',
+    clickUpsellButton = 'click_upsell_button',
+    closeOffer = 'close_offer',
+    userSubscribed = 'user_subscribed',
+    clickHideOffer = 'click_hide_offer',
+}
+
+export enum TelemetryMailPostSignupZeroNinetyNineEvents {
+    automaticModalOpen = 'automatic_modal_open',
+    clickTopNavbar = 'click_top_navbar',
+    clickUpsellButton = 'click_upsell_button',
+    closeOffer = 'close_offer',
+    clickHideOffer = 'click_hide_offer',
+    userSubscribed = 'user_subscribed',
+}
+
+export enum TelemetryUnlimitedToDuoOffer {
+    clickUpsellButton = 'click_upsell_button',
+    clickTopNavbar = 'click_top_navbar',
+    userSubscribed = 'user_subscribed',
+    closeOffer = 'close_offer',
+    clickHideOffer = 'click_hide_offer',
+}
+
+export enum TelemetryUnlimitedToDuoDiscountedOffer {
+    clickUpsellButton = 'click_upsell_button',
+    clickTopNavbar = 'click_top_navbar',
+    userSubscribed = 'user_subscribed',
+    closeOffer = 'close_offer',
+    clickHideOffer = 'click_hide_offer',
+}
+
+export enum TelemetryAppSwitcher {
+    dropdown_app_click = 'dropdown_app_click',
+}
+
+export enum TelemetryExploreAppsEvents {
+    page_load = 'page_load',
+    app_click = 'app_click',
+}
+
+export enum TelemetryESMigrationToolEvents {
+    migration_finished = 'es_migration_tool.migration_finished',
+}
+
+export const enum TelemetryVpnTvEvents {
+    tvAuthInitiated = 'tv_auth_initiated',
+}
+
+export enum TelemetryVpnAlwaysOnPolicyEvents {
+    configureOpened = 'configure_opened',
+    generateStart = 'generate_start',
+    generateSuccess = 'generate_success',
+    generateFailure = 'generate_failure',
+    instructionsViewed = 'instructions_viewed',
+    learnMoreClicked = 'learn_more_clicked',
+    removeModalOpened = 'remove_modal_opened',
+    downloadLatestClicked = 'download_latest_clicked',
+    clientDownloadClicked = 'client_download_clicked',
+}
+
+export enum TelemetryVpnB2bUserActivityEvents {
+    upsell_shown = 'upsell_shown',
+    upsell_learn_more_clicked = 'upsell_learn_more_clicked',
+    upsell_upgrade_started = 'upsell_upgrade_started',
+    upsell_upgrade_success = 'upsell_upgrade_success',
+    enable_clicked = 'enable_clicked',
+}
+
+export enum TelemetryPreventWasmLoading {
+    wasm_unsupported = 'wasm_unsupported',
+    wasm_loading = 'wasm_loading',
+    wasm_failed = 'wasm_failed',
+}
+
+export type TelemetryEvents =
+    | TelemetrySubscriptionModalEvents
+    | TelemetryMailTrial2024UpsellModal
+    | TelemetryCalendarEvents
+    | TelemetryIcsSurgeryEvents
+    | TelemetryAccountSignupEvents
+    | TelemetryAccountCancellationEvents
+    | TelemetryAccountDashboardEvents
+    | TelemetryRecoverySettingsEvents
+    | TelemetryPasswordReminderEvents
+    | TelemetryResetPasswordEvents
+    | TelemetryReferralDiscoverEvents
+    | TelemetryKeyTransparencyErrorEvents
+    | TelemetryMailEvents
+    | TelemetryMailListEvents
+    | TelemetryMailSelectAllEvents
+    | TelemetryMailComposerAssistantEvents
+    | TelemetryMailLumoEvents
+    | TelemetryMailOnboardingEvents
+    | TelemetryMailPagingControlsEvents
+    | TelemetryMailBlockquotes
+    | TelemetryMailForegroundEvents
+    | TelemetryChangelog
+    | TelemetrySecurityCenterEvents
+    | TelemetryVPNDrawerEvents
+    | TelemetryPaymentsEvents
+    | TelemetryAccountOrganizationLogoUploadEvents
+    | TelemetryDriveWebFeature
+    | TelemetryAccountSecurityCheckupEvents
+    | TelemetryCollapsibleLeftSidebarEvents
+    | TelemetryProtonTipsEvents
+    | TelemetryHeartbeatEvents
+    | TelemetrySmartBannerEvents
+    | TelemetryDesktopEvents
+    | TelemetryInboxDestkopEvents
+    | TelemetryDocsEvents
+    | TelemetryDocsEditorEvents
+    | TelemetryDocsHomepageEvents
+    | TelemetryCalendarVideoConferencing
+    | TelemetryEncryptedSearchEvents
+    | TelemetryContentSearchEvents
+    | TelemetryContentSearchIndexEvents
+    | TelemetryB2BOnboardingEvents
+    | TelemetryBringYourOwnEmailEvents
+    | TelemetryPostSubscriptionTourEvents
+    | TelemetryMailDrivePostSignupOneDollarEvents
+    | TelemetryPaidUsersNudge
+    | TelemetryPassNudgeEvents
+    | TelemetryPassExtensionEvents
+    | TelemetryMailNewsletterSubscriptions
+    | TelemetryUnlimitedOffer2025
+    | TelemetryAlwaysOnUpsellEvents
+    | TelemetryMailPostSignupZeroNinetyNineEvents
+    | TelemetryUnlimitedToDuoOffer
+    | TelemetryUnlimitedToDuoDiscountedOffer
+    | TelemetryListSetting
+    | TelemetryAppSwitcher
+    | TelemetryExploreAppsEvents
+    | TelemetryESMigrationToolEvents
+    | TelemetryUnauthLost2FAEvents
+    | TelemetryAccountCancellationFlowFeedbackEvents
+    | TelemetrySafetyReviewCtrEvents
+    | TelemetrySafetyReviewScoreDiffEvents
+    | TelemetryUpgradePageEvents
+    | TelemetryVpnTvEvents
+    | TelemetryVpnAlwaysOnPolicyEvents
+    | TelemetryVpnB2bUserActivityEvents
+    | TelemetryPreventWasmLoading
+    | TelemetryCategoriesOnboardingEvents
+    | TelemetryMeetFunnelTelemetry
+    | TelemetryMeetActionsEvents
+    | TelemetryMeetDashboardEvents
+    | TelemetryMeetPerformanceEvents
+    | TelemetryEasySwitchEvents;
+
+export interface TelemetryReport {
+    measurementGroup: TelemetryMeasurementGroups;
+    event: TelemetryEvents;
+    values?: SimpleMap<number>;
+    dimensions?: SimpleMap<string>;
+}
+
+export const sendTelemetryData = (data: {
+    MeasurementGroup: TelemetryMeasurementGroups;
+    Event: TelemetryEvents;
+    Values?: SimpleMap<number>;
+    Dimensions?: SimpleMap<string>;
+}) => ({
+    method: 'post',
+    url: 'data/v1/stats',
+    keepalive: true,
+    data: {
+        ...data,
+        Values: data.Values || {},
+        Dimensions: data.Dimensions || {},
+    },
+});
+
+export const sendMultipleTelemetryData = (data: { reports: TelemetryReport[] }) => {
+    const EventInfo = data.reports.map(({ measurementGroup, event, values, dimensions }) => ({
+        MeasurementGroup: measurementGroup,
+        Event: event,
+        Values: values || {},
+        Dimensions: dimensions || {},
+    }));
+
+    return {
+        method: 'post',
+        url: 'data/v1/stats/multiple',
+        keepalive: true,
+        data: { EventInfo },
+    };
+};

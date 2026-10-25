@@ -1,0 +1,240 @@
+import { getSilentApi } from '../api/helpers/customConfig';
+import { metrics } from '../api/metrics';
+import type { TelemetryReport } from '../api/telemetry';
+import { sendMultipleTelemetryData } from '../api/telemetry';
+import type { METRICS_LOG } from '../constants';
+import { SECOND } from '../constants';
+import type { Api, UserModel, UserSettings } from '../interfaces';
+import type { MaybeFreeSubscription } from '../payments/subscription/interface';
+import { BatchQueue } from './batchQueue';
+import { getAccountAgeForDimension, getCycleForDimension } from './metrics.helpers';
+import { wait } from './promise';
+
+// Make the metrics false by default to avoid (rare) cases where we could have sendMetricReport or sendTelemetryReport
+// before setting this metricsEnabled value with the user setting.
+// In that scenario we would send something but the user might not want this.
+let metricsEnabled = false;
+
+/*
+ * proton-calendar-client: trimmed. Proton reads the plan name and audience with its payments
+ * helpers (a large tree the client has no use for: metrics are never enabled here). Plain
+ * approximations instead; the result only goes into telemetry dimensions, which are never sent.
+ */
+const getSubscriptionName = (subscription?: MaybeFreeSubscription) => {
+    const candidate =
+        (subscription as any)?.PlanName ||
+        (subscription as any)?.Plans?.[0]?.Name ||
+        (subscription as any)?.Name;
+
+    return candidate ? String(candidate) : 'free';
+};
+
+const getSubscriptionAudience = (user: UserModel, subscription?: MaybeFreeSubscription) => {
+    const candidate =
+        String((subscription as any)?.Audience || (subscription as any)?.Type || (subscription as any)?.PlanName || '')
+            .toLowerCase();
+
+    if (candidate.includes('business') || candidate.includes('enterprise') || candidate.includes('pro')) {
+        return 'b2b';
+    }
+
+    if (!user.isFree) {
+        return 'b2c';
+    }
+
+    return 'free';
+};
+
+/**
+ * Delay an operation by a random number of seconds between 1 second and the specified
+ * number of seconds. If none is provided, the default is 180 seconds, i.e. 3 minutes
+ */
+export const randomDelay = async (delayInSeconds: number = 180) => {
+    await wait(SECOND * Math.floor(delayInSeconds * Math.random() + 1));
+};
+
+/**
+ * Send metrics report (/metrics endpoint)
+ */
+export const sendMetricsReport = async (api: Api, Log: METRICS_LOG, Title?: string, Data?: any) => {
+    if (!metricsEnabled) {
+        return;
+    }
+    // We delay sending the metrics report because this helper is used in some privacy-sensitive
+    // use-cases, e.g. encrypted search, in which we don't want the server to be able to use the
+    // metric report as a distinguisher to correlate user actions, e.g. performing an encrypted
+    // search and fetching an email shortly after
+    await randomDelay();
+    void api(metrics({ Log, Title, Data }));
+};
+
+interface SendTelemetryReportArgs extends TelemetryReport {
+    api: Api;
+    /**
+     * For some sensitive requests, it might be needed to add a random delay between the user action
+     * and the actual event sending. The delay is between 1s and 180s.
+     * This attribute is mandatory so that it cannot be missed by developers in case a delay would be needed.
+     */
+    delay: boolean;
+    silence?: boolean;
+    flushImmediately?: boolean;
+}
+
+/**
+ * Send a telemetry reports (/data/v1/stats/multiple endpoint)
+ */
+export const telemetryReportsBatchQueue = new BatchQueue<TelemetryReport>({
+    batchSize: 100,
+    flushIntervalMs: 10 * 1000,
+});
+
+export const sendTelemetryReport = async ({
+    api,
+    measurementGroup,
+    event,
+    values,
+    dimensions,
+    silence = true,
+    delay,
+    flushImmediately = false,
+}: SendTelemetryReportArgs) => {
+    if (!metricsEnabled) {
+        return;
+    }
+
+    const possiblySilentApi = silence ? getSilentApi(api) : api;
+
+    try {
+        if (delay) {
+            // We delay sending the metrics report because this helper is used in some privacy-sensitive
+            // use-cases, e.g. encrypted search, in which we don't want the server to be able to use the
+            // metric report as a distinguisher to correlate user actions, e.g. performing an encrypted
+            // search and fetching an email shortly after
+            await randomDelay();
+        }
+
+        const telemetryReport: TelemetryReport = { measurementGroup, event, values, dimensions };
+
+        if (!telemetryReportsBatchQueue.hasFlushCallback()) {
+            telemetryReportsBatchQueue.setFlushCallback(async (reports: TelemetryReport[]) => {
+                await possiblySilentApi(
+                    sendMultipleTelemetryData({
+                        reports,
+                    })
+                );
+            });
+        }
+
+        telemetryReportsBatchQueue.add(telemetryReport);
+        if (flushImmediately) {
+            telemetryReportsBatchQueue.flush();
+        }
+    } catch {
+        // fail silently
+    }
+};
+
+interface SendTelemetryReportWithBaseDimensionArgs extends SendTelemetryReportArgs {
+    api: Api;
+    user: UserModel;
+    subscription: MaybeFreeSubscription;
+    userSettings?: UserSettings;
+    silence?: boolean;
+}
+
+/**
+ * Compute the base dimensions used to help get basic knowledge about the user:
+ *   - account_age
+ *   - user_locale
+ *   - subscription
+ *   - cycle
+ *   - audience
+ *   - is_free
+ */
+export const getBaseTelemetryDimensions = ({
+    user,
+    subscription,
+    userSettings,
+}: {
+    user: UserModel;
+    subscription: MaybeFreeSubscription;
+    userSettings?: UserSettings;
+}) => {
+    const subscriptionName = getSubscriptionName(subscription);
+    const audience = getSubscriptionAudience(user, subscription);
+
+    return {
+        accountAge: getAccountAgeForDimension(user),
+        userLocale: userSettings?.Locale ?? 'undefined',
+        subscription: String(subscriptionName),
+        audience,
+        isFree: subscriptionName === 'free' ? 'true' : 'false',
+        cycle: getCycleForDimension(subscription?.Cycle),
+    };
+};
+
+/**
+ * Send a telemetry report with basic dimensions already setup uses /data/v1/stats endpoint
+ *   - account_age
+ *   - user_locale
+ *   - subscription
+ *   - cycle
+ *   - audience
+ *   - is_free
+ */
+export const sendTelemetryReportWithBaseDimensions = async ({
+    api,
+    user,
+    subscription,
+    userSettings,
+    measurementGroup,
+    event,
+    values,
+    dimensions,
+    delay,
+    silence = true,
+}: SendTelemetryReportWithBaseDimensionArgs) => {
+    void sendTelemetryReport({
+        api,
+        measurementGroup,
+        event,
+        values,
+        silence,
+        dimensions: {
+            ...dimensions,
+            ...getBaseTelemetryDimensions({ user, subscription, userSettings }),
+        },
+        delay,
+    });
+};
+
+interface SendMultipleTelemetryReportsArgs {
+    api: Api;
+    reports: TelemetryReport[];
+    silence?: boolean;
+}
+
+/**
+ * Send multiple telemetry reports (/data/v1/stats/multiple endpoint)
+ */
+export const sendMultipleTelemetryReports = async ({
+    api,
+    reports,
+    silence = true,
+}: SendMultipleTelemetryReportsArgs) => {
+    const possiblySilentApi = silence ? getSilentApi(api) : api;
+
+    if (!metricsEnabled) {
+        return;
+    }
+
+    try {
+        void (await possiblySilentApi(sendMultipleTelemetryData({ reports })));
+    } catch {
+        // fail silently
+    }
+};
+
+export const setMetricsEnabled = (enabled: boolean) => {
+    metricsEnabled = enabled;
+};

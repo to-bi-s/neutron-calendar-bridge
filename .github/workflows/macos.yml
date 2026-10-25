@@ -1,0 +1,82 @@
+# The Mac-only parts, weekly and when they change: the native menu-spinner module compiled with
+# Xcode's clang (nowhere else is it compiled but on Tobi's Mac), the full check on macOS, and
+# the packaged app — unsigned (no Developer ID yet), its bundle checked: identifier, version, the
+# native modules and the library's dist/ inside. The DMG is kept for three days.
+name: macOS
+
+on:
+  schedule:
+    - cron: '23 4 * * 1' # Mondays 04:23 UTC
+  push:
+    branches: [main]
+    paths:
+      - 'native/**'
+      - 'scripts/build-native.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/macos.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: macos-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: Native module, check and packaged app
+    runs-on: macos-latest
+    timeout-minutes: 40
+    env:
+      TZ: Europe/Amsterdam
+      CSC_IDENTITY_AUTO_DISCOVERY: 'false' # unsigned build; never pick up a certificate
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Cache Electron downloads
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/Library/Caches/electron
+            ~/Library/Caches/electron-builder
+          key: electron-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: electron-${{ runner.os }}-${{ runner.arch }}-
+      - run: npm ci --no-audit --no-fund
+      - name: Native module (a compile error fails here)
+        run: npm run build:native
+      - run: npm run check
+      - name: Package (DMG)
+        run: npx electron-builder --mac --publish never
+      - name: Check the bundle
+        run: |
+          set -euo pipefail
+          app="release/mac-arm64/Neutron Calendar Bridge.app"
+          plist="$app/Contents/Info.plist"
+          test -d "$app"
+          id=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$plist")
+          version=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$plist")
+          menuOnly=$(/usr/libexec/PlistBuddy -c 'Print :LSUIElement' "$plist")
+          expected=$(node -p "require('./package.json').version")
+          echo "bundle $id $version (LSUIElement $menuOnly)"
+          test "$id" = "io.github.to-bi-s.neutron-calendar-bridge"
+          test "$version" = "$expected"
+          test "$menuOnly" = "true"
+          resources="$app/Contents/Resources"
+          find "$resources/app.asar.unpacked" -name '*.node' | tee native.txt
+          grep -q 'menu-spinner/build/Release/.*\.node' native.txt
+          grep -q 'sqlcipher' native.txt
+          npx asar list "$resources/app.asar" > asar.txt
+          grep -qx '/node_modules/proton-calendar-client/dist/index.mjs' asar.txt
+          grep -qx '/dist/main/main.js' asar.txt
+          if grep -q '^/client/' asar.txt; then echo 'the client/ sources were packed'; exit 1; fi
+          ls -lh release/*.dmg
+      - uses: actions/upload-artifact@v7
+        with:
+          name: neutron-calendar-bridge-dmg
+          path: release/*.dmg
+          retention-days: 3

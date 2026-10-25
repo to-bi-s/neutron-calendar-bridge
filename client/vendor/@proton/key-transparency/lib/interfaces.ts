@@ -1,0 +1,136 @@
+import type {
+    Address,
+    Api,
+    DecryptedAddressKey,
+    FetchedSignedKeyList,
+    KTUserContext,
+    KeyPair,
+} from '@proton/shared/lib/interfaces';
+
+import type { KT_CERTIFICATE_ISSUER, KT_DOMAINS } from './constants/constants';
+import type { KeyTransparencyError } from './helpers/utils';
+
+export enum KTPROOF_TYPE {
+    ABSENCE = 0,
+    EXISTENCE = 1,
+    OBSOLESCENCE = 2,
+}
+
+export interface Proof {
+    Neighbors: (string | null)[];
+    Verifier: string;
+    Type: KTPROOF_TYPE;
+    ObsolescenceToken: string | null;
+}
+
+export interface KTBlobContent {
+    creationTimestamp: number;
+    expectedMinEpochID: number;
+    email: string;
+    data: string;
+    revision: number;
+    isCatchall?: boolean;
+}
+
+export interface KTBlobValuesWithInfo {
+    userID: string;
+    addressID: string;
+    ktBlobsContent: KTBlobContent[];
+}
+
+export interface VerifiedEpoch {
+    EpochID: number;
+    Revision: number;
+    SKLCreationTime: number;
+}
+
+export interface AuditData {
+    initialEpoch: VerifiedEpoch;
+    newSKLs: FetchedSignedKeyList[];
+}
+
+export enum KT_STATUS {
+    KT_FAILED = 0,
+    KT_PASSED = 1,
+    KT_MINEPOCHID_NULL = 2,
+}
+
+export interface Epoch {
+    EpochID: number;
+    TreeHash: string;
+    ChainHash: string;
+    PrevChainHash: string;
+    Certificate: string;
+    CertificateIssuer: KT_CERTIFICATE_ISSUER;
+    ClaimedTime: number;
+    Domain: KT_DOMAINS;
+    CertificateTime: number;
+}
+
+export enum AddressAuditStatus {
+    Success = 0,
+    Failure = 1,
+    Warning = 2,
+}
+
+export enum AddressAuditWarningReason {
+    UnverifiableHistory = 0,
+    AddressWithNoKeys = 1,
+}
+
+export interface AddressAuditWarningDetails {
+    reason: AddressAuditWarningReason;
+    addressWasDisabled?: boolean;
+    sklVerificationFailed?: boolean;
+}
+
+export interface AddressAuditResult {
+    email: string;
+    status: AddressAuditStatus;
+    warningDetails?: AddressAuditWarningDetails;
+    error?: KeyTransparencyError;
+}
+
+export interface LocalStorageAuditResult {
+    email: string;
+    success: boolean;
+    error?: KeyTransparencyError;
+    primaryKeyFingerprint?: string;
+}
+
+export interface SelfAuditResult {
+    auditTime: number;
+    nextAuditTime: number;
+    addressAuditResults: AddressAuditResult[];
+    localStorageAuditResultsOwnAddress: LocalStorageAuditResult[];
+    localStorageAuditResultsOtherAddress: LocalStorageAuditResult[];
+    error?: SelfAuditError;
+}
+
+export interface SelfAuditError {
+    failedTrials: number;
+    tooManyRetries: boolean;
+}
+
+export interface SelfAuditState {
+    userKeys: KeyPair[];
+    lastSelfAudit: SelfAuditResult | undefined;
+    addresses: {
+        address: Address;
+        addressKeys: DecryptedAddressKey[];
+    }[];
+}
+
+export interface KeyTransparencyState {
+    selfAuditResult?: SelfAuditResult;
+}
+
+export type GetLatestEpoch = ({ api, forceRefresh }: { api: Api; forceRefresh?: boolean }) => Promise<Epoch>;
+
+export type UploadMissingSKL = (data: {
+    address: Address;
+    addressKeys: DecryptedAddressKey[];
+    epoch: Epoch;
+    ktUserContext: KTUserContext;
+    api: Api;
+}) => Promise<void>;

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        (() => {
+            try {
+                const saved = localStorage.getItem('theme') || 'system';
+                const dark = saved === 'dark' || (saved === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+                document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+            } catch {}
+        })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neutron Calendar Bridge</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+    <!-- Sign-in page -->
+    <main class="page" id="auth-page">
+        <section class="auth-shell">
+            <aside class="auth-sidebar">
+                <div class="brand-mark">Neutron Calendar Bridge <span class="app-version" data-app-version></span></div>
+                <h1>Bridge Proton Calendar into Calendar.app</h1>
+                <p class="auth-copy">
+                    Sign in once, keep a warm Proton session, and mirror each Proton calendar as a local CalDAV collection.
+                </p>
+
+                <div class="auth-status-card">
+                    <span class="status-pill" id="status-pill">Disconnected</span>
+                    <p class="status-message" id="status-message">Signed out</p>
+                    <div class="status-meta">
+                        <span>Last Sync</span>
+                        <strong id="last-sync">Never</strong>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="auth-panel">
+                <div class="window-drag-strip window-drag-strip-overlay" aria-hidden="true"></div>
+                <div class="panel-intro">
+                    <p class="panel-kicker" id="account-kicker">Account</p>
+                    <h2 id="account-title">Sign In to Proton</h2>
+                    <p class="panel-copy" id="account-subtitle">Sign in with your Proton address and password. Proton may ask you to solve a CAPTCHA once; the bridge then keeps a session, not your password.</p>
+                    <p class="setting-copy setting-hint" id="auth-back-row" hidden><button type="button" class="link-button" id="cancel-add-account">Back to your accounts</button></p>
+                </div>
+
+
+                <form id="login-form" class="stack">
+                    <label class="field">
+                        <span>Email or username</span>
+                        <input id="username" name="username" type="text" autocomplete="username" required>
+                    </label>
+
+                    <label class="field">
+                        <span>Password</span>
+                        <input id="password" name="password" type="password" autocomplete="current-password" required>
+                    </label>
+
+                    <div class="button-row">
+                        <button type="submit" class="primary-button" id="connect-button">Connect Bridge</button>
+                    </div>
+                </form>
+
+                <section class="challenge-card stack" id="challenge-panel" hidden>
+                    <div>
+                        <p class="panel-kicker step-kicker">Human Verification</p>
+                        <h3 id="challenge-title">Verification Requested</h3>
+                        <p class="panel-copy" id="challenge-description">
+                            Proton requested an additional verification step for this sign-in attempt.
+                        </p>
+                        <p class="challenge-meta" id="challenge-meta"></p>
+                    </div>
+
+                    <div class="captcha-shell" id="captcha-shell" hidden>
+                        <p class="challenge-meta" id="captcha-status">
+                            Open the secure verification window. The bridge will finish signing in automatically after verification succeeds.
+                        </p>
+                    </div>
+
+                    <div class="button-row" id="challenge-actions">
+                        <button type="button" class="primary-button" id="open-human-verification">Open Verification</button>
+                        <button type="button" class="secondary-button" id="complete-human-verification">Finish Sign-In</button>
+                    </div>
+                </section>
+
+                <section class="challenge-card stack" id="sign-in-prompt" hidden>
+                    <div>
+                        <p class="panel-kicker step-kicker" id="sign-in-prompt-kicker">Two-Factor Authentication</p>
+                        <h3 id="sign-in-prompt-title">Enter Your Authenticator Code</h3>
+                        <p class="panel-copy" id="sign-in-prompt-description"></p>
+                    </div>
+                    <form id="sign-in-prompt-form" class="stack">
+                        <label class="field">
+                            <span id="sign-in-prompt-label">Code</span>
+                            <input id="sign-in-prompt-input" name="sign-in-prompt" type="text" inputmode="numeric" autocomplete="one-time-code" required>
+                        </label>
+                        <p class="error-text" id="sign-in-prompt-error" hidden></p>
+                        <div class="button-row">
+                            <button type="submit" class="primary-button" id="sign-in-prompt-continue">Continue</button>
+                            <button type="button" class="secondary-button" id="sign-in-prompt-cancel">Cancel</button>
+                        </div>
+                    </form>
+                </section>
+
+                <p class="error-text" id="auth-error" hidden></p>
+            </section>
+        </section>
+    </main>
+
+    <!-- Dashboard page -->
+    <main class="page" id="dashboard-page" hidden>
+        <div class="app-shell">
+
+            <!-- Left navigation sidebar -->
+            <nav class="nav-sidebar">
+                <div class="nav-top">
+                    <div class="brand-mark">Neutron Calendar Bridge <span class="app-version" data-app-version></span></div>
+                </div>
+
+                <ul class="nav-list" role="list">
+                    <li><button class="nav-item active" data-page="overview">Overview</button></li>
+                    <li id="nav-calendar-tabs"><button class="nav-item" data-page="calendars">Calendars</button></li>
+                    <li><button class="nav-item" data-page="setup">Setup</button></li>
+                    <li><button class="nav-item" data-page="settings">Settings</button></li>
+                    <li><button class="nav-item" data-page="info">Info</button></li>
+                </ul>
+
+                <div class="nav-footer">
+                    <ul class="nav-account-list" id="nav-account-list" role="list"></ul>
+                    <div class="nav-actions">
+                        <button type="button" class="nav-btn" id="refresh-button" title="Sync every ticked calendar now (public holidays are synced daily on their own)">Refresh</button>
+                        <button type="button" class="nav-btn" id="add-account-button" title="Sign in to another Proton account">Add Account</button>
+                    </div>
+                    <p class="error-text" id="dashboard-error" hidden></p>
+                </div>
+            </nav>
+
+            <!-- Page content area -->
+            <div class="nav-content">
+                <!-- Invisible title bar: the top of the content area moves the window, like the sidebar -->
+                <div class="window-drag-strip" aria-hidden="true"></div>
+
+                <!-- Overview page -->
+                <section class="nav-page" id="page-overview">
+                    <header class="page-header">
+                        <h1>Overview</h1>
+                    </header>
+
+                    <div class="ov-accounts" id="overview-accounts"></div>
+                </section>
+
+                <!-- Calendars page -->
+                <section class="nav-page" id="page-calendars" hidden>
+                    <header class="page-header">
+                        <h1>Calendars</h1>
+                        <p class="page-account" id="calendars-account" hidden></p>
+                        <p class="panel-copy" id="calendars-intro">Select the calendars to be synced by Neutron Calendar Bridge.</p>
+                    </header>
+
+
+                    <div class="calendar-list" id="calendar-list"></div>
+
+                    <div class="card calendar-page-setting" id="new-calendar-address-card" hidden>
+                        <label class="setting-field">
+                            <span>Address for calendars created in Calendar.app</span>
+                            <select id="setting-new-calendar-address"></select>
+                        </label>
+                        <p class="setting-copy setting-hint">A calendar made with File → New Calendar belongs to this address in Proton (its key, its invitations). Calendar.app cannot say which one, so it is set here.</p>
+                    </div>
+                </section>
+
+                <!-- Setup page: connection details and the Calendar.app guide -->
+                <section class="nav-page" id="page-setup" hidden>
+                    <header class="page-header">
+                        <h1>Setup</h1>
+                    </header>
+
+                    <div class="account-switcher" id="setup-account-switcher" hidden></div>
+
+                    <div class="card setup-card" id="calendar-app-card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">Apple Calendar</p>
+                                <h3>Auto Setup</h3>
+                            </div>
+                            <span class="status-pill" id="calendar-app-pill">Not set up</span>
+                        </div>
+                        <p class="panel-copy" id="calendar-app-text">Click Set Up Calendar.app and follow the steps.</p>
+                        <div class="button-row">
+                            <button type="button" class="primary-button" id="set-up-calendar-app">Set Up Calendar.app</button>
+                            <button type="button" class="secondary-button" id="open-profiles-settings" title="System Settings → General → Device Management (Profiles)">Open System Settings</button>
+                        </div>
+                        <p class="setting-hint" id="calendar-app-error" hidden></p>
+                        <ol class="setup-list" id="calendar-app-steps" hidden>
+                            <li data-i18n-html>In <strong>System Settings → General → Device Management</strong>, double-click <strong>Neutron Calendar Bridge</strong> and click <strong>Install</strong>.</li>
+                            <li id="calendar-app-step-account"></li>
+                        </ol>
+                        <div class="setup-note" id="reminders-note">
+                            <p class="panel-kicker">Switch Off Reminders</p>
+                            <p class="setup-note-text" data-i18n-html>macOS turns <strong>Reminders</strong> on for every new account. Switch it off in <strong>System Settings → Internet Accounts</strong>: Proton Calendar has no tasks.</p>
+                        </div>
+                        <details class="setup-details" id="calendar-app-details">
+                            <summary>More Details</summary>
+                            <ul class="setup-details-list">
+                                <li data-i18n-html>On macOS 13 and 14 the profile is under <strong>Privacy &amp; Security → Profiles</strong>.</li>
+                                <li>The profile shows as "not verified": it was made on this Mac by the bridge, not signed by Apple, and holds only the account settings listed under "Manual Setup" below.</li>
+                                <li>If you had added the bridge to Calendar.app by hand before, remove that account (Calendar.app → Settings → Accounts) so the calendars are not listed twice. (An account added by hand can be named there; the one from the profile cannot be renamed.)</li>
+                                <li>The account is tied to the profile: to remove it later, remove the profile in System Settings. The profile file is kept in the app's folder for a few minutes only, because it holds the bridge's password.</li>
+                                <li>Once connected, set up again only for another Mac user account, or after the account was removed from Calendar.app.</li>
+                                <li>With Reminders left on, Reminders keeps asking the bridge for a task list (refused, harmless).</li>
+                            </ul>
+                        </details>
+
+                        <div class="setup-or" aria-hidden="true"><span>or</span></div>
+
+                        <div id="manual-setup">
+                            <h3 class="setup-section-title">Manual Setup</h3>
+                            <p class="panel-copy">If you would rather not install a profile.</p>
+                            <div class="button-row">
+                                <button type="button" class="secondary-button" id="toggle-manual-setup" aria-expanded="false" aria-controls="manual-setup-body">Show Instructions</button>
+                            </div>
+                            <div id="manual-setup-body" hidden>
+                                <div class="detail-grid">
+                                    <article class="detail-card">
+                                        <span>Server address</span>
+                                        <strong id="detail-host">127.0.0.1</strong>
+                                    </article>
+                                    <article class="detail-card">
+                                        <span>Port</span>
+                                        <strong id="detail-port">-</strong>
+                                    </article>
+                                    <article class="detail-card">
+                                        <span>Username</span>
+                                        <strong id="detail-username">-</strong>
+                                    </article>
+                                    <article class="detail-card">
+                                        <span>Password</span>
+                                        <strong id="detail-password">-</strong>
+                                    </article>
+                                    <article class="detail-card">
+                                        <span>Server path</span>
+                                        <strong id="detail-server-path">-</strong>
+                                    </article>
+                                    <article class="detail-card">
+                                        <span>Security</span>
+                                        <strong id="detail-security">HTTP only on 127.0.0.1</strong>
+                                    </article>
+                                </div>
+                                <ol class="setup-list">
+                                    <li data-i18n-html>Open Calendar.app and add an <strong>Other CalDAV Account</strong>.</li>
+                                    <li data-i18n-html>Choose <strong>Advanced</strong> and enter the values above.</li>
+                                    <li data-i18n-html>Leave <strong>Use SSL</strong> off — the bridge listens only on <strong>127.0.0.1</strong>.</li>
+                                    <li>New calendars can be made here or in Proton. Deleting a calendar in Calendar.app only takes it out of Calendar.app (it stays in Proton; the Calendars page ticks it again).</li>
+                                    <li data-i18n-html>Invitations: Accept, Maybe and Decline in Calendar.app email your answer to the organizer, and meetings you organize email your guests, like from Proton Calendar. The language of the emails is under <strong>Settings → Emails</strong>.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card setup-alert" id="caldav-login-alert" hidden>
+                        <p class="panel-kicker" id="caldav-login-kicker">Calendar.app Cannot Sign In</p>
+                        <p class="setup-alert-text" id="caldav-login-text"></p>
+                        <ol class="setup-list" id="caldav-login-steps">
+                            <li>Copy the password: <button type="button" class="secondary-button" id="copy-caldav-password">Copy Password</button></li>
+                            <li data-i18n-html id="caldav-login-step-calendar-app">Enter it when Calendar.app asks for the password of the bridge account, or in Calendar.app → <strong>Settings → Accounts</strong> → the bridge account → <strong>Server Settings</strong> → <strong>Password</strong>.</li>
+                            <li id="caldav-login-step-other" hidden>Enter it when the app asks for the password of the bridge account, or replace the saved one in the app's password settings.</li>
+                        </ol>
+                    </div>
+
+                    <div class="card setup-card" id="thunderbird-card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">Thunderbird</p>
+                                <h3>Manual Setup</h3>
+                            </div>
+                            <span class="status-pill" id="thunderbird-pill">Not set up</span>
+                        </div>
+                        <p class="panel-copy setup-status" id="thunderbird-status" hidden></p>
+                        <p class="panel-copy">Adds all calendars of this account to Thunderbird in one go. Click a value to copy it.</p>
+                        <div class="detail-grid thunderbird-grid">
+                            <article class="detail-card">
+                                <span>Username</span>
+                                <strong id="thunderbird-username">-</strong>
+                            </article>
+                            <article class="detail-card thunderbird-location">
+                                <span>Location</span>
+                                <strong id="thunderbird-location">-</strong>
+                            </article>
+                            <article class="detail-card" data-copy-password>
+                                <span>Password</span>
+                                <strong>Click to copy</strong>
+                            </article>
+                        </div>
+                        <ol class="setup-list">
+                            <li data-i18n-html>In Thunderbird's calendar: <strong>New Calendar → On the Network</strong>. Enter the username and location, click <strong>Find Calendars</strong>, and give the password when asked.</li>
+                            <li>Tick the calendars you want.</li>
+                            <li data-i18n-html>For each new calendar: right-click it → <strong>Properties</strong> → <strong>Email: None</strong>.</li>
+                        </ol>
+                        <div class="setup-note">
+                            <p class="panel-kicker">Email: None</p>
+                            <p class="setup-note-text" data-i18n-html>With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them, as for Calendar.app.</p>
+                        </div>
+                        <details class="setup-details">
+                            <summary>More Details</summary>
+                            <ul class="setup-details-list">
+                                <li>Thunderbird checks every 30 minutes; under Properties, "Refresh Calendar: Every minute" shows changes sooner.</li>
+                                <li>The password is the bridge's (the one Calendar.app uses), not your Proton password.</li>
+                                <li>Guests' answers show as small icons next to each attendee when you open a meeting.</li>
+                                <li>Thunderbird's warning to assign an email identity can be closed: the bridge takes care of invitations.</li>
+                                <li>Proton has no categories, attachments or links field, and no privacy setting: those are dropped on save. Links in the description and "Show time as free" are kept; a Tentative status is not (Proton has none).</li>
+                                <li>A recurring invitation is answered from the occurrence you open; the bridge passes that on as your answer for the whole series, as Proton Calendar does (Proton takes one answer per series). The Attendance entries in the context menu stay empty without an email identity.</li>
+                            </ul>
+                        </details>
+                    </div>
+
+                    <div class="card setup-card" id="other-apps-card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">Other Calendar Apps</p>
+                                <h3>Manual Setup</h3>
+                            </div>
+                            <span class="status-pill status-connecting" id="other-apps-pill">Untested</span>
+                        </div>
+                        <p class="panel-copy setup-status" id="other-apps-status" hidden></p>
+                        <p class="panel-copy">The bridge is a CalDAV server on this Mac, so other calendar apps (BusyCal, Fantastical, …) should work with it too. Only Calendar.app and Thunderbird have been tried so far. Click a value to copy it.</p>
+                        <div class="detail-grid other-apps-grid">
+                            <article class="detail-card other-apps-url">
+                                <span>Server URL</span>
+                                <strong id="other-apps-url">-</strong>
+                            </article>
+                            <article class="detail-card">
+                                <span>Username</span>
+                                <strong id="other-apps-username">-</strong>
+                            </article>
+                            <article class="detail-card" data-copy-password>
+                                <span>Password</span>
+                                <strong>Click to copy</strong>
+                            </article>
+                            <article class="detail-card">
+                                <span>Server address</span>
+                                <strong id="other-apps-host">127.0.0.1</strong>
+                            </article>
+                            <article class="detail-card">
+                                <span>Port</span>
+                                <strong id="other-apps-port">-</strong>
+                            </article>
+                            <article class="detail-card other-apps-home">
+                                <span>Calendar home</span>
+                                <strong id="other-apps-home">-</strong>
+                            </article>
+                        </div>
+                        <ol class="setup-list">
+                            <li data-i18n-html>In the app, add a <strong>CalDAV</strong> account (often called "Other CalDAV", "Generic CalDAV" or "On the Network") with the server URL, username and password above.</li>
+                            <li data-i18n-html>Leave <strong>SSL/TLS</strong> off: the bridge listens only on <strong>127.0.0.1</strong>. If the app asks for server, port and path separately, use the second row; if it finds no calendars from the server URL, try the calendar home.</li>
+                            <li>Let the app find the calendars and tick the ones you want. Each Proton account has its own username: add one CalDAV account per Proton account.</li>
+                            <li>If the app can send invitations itself (an email identity or an "invitations via" setting), switch that off: the bridge emails invitations and answers through Proton.</li>
+                            <li>Make a test event in the app and look for it in Proton Calendar; then one in Proton and refresh the app. If the app refreshes rarely, shorten its interval.</li>
+                        </ol>
+                        <div class="setup-note">
+                            <p class="panel-kicker">Tried another app?</p>
+                            <p class="setup-note-text" data-i18n-html>Please tell what worked and what did not at <a href="#" class="external-link" data-href="https://github.com/to-bi-s/neutron-calendar-bridge/issues">github.com/to-bi-s/neutron-calendar-bridge</a>. Detailed logging (Settings) shows every request in the log; mind that it then holds private details.</p>
+                        </div>
+                        <details class="setup-details">
+                            <summary>More Details</summary>
+                            <ul class="setup-details-list">
+                                <li>The password is the bridge's (the one Calendar.app uses), not your Proton password.</li>
+                                <li>Only apps on this Mac can reach the bridge; a phone or another computer cannot.</li>
+                                <li>Proton Calendar has no tasks: a task list (VTODO) is refused. Events, repeats, alerts, invitations and answers are supported.</li>
+                            </ul>
+                        </details>
+                    </div>
+                </section>
+
+                <!-- Settings page -->
+                <section class="nav-page" id="page-settings" hidden>
+                    <header class="page-header">
+                        <h1>Settings</h1>
+                    </header>
+
+                    <div class="card" id="accounts-card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">Accounts</p>
+                                <h3>Proton Accounts</h3>
+                            </div>
+                            <button type="button" class="secondary-button" id="add-account-settings">Add Account</button>
+                        </div>
+                        <ul class="account-list" id="settings-account-list" role="list"></ul>
+                        <p class="setting-copy setting-hint">Each account shows up as its own account in Calendar.app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this Mac.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">Sync Schedule</p>
+                                <h3>Checks &amp; Window</h3>
+                            </div>
+                        </div>
+                        <div class="settings-grid">
+                            <label class="setting-field">
+                                <span>Check for changes every</span>
+                                <select id="setting-poll-interval">
+                                    <option value="30000">30 seconds</option>
+                                    <option value="60000">1 minute</option>
+                                    <option value="300000">5 minutes</option>
+                                    <option value="600000">10 minutes</option>
+                                    <option value="900000">15 minutes</option>
+                                </select>
+                            </label>
+                            <label class="setting-field">
+                                <span>Lookback</span>
+                                <select id="setting-lookback">
+                                    <option value="30">30 days</option>
+                                    <option value="90">90 days</option>
+                                    <option value="180">6 months</option>
+                                    <option value="365">1 year</option>
+                                    <option value="730">2 years</option>
+                                </select>
+                            </label>
+                            <label class="setting-field">
+                                <span>Lookahead</span>
+                                <select id="setting-lookahead">
+                                    <option value="90">90 days</option>
+                                    <option value="180">6 months</option>
+                                    <option value="365">1 year</option>
+                                    <option value="730">2 years</option>
+                                    <option value="1095">3 years</option>
+                                </select>
+                            </label>
+                        </div>
+                        <p class="setting-copy setting-hint" id="poll-interval-hint">
+                            How often the bridge looks for changes while things are happening; after 10 quiet minutes it checks every 5 minutes. It also checks right away when your Mac wakes up or you change something in Calendar.app.
+                        </p>
+                    </div>
+
+                    <div class="card" id="calendar-emails-card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">Emails</p>
+                                <h3>Invitations and Mailbox</h3>
+                            </div>
+                        </div>
+                        <div class="account-switcher" id="emails-account-switcher" hidden></div>
+                        <p class="setting-copy setting-warning" id="invitation-support-note" hidden>
+                            The linked proton-calendar-client cannot handle invitations yet. Rebuild it with the invitations patch.
+                        </p>
+                        <div class="settings-grid">
+                            <label class="setting-field setting-field-span2">
+                                <span>Language of the emails</span>
+                                <select id="setting-invitation-language">
+                                    <option value="proton">Same as Proton Calendar</option>
+                                </select>
+                            </label>
+                        </div>
+                        <p class="setting-copy setting-hint" id="invitation-language-hint">The emails use Proton's own texts. "Same as Proton Calendar" follows the invitation language set in Proton Calendar.</p>
+                        <p class="setting-copy setting-warning" id="invitation-mode-warning" hidden></p>
+                        <div class="card-divider" aria-hidden="true"></div>
+                        <p class="setting-copy">
+                            The bridge can tidy your Inbox like Outlook does: invitations and updates once you have answered them, cancellations once they are in your calendar, guests' answers once Proton has them.
+                        </p>
+                        <p class="setting-copy setting-warning" id="calendar-emails-support-note" hidden>
+                            The linked proton-calendar-client cannot do this yet. Rebuild it with patch 20.
+                        </p>
+                        <div class="settings-grid">
+                            <label class="setting-field setting-field-span2">
+                                <span>Once dealt with</span>
+                                <select id="setting-calendar-emails">
+                                    <option value="leave">Leave them in the Inbox</option>
+                                    <option value="trash">Move them to the Bin</option>
+                                    <option value="archive">Move them to the Archive</option>
+                                    <option value="folder">Move them to a folder</option>
+                                </select>
+                            </label>
+                            <label class="setting-field" id="calendar-emails-folder-field" hidden>
+                                <span>Folder</span>
+                                <input id="setting-calendar-emails-folder" type="text" maxlength="100" spellcheck="false"
+                                    autocomplete="off" placeholder="Calendar">
+                            </label>
+                        </div>
+                        <p class="setting-copy setting-hint" id="calendar-emails-hint">
+                            Only Inbox emails from the last 30 days. Starred emails, counter-proposals and answers with a note stay where they are. A missing folder is created.
+                        </p>
+                        <p class="setting-copy setting-hint setting-status" id="calendar-emails-status" hidden></p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">System</p>
+                                <h3>General</h3>
+                            </div>
+                        </div>
+                        <div class="settings-grid">
+                            <label class="setting-field">
+                                <span>Appearance</span>
+                                <select id="setting-theme">
+                                    <option value="system">Follow system</option>
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                </select>
+                            </label>
+                            <label class="setting-field">
+                                <span>Language</span>
+                                <select id="setting-language">
+                                    <option value="system">Same as macOS</option>
+                                </select>
+                            </label>
+                        </div>
+                        <label class="toggle toggle-block">
+                            <input id="open-at-login" type="checkbox">
+                            <span>Open on startup</span>
+                        </label>
+                        <p class="setting-copy setting-hint" id="open-at-login-note" hidden></p>
+                        <label class="toggle toggle-block">
+                            <input id="setting-notifications" type="checkbox">
+                            <span>Show notifications</span>
+                        </label>
+                        <p class="setting-copy setting-hint">When a change from Calendar.app could not be saved, when Proton cannot be reached for 5 minutes, and for mailbox problems.</p>
+                        <label class="toggle toggle-block">
+                            <input id="setting-notification-titles" type="checkbox">
+                            <span>Show event titles in notifications</span>
+                        </label>
+                        <p class="setting-copy setting-hint">Off: notifications show no event names, calendars or addresses — useful if others can see your screen.</p>
+                    </div>
+
+                    <div class="card" id="developer-card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">Developer</p>
+                                <h3>Developer Options</h3>
+                            </div>
+                        </div>
+                        <label class="toggle">
+                            <input id="setting-developer-mode" type="checkbox">
+                            <span>Enable developer options</span>
+                        </label>
+                        <p class="setting-copy setting-hint">For testing and troubleshooting. The bridge works fully without them; while this is off, none of them is active.</p>
+                        <div class="developer-options" id="developer-options" hidden>
+                            <section class="developer-section" aria-labelledby="developer-invitations-title">
+                            <p class="panel-kicker" id="developer-invitations-title">Invitation emails</p>
+                            <div class="settings-grid">
+                                <label class="setting-field setting-field-span2">
+                                    <select id="setting-invitation-mode" aria-label="Invitation emails">
+                                        <option value="live">Live: like Proton Calendar</option>
+                                        <option value="test">Test: only to the addresses below</option>
+                                        <option value="dry-run">Dry run: send nothing, log what would be sent</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <p class="setting-copy setting-hint" id="invitation-mode-hint"></p>
+                            <label class="setting-field setting-field-block" id="invitation-allowlist-field">
+                                <span>Allowed addresses in test mode (one per line)</span>
+                                <textarea id="setting-invitation-allowlist" rows="3" spellcheck="false" autocomplete="off" data-i18n-skip
+                                    placeholder="second-account@proton.me&#10;you@outlook.com"></textarea>
+                            </label>
+                            <div class="button-row setting-actions" id="invitation-allowlist-actions">
+                                <button type="button" class="secondary-button" id="save-invitation-allowlist">Save Addresses</button>
+                                <span class="setting-note" id="invitation-settings-note"></span>
+                            </div>
+                            <div class="card-divider" aria-hidden="true"></div>
+                            <label class="toggle">
+                                <input id="setting-apply-emailed-answers" type="checkbox">
+                                <span>Apply answers that guests outside Proton send by email</span>
+                            </label>
+                            <p class="setting-copy setting-hint" id="emailed-answers-hint">
+                                Proton usually records guests' answers by itself. With this on, the bridge also reads the replies to your meetings (on this Mac only) and applies answers Proton missed.
+                            </p>
+                            </section>
+                            <section class="developer-section" aria-labelledby="developer-logging-title">
+                            <p class="panel-kicker" id="developer-logging-title">Detailed logging</p>
+                            <div class="settings-grid">
+                                <label class="setting-field">
+                                    <select id="setting-detailed-logging" aria-label="Detailed logging">
+                                        <option value="off">Off</option>
+                                        <option value="24h">On for 24 hours</option>
+                                        <option value="on">On until switched off</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <p class="setting-copy setting-hint" id="detailed-logging-hint">
+                                The log normally leaves out private details such as event titles and addresses. Switch this on only while tracing a problem.
+                            </p>
+                            <div class="button-row">
+                                <button type="button" class="secondary-button" id="delete-logs">Delete the Logs</button>
+                            </div>
+                            <p class="setting-copy setting-hint" id="delete-logs-hint">Private details already logged stay in the log until you delete it.</p>
+                            </section>
+                            <div class="developer-section developer-stats" id="developer-stats" hidden>
+                                <p class="panel-kicker developer-stats-title">Requests to Proton</p>
+                                <dl class="developer-stats-list" id="developer-stats-list"></dl>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Info page -->
+                <section class="nav-page" id="page-info" hidden>
+                    <header class="page-header">
+                        <h1>Neutron Calendar Bridge <span class="app-version" data-app-version></span></h1>
+                        <p class="app-subtitle">Bridge for Proton Calendar</p>
+                        <p class="panel-copy">A local CalDAV bridge that puts your Proton calendars into Calendar.app, with two-way sync. Everything stays on this Mac.</p>
+                        <p class="panel-copy unofficial-note">Unofficial: not affiliated with or endorsed by Proton AG. Proton and Proton Calendar are trademarks of Proton AG.</p>
+                    </header>
+
+                    <div class="card info-card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">Version</p>
+                                <h3>Version <span data-app-version-plain></span></h3>
+                            </div>
+                        </div>
+                        <div class="button-row version-actions">
+                            <button type="button" class="secondary-button" id="open-changelog">Changelog</button>
+                            <button type="button" class="secondary-button" id="check-for-updates" disabled
+                                title="Coming in a later version">Check for Updates</button>
+                        </div>
+                        <p class="setting-copy setting-hint">Automatic updates come later; until then new versions are installed by hand.</p>
+                    </div>
+
+                    <div class="card info-card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">Credits</p>
+                                <h3>Who Made This</h3>
+                            </div>
+                        </div>
+                        <dl class="credits">
+                            <div>
+                                <dt>Original Author</dt>
+                                <dd data-i18n-html>
+                                    <strong>Tactless Autist</strong> wrote <em>proton-calendar-sync</em> and the <em>proton-calendar-client</em> library it builds on.
+                                    <a href="#" class="external-link" data-href="https://github.com/TactlessAutist">github.com/TactlessAutist</a>
+                                </dd>
+                            </div>
+                            <div>
+                                <dt>This Fork</dt>
+                                <dd data-i18n-html>
+                                    <strong>Tobi</strong> forked it as <em>Neutron Calendar Bridge</em> and added: <ul class="feature-list"><li>Meetings like in Proton Calendar: invitations, answers, updates and cancellations emailed from Calendar.app — end-to-end to Proton users, in Proton's 34 languages — plus guest autocomplete and availability</li><li>Repeating events in both directions, exceptions included</li><li>Reminders (alerts) in both directions</li><li>Several Proton accounts, each as its own account in Calendar.app</li><li>One-click Calendar.app setup (a configuration profile) and a sign-in under the bridge's own name — authenticator codes and Proton's CAPTCHA included</li><li>Proton Meet and Zoom links straight from Calendar.app ("Proton Meet" or "Zoom" as the location)</li><li>Calendars created, renamed and recoloured from Calendar.app</li><li>Changes made while offline kept and sent once Proton is back</li><li>Private by design: an encrypted local copy, a checked CalDAV password, a quiet log — nothing leaves this Mac</li><li>Light on Proton: its change feeds instead of listing everything, and quick to notice a change</li><li>Six languages, light and dark, and a menu-bar menu like Proton Mail Bridge's</li></ul> <a href="#" class="external-link" data-href="https://github.com/to-bi-s">github.com/to-bi-s</a>
+                                </dd>
+                            </div>
+                            <div>
+                                <dt>Built On</dt>
+                                <dd data-i18n-html>
+                                    Proton's open-source <a href="#" class="external-link" data-href="https://github.com/ProtonMail/WebClients">WebClients</a> code for login, keys and event encryption, vendored into the client library.
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <div class="card info-card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">License</p>
+                                <h3>GPL-3.0-only</h3>
+                            </div>
+                        </div>
+                        <p data-i18n-html class="panel-copy">
+                            Free software: you may run, study, share and change it under the terms of the
+                            <a href="#" class="external-link" data-href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3</a>.
+                            Copyright © 2026 Tactless Autist (original work) and Tobi (modifications). Unofficial: not affiliated with or endorsed by Proton AG.
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="status-popover" id="status-popover" role="tooltip" hidden></div>
+
+    <dialog class="changelog-dialog" id="changelog-dialog" aria-labelledby="changelog-title">
+        <header class="changelog-header">
+            <h2 id="changelog-title">Changelog</h2>
+            <button type="button" class="secondary-button" id="close-changelog">Close</button>
+        </header>
+        <div class="changelog-body" id="changelog-body"></div>
+    </dialog>
+
+    <script src="./i18n.js"></script>
+    <script src="./renderer.js"></script>
+</body>
+</html>

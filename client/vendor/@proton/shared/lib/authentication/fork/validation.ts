@@ -1,0 +1,83 @@
+import type { APP_CLIENT_IDS, APP_NAMES } from '../../constants';
+import { validateEmailAddress } from '../../helpers/email';
+import type { ForkPayloadVersion } from './constants';
+import { ExtraSessionForkSearchParameters, ForkSearchParameters, ForkType, ForkableApps } from './constants';
+
+export const getValidatedApp = (app = ''): APP_NAMES | undefined => {
+    if (ForkableApps.has(app as any)) {
+        return app as APP_NAMES;
+    }
+};
+
+export const getValidatedLocalID = (localID = '') => {
+    if (!localID) {
+        return;
+    }
+    if (/^\d+$/.test(localID)) {
+        const maybeLocalID = Number(localID);
+        if (Number.isInteger(maybeLocalID) && maybeLocalID >= 0 && maybeLocalID <= 100000000) {
+            return maybeLocalID;
+        }
+    }
+};
+
+export const getLocalIDForkSearchParameter = (searchParams: URLSearchParams) => {
+    const localID = searchParams.get(ForkSearchParameters.LocalID) || '';
+    return getValidatedLocalID(localID);
+};
+
+export const getValidatedRawKey = (str: string) => {
+    try {
+        return Uint8Array.fromBase64(str, { alphabet: 'base64url' });
+    } catch (e: any) {
+        return undefined;
+    }
+};
+export const getValidatedForkType = (str: string) => {
+    if (Object.values(ForkType).includes(str as ForkType)) {
+        return str as ForkType;
+    }
+};
+
+export const getValidatedPayloadVersion = (str: string | null): ForkPayloadVersion => {
+    if (str === null) {
+        return 1;
+    }
+    const value = Number(str);
+    if (value >= 1 && value <= 3) {
+        return value as ForkPayloadVersion;
+    }
+    return 1;
+};
+
+export const getEmailSessionForkSearchParameter = (searchParams: URLSearchParams) => {
+    const email = searchParams.get(ExtraSessionForkSearchParameters.Email) || '';
+    if (validateEmailAddress(email)) {
+        return email.toLowerCase();
+    }
+};
+
+const CLIENT_ID_PLATFORMS = [
+    'web',
+    'ios',
+    'android',
+    'apple_tv',
+    'android_tv',
+    'vega_tv',
+    'linux',
+    'windows',
+    'macos',
+    'browser',
+];
+const CLIENT_ID_REGEX = new RegExp(`^(${CLIENT_ID_PLATFORMS.join('|')})-[a-z]+(-[a-z]+)*$`);
+
+/**
+ * Validates the client ID that a fork may be pushed to. Only the platform prefix is validated since the
+ * value comes from the fork url and the client IDs themselves are not all known to the web clients. The
+ * API rejects the ones that don't exist.
+ */
+export const getValidatedClientID = (clientID = ''): APP_CLIENT_IDS | undefined => {
+    if (CLIENT_ID_REGEX.test(clientID)) {
+        return clientID as APP_CLIENT_IDS;
+    }
+};

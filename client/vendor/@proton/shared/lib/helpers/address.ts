@@ -1,0 +1,111 @@
+import unary from '@proton/utils/unary';
+
+import { ADDRESS_FLAGS, ADDRESS_TYPE, MEMBER_TYPE } from '../constants';
+import type { Address, Domain, Member, UserModel } from '../interfaces';
+import { getIsDomainActive } from '../organization/domain';
+import { getIsAddressActive } from './addressStatus';
+import { hasBit } from './bitset';
+import { canonicalizeInternalEmail } from './email';
+
+export { getIsAddressActive, getIsAddressConfirmed, getIsAddressDisabled, getIsAddressEnabled } from './addressStatus';
+
+export const getActiveAddresses = (addresses: Address[]): Address[] => {
+    return addresses.filter(unary(getIsAddressActive));
+};
+
+export const getIsAddressExternal = ({ Type }: Address) => {
+    return Type === ADDRESS_TYPE.TYPE_EXTERNAL;
+};
+
+export const findUserAddress = (userEmail?: string, addresses: Address[] = []) => {
+    if (!userEmail) {
+        return undefined;
+    }
+    const canonicalUserEmail = canonicalizeInternalEmail(userEmail);
+    return addresses.find(({ Email }) => canonicalizeInternalEmail(Email) === canonicalUserEmail);
+};
+
+export const getSelfSendAddresses = (ownAddresses: Address[]) => {
+    // For custom domains, Proton Mail allows to have multiple sub-users with the same email address
+    // as long as only one of them is enabled. This poses problems when a sub-user
+    // with a disabled address wants to send email to the same address enabled in another sub-user.
+    // Because of this case, it's better to consider disabled addresses as non self
+    return ownAddresses.filter(({ Receive }) => !!Receive);
+};
+
+export const getPrimaryAddress = (addresses: Address[]) => {
+    const [address] = getActiveAddresses(addresses);
+
+    if (!address) {
+        return undefined;
+    }
+
+    return address;
+};
+
+export const getAvailableAddressDomains = ({
+    member,
+    user,
+    premiumDomains,
+    protonDomains,
+    customDomains,
+}: {
+    user: UserModel;
+    member: Member;
+    premiumDomains: string[];
+    protonDomains: string[];
+    customDomains: Domain[] | undefined;
+}) => {
+    const hasProtonDomains = member.Type === MEMBER_TYPE.PROTON;
+
+    return [
+        ...(hasProtonDomains ? protonDomains : []),
+        ...(Array.isArray(customDomains)
+            ? customDomains.filter(getIsDomainActive).map(({ DomainName }) => DomainName)
+            : []),
+        ...(hasProtonDomains && user.hasPaidMail && Array.isArray(premiumDomains) ? premiumDomains : []),
+    ];
+};
+
+const { FLAG_DISABLE_E2EE, FLAG_DISABLE_EXPECTED_SIGNED, BYOE } = ADDRESS_FLAGS;
+export const getIsEncryptionDisabled = (address: Address) => hasBit(address.Flags, FLAG_DISABLE_E2EE);
+export const getIsExpectSignatureDisabled = (address: Address) => hasBit(address.Flags, FLAG_DISABLE_EXPECTED_SIGNED);
+export const getIsBYOEAddress = (address: Address) => hasBit(address.Flags, BYOE);
+
+export const getAddressFlagsData = (address: Address | undefined, user: UserModel | undefined) => {
+    const hasPaidMail = user?.hasPaidMail;
+
+    const isEncryptionDisabled = address ? getIsEncryptionDisabled(address) : false;
+    const isExpectSignatureDisabled = address ? getIsExpectSignatureDisabled(address) : false;
+    const isCustomDomainAddressWithoutMX = !address?.ProtonMX && address?.Type === ADDRESS_TYPE.TYPE_CUSTOM_DOMAIN;
+    const isExternalAddress = address?.Type === ADDRESS_TYPE.TYPE_EXTERNAL;
+    const isBYOEAddress = address && getIsBYOEAddress(address);
+
+    const allowEnablingEncryption = isEncryptionDisabled && (!isExternalAddress || isCustomDomainAddressWithoutMX);
+    const allowDisablingEncryption =
+        hasPaidMail &&
+        !isEncryptionDisabled &&
+        ((isExternalAddress && !isBYOEAddress) || isCustomDomainAddressWithoutMX);
+    const allowDisablingUnsignedMail = hasPaidMail && isExpectSignatureDisabled && !isExternalAddress;
+    const allowEnablingUnsignedMail = hasPaidMail && !isExpectSignatureDisabled && isExternalAddress && !isBYOEAddress;
+
+    return {
+        isEncryptionDisabled,
+        isExpectSignatureDisabled,
+        isBYOEAddress,
+        permissions: {
+            allowEnablingEncryption,
+            allowDisablingEncryption,
+            allowDisablingUnsignedMail,
+            allowEnablingUnsignedMail,
+        },
+    };
+};
+
+export const getIsBYOEOnlyAccount = (addresses: Address[] | undefined) => {
+    if (!addresses || !addresses.length) {
+        return false;
+    }
+
+    return addresses.every((address) => getIsBYOEAddress(address));
+};

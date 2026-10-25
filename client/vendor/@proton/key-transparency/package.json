@@ -1,0 +1,47 @@
+{
+    "name": "@proton/key-transparency",
+    "description": "ProtonMail Key Transparency Web Client",
+    "license": "MIT",
+    "author": "ProtonMail",
+    "exports": {
+        "./helpers": "./lib/helpers/index.ts",
+        "./helpers/apiHelpers": "./lib/helpers/apiHelpers.ts",
+        "./interfaces": "./lib/interfaces.ts",
+        "./keys": "./lib/keys/index.ts",
+        "./shared": "./lib/shared/index.ts",
+        "./storage": "./lib/storage/index.ts",
+        "./verification": "./lib/verification/index.ts"
+    },
+    "scripts": {
+        "check:types": "tsc --checkers 1",
+        "i18n:validate": "proton-i18n validate lint-functions",
+        "lint": "eslint --quiet",
+        "pretty": "prettier --write $(find lib tests -type f -name '*.js' -o -name '*.ts' -o -name '*.tsx')",
+        "test": "TZ=UTC vitest",
+        "test:ci": "TZ=UTC vitest run"
+    },
+    "dependencies": {
+        "@noble/ed25519": "1.7.5",
+        "@proton/cross-storage": "workspace:^",
+        "@proton/metrics": "workspace:^",
+        "@proton/shared": "workspace:^",
+        "@proton/utils": "workspace:^",
+        "@protontech/crypto": "*",
+        "asn1js": "^3.0.10",
+        "date-fns": "^2.30.0",
+        "pkijs": "^3.4.1",
+        "pvutils": "^1.2.0",
+        "ttag": "^1.8.12"
+    },
+    "devDependencies": {
+        "@proton/eslint-config-proton": "workspace:^",
+        "@proton/i18n": "workspace:^",
+        "@proton/polyfill": "workspace:^",
+        "@proton/vitest-config": "workspace:^",
+        "@typescript/native": "npm:typescript@^7.0.2",
+        "eslint": "^10.11.0",
+        "happy-dom": "^20.14.5",
+        "typescript": "npm:@typescript/typescript6@^6.0.2",
+        "vitest": "^5.0.2"
+    }
+}

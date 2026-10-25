@@ -1,0 +1,127 @@
+{
+  "upstream": {
+    "repository": "https://github.com/ProtonMail/WebClients",
+    "commit": "775c785f4153735b7a66b2a539f2f2963257eca2",
+    "date": "2026-10-12",
+    "note": "Refreshed 2026-10-12 from 46dfd76cb9 (2026-10-08) with scripts/refresh-proton.mjs."
+  },
+  "trims": [
+    "vendor/@proton/key-transparency/lib/helpers/utils.ts",
+    "vendor/@proton/key-transparency/lib/storage/ktStorageAPI.ts",
+    "vendor/@proton/shared/lib/calendar/formatData.ts",
+    "vendor/@proton/shared/lib/calendar/sanitize.ts",
+    "vendor/@proton/shared/lib/date/timezone.ts",
+    "vendor/@proton/shared/lib/helpers/metrics.ts",
+    "vendor/@proton/shared/lib/i18n/dateFnLocales.ts",
+    "vendor/@proton/shared/lib/i18n/dateFnsLocaleMap.ts"
+  ],
+  "packageCount": 4,
+  "fileCount": 292,
+  "packages": [
+    {
+      "name": "@proton/key-transparency",
+      "path": "@proton/key-transparency",
+      "fileCount": 21
+    },
+    {
+      "name": "@proton/sanitize",
+      "path": "@proton/sanitize",
+      "fileCount": 1
+    },
+    {
+      "name": "@proton/shared",
+      "path": "@proton/shared",
+      "fileCount": 252
+    },
+    {
+      "name": "@proton/utils",
+      "path": "@proton/utils",
+      "fileCount": 18
+    }
+  ],
+  "refreshes": [
+    {
+      "at": "2026-10-08T18:46:30Z",
+      "from": "464c1b0602",
+      "to": "46dfd76cb9",
+      "conflicts": 6,
+      "added": 15,
+      "removed": 27,
+      "pruned": 7,
+      "note": "Stage 4, first run: Proton crypto and srp replaced by npm @protontech/crypto; 6 conflicts resolved by hand; see REFRESH.md."
+    },
+    {
+      "at": "2026-10-12T16:14:15.156Z",
+      "from": "46dfd76cb9",
+      "to": "775c785f41",
+      "conflicts": 0,
+      "added": 0,
+      "removed": 0,
+      "pruned": 0
+    }
+  ],
+  "additions": [
+    {
+      "at": "2026-09-30T20:29:32.964Z",
+      "seeds": [
+        "src/invitations.ts"
+      ],
+      "files": [
+        "vendor/@proton/shared/lib/api/contacts.ts",
+        "vendor/@proton/shared/lib/api/helpers/getPublicKeysEmailHelper.ts",
+        "vendor/@proton/shared/lib/api/helpers/getPublicKeysEmailHelperWithKT.ts",
+        "vendor/@proton/shared/lib/api/helpers/getPublicKeysVcardHelper.ts",
+        "vendor/@proton/shared/lib/api/helpers/mailSettings.ts",
+        "vendor/@proton/shared/lib/api/helpers/snoozeSort.ts",
+        "vendor/@proton/shared/lib/api/mailSettings.ts",
+        "vendor/@proton/shared/lib/api/messages.ts",
+        "vendor/@proton/shared/lib/calendar/exdate.ts",
+        "vendor/@proton/shared/lib/calendar/icsSurgery/vcal.ts",
+        "vendor/@proton/shared/lib/calendar/mailIntegration/invite.ts",
+        "vendor/@proton/shared/lib/calendar/recurrence/recurring.ts",
+        "vendor/@proton/shared/lib/calendar/recurrence/rrule.ts",
+        "vendor/@proton/shared/lib/calendar/recurrence/rruleEqual.ts",
+        "vendor/@proton/shared/lib/calendar/recurrence/rruleWkst.ts",
+        "vendor/@proton/shared/lib/calendar/sync/reencrypt.ts",
+        "vendor/@proton/shared/lib/contacts/decrypt.ts",
+        "vendor/@proton/shared/lib/contacts/keyProperties.ts",
+        "vendor/@proton/shared/lib/contacts/properties.ts",
+        "vendor/@proton/shared/lib/contacts/property.ts",
+        "vendor/@proton/shared/lib/contacts/vcard.ts",
+        "vendor/@proton/shared/lib/date/date.ts",
+        "vendor/@proton/shared/lib/helpers/isDeepEqual.ts",
+        "vendor/@proton/shared/lib/helpers/mimetype.ts",
+        "vendor/@proton/shared/lib/helpers/time.ts",
+        "vendor/@proton/shared/lib/i18n/dateFnLocales.ts",
+        "vendor/@proton/shared/lib/i18n/index.ts",
+        "vendor/@proton/shared/lib/keys/publicKeys.ts",
+        "vendor/@proton/shared/lib/mail/addresses.ts",
+        "vendor/@proton/shared/lib/mail/constants.ts",
+        "vendor/@proton/shared/lib/mail/encryptionPreferences.ts",
+        "vendor/@proton/shared/lib/mail/mailSettings.ts",
+        "vendor/@proton/shared/lib/mail/messages.ts",
+        "vendor/@proton/shared/lib/mail/send/attachments.ts",
+        "vendor/@proton/shared/lib/mail/send/generatePackages.ts",
+        "vendor/@proton/shared/lib/mail/send/getSendPreferences.ts",
+        "vendor/@proton/shared/lib/mail/send/helpers.ts",
+        "vendor/@proton/shared/lib/mail/send/sendEncrypt.ts",
+        "vendor/@proton/shared/lib/mail/send/sendPreferences.ts",
+        "vendor/@proton/shared/lib/mail/send/sendSubPackages.ts",
+        "vendor/@proton/shared/lib/mail/send/sendTopPackages.ts",
+        "vendor/@proton/shared/lib/sanitize/escape.ts",
+        "vendor/@proton/utils/identity.ts",
+        "vendor/@proton/utils/range.ts",
+        "vendor/@proton/utils/shallowEqual.ts"
+      ]
+    },
+    {
+      "at": "2026-10-01T08:52:45.449Z",
+      "seeds": [
+        "src/organizer.ts"
+      ],
+      "files": [
+        "vendor/@proton/shared/lib/calendar/recurrence/rruleSubset.ts"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+import { KEY_FLAG } from '../constants';
+import { clearBit, setBit } from '../helpers/bitset';
+
+export enum FlagAction {
+    MARK_OBSOLETE = 0,
+    MARK_NOT_OBSOLETE = 1,
+    MARK_COMPROMISED = 2,
+    MARK_NOT_COMPROMISED = 3,
+    DISABLE_ENCRYPTION = 4,
+    ENABLE_ENCRYPTION = 5,
+    DISABLE_EXPECT_SIGNED = 6,
+    ENABLE_EXPECT_SIGNED = 7,
+}
+
+export const getNewAddressKeyFlags = (Flags = 0, action: FlagAction) => {
+    if (action === FlagAction.MARK_OBSOLETE) {
+        return clearBit(Flags, KEY_FLAG.FLAG_NOT_OBSOLETE);
+    }
+    if (action === FlagAction.MARK_NOT_OBSOLETE) {
+        return setBit(Flags, KEY_FLAG.FLAG_NOT_OBSOLETE);
+    }
+    if (action === FlagAction.MARK_COMPROMISED) {
+        return clearBit(Flags, KEY_FLAG.FLAG_NOT_COMPROMISED + KEY_FLAG.FLAG_NOT_OBSOLETE);
+    }
+    if (action === FlagAction.MARK_NOT_COMPROMISED) {
+        return setBit(Flags, KEY_FLAG.FLAG_NOT_COMPROMISED);
+    }
+    if (action === FlagAction.ENABLE_ENCRYPTION) {
+        return clearBit(Flags, KEY_FLAG.FLAG_EMAIL_NO_ENCRYPT);
+    }
+    if (action === FlagAction.DISABLE_ENCRYPTION) {
+        return setBit(Flags, KEY_FLAG.FLAG_EMAIL_NO_ENCRYPT);
+    }
+    if (action === FlagAction.ENABLE_EXPECT_SIGNED) {
+        return clearBit(Flags, KEY_FLAG.FLAG_EMAIL_NO_SIGN);
+    }
+    if (action === FlagAction.DISABLE_EXPECT_SIGNED) {
+        return setBit(Flags, KEY_FLAG.FLAG_EMAIL_NO_SIGN);
+    }
+    throw new Error('Unknown action');
+};

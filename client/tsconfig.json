@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "maxNodeModuleJsDepth": 10,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "paths": {
+      "@proton/sanitize/*": [
+        "vendor/@proton/sanitize/src/*"
+      ],
+      "@proton/utils/*": [
+        "vendor/@proton/utils/src/*"
+      ],
+      "@proton/*": [
+        "vendor/@proton/*"
+      ],
+      "openpgp/lightweight": [
+        "node_modules/openpgp/dist/node/openpgp.mjs"
+      ]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "target": "esnext",
+    "useDefineForClassFields": false
+  },
+  "include": [
+    "src/**/*.ts",
+    "scripts/**/*.ts"
+  ]
+}

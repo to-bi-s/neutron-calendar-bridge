@@ -1,0 +1,79 @@
+# Every push and pull request: the same gate as `npm run check` on the Mac, on Linux runners
+# (macOS minutes cost ten times as much on a private repository; the native module and the
+# packaged app are covered weekly by macos.yml). Two time zones, because some date handling
+# (all-day events, availability) depends on the zone the tests run in.
+name: Check
+
+on:
+  push:
+    branches: ['**']
+    paths-ignore: ['**/*.md', 'docs/**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: npm run check (${{ matrix.tz }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        tz: [Europe/Amsterdam, Pacific/Auckland]
+    env:
+      TZ: ${{ matrix.tz }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Cache Electron download
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/electron
+          key: electron-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: electron-${{ runner.os }}-
+      - name: Install (lock file only)
+        run: npm ci --no-audit --no-fund
+      - name: Check (library build and offline suites, type check, catalogs, bridge tests, build)
+        run: npm run check
+
+  window:
+    name: Window harnesses (Electron under Xvfb)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: Europe/Amsterdam
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Cache Electron download
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/electron
+          key: electron-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: electron-${{ runner.os }}-
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: Accounts, sign-in page, switches (screenshots)
+        run: xvfb-run -a npx electron --no-sandbox --disable-gpu tests/electron/renderer-accounts.harness.js "$RUNNER_TEMP/screenshots"
+      - name: Every catalog applied to the window
+        run: xvfb-run -a npx electron --no-sandbox --disable-gpu tests/electron/renderer-i18n.harness.js
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: window-screenshots
+          path: ${{ runner.temp }}/screenshots
+          retention-days: 7
+          if-no-files-found: ignore

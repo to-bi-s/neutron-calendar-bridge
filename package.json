@@ -1,0 +1,89 @@
+{
+  "name": "neutron-calendar-bridge",
+  "version": "1.0.0",
+  "description": "Neutron Calendar Bridge — Bridge for Proton Calendar: a local CalDAV bridge between Proton Calendar and Calendar.app (unofficial)",
+  "private": true,
+  "workspaces": [
+    "client"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/to-bi-s/neutron-calendar-bridge.git"
+  },
+  "main": "dist/main/main.js",
+  "license": "GPL-3.0-only",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-renderer.mjs && node scripts/build-native.mjs",
+    "start": "npm run build && electron .",
+    "dev": "npm run build && electron .",
+    "test": "tsx --test tests/**/*.test.ts",
+    "test:i18n": "npm run build && electron tests/electron/renderer-i18n.harness.js",
+    "strings": "node scripts/extract-strings.mjs",
+    "check": "node scripts/check.mjs",
+    "seed:sessions": "electron scripts/seed-test-sessions.js",
+    "package:mac": "npm run build && electron-builder --mac",
+    "package:mac:release": "node scripts/package-mac-release.mjs",
+    "package:mac:quick": "node scripts/package-mac-release.mjs --quick",
+    "build:native": "node scripts/build-native.mjs --force"
+  },
+  "dependencies": {
+    "@journeyapps/sqlcipher": "6.0.0",
+    "express": "4.21.2",
+    "node-ical": "0.20.1",
+    "proton-calendar-client": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.3",
+    "@types/node": "24.4.0",
+    "electron": "^40.8.2",
+    "electron-builder": "26.0.12",
+    "node-addon-api": "8.9.2",
+    "tsx": "4.20.4",
+    "typescript": "5.9.2"
+  },
+  "build": {
+    "appId": "io.github.to-bi-s.neutron-calendar-bridge",
+    "productName": "Neutron Calendar Bridge",
+    "copyright": "Copyright © 2026 Tactless Autist (original work), Tobi (modifications). GPL-3.0-only.",
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "resources/**/*",
+      "native/menu-spinner/index.js",
+      "native/menu-spinner/package.json",
+      "native/menu-spinner/build/Release/*.node",
+      "package.json",
+      "CHANGELOG.md",
+      "!node_modules/@journeyapps/sqlcipher/{deps,src}/**/*",
+      "!node_modules/@journeyapps/sqlcipher/build/{deps,node_modules}/**/*",
+      "!node_modules/@journeyapps/sqlcipher/build/{Makefile,binding.Makefile,config.gypi,node_sqlite3.target.mk}",
+      "!node_modules/@journeyapps/sqlcipher/build/Release/{.deps,obj.target}/**/*",
+      "!node_modules/@journeyapps/sqlcipher/build/Release/*.a",
+      "!node_modules/proton-calendar-client/{vendor,src,scripts,node_modules,.refresh-tmp,.refresh-build-tmp}/**/*",
+      "!node_modules/proton-calendar-client/{tsconfig.json,.refresh-report.md,.gitignore}"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg"
+      ],
+      "extendInfo": {
+        "LSUIElement": true
+      },
+      "icon": "resources/icons/app-icon-tahoe.icns",
+      "hardenedRuntime": true,
+      "entitlements": "resources/entitlements.mac.plist",
+      "entitlementsInherit": "resources/entitlements.mac.inherit.plist"
+    },
+    "asarUnpack": [
+      "native/**/*.node"
+    ]
+  },
+  "allowScripts": {
+    "electron@40.8.2": true,
+    "@journeyapps/sqlcipher@6.0.0": true
+  }
+}

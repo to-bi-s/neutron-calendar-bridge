@@ -1,0 +1,8 @@
+{
+  "name": "neutron-menu-spinner",
+  "version": "0.32.4",
+  "private": true,
+  "description": "Spins the sync symbol in Neutron Calendar Bridge's menu-bar menu while the menu is open (macOS, Node-API).",
+  "main": "index.js",
+  "license": "GPL-3.0-only"
+}

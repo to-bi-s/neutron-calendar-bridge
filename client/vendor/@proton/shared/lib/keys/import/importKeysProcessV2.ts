@@ -1,0 +1,138 @@
+import type { PrivateKeyReference, PrivateKeyReferenceV4, PrivateKeyReferenceV6 } from '@protontech/crypto';
+import { CryptoProxy } from '@protontech/crypto';
+
+import { createAddressKeyRouteV2 } from '../../api/keys';
+import {
+    type ActiveKeyWithVersion,
+    type Address,
+    type Api,
+    type DecryptedAddressKey,
+    type KeyTransparencyVerify,
+    isActiveKeyV6,
+} from '../../interfaces';
+import { generateAddressKeyTokens } from '../addressKeys';
+import {
+    getActiveAddressKeys,
+    getActiveKeyObject,
+    getNormalizedActiveAddressKeys,
+    getPrimaryFlag,
+} from '../getActiveKeys';
+import { getInactiveKeys } from '../getInactiveKeys';
+import { getDefaultKeyFlags } from '../keyFlags';
+import type { ReactivateKeysResult } from '../reactivation/interface';
+import { reactivateAddressKeysV2 } from '../reactivation/reactivateKeysProcessV2';
+import { getSignedKeyListWithDeferredPublish } from '../signedKeyList';
+import { getFilteredImportRecords } from './helper';
+import type { ImportKeyData } from './interface';
+
+export interface ImportKeysProcessV2Arguments {
+    api: Api;
+    keyImportRecords: ImportKeyData[];
+    keyPassword: string;
+    address: Address;
+    addressKeys: DecryptedAddressKey[];
+    userKey: PrivateKeyReference;
+    keyTransparencyVerify: KeyTransparencyVerify;
+}
+
+type ImportKeysResult = ReactivateKeysResult;
+
+const importKeysProcessV2 = async ({
+    api,
+    keyImportRecords,
+    address,
+    addressKeys,
+    userKey,
+    keyTransparencyVerify,
+}: ImportKeysProcessV2Arguments) => {
+    const activeKeys = await getActiveAddressKeys(address.SignedKeyList, addressKeys);
+    const activeKeysList = [...activeKeys.v4, ...activeKeys.v6];
+    const inactiveKeys = await getInactiveKeys(address.Keys, activeKeysList);
+    const result: ImportKeysResult = {
+        details: [],
+    };
+
+    const [keysToReactivate, keysToImport, existingKeys] = getFilteredImportRecords(
+        keyImportRecords,
+        activeKeysList,
+        inactiveKeys
+    );
+
+    existingKeys.forEach((keyImportRecord) => {
+        result.details.push({ id: keyImportRecord.id, error: new Error('Key already active'), type: 'error' });
+    });
+
+    let mutableActiveKeys = activeKeys;
+
+    for (const keyImportRecord of keysToImport) {
+        try {
+            const { privateKey } = keyImportRecord;
+
+            const { token, encryptedToken, signature } = await generateAddressKeyTokens(userKey);
+            const privateKeyArmored = await CryptoProxy.exportPrivateKey({
+                privateKey,
+                passphrase: token,
+            });
+
+            // since we already have the armored private key, we avoid calling the
+            // `toPublicKeyReference` helper which internally re-exports the key
+            const publicKey = await CryptoProxy.importPublicKey({ armoredKey: privateKeyArmored });
+            const newActiveKey = (await getActiveKeyObject(
+                privateKey as PrivateKeyReferenceV4 | PrivateKeyReferenceV6,
+                publicKey,
+                {
+                    ID: 'tmp',
+                    // Do not set v6 as primary automatically (doing so would fail if forwarding is setup)
+                    primary: privateKey.isPrivateKeyV6() ? 0 : getPrimaryFlag(mutableActiveKeys.v4),
+                    flags: getDefaultKeyFlags(address),
+                }
+            )) as ActiveKeyWithVersion;
+            const toNormalize = isActiveKeyV6(newActiveKey)
+                ? { v4: [...mutableActiveKeys.v4], v6: [...mutableActiveKeys.v6, newActiveKey] }
+                : { v4: [...mutableActiveKeys.v4, newActiveKey], v6: [...mutableActiveKeys.v6] };
+            const updatedActiveKeys = getNormalizedActiveAddressKeys(address, toNormalize);
+            const [SignedKeyList, onSKLPublishSuccess] = await getSignedKeyListWithDeferredPublish(
+                updatedActiveKeys,
+                address,
+                keyTransparencyVerify
+            );
+
+            const { Key } = await api(
+                createAddressKeyRouteV2({
+                    AddressID: address.ID,
+                    Primary: newActiveKey.primary,
+                    PrivateKey: privateKeyArmored,
+                    SignedKeyList,
+                    Signature: signature,
+                    Token: encryptedToken,
+                })
+            );
+            // Only once the SKL is successfully posted we add it to the KT commit state.
+            await onSKLPublishSuccess();
+
+            // Mutably update the key with the latest value from the real ID.
+            newActiveKey.ID = Key.ID;
+
+            mutableActiveKeys = updatedActiveKeys;
+
+            result.details.push({ id: keyImportRecord.id, type: 'success' });
+        } catch (e: any) {
+            result.details.push({ id: keyImportRecord.id, error: e, type: 'error' });
+        }
+    }
+
+    const reactivationResult = await reactivateAddressKeysV2({
+        api,
+        address,
+        activeKeys: mutableActiveKeys,
+        userKey,
+        keysToReactivate,
+        keyTransparencyVerify,
+    });
+
+    return {
+        details: [...reactivationResult.result.details, ...result.details],
+    };
+};
+
+export default importKeysProcessV2;
