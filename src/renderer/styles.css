@@ -465,7 +465,7 @@ input:focus {
 .app-shell {
     display: grid;
     /* 1.0.4: as wide as Proton Calendar's side panel (250 px; 280 was too wide), so account addresses are not cut off */
-    grid-template-columns: 250px 1fr;
+    grid-template-columns: 251px 1fr;
     height: 100vh;
     overflow: hidden;
 }
@@ -1194,6 +1194,12 @@ button.sync-control:focus-visible {
 
 .setting-hint.setting-error {
     color: var(--danger);
+}
+
+/* 1.0.4: the Help card's links, with air between the text and the buttons and between the rows */
+.help-links {
+    margin-top: 18px;
+    gap: 12px 14px;
 }
 
 .setting-field-span2 {

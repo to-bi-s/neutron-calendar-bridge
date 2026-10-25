@@ -510,5 +510,6 @@
   "Test mode (set in the configuration file): only the listed addresses get emails; a change that would email anyone else is refused.": "Modalità di prova (impostata nel file di configurazione): solo gli indirizzi elencati ricevono e-mail; una modifica che scriverebbe ad altri viene rifiutata.",
   "The app's home is its GitHub repository: the manual, the detailed rules, everything about building it, the changelog and the place to report a problem. The links open in your browser.": "La casa dell’app è il suo repository GitHub: il manuale, le regole nel dettaglio, tutto su come compilarla, il registro delle modifiche e il posto dove segnalare un problema. I link si aprono nel browser.",
   "Unofficial: not affiliated with or endorsed by Proton AG. Proton and Proton Calendar are trademarks of Proton AG. Free and open source (GPL-3.0).": "Non ufficiale: non affiliato a Proton AG né da essa approvato. Proton e Proton Calendar sono marchi di Proton AG. Libero e open source (GPL-3.0).",
-  "What the Bridge Does, in Detail": "Cosa fa il bridge, nel dettaglio"
+  "What the Bridge Does, in Detail": "Cosa fa il bridge, nel dettaglio",
+  "What This App Does": "Cosa fa questa app"
 }
