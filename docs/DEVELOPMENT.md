@@ -47,6 +47,8 @@ A packaged app:
 npm run package:mac  # → release/: a DMG and a ZIP per architecture (arm64 and x64, from either kind of Mac), plus latest-mac.yml for the updater
 ```
 
+Both package commands end with `npm rebuild @journeyapps/sqlcipher`: electron-builder compiles SQLCipher in `node_modules` once per architecture and leaves the last one (Intel) behind, which the tests on an Apple-silicon Mac could not load — the rebuild puts this Mac's build back. If `npm test` ever fails with "incompatible architecture", that command is the fix.
+
 This build is not signed or notarized (unless a Developer ID certificate is in your Keychain, which electron-builder then uses). macOS therefore blocks the first start: right-click the app in Applications → **Open**, or allow it under System Settings → Privacy & Security after the first refusal. The app keeps its data in `~/Library/Application Support/neutron-calendar-bridge` and its log in `~/Library/Logs/neutron-calendar-bridge/bridge.log`.
 
 ### The macOS 26 app icon

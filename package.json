@@ -21,7 +21,7 @@
     "strings": "node scripts/extract-strings.mjs",
     "check": "node scripts/check.mjs",
     "seed:sessions": "electron scripts/seed-test-sessions.js",
-    "package:mac": "npm run build && electron-builder --mac",
+    "package:mac": "npm run build && electron-builder --mac && npm rebuild @journeyapps/sqlcipher",
     "package:mac:release": "node scripts/package-mac-release.mjs",
     "package:mac:quick": "node scripts/package-mac-release.mjs --quick",
     "build:native": "node scripts/build-native.mjs --force",

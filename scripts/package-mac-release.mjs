@@ -68,6 +68,10 @@ run('npx', ['electron-builder', '--mac', ...(quick ? [`--${process.arch}`] : [])
     env: { ...process.env, CSC_IDENTITY_AUTO_DISCOVERY: 'true', CSC_NAME: identity.replace(/^Developer ID Application: /, ''), APPLE_KEYCHAIN_PROFILE: profile }
 });
 
+// 1.0.3: electron-builder recompiles SQLCipher in node_modules once per architecture and leaves the last
+// one (x64) behind, which this Mac's Node cannot load (npm test would fail). Put this Mac's build back.
+run('npm', ['rebuild', '@journeyapps/sqlcipher']);
+
 const release = join(root, build.directories.output);
 /** Each built architecture: electron-builder puts the x64 app in mac/, the arm64 one in mac-arm64/. */
 const builds = readdirSync(release)
