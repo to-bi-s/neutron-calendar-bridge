@@ -7,6 +7,7 @@ Neutron Calendar Bridge — Bridge for Proton Calendar, a fork of proton-calenda
 - **The side panel is as wide as Proton Calendar's** (251 instead of 220 pixels), so account addresses are no longer cut off.
 - **Developer Options, simplified**: "Invitation emails" is one switch, **Send invitation emails** — on is live, off is the dry run (nothing sent, nothing changed in Proton, the would-be emails logged and listed). The test mode with its address list is out of the window (it stays in the code for the live tests: `invitationEmailMode: "test"` in the account's `config.json`). "Apply answers that guests outside Proton send by email" is out of the window too — tested, not needed, Proton records those answers itself; the code stays (`applyEmailedAnswers: true` in `config.json`).
 - DEVELOPMENT.md without the "Updating from very old versions" section.
+- **The same spacing between cards on every page** (24 px, as on Settings): Setup and Info had extra margins on top of it, the Overview's account cards sat closer together and had less padding than the other cards.
 - Updating: `git am` the patch, `npm run check`, `npm run package:mac:release`.
 
 ## 1.0.3 (file names the updater can find; the README for users)

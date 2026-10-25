@@ -865,7 +865,7 @@ input:focus {
 /* Groups: My Calendars, Shared with me, Subscribed Calendars, Public Holidays */
 
 .calendar-group + .calendar-group {
-    margin-top: 22px;
+    margin-top: 24px;
 }
 
 .calendar-group-header {
@@ -1096,7 +1096,7 @@ button.sync-control:focus-visible {
 /* Info page */
 
 .info-card + .info-card {
-    margin-top: 16px;
+    margin-top: 0; /* 1.0.4: the page grid's gap, like every other page */
 }
 
 .credits {
@@ -1353,7 +1353,7 @@ button.sync-control:focus-visible {
 
 /* Set up Calendar.app (0.30) */
 .setup-card {
-    margin-bottom: 22px;
+    margin-bottom: 0; /* 1.0.4: the page grid's gap, like every other page */
 }
 
 .setup-card .button-row {
@@ -1427,7 +1427,7 @@ button.sync-control:focus-visible {
 }
 
 .setup-alert {
-    margin-bottom: 22px;
+    margin-bottom: 0;
     border-color: var(--danger-soft);
 }
 
@@ -1875,7 +1875,12 @@ button.sync-control:focus-visible {
 .ov-accounts {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 24px; /* 1.0.4: as between the cards of the other pages */
+}
+
+.ov-accounts .account-card {
+    padding: 24px;
+    border-radius: 20px;
 }
 
 .account-card.is-error {
