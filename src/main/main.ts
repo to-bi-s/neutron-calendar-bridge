@@ -529,6 +529,7 @@ const renderVerificationHostPage = async (window: BrowserWindow, token: string) 
                         margin-top: 20px;
                         border: 0;
                         border-radius: 18px;
+                        overflow: hidden;
                         background: ${dark ? '#26242f' : '#ffffff'};
                     }
                 </style>
@@ -542,6 +543,7 @@ const renderVerificationHostPage = async (window: BrowserWindow, token: string) 
                         <iframe
                             id="captcha-frame"
                             title="Proton verification"
+                            scrolling="no"
                             sandbox="allow-scripts allow-same-origin allow-popups"
                             src="${escapedIframeUrl}"
                         ></iframe>
@@ -582,6 +584,12 @@ const renderVerificationHostPage = async (window: BrowserWindow, token: string) 
 
                 if (!data.type) {
                     return;
+                }
+                // 1.0.2: the frame grows with Proton's page, so it never shows a scrollbar of its own
+                // (a white strip at the right edge in dark mode); the window follows from the main process.
+                if (data.type === 'pm_height' && Number.isFinite(data.height)) {
+                    const frame = document.getElementById('captcha-frame');
+                    if (frame) frame.style.height = Math.max(560, Math.ceil(Number(data.height)) + 40) + 'px';
                 }
 
                 console.log('${VERIFICATION_MESSAGE_PREFIX}' + JSON.stringify({
