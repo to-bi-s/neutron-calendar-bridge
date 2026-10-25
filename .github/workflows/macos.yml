@@ -78,8 +78,11 @@ jobs:
           done
           lipo -archs "release/mac-arm64/Neutron Calendar Bridge.app/Contents/Resources/app.asar.unpacked/native/menu-spinner/build/Release/menu_spinner.node" | grep -q 'x86_64 arm64\|arm64 x86_64'
           ls -lh release/*.dmg
-          test -f "release/Neutron Calendar Bridge-$expected-arm64.dmg"
-          test -f "release/Neutron Calendar Bridge-$expected-x64.dmg"
+          test -f "release/neutron-calendar-bridge-arm64.dmg"
+          test -f "release/neutron-calendar-bridge-x64.dmg"
+          test -f "release/neutron-calendar-bridge-$expected-arm64.zip"
+          test -f "release/neutron-calendar-bridge-$expected-x64.zip"
+          test -f release/latest-mac.yml
       - uses: actions/upload-artifact@v7
         with:
           name: neutron-calendar-bridge-dmg

@@ -1,6 +1,6 @@
 {
   "name": "neutron-calendar-bridge",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Neutron Calendar Bridge — Bridge for Proton Calendar: a local CalDAV bridge between Proton Calendar and Calendar.app (unofficial)",
   "private": true,
   "workspaces": [
@@ -85,7 +85,7 @@
           ]
         }
       ],
-      "artifactName": "${productName}-${version}-${arch}.${ext}",
+      "artifactName": "${name}-${version}-${arch}.${ext}",
       "extendInfo": {
         "LSUIElement": true
       },
@@ -93,6 +93,10 @@
       "hardenedRuntime": true,
       "entitlements": "resources/entitlements.mac.plist",
       "entitlementsInherit": "resources/entitlements.mac.inherit.plist"
+    },
+    "dmg": {
+      "artifactName": "${name}-${arch}.${ext}",
+      "title": "${productName} ${version}"
     },
     "asarUnpack": [
       "native/**/*.node"

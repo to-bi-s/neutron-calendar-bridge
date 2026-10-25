@@ -26,7 +26,7 @@ import { join } from 'node:path';
 const root = new URL('..', import.meta.url).pathname;
 const profile = process.env.NEUTRON_NOTARY_PROFILE || 'neutron-notary';
 const quick = process.argv.includes('--quick');
-const { version, build } = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
+const { name, version, build } = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 
 const fail = (message) => {
     console.error(`\n✗ ${message}`);
@@ -75,8 +75,10 @@ const builds = readdirSync(release)
     .map((name) => {
         const arch = name === 'mac' ? 'x64' : 'arm64';
         const app = join(release, name, `${build.productName}.app`);
-        const dmg = join(release, `${build.productName}-${version}-${arch}.dmg`);
-        const zip = join(release, `${build.productName}-${version}-${arch}.zip`);
+        // 1.0.3: file names without spaces (GitHub would rename them and the updater would not find them);
+        // the DMG without the version, so the README's download buttons can point at releases/latest.
+        const dmg = join(release, `${name}-${arch}.dmg`);
+        const zip = join(release, `${name}-${version}-${arch}.zip`);
         return { arch, app, dmg, zip };
     })
     .filter(({ dmg }) => existsSync(dmg));
