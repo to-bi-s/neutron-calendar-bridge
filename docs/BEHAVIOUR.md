@@ -22,6 +22,8 @@ The rules behind the features — for when you want to know exactly what happens
 
 An event's Proton notifications — or the calendar's default reminders — are served as alerts, and alerts you add, change or remove in your calendar app are stored in Proton: display and sound alerts as device notifications, email alerts as email notifications. For a meeting or an invitation the reminders go through Proton's personal part, so changing an alert never emails anyone. Alerts equal to the calendar's defaults count as "the defaults" (Proton keeps following the calendar's setting); removing all alerts stores "none". What Proton cannot keep is left out: alerts after the start, location-based alerts, more than 10.
 
+Snoozing or dismissing an alert writes nothing to Proton. Thunderbird keeps the snooze ("snoozed until") and the dismissal ("dismissed up to") in the event itself; since 1.0.5 the bridge keeps both in the copy it serves — per occurrence for repeating events, also when the event is read again from Proton — so a snoozed alert comes back on time.
+
 ## Answering invitations
 
 Accept, Maybe and Decline in your calendar app do what the same buttons do in Proton Calendar: your answer is saved in Proton and emailed to the organizer (an iCalendar `REPLY`). The email is built and encrypted with Proton's own code and sent through your Proton account: end-to-end to Proton users, PGP where the organizer's key is pinned in your contacts, normal email to everyone else. Deleting an invitation declines it (the organizer is told only if you had said yes or maybe, and not when the app asks not to notify), then removes it — for a recurring invitation, the whole series.

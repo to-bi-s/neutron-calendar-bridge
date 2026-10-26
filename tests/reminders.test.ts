@@ -14,6 +14,7 @@ import type { SyncedCalendarEvent } from 'proton-calendar-client';
 import { fakeSafeStorage } from './support/fake-safe-storage';
 import { buildEventRecordShape, toIcs } from '../src/main/sync-utils';
 import { buildSeriesIcs, groupIntoSeries } from '../src/main/recurrence';
+import { withAlarmStateOf } from '../src/main/alarm-state';
 
 const electronApp: any = { setLoginItemSettings: () => undefined, isPackaged: false };
 const stubElectron = () => {
@@ -398,4 +399,63 @@ test('an older client without reminders: everything as before 0.33', async () =>
     } finally {
         await cleanup();
     }
+});
+
+// 1.0.5: Thunderbird keeps "dismissed up to" and "snoozed until" in the event and saves it to record them.
+const asThunderbird = (ics: string, state: string[]) =>
+    unfold(ics)
+        .replace('PRODID:-//Neutron Calendar Bridge//EN', 'PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN')
+        .replace(/^X-MOZ-[^\r\n]*\r\n/gm, '')
+        .replace(/(END:VALARM\r\n)(?![\s\S]*END:VALARM)/, `$1${[...state, 'X-MOZ-GENERATION:1'].join('\r\n')}\r\n`);
+
+test('1.0.5: a snooze in Thunderbird stays in the served copy — no write, also after the sync and on a meeting; dismissing ends it', async () => {
+    const { service, writes, row, put, cleanup } = await setup([plain({ hasDefaults: true, alarms: [ALARM_30] }), meeting({ hasDefaults: true, alarms: [ALARM_30] })]);
+    try {
+        for (const uid of ['plain@proton.me', 'organized@proton.me']) {
+            const record = row(uid);
+            const stored = async () => (await service.mirrorDatabase.getEventByUid('private', uid)) as any;
+            const snoozed = asThunderbird(record.serializedIcs, ['X-MOZ-LASTACK:20261005T073000Z', 'X-MOZ-SNOOZE-TIME:20261005T073500Z']);
+            const result = await put(record, snoozed);
+            assert.deepEqual(writes, [], `${uid}: a snooze writes nothing to Proton`);
+            assert.equal(result.etag, '', 'no ETag: Thunderbird re-reads');
+            const kept = await stored();
+            assert.match(kept.serializedIcs, /\r\nX-MOZ-LASTACK:20261005T073000Z\r\nX-MOZ-SNOOZE-TIME:20261005T073500Z\r\nEND:VEVENT/, 'what it re-reads has the snooze');
+            assert.doesNotMatch(kept.serializedIcs, /X-MOZ-GENERATION/, 'only the alert state is kept');
+            assert.notEqual(kept.etag, record.etag, 'a new ETag for the changed copy');
+
+            // The sync rebuilds the copy from Proton: the state stays, the ETag too (nothing for Thunderbird to fetch).
+            await service.syncEventsForCalendar(await service.mirrorDatabase.getCalendarById('private'));
+            const synced = await stored();
+            assert.equal(synced.serializedIcs, kept.serializedIcs);
+            assert.equal(synced.etag, kept.etag);
+
+            // Dismissed: a later "dismissed up to", no snooze any more.
+            await put(record, asThunderbird(synced.serializedIcs, ['X-MOZ-LASTACK:20261005T073600Z']));
+            assert.deepEqual(writes, [], 'dismissing writes nothing either');
+            const dismissed = (await stored()).serializedIcs;
+            assert.match(dismissed, /X-MOZ-LASTACK:20261005T073600Z/);
+            assert.doesNotMatch(dismissed, /X-MOZ-SNOOZE-TIME|X-MOZ-LASTACK:20261005T073000Z/);
+        }
+    } finally {
+        await cleanup();
+    }
+});
+
+test('1.0.5: the alert state is kept per VEVENT — a series\' snoozed occurrence on the series, a changed occurrence its own', () => {
+    const series = [
+        'BEGIN:VCALENDAR', 'VERSION:2.0',
+        'BEGIN:VEVENT', 'UID:s@proton.test', 'DTSTART:20261005T080000Z', 'RRULE:FREQ=DAILY', 'BEGIN:VALARM', 'TRIGGER:-PT5M', 'ACTION:DISPLAY', 'END:VALARM', 'END:VEVENT',
+        'BEGIN:VEVENT', 'UID:s@proton.test', 'RECURRENCE-ID:20261006T080000Z', 'DTSTART:20261006T090000Z', 'END:VEVENT',
+        'END:VCALENDAR', ''
+    ].join('\r\n');
+    const record = { serializedIcs: series, etag: '"a"', contentHash: 'a' } as any;
+    const client = series
+        .replace('RRULE:FREQ=DAILY\r\n', 'RRULE:FREQ=DAILY\r\nX-MOZ-LASTACK:20261005T075500Z\r\nX-MOZ-SNOOZE-TIME-1791273600000000:20261007T080000Z\r\n')
+        .replace('DTSTART:20261006T090000Z\r\n', 'DTSTART:20261006T090000Z\r\nX-MOZ-LASTACK:20261006T085500Z\r\n');
+    const kept = withAlarmStateOf(record, client);
+    assert.equal(kept.serializedIcs.match(/X-MOZ-/g)?.length, 3);
+    assert.match(kept.serializedIcs, /END:VALARM\r\nX-MOZ-LASTACK:20261005T075500Z\r\nX-MOZ-SNOOZE-TIME-1791273600000000:20261007T080000Z\r\nEND:VEVENT/, 'the series\' lines on the series, outside its alarm');
+    assert.match(kept.serializedIcs, /DTSTART:20261006T090000Z\r\nX-MOZ-LASTACK:20261006T085500Z\r\nEND:VEVENT/, 'the occurrence\'s on the occurrence');
+    assert.equal(withAlarmStateOf(kept, client), kept, 'again: the same copy, the same ETag');
+    assert.equal(withAlarmStateOf(record, series), record, 'no state anywhere: untouched');
 });

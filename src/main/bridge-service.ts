@@ -45,6 +45,7 @@ import {
     veventBlocksWithoutAlarms,
 } from './recurrence';
 import { secret, setDetailedLogging, withoutAddresses } from './private-log';
+import { carriesAlarmState, withAlarmStateOf } from './alarm-state';
 import { PROVIDER_NAMES, conferenceOfIcsText, firstVeventOf, icsHasConferenceRemoval, masterVeventOf, restoreConferenceLines, placeKind, sameRoom, withConferenceDescribed, withConferenceRemoved, withLocation, withoutLocation, withServedDescriptions, withVideoLink } from './video-links';
 
 /** 0.34.2: what a save did about video links, for the steps after the write. */
@@ -3236,6 +3237,10 @@ export class BridgeService {
         }
         // 0.34.2: a Proton Meet room of this account follows its event's title (best effort, after the save).
         await this.followVideoLinkTitle(video);
+        const stateKept = await this.withClientAlarmState(slug, result, serializedIcs);
+        if (stateKept !== result) {
+            return stateKept;
+        }
         if ((video.created || video.removed || video.placeRestored) && result?.etag) {
             // 0.41.3: the saved event is not what Calendar.app sent (the link is the location now, or the link
             // was taken off): no ETag in the reply, so Calendar.app fetches it at once instead of keeping its
@@ -3243,6 +3248,28 @@ export class BridgeService {
             return { ...result, etag: '' };
         }
         return result;
+    }
+
+    /**
+     * 1.0.5: after a save from Thunderbird (or its relatives), the stored copy keeps the app's alert state
+     * (dismissed, snoozed; see alarm-state.ts) — also when the save wrote nothing to Proton and the stored
+     * copy stayed Proton's. The reply keeps "no ETag" where it had none, so the app re-reads and finds it.
+     */
+    private async withClientAlarmState<T extends BridgeEventRecord | null | undefined>(slug: string, result: T, clientIcs: string): Promise<T> {
+        if (!result || result.deleted || !result.uid || !carriesAlarmState(clientIcs)) {
+            return result;
+        }
+        const stored = await this.mirrorDatabase.getEventByUid(result.protonCalendarId, result.uid);
+        if (!stored || stored.deleted) {
+            return result;
+        }
+        const kept = withAlarmStateOf(stored, clientIcs);
+        if (kept === stored) {
+            return result;
+        }
+        await this.mirrorDatabase.upsertEvent(kept);
+        await this.bumpCalendar(await this.requireCalendar(slug));
+        return { ...result, serializedIcs: kept.serializedIcs, contentHash: kept.contentHash, etag: result.etag ? kept.etag : '' };
     }
 
     private async upsertLocalEventSteps(
@@ -5693,13 +5720,17 @@ export class BridgeService {
         // A row keyed by this Proton event keeps the UID Calendar.app knows it by.
         const uid = existingRecord?.protonEventId === series.key ? existingRecord.uid : series.uid;
         const href = existingRecord?.href || buildEventHref(this.getCalDAVConfig().username, calendar.slug, uid);
-        const nextRecord = this.buildMirrorRecord(series, calendar.protonCalendarId, href, uid);
+        let nextRecord = this.buildMirrorRecord(series, calendar.protonCalendarId, href, uid);
 
         // The row for this UID may be keyed by a different Proton event (older mirror format,
         // or the series master changed). Replace it so the (calendar, uid) index stays unique.
         if (existingRecord && existingRecord.protonEventId !== nextRecord.protonEventId) {
             await this.mirrorDatabase.removeEventByUid(calendar.protonCalendarId, existingRecord.uid);
             existingRecord = undefined;
+        }
+        // 1.0.5: Thunderbird's alert state (dismissed, snoozed) stays in the copy rebuilt from Proton.
+        if (existingRecord && !existingRecord.deleted) {
+            nextRecord = withAlarmStateOf(nextRecord, existingRecord.serializedIcs);
         }
 
         const recordChanged =

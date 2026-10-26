@@ -1,6 +1,6 @@
 {
   "name": "neutron-calendar-bridge",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Neutron Calendar Bridge — Bridge for Proton Calendar: a local CalDAV bridge between Proton Calendar and Calendar.app (unofficial)",
   "private": true,
   "workspaces": [
