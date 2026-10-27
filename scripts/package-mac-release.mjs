@@ -75,12 +75,13 @@ run('npm', ['rebuild', '@journeyapps/sqlcipher']);
 const release = join(root, build.directories.output);
 /** Each built architecture: electron-builder puts the x64 app in mac/, the arm64 one in mac-arm64/. */
 const builds = readdirSync(release)
-    .filter((name) => /^mac(-arm64)?$/.test(name) && existsSync(join(release, name, `${build.productName}.app`)))
-    .map((name) => {
-        const arch = name === 'mac' ? 'x64' : 'arm64';
-        const app = join(release, name, `${build.productName}.app`);
+    .filter((dir) => /^mac(-arm64)?$/.test(dir) && existsSync(join(release, dir, `${build.productName}.app`)))
+    .map((dir) => {
+        const arch = dir === 'mac' ? 'x64' : 'arm64';
+        const app = join(release, dir, `${build.productName}.app`);
         // 1.0.3: file names without spaces (GitHub would rename them and the updater would not find them);
         // the DMG without the version, so the README's download buttons can point at releases/latest.
+        // 1.0.5: `name` is the package name (the files' prefix), not the folder — the folder shadowed it.
         const dmg = join(release, `${name}-${arch}.dmg`);
         const zip = join(release, `${name}-${version}-${arch}.zip`);
         return { arch, app, dmg, zip };
