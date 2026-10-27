@@ -31,7 +31,7 @@
     "@journeyapps/sqlcipher": "6.0.0",
     "electron-updater": "6.8.11",
     "express": "4.22.3",
-    "node-ical": "0.20.1",
+    "node-ical": "0.27.3",
     "proton-calendar-client": "0.1.0"
   },
   "devDependencies": {

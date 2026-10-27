@@ -229,9 +229,10 @@ test('a standard iCalendar parser reads the series back correctly', () => {
     assert.equal(event.summary, 'Team meeting');
     assert.equal(new Date(event.start).toISOString(), '2026-01-05T08:00:00.000Z');
     assert.ok(event.rrule, 'RRULE parsed');
-    assert.equal(Object.keys(event.exdate || {}).length, 1);
+    // node-ical 0.27 files each EXDATE under its date and its date-time: counted by moment.
+    assert.equal(new Set(Object.values(event.exdate || {}).map((date: any) => new Date(date).getTime())).size, 1);
 
-    const overrides = Object.values(event.recurrences || {}) as any[];
+    const overrides = [...new Set(Object.values(event.recurrences || {}))] as any[]; // the same: one object under both keys
     assert.equal(overrides.length, 2);
     const moved = overrides.find((entry) => entry.summary === 'Team meeting (moved)');
     assert.ok(moved, 'moved occurrence parsed');
