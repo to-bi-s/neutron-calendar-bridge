@@ -158,3 +158,16 @@ test('0.48.5: a time zone on a plain date (Thunderbird\'s all-day events) is dro
     assert.equal(withoutTimeZoneOnDates('EXDATE;TZID="Europe/Amsterdam";VALUE=DATE:20261021,20261028\n'), 'EXDATE;VALUE=DATE:20261021,20261028\n');
     assert.equal(withoutTimeZoneOnDates('DTSTART;VALUE=DATE;TZID=Europe/Amster\r\n dam:20261021\r\n'), 'DTSTART;VALUE=DATE:20261021\r\n', 'folded');
 });
+
+test('1.0.5: a title, description and location with parameters (SUMMARY;LANGUAGE=de:…) are read as their text', () => {
+    const ics = [
+        'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Example//Outlook-like//EN',
+        'BEGIN:VEVENT', 'UID:params@example.org', 'DTSTART:20261027T190000Z', 'DTEND:20261027T200000Z',
+        'SUMMARY;LANGUAGE=de:Zahnarzt', 'DESCRIPTION;ALTREP="cid:part1@example.org":Mit Text\\, und Komma', 'LOCATION;LANGUAGE=de:Praxis',
+        'END:VEVENT', 'END:VCALENDAR', ''
+    ].join('\r\n');
+    const { eventData } = parseIcs(ics);
+    assert.equal(eventData.title, 'Zahnarzt');
+    assert.equal(eventData.description, 'Mit Text, und Komma');
+    assert.equal(eventData.location, 'Praxis');
+});

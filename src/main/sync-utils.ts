@@ -361,6 +361,14 @@ const dateValueOf = (ics: string, name: 'DTSTART' | 'DTEND'): CalendarDate | und
     return match ? { year: Number(match[1]), month: Number(match[2]), day: Number(match[3]) } : undefined;
 };
 
+/** 1.0.5: a text property with parameters (`SUMMARY;LANGUAGE=de:…`) comes from node-ical as { params, val }: its text. */
+const textOf = (value: unknown): string => {
+    if (value && typeof value === 'object' && 'val' in value) {
+        return textOf((value as { val: unknown }).val);
+    }
+    return typeof value === 'string' ? value : '';
+};
+
 export const parseIcs = (serializedIcs: string, fallbackUid?: string): ParsedLocalEvent => {
     const parsed = nodeIcal.sync.parseICS(serializedIcs);
     const event = Object.values(parsed).find((entry: any) => entry?.type === 'VEVENT') as any;
@@ -412,9 +420,9 @@ export const parseIcs = (serializedIcs: string, fallbackUid?: string): ParsedLoc
     return {
         uid,
         eventData: {
-            title: event.summary || 'Untitled Event',
-            description: event.description || '',
-            location: event.location || '',
+            title: textOf(event.summary) || 'Untitled Event',
+            description: textOf(event.description),
+            location: textOf(event.location),
             startTime: startTimestamp,
             endTime: endTimestamp,
             timezone,
