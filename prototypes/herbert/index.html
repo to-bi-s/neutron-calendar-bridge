@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Herbert the unicorn — prototype</title>
+    <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="herbert.css">
+</head>
+<body>
+<div class="window">
+    <aside class="panel" aria-label="Side panel (mock of the app)">
+        <div class="panel-top">
+            <div class="brand"><span class="brand-mark"></span> Neutron Calendar Bridge</div>
+        </div>
+        <ul class="nav-list">
+            <li><button class="nav-item active" type="button">Overview</button></li>
+            <li><button class="nav-item" type="button">Accounts</button></li>
+            <li><button class="nav-item" type="button">Setup</button></li>
+            <li><button class="nav-item" type="button">Info</button></li>
+        </ul>
+        <div class="herbert-home" id="herbert-home"></div>
+        <div class="panel-footer"><span>1.0.5</span><span class="pro">Pro</span></div>
+    </aside>
+
+    <main class="page">
+        <div class="page-inner">
+            <h1>Herbert the unicorn</h1>
+            <p class="lead">
+                A first look at the Pro-Version companion, on his own before he moves into the app.
+                He breathes, blinks, follows the pointer, glances at whatever you click, and says a few words.
+                Click anywhere on this page and watch him look.
+            </p>
+
+            <section class="card">
+                <h2>State</h2>
+                <p>What the app will set from the sync engine: the connection is gone, a sync failed, all is well.</p>
+                <div class="row">
+                    <button class="btn" type="button" data-state="idle"><span class="dot off"></span>Idle</button>
+                    <button class="btn" type="button" data-state="curious"><span class="dot off"></span>Curious</button>
+                    <button class="btn" type="button" data-state="talking"><span class="dot off"></span>Talking</button>
+                    <button class="btn" type="button" data-state="asleep"><span class="dot off"></span>Asleep (offline)</button>
+                    <button class="btn" type="button" data-state="worried"><span class="dot bad"></span>Worried (sync error)</button>
+                    <button class="btn" type="button" data-state="content"><span class="dot ok"></span>Content (all well)</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Words</h2>
+                <p>The greeting plays once when the window opens, by the hour. Encouragements come now and then on their own (every two minutes on this page) and only when nothing else is going on.</p>
+                <div class="row">
+                    <button class="btn primary" type="button" data-greet="now">Greet (now)</button>
+                    <button class="btn" type="button" data-greet="8">Morning</button>
+                    <button class="btn" type="button" data-greet="14">Afternoon</button>
+                    <button class="btn" type="button" data-greet="19">Evening</button>
+                    <button class="btn" type="button" data-greet="23">Night</button>
+                </div>
+                <div class="row">
+                    <button class="btn" type="button" id="encourage">✨ Encourage</button>
+                    <button class="btn" type="button" id="hush">Hush</button>
+                    <button class="btn" type="button" id="story">▶ Play a short story</button>
+                </div>
+                <form class="say-form" id="say-form">
+                    <input id="say-text" type="text" placeholder="Something for Herbert to say…" autocomplete="off">
+                    <button class="btn" type="submit">Say</button>
+                </form>
+            </section>
+
+            <section class="card">
+                <h2>Appearance</h2>
+                <p>As in the app: the panel stays dark purple, the page and Herbert's speech bubble follow the theme.</p>
+                <div class="seg" role="group" aria-label="Theme">
+                    <button type="button" data-theme-choice="system">Follow system</button>
+                    <button type="button" data-theme-choice="light">Light</button>
+                    <button type="button" data-theme-choice="dark">Dark</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>What the app will call</h2>
+                <p class="hint">Also available in the browser console as <kbd>herbert</kbd> — try <kbd>herbert.say('hello')</kbd> or <kbd>herbert.setState('asleep')</kbd>.</p>
+                <ol class="log" id="log"></ol>
+            </section>
+        </div>
+    </main>
+</div>
+<script src="herbert-texts.js"></script>
+<script src="herbert.js"></script>
+<script src="demo.js"></script>
+</body>
+</html>

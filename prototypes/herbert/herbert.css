@@ -1,0 +1,367 @@
+/*
+ * Herbert the unicorn — looks and motion. Everything that moves lives here;
+ * herbert.js only flips classes on .herbert and sets --hx/--hy/--hr on the head.
+ *
+ * Sized for the app's left side panel (251 px wide, dark purple in both themes).
+ * The bubble follows the page tokens (--page, --text, --line-strong) so it goes
+ * light or dark with the app's Appearance setting; Herbert himself is drawn in
+ * his own colours and reads well on the purple panel and on a plain page alike.
+ */
+
+.herbert {
+    --herbert-ink: #3a2a66;
+    --herbert-body: #ffffff;
+    --herbert-pink: #ffb3c7;
+    --herbert-hoof: #b48cff;
+    --herbert-bag: #5ad8c2;
+    --herbert-bag-dark: #2fb39c;
+    --herbert-bubble-bg: var(--page, #ffffff);
+    --herbert-bubble-text: var(--text, #262a33);
+    --herbert-bubble-line: var(--line-strong, rgba(110, 89, 202, 0.26));
+
+    position: relative;
+    width: 219px;
+    height: 250px;
+    box-sizing: border-box;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-app-region: no-drag;
+}
+
+.herbert-stage {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 176px;
+}
+
+.herbert svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* ---- speech bubble ------------------------------------------------------- */
+
+.herbert-bubble {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 184px;
+    padding: 8px 12px;
+    border-radius: 14px;
+    background: var(--herbert-bubble-bg);
+    color: var(--herbert-bubble-text);
+    border: 1px solid var(--herbert-bubble-line);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    font-size: 13px;
+    line-height: 1.35;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(6px) scale(0.9);
+    transform-origin: 50% 100%;
+    transition: opacity 160ms ease, transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+.herbert-bubble::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -7px;
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    background: inherit;
+    border-right: 1px solid var(--herbert-bubble-line);
+    border-bottom: 1px solid var(--herbert-bubble-line);
+    transform: rotate(45deg);
+}
+
+.herbert-bubble.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* ---- the drawing --------------------------------------------------------- */
+
+.herbert .ground { fill: rgba(0, 0, 0, 0.22); }
+
+.herbert .rainbow path {
+    fill: none;
+    stroke-width: 5;
+    stroke-linecap: round;
+}
+.herbert .rainbow {
+    opacity: 0.5;
+    animation: herbert-shimmer 7s ease-in-out infinite;
+}
+
+.herbert .body,
+.herbert .face,
+.herbert .leg,
+.herbert .ear-outer {
+    fill: url(#hb-body);
+    stroke: var(--herbert-ink);
+    stroke-width: 2;
+    stroke-linejoin: round;
+}
+.herbert .leg { fill: var(--herbert-body); }
+.herbert .hoof { fill: var(--herbert-hoof); stroke: var(--herbert-ink); stroke-width: 2; }
+.herbert .ear-inner { fill: var(--herbert-pink); }
+.herbert .snout { fill: #fff6f9; stroke: var(--herbert-ink); stroke-width: 1.6; }
+.herbert .nostril { fill: #c9a3b8; }
+.herbert .cheek { fill: var(--herbert-pink); opacity: 0.7; transition: opacity 300ms ease; }
+
+.herbert .mane { fill: url(#hb-mane); stroke: var(--herbert-ink); stroke-width: 1.6; stroke-linejoin: round; }
+.herbert .mane-back { stroke: none; }
+.herbert .tail { fill: url(#hb-mane); stroke: var(--herbert-ink); stroke-width: 1.8; stroke-linejoin: round; }
+
+.herbert .horn-cone { fill: url(#hb-horn); stroke: var(--herbert-ink); stroke-width: 1.8; stroke-linejoin: round; }
+.herbert .horn-stripe { fill: none; stroke: #e39b2e; stroke-width: 1.6; stroke-linecap: round; }
+.herbert .horn-sparkle {
+    fill: #fff2b3;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: herbert-twinkle 2.8s ease-in-out infinite;
+}
+
+.herbert .strap { fill: none; stroke: var(--herbert-bag-dark); stroke-width: 4; stroke-linecap: round; }
+.herbert .bag rect { fill: var(--herbert-bag); stroke: var(--herbert-ink); stroke-width: 1.8; }
+.herbert .bag .bag-flap { fill: var(--herbert-bag-dark); }
+.herbert .bag .envelope { fill: #ffffff; stroke: var(--herbert-ink); stroke-width: 1.2; }
+.herbert .bag .envelope-fold { fill: none; stroke: var(--herbert-ink); stroke-width: 1.2; stroke-linejoin: round; }
+
+.herbert .eye-white { fill: #ffffff; stroke: var(--herbert-ink); stroke-width: 1.4; }
+.herbert .iris { fill: #2b2140; }
+.herbert .glint { fill: #ffffff; }
+.herbert .lid { fill: #ffffff; }
+
+.herbert .brow,
+.herbert .eye-happy,
+.herbert .eye-sleep,
+.herbert .mouth-smile,
+.herbert .mouth-worried {
+    fill: none;
+    stroke: var(--herbert-ink);
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.herbert .mouth-open,
+.herbert .mouth-big path,
+.herbert .mouth-sleep { fill: #7a3b5a; stroke: var(--herbert-ink); stroke-width: 1.6; stroke-linejoin: round; }
+.herbert .mouth-sleep { stroke: none; opacity: 0.8; }
+.herbert .tongue { fill: #ff8fab; }
+.herbert .sweat { fill: #8ad1ff; stroke: var(--herbert-ink); stroke-width: 1.2; }
+.herbert .zzz text {
+    fill: #d6c8ff;
+    font: italic 700 13px var(--font-sans, sans-serif);
+    transform-box: fill-box;
+    transform-origin: center;
+}
+.herbert .zzz text:nth-child(2) { font-size: 16px; }
+.herbert .zzz text:nth-child(3) { font-size: 19px; }
+.herbert .sparkle {
+    fill: #ffe08a;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+.herbert .sparkle.heart { fill: #ff8fab; }
+
+/* Hidden until a state asks for them. */
+.herbert .brow,
+.herbert .eye-happy,
+.herbert .eye-sleep,
+.herbert .mouth-open,
+.herbert .mouth-big,
+.herbert .mouth-worried,
+.herbert .mouth-sleep,
+.herbert .sweat,
+.herbert .zzz,
+.herbert .sparkles {
+    opacity: 0;
+    transition: opacity 220ms ease;
+}
+.herbert .mouth-smile { opacity: 1; transition: opacity 220ms ease; }
+
+/* ---- motion -------------------------------------------------------------- */
+
+.herbert .pose {
+    transform-origin: 100px 158px;
+    animation: herbert-breathe 3.4s ease-in-out infinite;
+}
+.herbert .head {
+    transform-origin: 100px 100px;
+    transform: translate(var(--hx, 0px), var(--hy, 0px)) rotate(var(--hr, 0deg));
+    transition: transform 420ms cubic-bezier(0.22, 0.9, 0.3, 1.15);
+}
+.herbert .pupil { transition: transform 170ms ease-out; }
+.herbert .pupil-core {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 260ms ease;
+}
+.herbert .lid { transform: translateY(-20px); }
+.herbert .lid.blink { animation: herbert-blink 180ms ease-in-out; }
+.herbert .ear {
+    transition: transform 320ms cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.herbert .ear-left { transform-origin: 84px 54px; }
+.herbert .ear-right { transform-origin: 116px 54px; }
+.herbert .brow { transition: opacity 220ms ease, transform 260ms ease; }
+.herbert .brow-left { transform-origin: 86px 53px; }
+.herbert .brow-right { transform-origin: 114px 53px; }
+.herbert .tail {
+    transform-origin: 130px 124px;
+    animation: herbert-wag 3s ease-in-out infinite;
+}
+
+/* a small hop when the state changes; ears up when something catches his attention */
+.herbert.did-change .herbert-stage { animation: herbert-hop 560ms ease; }
+.herbert.did-notice .ear-left { transform: rotate(7deg); }
+.herbert.did-notice .ear-right { transform: rotate(-7deg); }
+
+/* ---- curious ------------------------------------------------------------- */
+
+.herbert.is-curious .pupil-core { transform: scale(1.14); }
+.herbert.is-curious .ear-left { transform: rotate(8deg); }
+.herbert.is-curious .ear-right { transform: rotate(-8deg); }
+.herbert.is-curious .brow-right { opacity: 1; transform: translateY(-3px) rotate(-6deg); }
+
+/* ---- talking ------------------------------------------------------------- */
+
+.herbert.is-talking .mouth-smile,
+.herbert.is-speaking .mouth-smile { animation: herbert-talk-close 320ms steps(1) infinite; }
+.herbert.is-talking .mouth-open,
+.herbert.is-speaking .mouth-open { animation: herbert-talk-open 320ms steps(1) infinite; }
+.herbert.is-talking .jitter,
+.herbert.is-speaking .jitter { animation: herbert-bob 640ms ease-in-out infinite; }
+
+/* ---- asleep -------------------------------------------------------------- */
+
+.herbert.is-asleep .pose { animation-duration: 5.8s; }
+.herbert.is-asleep .tail { animation-play-state: paused; }
+.herbert.is-asleep .rainbow { opacity: 0.25; animation: none; }
+.herbert.is-asleep .horn-sparkle { animation: none; opacity: 0.4; }
+.herbert.is-asleep .head { transform: translate(3px, 7px) rotate(9deg); }
+.herbert.is-asleep .lid { transform: translateY(0); }
+.herbert.is-asleep .eye-sleep { opacity: 1; }
+.herbert.is-asleep .mouth-smile { opacity: 0; }
+.herbert.is-asleep .mouth-sleep { opacity: 0.8; }
+.herbert.is-asleep .ear-left { transform: rotate(-16deg); }
+.herbert.is-asleep .ear-right { transform: rotate(16deg); }
+.herbert.is-asleep .zzz { opacity: 1; }
+.herbert.is-asleep .zzz text { animation: herbert-zzz 2.6s ease-in-out infinite; }
+.herbert.is-asleep .zzz text:nth-child(2) { animation-delay: 0.85s; }
+.herbert.is-asleep .zzz text:nth-child(3) { animation-delay: 1.7s; }
+
+/* ---- worried ------------------------------------------------------------- */
+
+.herbert.is-worried .brow { opacity: 1; }
+.herbert.is-worried .brow-left { transform: translateY(-1px) rotate(-14deg); }
+.herbert.is-worried .brow-right { transform: translateY(-1px) rotate(14deg); }
+.herbert.is-worried .pupil-core { transform: scale(0.84); }
+.herbert.is-worried .mouth-smile { opacity: 0; }
+.herbert.is-worried .mouth-open { opacity: 0 !important; animation: none; }
+.herbert.is-worried .mouth-worried { opacity: 1; }
+.herbert.is-worried .ear-left { transform: rotate(-11deg); }
+.herbert.is-worried .ear-right { transform: rotate(11deg); }
+.herbert.is-worried .sweat { opacity: 1; animation: herbert-drip 1.8s ease-in infinite; }
+.herbert.is-worried .cheek { opacity: 0.35; }
+.herbert.is-worried .jitter { animation: herbert-tremble 0.5s ease-in-out infinite; }
+.herbert.is-worried .rainbow { opacity: 0.3; }
+
+/* ---- content ------------------------------------------------------------- */
+
+.herbert.is-content .lid { transform: translateY(0); }
+.herbert.is-content .eye-happy { opacity: 1; }
+.herbert.is-content .mouth-smile { opacity: 0; animation: none; }
+.herbert.is-content .mouth-open { opacity: 0 !important; animation: none; }
+.herbert.is-content .mouth-big { opacity: 1; }
+.herbert.is-content .cheek { opacity: 1; }
+.herbert.is-content .ear-left { transform: rotate(5deg); }
+.herbert.is-content .ear-right { transform: rotate(-5deg); }
+.herbert.is-content .tail { animation-duration: 1.6s; }
+.herbert.is-content .rainbow { opacity: 0.7; }
+
+/* ---- encouragement sparkles (also on content) ----------------------------- */
+
+.herbert.is-content .sparkles,
+.herbert.is-sparkling .sparkles { opacity: 1; }
+.herbert.is-content .sparkle,
+.herbert.is-sparkling .sparkle { animation: herbert-twinkle 1.5s ease-in-out infinite; }
+.herbert .sparkles > g:nth-child(2) .sparkle { animation-delay: 0.3s; }
+.herbert .sparkles > g:nth-child(3) .sparkle { animation-delay: 0.7s; }
+.herbert .sparkles > g:nth-child(4) .sparkle { animation-delay: 0.5s; }
+.herbert .sparkles > g:nth-child(5) .sparkle { animation-delay: 1s; }
+
+/* ---- keyframes ----------------------------------------------------------- */
+
+@keyframes herbert-breathe {
+    0%, 100% { transform: scale(1, 1); }
+    50% { transform: scale(1.012, 1.028); }
+}
+@keyframes herbert-blink {
+    0%, 100% { transform: translateY(-20px); }
+    45%, 60% { transform: translateY(0); }
+}
+@keyframes herbert-wag {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+@keyframes herbert-shimmer {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.6; }
+}
+@keyframes herbert-twinkle {
+    0%, 100% { transform: scale(0.6) rotate(0deg); opacity: 0.5; }
+    50% { transform: scale(1.15) rotate(20deg); opacity: 1; }
+}
+@keyframes herbert-hop {
+    0%, 100% { transform: translateY(0); }
+    35% { transform: translateY(-7px); }
+    70% { transform: translateY(0); }
+    85% { transform: translateY(-2px); }
+}
+@keyframes herbert-talk-close {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes herbert-talk-open {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+@keyframes herbert-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1.2px); }
+}
+@keyframes herbert-tremble {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-0.7px); }
+    75% { transform: translateX(0.7px); }
+}
+@keyframes herbert-drip {
+    0% { transform: translateY(-2px); opacity: 0; }
+    25% { opacity: 1; }
+    100% { transform: translateY(6px); opacity: 0; }
+}
+@keyframes herbert-zzz {
+    0% { opacity: 0; transform: translate(0, 4px); }
+    30% { opacity: 1; }
+    100% { opacity: 0; transform: translate(4px, -8px); }
+}
+
+/* No motion for people who asked the system for none; the states still show. */
+@media (prefers-reduced-motion: reduce) {
+    .herbert *,
+    .herbert .herbert-bubble {
+        animation: none !important;
+        transition: none !important;
+    }
+}

@@ -1,0 +1,251 @@
+/*
+ * The demo page: a mock of the app window (dark purple panel on the left, the
+ * page on the right) so Herbert can be judged where he will live. The tokens
+ * are copied from src/renderer/styles.css; the panel is dark in both themes
+ * there too, only the page side switches with data-theme.
+ */
+
+:root {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    --bg: #f6f4ff;
+    --page: #ffffff;
+    --text: #262a33;
+    --text-weak: #5b6070;
+    --line: rgba(110, 89, 202, 0.14);
+    --line-strong: rgba(110, 89, 202, 0.26);
+    --sidebar-top: #22114d;
+    --sidebar-bottom: #2d1668;
+    --primary: #6d4aff;
+    --primary-strong: #5637eb;
+    --primary-soft: rgba(109, 74, 255, 0.12);
+    --success: #10b981;
+    --warning: #d97706;
+    --danger: #dc3f63;
+    --shadow: 0 4px 20px rgba(39, 21, 92, 0.08);
+    --label: #7c72a0;
+    color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+    --bg: #15131c;
+    --page: #1e1b27;
+    --text: #ebe8f5;
+    --text-weak: #a39fb5;
+    --line: rgba(170, 150, 255, 0.16);
+    --line-strong: rgba(170, 150, 255, 0.3);
+    --primary: #8f75ff;
+    --primary-strong: #a48fff;
+    --primary-soft: rgba(143, 117, 255, 0.18);
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #ff6b8a;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    --label: #9f94c9;
+    color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+
+body {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+.window {
+    display: grid;
+    grid-template-columns: 251px minmax(0, 1fr);
+    height: 100vh;
+    min-height: 560px;
+}
+
+/* ---- the panel, as in the app ---- */
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.1), transparent 30%),
+        linear-gradient(180deg, var(--sidebar-top) 0%, var(--sidebar-bottom) 100%);
+    color: #f5f3ff;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.panel-top { padding: 52px 18px 12px; }
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.brand-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #8f75ff, #ff8fab);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.nav-list {
+    flex: 1;
+    list-style: none;
+    margin: 0;
+    padding: 4px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.nav-item {
+    display: block;
+    width: 100%;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: rgba(245, 243, 255, 0.65);
+    text-align: left;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+}
+.nav-item:hover { background: rgba(255, 255, 255, 0.08); color: rgba(245, 243, 255, 0.9); }
+.nav-item.active { background: rgba(255, 255, 255, 0.15); color: #ffffff; font-weight: 600; }
+
+/* Where Herbert lives: above the footer, in a soft frame. */
+.herbert-home {
+    margin: 8px 16px 10px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.panel-footer {
+    padding: 12px 16px 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: rgba(245, 243, 255, 0.55);
+}
+.panel-footer .pro {
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffd166, #ff8fab);
+    color: #2a1740;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+/* ---- the page side ---- */
+
+.page {
+    overflow: auto;
+    padding: 40px 36px 48px;
+    background: var(--bg);
+}
+.page-inner { max-width: 640px; }
+
+h1 { margin: 0 0 6px; font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; }
+.lead { margin: 0 0 24px; color: var(--text-weak); line-height: 1.5; }
+
+.card {
+    background: var(--page);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 18px 20px;
+    margin-bottom: 16px;
+}
+.card h2 {
+    margin: 0 0 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--label);
+}
+.card p { margin: 0 0 12px; color: var(--text-weak); line-height: 1.5; }
+.card p:last-child { margin-bottom: 0; }
+
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+
+button.btn,
+.seg button {
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--line-strong);
+    background: var(--page);
+    color: var(--text);
+    cursor: pointer;
+    transition: background 120ms ease, border-color 120ms ease, transform 80ms ease;
+}
+button.btn:hover { background: var(--primary-soft); border-color: var(--primary); }
+button.btn:active { transform: translateY(1px); }
+button.btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+button.btn.primary:hover { background: var(--primary-strong); }
+button.btn.is-on { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); font-weight: 600; }
+button.btn .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; vertical-align: 1px; }
+.dot.ok { background: var(--success); }
+.dot.warn { background: var(--warning); }
+.dot.bad { background: var(--danger); }
+.dot.off { background: var(--text-weak); opacity: 0.5; }
+
+.seg { display: inline-flex; border-radius: 10px; overflow: hidden; border: 1px solid var(--line-strong); }
+.seg button { border: none; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: none; }
+.seg button.is-on { background: var(--primary); color: #fff; }
+
+.say-form { display: flex; gap: 8px; margin-top: 8px; }
+.say-form input {
+    flex: 1;
+    font: inherit;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--line-strong);
+    background: var(--page);
+    color: var(--text);
+}
+.say-form input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+
+.log {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    color: var(--text-weak);
+}
+.log li { padding: 3px 0; border-top: 1px dashed var(--line); }
+.log li:first-child { border-top: none; color: var(--text); }
+.log time { opacity: 0.6; margin-right: 8px; }
+
+.hint { font-size: 0.82rem; color: var(--label); }
+kbd {
+    font: inherit;
+    font-size: 0.8em;
+    padding: 1px 6px;
+    border-radius: 6px;
+    border: 1px solid var(--line-strong);
+    background: var(--primary-soft);
+}
+
+@media (max-width: 640px) {
+    .window { grid-template-columns: 1fr; height: auto; }
+    .panel { min-height: 420px; }
+}
