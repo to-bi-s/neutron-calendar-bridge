@@ -22,7 +22,10 @@
 
     var STATES = ['idle', 'curious', 'talking', 'asleep', 'worried', 'content'];
 
-    // viewBox 0 0 200 170. Eyes sit at y≈66 — look() uses that for the gaze origin.
+    // viewBox 0 0 200 170. Eyes sit at y≈68 — look() uses that for the gaze origin.
+    // Plush style (chosen from three candidates in styles.html): front view, a horse's
+    // head — tall skull, muzzle at the bottom, eyes high and wide apart, tall ears —
+    // a big horn, a mane to the shoulders, a small round body with the courier bag.
     var SVG =
         '<svg viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
         '<defs>' +
@@ -35,94 +38,96 @@
         '<linearGradient id="hb-body" x1="0" y1="0" x2="0" y2="1">' +
         '<stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#efe8fb"/>' +
         '</linearGradient>' +
-        '<clipPath id="hb-eye"><circle r="8"/></clipPath>' +
+        '<clipPath id="hb-eye"><circle r="8.5"/></clipPath>' +
         '</defs>' +
 
-        '<ellipse class="ground" cx="100" cy="161" rx="46" ry="5"/>' +
+        '<ellipse class="ground" cx="100" cy="163" rx="46" ry="5"/>' +
 
         '<g class="rainbow">' +
-        '<path d="M36 130 A64 64 0 0 1 164 130" stroke="#ff8fab"/>' +
-        '<path d="M42 130 A58 58 0 0 1 158 130" stroke="#ffd166"/>' +
-        '<path d="M48 130 A52 52 0 0 1 152 130" stroke="#8ad1ff"/>' +
-        '<path d="M54 130 A46 46 0 0 1 146 130" stroke="#c9a8ff"/>' +
+        '<path d="M34 150 A66 66 0 0 1 166 150" stroke="#ff8fab"/>' +
+        '<path d="M40 150 A60 60 0 0 1 160 150" stroke="#ffd166"/>' +
+        '<path d="M46 150 A54 54 0 0 1 154 150" stroke="#8ad1ff"/>' +
+        '<path d="M52 150 A48 48 0 0 1 148 150" stroke="#c9a8ff"/>' +
         '</g>' +
 
         '<g class="pose"><g class="jitter">' +
 
-        '<path class="tail" d="M130 116 C154 102 166 124 152 134 C162 142 150 158 134 148 C146 140 140 128 128 128 Z"/>' +
+        '<path class="tail" d="M134 128 C156 118 166 138 152 148 C162 156 150 168 136 160 C146 152 142 140 130 138 Z"/>' +
 
-        '<path class="body" d="M100 94 C132 94 140 118 138 140 C136 158 118 160 100 160 C82 160 64 158 62 140 C60 118 68 94 100 94 Z"/>' +
-        '<path class="strap" d="M76 106 Q98 130 124 142"/>' +
+        '<path class="body" d="M100 112 C128 112 138 130 136 146 C134 160 118 162 100 162 C82 162 66 160 64 146 C62 130 72 112 100 112 Z"/>' +
+        '<path class="strap" d="M78 122 Q100 140 124 150"/>' +
 
-        '<rect class="leg" x="82" y="126" width="13" height="30" rx="6"/>' +
-        '<rect class="leg" x="105" y="126" width="13" height="30" rx="6"/>' +
-        '<rect class="hoof" x="82" y="149" width="13" height="8" rx="4"/>' +
-        '<rect class="hoof" x="105" y="149" width="13" height="8" rx="4"/>' +
+        '<rect class="leg" x="80" y="138" width="13" height="22" rx="6"/>' +
+        '<rect class="leg" x="107" y="138" width="13" height="22" rx="6"/>' +
+        '<rect class="hoof" x="80" y="153" width="13" height="8" rx="4"/>' +
+        '<rect class="hoof" x="107" y="153" width="13" height="8" rx="4"/>' +
 
         '<g class="bag">' +
-        '<rect x="114" y="128" width="22" height="16" rx="4"/>' +
-        '<rect class="bag-flap" x="114" y="128" width="22" height="6" rx="3"/>' +
-        '<rect class="envelope" x="119" y="136" width="12" height="7.5" rx="1"/>' +
-        '<path class="envelope-fold" d="M119 136 l6 4.5 l6 -4.5"/>' +
+        '<rect x="116" y="136" width="20" height="15" rx="4"/>' +
+        '<rect class="bag-flap" x="116" y="136" width="20" height="6" rx="3"/>' +
+        '<rect class="envelope" x="121" y="143" width="10" height="6.5" rx="1"/>' +
+        '<path class="envelope-fold" d="M121 143 l5 4 l5 -4"/>' +
         '</g>' +
 
         '<g class="head">' +
-        '<path class="mane mane-back" d="M66 62 C58 30 92 16 114 24 C134 31 142 58 130 72 Z"/>' +
-        '<path class="mane mane-neck" d="M126 60 C142 66 144 90 134 104 C131 88 126 76 118 70 Z"/>' +
+        '<path class="mane mane-back" d="M62 70 C56 34 92 18 118 24 C140 30 150 58 142 86 C136 70 128 60 118 56 L70 60 Z"/>' +
+        '<path class="mane mane-neck" d="M130 60 C150 66 152 96 140 118 C138 100 132 86 124 78 Z"/>' +
+        '<path class="mane mane-neck" d="M70 62 C50 70 48 100 60 118 C62 100 66 88 76 80 Z"/>' +
 
-        '<g class="ear ear-left"><path class="ear-outer" d="M80 54 C68 38 74 24 84 28 C93 32 93 45 91 54 Z"/><path class="ear-inner" d="M82 50 C76 40 78 32 84 33 C88 35 88 44 87 50 Z"/></g>' +
-        '<g class="ear ear-right"><path class="ear-outer" d="M120 54 C132 38 126 24 116 28 C107 32 107 45 109 54 Z"/><path class="ear-inner" d="M118 50 C124 40 122 32 116 33 C112 35 112 44 113 50 Z"/></g>' +
+        '<g class="ear ear-left"><path class="ear-outer" d="M72 48 C62 32 64 14 72 12 C80 12 86 32 84 50 Z"/><path class="ear-inner" d="M74 44 C68 32 70 20 73 19 C77 20 81 34 80 46 Z"/></g>' +
+        '<g class="ear ear-right"><path class="ear-outer" d="M128 48 C138 32 136 14 128 12 C120 12 114 32 116 50 Z"/><path class="ear-inner" d="M126 44 C132 32 130 20 127 19 C123 20 119 34 120 46 Z"/></g>' +
 
-        '<g class="horn"><path class="horn-cone" d="M93 44 L107 44 L101 6 Z"/>' +
-        '<path class="horn-stripe" d="M95 36 L106 33"/><path class="horn-stripe" d="M96.5 28 L104.5 26"/><path class="horn-stripe" d="M98.5 20 L103 18.5"/>' +
-        '<g transform="translate(110 12)"><path class="horn-sparkle" d="M0 -5 L1.3 -1.3 L5 0 L1.3 1.3 L0 5 L-1.3 1.3 L-5 0 L-1.3 -1.3 Z"/></g></g>' +
+        '<g class="horn"><path class="horn-cone" d="M91 40 L109 40 L100 2 Z"/>' +
+        '<path class="horn-stripe" d="M94 32 L107 29"/><path class="horn-stripe" d="M95.5 24 L105.5 21.5"/><path class="horn-stripe" d="M97.5 15 L103.5 13.5"/>' +
+        '<g transform="translate(113 8)"><path class="horn-sparkle" d="M0 -5 L1.3 -1.3 L5 0 L1.3 1.3 L0 5 L-1.3 1.3 L-5 0 L-1.3 -1.3 Z"/></g></g>' +
 
-        '<circle class="face" cx="100" cy="70" r="32"/>' +
-        '<path class="mane mane-front" d="M84 44 C82 30 98 22 110 30 C102 32 97 40 101 50 C95 46 89 48 84 44 Z"/>' +
+        '<path class="face" d="M68 64 C68 38 132 38 132 64 C132 86 124 110 100 114 C76 110 68 86 68 64 Z"/>' +
 
-        '<ellipse class="snout" cx="100" cy="88" rx="16" ry="11"/>' +
-        '<circle class="nostril" cx="94" cy="90" r="1.6"/><circle class="nostril" cx="106" cy="90" r="1.6"/>' +
-        '<ellipse class="cheek" cx="74" cy="82" rx="6.5" ry="4"/><ellipse class="cheek" cx="126" cy="82" rx="6.5" ry="4"/>' +
+        '<path class="snout" d="M82 92 C82 82 118 82 118 92 C118 104 108 110 100 110 C92 110 82 104 82 92 Z"/>' +
+        '<ellipse class="nostril" cx="92" cy="98" rx="2.4" ry="1.6" transform="rotate(-20 92 98)"/><ellipse class="nostril" cx="108" cy="98" rx="2.4" ry="1.6" transform="rotate(20 108 98)"/>' +
+        '<ellipse class="cheek" cx="75" cy="84" rx="6.5" ry="4"/><ellipse class="cheek" cx="125" cy="84" rx="6.5" ry="4"/>' +
 
-        '<path class="brow brow-left" d="M79 54 Q86 49 93 53"/>' +
-        '<path class="brow brow-right" d="M121 54 Q114 49 107 53"/>' +
+        '<path class="mane mane-front" d="M80 46 C84 30 104 26 116 36 C106 36 100 42 102 50 C96 46 90 46 86 48 C84 45 82 47 80 46 Z"/>' +
 
-        '<g class="eye eye-left" transform="translate(86 66)">' +
-        '<circle class="eye-white" r="8"/>' +
-        '<g class="pupil"><g class="pupil-core"><circle class="iris" r="5.4"/><circle class="glint" cx="-2" cy="-2" r="2"/><circle class="glint" cx="2" cy="2.4" r="0.9"/></g></g>' +
-        '<g clip-path="url(#hb-eye)"><circle class="lid" r="9.5"/></g>' +
-        '<path class="eye-happy" d="M-7.5 1.5 Q0 -8 7.5 1.5"/>' +
-        '<path class="eye-sleep" d="M-7.5 -1 Q0 7 7.5 -1"/>' +
+        '<path class="brow brow-left" d="M77 57 Q84 52 91 56"/>' +
+        '<path class="brow brow-right" d="M123 57 Q116 52 109 56"/>' +
+
+        '<g class="eye eye-left" transform="translate(84 68)">' +
+        '<circle class="eye-white" r="8.5"/>' +
+        '<g class="pupil"><g class="pupil-core"><circle class="iris" r="5.6"/><circle class="glint" cx="-2.1" cy="-2.1" r="2.1"/><circle class="glint" cx="2.2" cy="2.6" r="0.9"/></g></g>' +
+        '<g clip-path="url(#hb-eye)"><circle class="lid" r="10"/></g>' +
+        '<path class="eye-happy" d="M-8 1.5 Q0 -8.5 8 1.5"/>' +
+        '<path class="eye-sleep" d="M-8 -1 Q0 7.5 8 -1"/>' +
         '</g>' +
-        '<g class="eye eye-right" transform="translate(114 66)">' +
-        '<circle class="eye-white" r="8"/>' +
-        '<g class="pupil"><g class="pupil-core"><circle class="iris" r="5.4"/><circle class="glint" cx="-2" cy="-2" r="2"/><circle class="glint" cx="2" cy="2.4" r="0.9"/></g></g>' +
-        '<g clip-path="url(#hb-eye)"><circle class="lid" r="9.5"/></g>' +
-        '<path class="eye-happy" d="M-7.5 1.5 Q0 -8 7.5 1.5"/>' +
-        '<path class="eye-sleep" d="M-7.5 -1 Q0 7 7.5 -1"/>' +
+        '<g class="eye eye-right" transform="translate(116 68)">' +
+        '<circle class="eye-white" r="8.5"/>' +
+        '<g class="pupil"><g class="pupil-core"><circle class="iris" r="5.6"/><circle class="glint" cx="-2.1" cy="-2.1" r="2.1"/><circle class="glint" cx="2.2" cy="2.6" r="0.9"/></g></g>' +
+        '<g clip-path="url(#hb-eye)"><circle class="lid" r="10"/></g>' +
+        '<path class="eye-happy" d="M-8 1.5 Q0 -8.5 8 1.5"/>' +
+        '<path class="eye-sleep" d="M-8 -1 Q0 7.5 8 -1"/>' +
         '</g>' +
 
         '<g class="mouth">' +
-        '<path class="mouth-smile" d="M95 97.5 Q100 103 105 97.5"/>' +
-        '<ellipse class="mouth-open" cx="100" cy="99.5" rx="3.6" ry="4.6"/>' +
-        '<g class="mouth-big"><path d="M92 96.5 Q100 109 108 96.5 Z"/><ellipse class="tongue" cx="100" cy="103.5" rx="3.4" ry="2.2"/></g>' +
-        '<path class="mouth-worried" d="M95 100.5 Q97.5 97 100 100 Q102.5 103 105 99"/>' +
-        '<ellipse class="mouth-sleep" cx="100" cy="99" rx="1.8" ry="2.2"/>' +
+        '<path class="mouth-smile" d="M95 104 Q100 109 105 104"/>' +
+        '<ellipse class="mouth-open" cx="100" cy="105.5" rx="3.6" ry="4.4"/>' +
+        '<g class="mouth-big"><path d="M92 102.5 Q100 115 108 102.5 Z"/><ellipse class="tongue" cx="100" cy="109.5" rx="3.4" ry="2.2"/></g>' +
+        '<path class="mouth-worried" d="M95 107 Q97.5 103.5 100 106.5 Q102.5 109.5 105 105.5"/>' +
+        '<ellipse class="mouth-sleep" cx="100" cy="105.5" rx="1.8" ry="2.2"/>' +
         '</g>' +
 
-        '<path class="sweat" d="M132 50 C127 57 126 62 132 64 C138 62 137 57 132 50 Z"/>' +
+        '<path class="sweat" d="M138 52 C133 59 132 64 138 66 C144 64 143 59 138 52 Z"/>' +
         '</g>' + // head
 
         '</g></g>' + // jitter, pose
 
-        '<g class="zzz"><text x="140" y="56">z</text><text x="150" y="42">z</text><text x="162" y="26">z</text></g>' +
+        '<g class="zzz"><text x="146" y="56">z</text><text x="156" y="42">z</text><text x="168" y="26">z</text></g>' +
 
         '<g class="sparkles">' +
-        '<g transform="translate(54 48)"><path class="sparkle" d="M0 -6 L1.6 -1.6 L6 0 L1.6 1.6 L0 6 L-1.6 1.6 L-6 0 L-1.6 -1.6 Z"/></g>' +
-        '<g transform="translate(152 40)"><path class="sparkle" d="M0 -5 L1.3 -1.3 L5 0 L1.3 1.3 L0 5 L-1.3 1.3 L-5 0 L-1.3 -1.3 Z"/></g>' +
-        '<g transform="translate(44 100)"><path class="sparkle" d="M0 -4 L1 -1 L4 0 L1 1 L0 4 L-1 1 L-4 0 L-1 -1 Z"/></g>' +
-        '<g transform="translate(160 84)"><path class="sparkle heart" d="M0 3.5 C-7 -3 -2.5 -9 0 -4.5 C2.5 -9 7 -3 0 3.5 Z"/></g>' +
-        '<g transform="translate(38 70)"><path class="sparkle heart" d="M0 2.6 C-5 -2.2 -1.8 -6.6 0 -3.3 C1.8 -6.6 5 -2.2 0 2.6 Z"/></g>' +
+        '<g transform="translate(48 40)"><path class="sparkle" d="M0 -6 L1.6 -1.6 L6 0 L1.6 1.6 L0 6 L-1.6 1.6 L-6 0 L-1.6 -1.6 Z"/></g>' +
+        '<g transform="translate(156 32)"><path class="sparkle" d="M0 -5 L1.3 -1.3 L5 0 L1.3 1.3 L0 5 L-1.3 1.3 L-5 0 L-1.3 -1.3 Z"/></g>' +
+        '<g transform="translate(38 104)"><path class="sparkle" d="M0 -4 L1 -1 L4 0 L1 1 L0 4 L-1 1 L-4 0 L-1 -1 Z"/></g>' +
+        '<g transform="translate(166 86)"><path class="sparkle heart" d="M0 3.5 C-7 -3 -2.5 -9 0 -4.5 C2.5 -9 7 -3 0 3.5 Z"/></g>' +
+        '<g transform="translate(34 72)"><path class="sparkle heart" d="M0 2.6 C-5 -2.2 -1.8 -6.6 0 -3.3 C1.8 -6.6 5 -2.2 0 2.6 Z"/></g>' +
         '</g>' +
         '</svg>';
 
@@ -177,7 +182,7 @@
         // --- gaze ----------------------------------------------------------------
         function eyeCenter() {
             var r = svg.getBoundingClientRect();
-            return { x: r.left + r.width * 0.5, y: r.top + r.height * (66 / 170) };
+            return { x: r.left + r.width * 0.5, y: r.top + r.height * (68 / 170) };
         }
 
         // Point the pupils and tilt the head toward a page coordinate (or straight ahead).

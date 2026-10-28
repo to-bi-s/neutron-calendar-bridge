@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Herbert — three styles</title>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif; background: #f6f4ff; color: #262a33; padding: 28px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.lead { margin: 0 0 20px; color: #5b6070; }
+  .row { display: flex; gap: 24px; flex-wrap: wrap; }
+  .card { width: 251px; }
+  .panel { height: 300px; border-radius: 14px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; box-sizing: border-box;
+           background: radial-gradient(circle at top left, rgba(255,255,255,.1), transparent 30%), linear-gradient(180deg, #22114d 0%, #2d1668 100%); }
+  .frame { width: 219px; height: 190px; border-radius: 16px; background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); display: flex; align-items: flex-end; justify-content: center; }
+  svg { width: 200px; height: 170px; overflow: visible; display: block; margin-bottom: 8px; }
+  .card h2 { font-size: 15px; margin: 12px 0 2px; }
+  .card p { margin: 0; font-size: 13px; color: #5b6070; line-height: 1.4; }
+  .ink { stroke: #3a2a66; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .bold { stroke: #2a1b4a; stroke-width: 3.2; stroke-linejoin: round; stroke-linecap: round; }
+  .white { fill: #fff; }
+  .mane { fill: url(#mane); }
+  .horn { fill: url(#horn); }
+  .breathe { transform-origin: 100px 160px; animation: br 3.4s ease-in-out infinite; }
+  @keyframes br { 50% { transform: scale(1.012, 1.025); } }
+</style>
+</head>
+<body>
+<h1>Herbert — three styles</h1>
+<p class="lead">Same colours, same frame (219 px in the 251 px panel). Pick one and the states get redrawn in that style.</p>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="mane" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff9ad5"/><stop offset=".55" stop-color="#b48cff"/><stop offset="1" stop-color="#8ad1ff"/></linearGradient>
+    <linearGradient id="horn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a3"/><stop offset="1" stop-color="#ffb347"/></linearGradient>
+  </defs>
+</svg>
+<div class="row">
+
+<!-- A: classic cartoon pony, 3/4 view, facing the page -->
+<div class="card"><div class="panel"><div class="frame">
+<svg viewBox="0 0 200 170">
+  <ellipse cx="100" cy="163" rx="56" ry="5" fill="rgba(0,0,0,.22)"/>
+  <g class="breathe">
+    <!-- tail -->
+    <path class="mane ink" d="M48 112 C28 118 22 140 36 156 C30 140 40 128 54 128 C42 136 44 150 56 156 C48 146 56 134 66 130 Z"/>
+    <!-- back legs -->
+    <rect class="white ink" x="58" y="126" width="12" height="32" rx="6"/>
+    <rect class="white ink" x="76" y="128" width="12" height="30" rx="6"/>
+    <!-- body -->
+    <path class="white ink" d="M56 120 C56 96 80 90 104 92 C124 94 136 104 134 124 C132 142 116 146 96 146 C74 146 56 142 56 120 Z"/>
+    <!-- front legs -->
+    <rect class="white ink" x="104" y="126" width="12" height="32" rx="6"/>
+    <rect class="white ink" x="120" y="124" width="12" height="34" rx="6"/>
+    <rect x="58" y="151" width="12" height="8" rx="4" fill="#b48cff" class="ink"/><rect x="76" y="151" width="12" height="8" rx="4" fill="#b48cff" class="ink"/>
+    <rect x="104" y="151" width="12" height="8" rx="4" fill="#b48cff" class="ink"/><rect x="120" y="151" width="12" height="8" rx="4" fill="#b48cff" class="ink"/>
+    <!-- satchel -->
+    <path d="M92 94 Q84 112 86 132" fill="none" stroke="#2fb39c" stroke-width="4" stroke-linecap="round"/>
+    <rect x="72" y="118" width="22" height="16" rx="4" fill="#5ad8c2" class="ink"/><rect x="72" y="118" width="22" height="6" rx="3" fill="#2fb39c" class="ink"/>
+    <rect x="77" y="126" width="12" height="7" rx="1" fill="#fff" stroke="#3a2a66" stroke-width="1.2"/><path d="M77 126 l6 4.5 l6 -4.5" fill="none" stroke="#3a2a66" stroke-width="1.2"/>
+    <!-- neck -->
+    <path class="white ink" d="M104 98 C108 84 118 70 134 62 L154 84 C144 92 132 104 128 118 Z"/>
+    <!-- mane along neck -->
+    <path class="mane ink" d="M126 54 C112 58 104 74 100 96 C110 86 112 74 122 70 C114 82 112 94 110 104 C120 94 126 84 136 78 Z"/>
+    <!-- head -->
+    <path class="white ink" d="M124 60 C124 42 140 36 154 40 C168 44 180 62 186 78 C189 86 184 92 176 92 L160 90 C154 96 142 96 136 90 C128 84 124 72 124 60 Z"/>
+    <!-- nostril, mouth, cheek -->
+    <ellipse cx="178" cy="80" rx="2.2" ry="1.6" fill="#c9a3b8"/>
+    <path d="M166 88 Q172 90 177 86" fill="none" class="ink"/>
+    <ellipse cx="158" cy="74" rx="6" ry="3.8" fill="#ffb3c7" opacity=".7"/>
+    <!-- eye -->
+    <circle cx="150" cy="58" r="8" fill="#fff" stroke="#3a2a66" stroke-width="1.4"/>
+    <circle cx="151" cy="58.5" r="5.2" fill="#2b2140"/><circle cx="149" cy="56.5" r="2" fill="#fff"/><circle cx="153" cy="60.5" r=".9" fill="#fff"/>
+    <!-- ear -->
+    <path class="white ink" d="M132 44 C126 30 132 20 140 24 C146 28 146 38 142 46 Z"/><path d="M134 42 C131 34 134 27 139 29 C142 32 141 38 139 43 Z" fill="#ffb3c7"/>
+    <!-- horn -->
+    <path class="horn ink" d="M142 40 L156 44 L166 8 Z"/>
+    <path d="M146 36 L158 38" stroke="#e39b2e" stroke-width="1.6"/><path d="M150 28 L160 30" stroke="#e39b2e" stroke-width="1.6"/><path d="M154 20 L161 21.5" stroke="#e39b2e" stroke-width="1.6"/>
+    <!-- forelock -->
+    <path class="mane ink" d="M128 48 C132 36 146 32 156 42 C148 42 142 46 140 54 C136 50 132 52 128 48 Z"/>
+  </g>
+</svg>
+</div></div><h2>A · Cartoon pony</h2><p>Classic 3/4 view, standing, turned toward the page. The most "unicorn" silhouette; long muzzle, mane down the neck, four legs, satchel on the flank.</p></div>
+
+<!-- B: plush, front view, horse-shaped head -->
+<div class="card"><div class="panel"><div class="frame">
+<svg viewBox="0 0 200 170">
+  <ellipse cx="100" cy="163" rx="46" ry="5" fill="rgba(0,0,0,.22)"/>
+  <g opacity=".5">
+    <path d="M34 150 A66 66 0 0 1 166 150" fill="none" stroke="#ff8fab" stroke-width="5" stroke-linecap="round"/>
+    <path d="M40 150 A60 60 0 0 1 160 150" fill="none" stroke="#ffd166" stroke-width="5" stroke-linecap="round"/>
+    <path d="M46 150 A54 54 0 0 1 154 150" fill="none" stroke="#8ad1ff" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <g class="breathe">
+    <path class="mane ink" d="M134 128 C156 118 166 138 152 148 C162 156 150 168 136 160 C146 152 142 140 130 138 Z"/>
+    <path class="white ink" d="M100 112 C128 112 138 130 136 146 C134 160 118 162 100 162 C82 162 66 160 64 146 C62 130 72 112 100 112 Z"/>
+    <path d="M78 122 Q100 140 124 150" fill="none" stroke="#2fb39c" stroke-width="4" stroke-linecap="round"/>
+    <rect class="white ink" x="80" y="138" width="13" height="22" rx="6"/><rect class="white ink" x="107" y="138" width="13" height="22" rx="6"/>
+    <rect x="80" y="153" width="13" height="8" rx="4" fill="#b48cff" class="ink"/><rect x="107" y="153" width="13" height="8" rx="4" fill="#b48cff" class="ink"/>
+    <rect x="116" y="136" width="20" height="15" rx="4" fill="#5ad8c2" class="ink"/><rect x="116" y="136" width="20" height="6" rx="3" fill="#2fb39c" class="ink"/>
+    <rect x="121" y="143" width="10" height="6.5" rx="1" fill="#fff" stroke="#3a2a66" stroke-width="1.2"/><path d="M121 143 l5 4 l5 -4" fill="none" stroke="#3a2a66" stroke-width="1.2"/>
+    <!-- mane behind head -->
+    <path class="mane" d="M62 70 C56 34 92 18 118 24 C140 30 150 58 142 86 C136 70 128 60 118 56 L70 60 Z"/>
+    <path class="mane ink" d="M130 60 C150 66 152 96 140 118 C138 100 132 86 124 78 Z"/>
+    <path class="mane ink" d="M70 62 C50 70 48 100 60 118 C62 100 66 88 76 80 Z"/>
+    <!-- ears, tall -->
+    <path class="white ink" d="M72 48 C62 32 64 14 72 12 C80 12 86 32 84 50 Z"/><path d="M74 44 C68 32 70 20 73 19 C77 20 81 34 80 46 Z" fill="#ffb3c7"/>
+    <path class="white ink" d="M128 48 C138 32 136 14 128 12 C120 12 114 32 116 50 Z"/><path d="M126 44 C132 32 130 20 127 19 C123 20 119 34 120 46 Z" fill="#ffb3c7"/>
+    <!-- horn -->
+    <path class="horn ink" d="M91 40 L109 40 L100 2 Z"/>
+    <path d="M94 32 L107 29" stroke="#e39b2e" stroke-width="1.6"/><path d="M95.5 24 L105.5 21.5" stroke="#e39b2e" stroke-width="1.6"/><path d="M97.5 15 L103.5 13.5" stroke="#e39b2e" stroke-width="1.6"/>
+    <!-- head: tall, narrows to the muzzle -->
+    <path class="white ink" d="M68 64 C68 38 132 38 132 64 C132 86 124 110 100 114 C76 110 68 86 68 64 Z"/>
+    <!-- muzzle -->
+    <path d="M82 92 C82 82 118 82 118 92 C118 104 108 110 100 110 C92 110 82 104 82 92 Z" fill="#fff6f9" stroke="#3a2a66" stroke-width="1.6"/>
+    <ellipse cx="92" cy="98" rx="2.4" ry="1.6" fill="#c9a3b8" transform="rotate(-20 92 98)"/><ellipse cx="108" cy="98" rx="2.4" ry="1.6" fill="#c9a3b8" transform="rotate(20 108 98)"/>
+    <path d="M95 105 Q100 109 105 105" fill="none" class="ink"/>
+    <ellipse cx="76" cy="84" rx="6" ry="3.8" fill="#ffb3c7" opacity=".7"/><ellipse cx="124" cy="84" rx="6" ry="3.8" fill="#ffb3c7" opacity=".7"/>
+    <!-- eyes, wide apart and high -->
+    <circle cx="84" cy="68" r="8.5" fill="#fff" stroke="#3a2a66" stroke-width="1.4"/><circle cx="84.5" cy="68.5" r="5.6" fill="#2b2140"/><circle cx="82.3" cy="66.3" r="2.1" fill="#fff"/><circle cx="86.5" cy="70.8" r=".9" fill="#fff"/>
+    <circle cx="116" cy="68" r="8.5" fill="#fff" stroke="#3a2a66" stroke-width="1.4"/><circle cx="116.5" cy="68.5" r="5.6" fill="#2b2140"/><circle cx="114.3" cy="66.3" r="2.1" fill="#fff"/><circle cx="118.5" cy="70.8" r=".9" fill="#fff"/>
+    <!-- forelock -->
+    <path class="mane ink" d="M80 46 C84 30 104 26 116 36 C106 36 100 44 102 54 C96 48 90 48 86 50 C84 46 82 48 80 46 Z"/>
+  </g>
+</svg>
+</div></div><h2>B · Plush, front view</h2><p>Faces you like a soft toy, but with a horse's head: tall skull, muzzle at the bottom, eyes high and wide apart, tall ears, big horn, mane falling to the shoulders.</p></div>
+
+<!-- C: flat mascot bust, profile, bold lines, envelope in mouth -->
+<div class="card"><div class="panel"><div class="frame">
+<svg viewBox="0 0 200 170" style="overflow:hidden">
+  <g class="breathe">
+    <!-- mane down the back of the neck -->
+    <path class="bold" fill="#b48cff" d="M66 60 C50 70 44 96 50 124 C54 146 46 158 40 170 L98 170 C92 150 94 126 90 104 C86 84 84 68 66 60 Z"/>
+    <path fill="#ff9ad5" d="M62 76 C54 90 56 112 60 132 C62 148 56 160 52 170 L66 170 C68 152 66 132 64 116 C62 100 64 86 62 76 Z"/>
+    <!-- neck -->
+    <path class="bold" fill="#fff" d="M80 92 C96 100 120 104 140 100 L150 170 L66 170 C74 146 80 120 80 92 Z"/>
+    <!-- head, profile, long muzzle to the right -->
+    <path class="bold" fill="#fff" d="M70 72 C68 40 96 26 118 32 C142 38 160 60 176 86 C182 96 174 106 162 104 L146 100 C140 112 116 114 100 108 C80 102 72 90 70 72 Z"/>
+    <!-- muzzle tint -->
+    <path fill="#fff6f9" d="M140 76 C154 80 168 88 174 94 C170 102 160 102 150 99 C144 92 140 84 140 76 Z"/>
+    <ellipse cx="166" cy="88" rx="2.6" ry="1.8" fill="#c9a3b8"/>
+    <!-- envelope in the mouth -->
+    <g transform="rotate(-14 160 104)"><rect x="150" y="98" width="26" height="17" rx="2" fill="#fff" class="bold" stroke-width="2.6"/><path d="M150 98 l13 9 l13 -9" fill="none" class="bold" stroke-width="2.6"/><rect x="169" y="101" width="5" height="4" fill="#ff6b8a"/></g>
+    <path d="M146 100 Q152 98 156 100" fill="none" class="bold"/>
+    <!-- cheek -->
+    <ellipse cx="128" cy="78" rx="7" ry="4.5" fill="#ffb3c7"/>
+    <!-- eye -->
+    <ellipse cx="116" cy="62" rx="9" ry="10" fill="#fff" class="bold"/>
+    <circle cx="117" cy="63" r="6" fill="#2b2140"/><circle cx="114.5" cy="60.5" r="2.4" fill="#fff"/><circle cx="119.5" cy="66" r="1" fill="#fff"/>
+    <!-- ear -->
+    <path class="bold" fill="#fff" d="M92 44 C84 30 86 12 94 10 C102 10 108 28 106 44 Z"/><path d="M94 40 C90 30 91 18 95 17 C99 18 102 30 100 41 Z" fill="#ffb3c7"/>
+    <!-- horn -->
+    <path class="bold" fill="#ffd166" d="M110 38 L128 42 L142 2 Z"/>
+    <path d="M116 34 L130 36" stroke="#e39b2e" stroke-width="2.4" stroke-linecap="round"/><path d="M122 24 L133 26" stroke="#e39b2e" stroke-width="2.4" stroke-linecap="round"/><path d="M128 14 L136 15" stroke="#e39b2e" stroke-width="2.4" stroke-linecap="round"/>
+    <!-- forelock -->
+    <path class="bold" fill="#b48cff" d="M72 58 C72 36 96 26 116 36 C106 38 100 46 102 58 C94 50 84 52 78 64 Z"/>
+    <path fill="#ff9ad5" d="M84 50 C90 42 102 40 110 42 C102 46 98 52 98 60 C94 54 90 52 84 50 Z"/>
+  </g>
+</svg>
+</div></div><h2>C · Flat mascot bust</h2><p>Head and neck only, in profile, thick lines, flat colours: the Flash-era sticker look. Big eye, long muzzle, an envelope in his mouth. Simplest to animate, strongest at small size.</p></div>
+
+</div>
+</body>
+</html>

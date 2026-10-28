@@ -6,6 +6,10 @@ will live in the left side panel of the Neutron Calendar Bridge window, where he
 your clicks, sleeps when the connection is gone, worries when a sync fails, says when all is well and
 now and then reminds you that you are amazing. His real job is to warm your heart on a bad office day.
 
+He is drawn in a plush style: front view, a horse's head (tall skull, muzzle at the bottom, eyes high and
+wide apart, tall ears), a big horn, a mane to the shoulders, a small round body with the courier bag and a
+rainbow behind him.
+
 This folder is the frame on its own, outside the app, so the look and the behaviour can be judged
 before anything touches `src/`. Plain HTML, CSS and JS; no build step, no framework, no assets
 (Herbert is inline SVG, animated with CSS; the whole thing is under 50 KB).
@@ -36,6 +40,7 @@ twenty) says something kind, but only when he is idle or content and nothing els
 | `herbert.css` | Looks and all motion: breathing, blinking, gaze, every state's face, keyframes. Honors `prefers-reduced-motion`. |
 | `herbert-texts.js` | Every line he says, in one table (`window.HERBERT_TEXTS`). English only for now. |
 | `index.html`, `demo.css`, `demo.js` | The demo page and its mock of the app window. Not part of the later integration. |
+| `styles.html` | The three style candidates Herbert was chosen from (A cartoon pony, B plush front view, C flat bust). B is the one in `herbert.js`; the page stays as a reference. |
 
 Only the first three files move into the app. They use the app's own tokens where sensible
 (`--font-sans`, `--page`, `--text`, `--line-strong` for the bubble) and fall back to plain values
