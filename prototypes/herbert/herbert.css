@@ -186,6 +186,27 @@
     opacity: 0;
     transition: opacity 220ms ease;
 }
+/* Groups that are whole scenes (zzz, sparkles, props) also leave the paint tree while hidden. */
+.herbert .zzz,
+.herbert .sparkles,
+.herbert .prop {
+    visibility: hidden;
+    transition: opacity 220ms ease, visibility 0s linear 220ms;
+}
+.herbert.is-asleep .zzz,
+.herbert.is-content .sparkles,
+.herbert.is-sparkling .sparkles,
+.herbert.prop-sparkles .sparkles,
+.herbert.prop-envelope .prop-envelope,
+.herbert.prop-mark .prop-mark,
+.herbert.prop-question .prop-question,
+.herbert.prop-heart .prop-heart,
+.herbert.prop-clock .prop-clock,
+.herbert.prop-notes .prop-notes,
+.herbert.prop-confetti .prop-confetti {
+    visibility: visible;
+    transition: opacity 220ms ease, visibility 0s;
+}
 .herbert .mouth-smile { opacity: 1; transition: opacity 220ms ease; }
 
 /* ---- motion -------------------------------------------------------------- */
@@ -355,6 +376,142 @@
     0% { opacity: 0; transform: translate(0, 4px); }
     30% { opacity: 1; }
     100% { opacity: 0; transform: translate(4px, -8px); }
+}
+
+/* ---- reactions: borrowed faces ------------------------------------------- */
+
+/* soft: a little sorry — ears half down, small mouth, half-closed eyes */
+.herbert.face-soft .ear-left { transform: rotate(-14deg); }
+.herbert.face-soft .ear-right { transform: rotate(14deg); }
+.herbert.face-soft .lid { transform: translateY(-15px); }
+.herbert.face-soft .mouth-smile { opacity: 0; animation: none; }
+.herbert.face-soft .mouth-open { opacity: 0 !important; animation: none; }
+.herbert.face-soft .mouth-sleep { opacity: 0.8; }
+.herbert.face-soft .cheek { opacity: 0.45; }
+.herbert.face-soft .brow { opacity: 1; }
+.herbert.face-soft .brow-left { transform: translateY(1px) rotate(-8deg); }
+.herbert.face-soft .brow-right { transform: translateY(1px) rotate(8deg); }
+
+/* yawn: just woke up — eyes nearly shut, a big round mouth, ears relaxed */
+.herbert.face-yawn .lid { transform: translateY(-12px); }
+.herbert.face-yawn .mouth-smile { opacity: 0; animation: none; }
+.herbert.face-yawn .mouth-open {
+    opacity: 1 !important;
+    animation: none;
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(1.8);
+}
+.herbert.face-yawn .ear-left { transform: rotate(-10deg); }
+.herbert.face-yawn .ear-right { transform: rotate(10deg); }
+.herbert.face-yawn .mouth-open { transition: transform 300ms ease; }
+
+/* ---- reactions: props ---------------------------------------------------- */
+
+.herbert .prop { opacity: 0; transition: opacity 200ms ease; }
+.herbert .prop-envelope rect { fill: #ffffff; stroke: var(--herbert-ink); stroke-width: 1.6; }
+.herbert .prop-envelope .env-fold { fill: none; stroke: var(--herbert-ink); stroke-width: 1.4; stroke-linejoin: round; }
+.herbert .prop-envelope .env-wind { fill: none; stroke: #d6c8ff; stroke-width: 1.6; stroke-linecap: round; }
+.herbert .prop-mark,
+.herbert .prop-question {
+    fill: #ffd166;
+    stroke: var(--herbert-ink);
+    stroke-width: 1;
+    font: 800 24px var(--font-sans, sans-serif);
+    transform-box: fill-box;
+    transform-origin: center bottom;
+}
+.herbert .prop-heart { fill: #ff8fab; stroke: var(--herbert-ink); stroke-width: 1.4; transform-box: fill-box; transform-origin: center; }
+.herbert .prop-clock circle { fill: #ffffff; stroke: var(--herbert-ink); stroke-width: 1.6; }
+.herbert .prop-clock .clock-hands,
+.herbert .prop-clock .clock-tick { fill: none; stroke: var(--herbert-ink); stroke-width: 1.4; stroke-linecap: round; }
+.herbert .prop-clock .clock-hands { transform-box: fill-box; transform-origin: 0 100%; }
+.herbert .prop-notes text { fill: #d6c8ff; font: 700 14px var(--font-sans, sans-serif); transform-box: fill-box; transform-origin: center; }
+.herbert .prop-confetti rect,
+.herbert .prop-confetti circle { transform-box: fill-box; transform-origin: center; }
+
+.herbert.prop-envelope .prop-envelope { opacity: 1; animation: herbert-fly 1.6s ease-out infinite; }
+.herbert.prop-mark .prop-mark { opacity: 1; animation: herbert-pop 500ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.herbert.prop-question .prop-question { opacity: 1; animation: herbert-pop 500ms cubic-bezier(0.34, 1.56, 0.64, 1), herbert-sway-prop 2s ease-in-out 500ms infinite; }
+.herbert.prop-heart .prop-heart { opacity: 1; animation: herbert-heartbeat 900ms ease-in-out infinite; }
+.herbert.prop-clock .prop-clock { opacity: 1; }
+.herbert.prop-clock .clock-hands { animation: herbert-tick 4s steps(8) infinite; }
+.herbert.prop-notes .prop-notes { opacity: 1; }
+.herbert.prop-notes .prop-notes text { animation: herbert-zzz 2.4s ease-in-out infinite; }
+.herbert.prop-notes .prop-notes text:nth-child(2) { animation-delay: 0.8s; }
+.herbert.prop-notes .prop-notes text:nth-child(3) { animation-delay: 1.5s; }
+.herbert.prop-confetti .prop-confetti { opacity: 1; }
+.herbert.prop-confetti .prop-confetti rect,
+.herbert.prop-confetti .prop-confetti circle { animation: herbert-confetti 1.8s ease-in infinite; }
+.herbert.prop-confetti .prop-confetti :nth-child(2n) { animation-delay: 0.4s; }
+.herbert.prop-confetti .prop-confetti :nth-child(3n) { animation-delay: 0.9s; }
+.herbert.prop-sweat .sweat { opacity: 1; animation: herbert-drip 1.8s ease-in infinite; }
+.herbert.prop-sparkles .sparkles { opacity: 1; }
+.herbert.prop-sparkles .sparkle { animation: herbert-twinkle 1.5s ease-in-out infinite; }
+
+/* ---- reactions: motions -------------------------------------------------- */
+
+.herbert .arm { transition: transform 300ms ease; }
+.herbert .arm-right { transform-origin: 113px 141px; }
+.herbert .arm-left { transform-origin: 87px 141px; }
+.herbert .neck { transform-origin: 100px 100px; transition: transform 400ms cubic-bezier(0.34, 1.3, 0.64, 1); }
+
+.herbert.motion-hop .herbert-stage { animation: herbert-hop 560ms ease 2; }
+.herbert.motion-bounce .herbert-stage { animation: herbert-bounce 460ms ease-in-out infinite; }
+.herbert.motion-stretch .herbert-stage { transform-origin: 50% 100%; animation: herbert-stretch 1.4s ease-in-out; }
+.herbert.motion-wiggle .jitter { transform-origin: 100px 160px; animation: herbert-wiggle 420ms ease-in-out infinite; }
+.herbert.motion-sway .jitter { transform-origin: 100px 160px; animation: herbert-sway 2.4s ease-in-out infinite; }
+.herbert.motion-shiver .jitter { animation: herbert-tremble 0.4s ease-in-out infinite; }
+.herbert.motion-tilt .neck { transform: rotate(-9deg); }
+.herbert.motion-wave .arm-right { animation: herbert-wave 700ms ease-in-out infinite alternate; }
+
+@keyframes herbert-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+@keyframes herbert-stretch {
+    0%, 100% { transform: scale(1, 1); }
+    40% { transform: scale(0.97, 1.07); }
+    70% { transform: scale(1.02, 0.98); }
+}
+@keyframes herbert-wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+@keyframes herbert-sway {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+@keyframes herbert-wave {
+    from { transform: rotate(-125deg); }
+    to { transform: rotate(-160deg); }
+}
+@keyframes herbert-fly {
+    0% { transform: translate(-6px, 6px) scale(0.6); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translate(14px, -26px) scale(1); opacity: 0; }
+}
+@keyframes herbert-pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+@keyframes herbert-sway-prop {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+}
+@keyframes herbert-heartbeat {
+    0%, 100% { transform: scale(1); }
+    30% { transform: scale(1.25); }
+    45% { transform: scale(1.05); }
+    60% { transform: scale(1.2); }
+}
+@keyframes herbert-tick {
+    to { transform: rotate(360deg); }
+}
+@keyframes herbert-confetti {
+    0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+    15% { opacity: 1; }
+    100% { transform: translateY(60px) rotate(300deg); opacity: 0; }
 }
 
 /* No motion for people who asked the system for none; the states still show. */

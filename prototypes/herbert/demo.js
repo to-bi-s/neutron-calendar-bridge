@@ -41,6 +41,7 @@
     }
     herbert.on('state', function (d) { note('setState(\'' + d.state + '\')'); markState(d.state); });
     herbert.on('say', function (d) { note('say(“' + d.text + '”)'); });
+    herbert.on('react', function (d) { note('react(\'' + d.reaction + '\')'); });
 
     function markState(state) {
         document.querySelectorAll('[data-state]').forEach(function (b) {
@@ -63,6 +64,9 @@
             if (herbert.getState() === 'asleep') herbert.setState('idle', { quiet: true });
             herbert.greet(when === 'now' ? undefined : Number(when));
         });
+    });
+    document.querySelectorAll('[data-react]').forEach(function (b) {
+        b.addEventListener('click', function () { herbert.react(b.getAttribute('data-react')); });
     });
     document.getElementById('encourage').addEventListener('click', function () {
         if (herbert.getState() === 'asleep') herbert.setState('idle', { quiet: true });

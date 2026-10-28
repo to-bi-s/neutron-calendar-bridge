@@ -8,6 +8,7 @@
  *   herbert.lookAt(x, y, holdMs)         page coordinates; he glances there, then goes back to the pointer
  *   herbert.greet()                      time-of-day greeting
  *   herbert.encourage()                  one line from the encouragement list, with sparkles
+ *   herbert.react('delivered')           a short reaction to something the bridge did (see REACTIONS)
  *   herbert.hush()                       hide the bubble
  *   herbert.on('state' | 'say', fn)      events for the demo log
  *   herbert.destroy()
@@ -21,6 +22,33 @@
     'use strict';
 
     var STATES = ['idle', 'curious', 'talking', 'asleep', 'worried', 'content'];
+
+    // What happens while the bridge runs, and how Herbert takes it. face: the look he
+    // borrows for a moment (a state's face, or 'soft' / 'yawn'); prop: a small thing
+    // that appears; motion: how he moves; gaze: where he looks (SVG coordinates);
+    // wakes: whether this gets him out of 'asleep'. The line he says is in the texts.
+    var REACTIONS = {
+        delivered:       { face: 'content', prop: 'envelope', motion: 'hop', gaze: [160, 110] },
+        incoming:        { face: 'curious', prop: 'mark', gaze: [130, 140] },
+        invitation:      { face: 'content', prop: 'mark', motion: 'bounce' },
+        answered:        { face: 'content', prop: 'envelope', motion: 'wave' },
+        cancelled:       { face: 'soft', motion: 'tilt' },
+        refused:         { face: 'soft', prop: 'sweat', motion: 'tilt' },
+        slowdown:        { face: 'idle', prop: 'clock', motion: 'sway', gaze: [162, 46] },
+        online:          { face: 'content', motion: 'stretch', wakes: true },
+        wake:            { face: 'yawn', motion: 'stretch', wakes: true },
+        signedIn:        { face: 'content', prop: 'confetti', motion: 'hop' },
+        signInNeeded:    { face: 'soft', prop: 'question', motion: 'tilt' },
+        appConnected:    { face: 'content', motion: 'wave' },
+        appMissing:      { face: 'curious', prop: 'question', motion: 'tilt', gaze: [20, 20] },
+        updateAvailable: { face: 'curious', prop: 'sparkles', motion: 'bounce' },
+        refresh:         { face: 'idle', motion: 'wiggle', gaze: [100, 140] },
+        quiet:           { face: 'soft', prop: 'notes', motion: 'sway' },
+        busyDay:         { face: 'curious', prop: 'envelope', motion: 'shiver' },
+        freeDay:         { face: 'content', prop: 'heart', motion: 'sway' },
+        poke:            { face: 'content', motion: 'wiggle' },
+        thanks:          { face: 'content', prop: 'heart', motion: 'hop' },
+    };
 
     // viewBox 0 0 200 170. Eyes sit at y≈68 — look() uses that for the gaze origin.
     // Plush style (chosen from three candidates in styles.html): front view, a horse's
@@ -57,10 +85,8 @@
         '<path class="body" d="M100 112 C128 112 138 130 136 146 C134 160 118 162 100 162 C82 162 66 160 64 146 C62 130 72 112 100 112 Z"/>' +
         '<path class="strap" d="M78 122 Q100 140 124 150"/>' +
 
-        '<rect class="leg" x="80" y="138" width="13" height="22" rx="6"/>' +
-        '<rect class="leg" x="107" y="138" width="13" height="22" rx="6"/>' +
-        '<rect class="hoof" x="80" y="153" width="13" height="8" rx="4"/>' +
-        '<rect class="hoof" x="107" y="153" width="13" height="8" rx="4"/>' +
+        '<g class="arm arm-left"><rect class="leg" x="80" y="138" width="13" height="22" rx="6"/><rect class="hoof" x="80" y="153" width="13" height="8" rx="4"/></g>' +
+        '<g class="arm arm-right"><rect class="leg" x="107" y="138" width="13" height="22" rx="6"/><rect class="hoof" x="107" y="153" width="13" height="8" rx="4"/></g>' +
 
         '<g class="bag">' +
         '<rect x="116" y="136" width="20" height="15" rx="4"/>' +
@@ -69,7 +95,7 @@
         '<path class="envelope-fold" d="M121 143 l5 4 l5 -4"/>' +
         '</g>' +
 
-        '<g class="head">' +
+        '<g class="neck"><g class="head">' +
         '<path class="mane mane-back" d="M62 70 C56 34 92 18 118 24 C140 30 150 58 142 86 C136 70 128 60 118 56 L70 60 Z"/>' +
         '<path class="mane mane-neck" d="M130 60 C150 66 152 96 140 118 C138 100 132 86 124 78 Z"/>' +
         '<path class="mane mane-neck" d="M70 62 C50 70 48 100 60 118 C62 100 66 88 76 80 Z"/>' +
@@ -116,11 +142,25 @@
         '</g>' +
 
         '<path class="sweat" d="M138 52 C133 59 132 64 138 66 C144 64 143 59 138 52 Z"/>' +
-        '</g>' + // head
+        '</g></g>' + // head, neck
 
         '</g></g>' + // jitter, pose
 
         '<g class="zzz"><text x="146" y="56">z</text><text x="156" y="42">z</text><text x="168" y="26">z</text></g>' +
+
+        '<g class="props">' +
+        '<g transform="translate(150 120)"><g class="prop prop-envelope"><rect x="-9" y="-6" width="18" height="12" rx="1.5"/><path class="env-fold" d="M-9 -6 l9 7 l9 -7"/><path class="env-wind" d="M-17 -1 h5 M-20 4 h7"/></g></g>' +
+        '<text class="prop prop-mark" x="148" y="46">!</text>' +
+        '<text class="prop prop-question" x="146" y="46">?</text>' +
+        '<g transform="translate(152 36)"><path class="prop prop-heart" d="M0 7 C-12 -3 -5 -14 0 -8 C5 -14 12 -3 0 7 Z"/></g>' +
+        '<g transform="translate(162 46)"><g class="prop prop-clock"><circle r="9"/><path class="clock-hands" d="M0 -5 V0 H4"/><path class="clock-tick" d="M0 -9 v2 M0 7 v2 M-9 0 h2 M7 0 h2"/></g></g>' +
+        '<g class="prop prop-notes"><text x="140" y="48">♪</text><text x="154" y="34">♫</text><text x="36" y="56">♪</text></g>' +
+        '<g class="prop prop-confetti">' +
+        '<rect x="40" y="8" width="5" height="8" rx="1" fill="#ff8fab"/><rect x="70" y="2" width="5" height="8" rx="1" fill="#ffd166"/><rect x="128" y="4" width="5" height="8" rx="1" fill="#8ad1ff"/>' +
+        '<rect x="156" y="10" width="5" height="8" rx="1" fill="#b48cff"/><rect x="24" y="30" width="5" height="8" rx="1" fill="#5ad8c2"/><rect x="176" y="34" width="5" height="8" rx="1" fill="#ff8fab"/>' +
+        '<circle cx="56" cy="0" r="3" fill="#8ad1ff"/><circle cx="100" cy="-4" r="3" fill="#ffd166"/><circle cx="144" cy="-2" r="3" fill="#ff8fab"/>' +
+        '</g>' +
+        '</g>' +
 
         '<g class="sparkles">' +
         '<g transform="translate(48 40)"><path class="sparkle" d="M0 -6 L1.6 -1.6 L6 0 L1.6 1.6 L0 6 L-1.6 1.6 L-6 0 L-1.6 -1.6 Z"/></g>' +
@@ -157,7 +197,9 @@
         var gaze = null;      // { x, y, until } — a point he was told to look at
         var pointer = null;   // { x, y, at } — where the pointer last was
         var lastEncouragement = null;
-        var timers = { bubble: null, blink: null, wander: null, gaze: null, encourage: null, pulse: {} };
+        var timers = { bubble: null, blink: null, wander: null, gaze: null, encourage: null, reaction: null, pulse: {} };
+        var reaction = null;      // the reaction playing right now, if any
+        var encouragementBag = []; // the lines not yet said this round
         var destroyed = false;
 
         // --- events --------------------------------------------------------------
@@ -221,6 +263,12 @@
             return api;
         }
 
+        // The same, for a point in Herbert's own drawing (viewBox units).
+        function lookAtSvg(x, y, holdMs) {
+            var r = svg.getBoundingClientRect();
+            return lookAt(r.left + (x / 200) * r.width, r.top + (y / 170) * r.height, holdMs);
+        }
+
         // Every few seconds, when nothing else is going on, a small glance somewhere.
         function scheduleWander() {
             clearTimeout(timers.wander);
@@ -281,6 +329,7 @@
         function setState(name, opts) {
             opts = opts || {};
             if (STATES.indexOf(name) < 0) throw new Error('Herbert does not know the state "' + name + '"');
+            clearReaction();
             var previous = state;
             state = name;
             setStateClass(name);
@@ -314,8 +363,14 @@
         function encourage() {
             var list = texts.encouragements || [];
             if (!list.length || state === 'asleep') return api;
-            var choices = list.filter(function (t) { return t !== lastEncouragement; });
-            var text = choices[Math.floor(Math.random() * choices.length)];
+            if (!encouragementBag.length) {
+                // A new round: every line once, in random order, never the same one twice in a row.
+                encouragementBag = list.slice().sort(function () { return Math.random() - 0.5; });
+                if (encouragementBag.length > 1 && encouragementBag[encouragementBag.length - 1] === lastEncouragement) {
+                    encouragementBag.unshift(encouragementBag.pop());
+                }
+            }
+            var text = encouragementBag.pop();
             lastEncouragement = text;
             say(text);
             root.classList.add('is-sparkling');
@@ -337,6 +392,47 @@
             }, ms);
         }
 
+        // --- reactions -----------------------------------------------------------
+        function reactionClasses(name) {
+            var r = REACTIONS[name];
+            var list = ['is-reacting', 'react-' + name];
+            var face = r.face || 'idle';
+            list.push(face === 'soft' || face === 'yawn' ? 'face-' + face : 'is-' + face);
+            if (r.prop) list.push('prop-' + r.prop);
+            if (r.motion) list.push('motion-' + r.motion);
+            return list;
+        }
+        function clearReaction() {
+            clearTimeout(timers.reaction);
+            if (!reaction) return;
+            var cls = reactionClasses(reaction);
+            reaction = null;
+            for (var i = 0; i < cls.length; i++) root.classList.remove(cls[i]);
+            setStateClass(state); // the borrowed face goes, his own state's face comes back
+        }
+        function react(name, opts) {
+            opts = opts || {};
+            var r = REACTIONS[name];
+            if (!r) throw new Error('Herbert does not know the reaction "' + name + '"');
+            if (state === 'asleep') {
+                if (!r.wakes) { pulse('did-notice', 900); return api; } // a stir in his sleep, nothing more
+                setState('idle', { quiet: true });
+            }
+            clearReaction();
+            var text = opts.text !== undefined ? opts.text : (texts.reactions || {})[name];
+            var duration = opts.duration || (text ? clamp(2600 + text.length * 60, 3200, 10000) : 3200);
+            reaction = name;
+            var cls = reactionClasses(name);
+            for (var i = 0; i < STATES.length; i++) root.classList.remove('is-' + STATES[i]);
+            void root.offsetWidth; // restart the motion's animation
+            for (var j = 0; j < cls.length; j++) root.classList.add(cls[j]);
+            if (r.gaze) lookAtSvg(r.gaze[0], r.gaze[1], duration);
+            if (text) say(text, { duration: duration }); else hush();
+            timers.reaction = setTimeout(clearReaction, duration);
+            emit('react', { reaction: name, text: text, duration: duration });
+            return api;
+        }
+
         // --- listeners -----------------------------------------------------------
         var raf = 0;
         function onPointerMove(e) {
@@ -345,6 +441,7 @@
         }
         function onPointerLeave() { pointer = null; refreshGaze(); }
         function onPointerDown(e) {
+            if (root.contains(e.target)) { react('poke'); return; }
             if (state === 'asleep') return;
             lookAt(e.clientX, e.clientY, 2600);
             pulse('did-notice', 900);
@@ -383,6 +480,8 @@
             lookAt: lookAt,
             greet: greet,
             encourage: encourage,
+            react: react,
+            reactions: Object.keys(REACTIONS),
             on: on,
             off: off,
             destroy: destroy,

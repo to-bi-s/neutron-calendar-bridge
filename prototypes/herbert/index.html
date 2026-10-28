@@ -67,6 +67,33 @@
             </section>
 
             <section class="card">
+                <h2>Reactions</h2>
+                <p>Twenty things that happen while the bridge runs, each with a pose, a prop and a line. Hover a button for the event behind it. Clicking Herbert himself is a poke.</p>
+                <div class="row">
+                    <button class="btn" type="button" data-react="delivered" title="your change reached Proton">Delivered</button>
+                    <button class="btn" type="button" data-react="incoming" title="new or changed events arrived from Proton">Incoming</button>
+                    <button class="btn" type="button" data-react="invitation" title="an invitation arrived">Invitation</button>
+                    <button class="btn" type="button" data-react="answered" title="your answer was emailed to the organizer">Answered</button>
+                    <button class="btn" type="button" data-react="cancelled" title="a meeting was cancelled">Cancelled</button>
+                    <button class="btn" type="button" data-react="refused" title="Proton could not do that edit">Refused</button>
+                    <button class="btn" type="button" data-react="slowdown" title="Proton asked to slow down">Slow-down</button>
+                    <button class="btn" type="button" data-react="online" title="the connection is back">Back online</button>
+                    <button class="btn" type="button" data-react="wake" title="the Mac woke from sleep">Mac woke up</button>
+                    <button class="btn" type="button" data-react="signedIn" title="an account signed in">Signed in</button>
+                    <button class="btn" type="button" data-react="signInNeeded" title="Proton wants a new sign-in">Sign-in needed</button>
+                    <button class="btn" type="button" data-react="appConnected" title="a calendar app made its first request">App connected</button>
+                    <button class="btn" type="button" data-react="appMissing" title="no calendar app has asked in a long while">App missing</button>
+                    <button class="btn" type="button" data-react="updateAvailable" title="a new version is available">Update</button>
+                    <button class="btn" type="button" data-react="refresh" title="a full listing of every calendar">Refresh</button>
+                    <button class="btn" type="button" data-react="quiet" title="nothing changed for hours">Quiet</button>
+                    <button class="btn" type="button" data-react="busyDay" title="many events today">Busy day</button>
+                    <button class="btn" type="button" data-react="freeDay" title="nothing on today">Free day</button>
+                    <button class="btn" type="button" data-react="poke" title="you clicked Herbert">Poke</button>
+                    <button class="btn" type="button" data-react="thanks" title="the Pro Version was unlocked">Thanks</button>
+                </div>
+            </section>
+
+            <section class="card">
                 <h2>Appearance</h2>
                 <p>As in the app: the panel stays dark purple, the page and Herbert's speech bubble follow the theme.</p>
                 <div class="seg" role="group" aria-label="Theme">
@@ -78,7 +105,7 @@
 
             <section class="card">
                 <h2>What the app will call</h2>
-                <p class="hint">Also available in the browser console as <kbd>herbert</kbd> — try <kbd>herbert.say('hello')</kbd> or <kbd>herbert.setState('asleep')</kbd>.</p>
+                <p class="hint">Also available in the browser console as <kbd>herbert</kbd> — try <kbd>herbert.say('hello')</kbd> or <kbd>herbert.setState('asleep')</kbd> or <kbd>herbert.react('delivered')</kbd>.</p>
                 <ol class="log" id="log"></ol>
             </section>
         </div>

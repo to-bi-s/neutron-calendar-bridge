@@ -36,7 +36,7 @@ twenty) says something kind, but only when he is idle or content and nothing els
 
 | File | What |
 | --- | --- |
-| `herbert.js` | The drawing (inline SVG) and the behaviour; exposes `createHerbert(container, options)`. |
+| `herbert.js` | The drawing (inline SVG), the behaviour and the reaction table; exposes `createHerbert(container, options)`. |
 | `herbert.css` | Looks and all motion: breathing, blinking, gaze, every state's face, keyframes. Honors `prefers-reduced-motion`. |
 | `herbert-texts.js` | Every line he says, in one table (`window.HERBERT_TEXTS`). English only for now. |
 | `index.html`, `demo.css`, `demo.js` | The demo page and its mock of the app window. Not part of the later integration. |
@@ -72,15 +72,51 @@ herbert.lookAt(x, y, 5000);          // hold longer
 herbert.greet();                     // the greeting for the current hour
 herbert.greet(14);                   // the greeting for a given hour (demo)
 herbert.encourage();                 // one encouragement, with sparkles
+herbert.react('delivered');          // a short reaction to something the bridge did (list below)
+herbert.react('refused', { text: '…', duration: 4000 });
+herbert.reactions                    // the list of reaction names
 
 herbert.on('state', ({ state, previous }) => …);
 herbert.on('say', ({ text, duration }) => …);
+herbert.on('react', ({ reaction, text, duration }) => …);
 herbert.off('state', fn);
 herbert.destroy();                   // remove him and all timers and listeners
 
 herbert.element                      // the .herbert <div>, 219 × 250 px
 herbert.states                       // the list of state names
 ```
+
+## Reactions
+
+`react(name)` is for the moments the bridge already knows about. Each one borrows a face for a few
+seconds, adds a small prop, moves a little and says its line, then he goes back to his state. While he
+is asleep only `online` and `wake` get him up; everything else is a small stir in his sleep. A click on
+Herbert himself is a poke.
+
+| Name | When the app would call it | What he does |
+| --- | --- | --- |
+| `delivered` | a change from your calendar app reached Proton | happy, an envelope flies off, a hop |
+| `incoming` | new or changed events arrived from Proton | curious, an "!", looks at his bag |
+| `invitation` | an invitation arrived | happy, an "!", bouncing |
+| `answered` | your answer was emailed to the organizer | happy, waves, an envelope flies off |
+| `cancelled` | a meeting was cancelled | soft face, head tilt |
+| `refused` | Proton could not do that edit | soft face, sweat drop, head tilt |
+| `slowdown` | Proton asked to slow down | watches a little clock, sways |
+| `online` | the connection is back (wakes him) | happy, a stretch |
+| `wake` | the Mac woke from sleep (wakes him) | a yawn and a stretch |
+| `signedIn` | an account signed in | happy, confetti, a hop |
+| `signInNeeded` | Proton wants a new sign-in | soft face, a "?" |
+| `appConnected` | a calendar app made its first request | happy, waves |
+| `appMissing` | no calendar app has asked in a long while | curious, a "?", looks around |
+| `updateAvailable` | a new version is available | curious, sparkles, bouncing |
+| `refresh` | a full listing of every calendar | wiggles, looks at his bag |
+| `quiet` | nothing changed for hours | hums to himself, notes, sways |
+| `busyDay` | many events today | curious, an envelope, a little shiver |
+| `freeDay` | nothing on today | happy, a heart, sways |
+| `poke` | you clicked Herbert | giggles, wiggles |
+| `thanks` | the Pro Version was unlocked | happy, a heart, a hop |
+
+The encouragements (25 lines) are said in a shuffled round, every line once before any repeats.
 
 Rules he keeps on his own: while asleep he does not follow the pointer, does not blink and says
 nothing (`say` is ignored, encouragements wait); a state change hides nothing that is being said but
