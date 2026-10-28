@@ -25,7 +25,7 @@
     // ---- Herbert --------------------------------------------------------------
     // Two minutes between encouragements here so they can be seen; the app will
     // use something far rarer (the API default is 20 minutes).
-    var herbert = window.createHerbert(document.getElementById('herbert-home'), { encourageEvery: 2 * 60 * 1000 });
+    var herbert = window.createHerbert(document.getElementById('herbert-home'), { encourageEvery: 2 * 60 * 1000, lifeEvery: 25 * 1000, drowsyAfter: 60 * 1000, awayAfter: 60 * 1000 });
     window.herbert = herbert; // for the browser console
 
     // ---- log ------------------------------------------------------------------
@@ -67,6 +67,43 @@
     });
     document.querySelectorAll('[data-react]').forEach(function (b) {
         b.addEventListener('click', function () { herbert.react(b.getAttribute('data-react')); });
+    });
+    document.getElementById('live').addEventListener('click', function () { herbert.liveALittle(); });
+    document.querySelectorAll('[data-chat]').forEach(function (b) {
+        b.addEventListener('click', function () {
+            herbert.setChattiness(Number(b.getAttribute('data-chat')));
+            document.querySelectorAll('[data-chat]').forEach(function (x) { x.classList.toggle('is-on', x === b); });
+            note('setChattiness(' + b.getAttribute('data-chat') + ')');
+        });
+    });
+    var quiet = false;
+    document.getElementById('quiet-hours').addEventListener('click', function () {
+        quiet = !quiet;
+        var h = new Date().getHours();
+        herbert.setQuietHours(quiet ? [h, (h + 1) % 24] : null);
+        this.textContent = 'Quiet hours now: ' + (quiet ? 'on' : 'off');
+        note(quiet ? 'setQuietHours([' + h + ', ' + ((h + 1) % 24) + '])' : 'setQuietHours(null)');
+    });
+    var compact = false;
+    document.getElementById('compact').addEventListener('click', function () {
+        compact = !compact; herbert.setSize(compact ? 'compact' : 'normal'); this.textContent = compact ? 'Normal size' : 'Compact';
+        note('setSize(\'' + (compact ? 'compact' : 'normal') + '\')');
+    });
+    var enabledButton = document.getElementById('enabled');
+    enabledButton.addEventListener('click', function () { herbert.setEnabled(herbert.element.classList.contains('is-hidden')); });
+    herbert.on('enabled', function (d) { enabledButton.textContent = d.enabled ? 'Send him away' : 'Bring him back'; note('setEnabled(' + d.enabled + ')'); });
+    var season = document.getElementById('season');
+    herbert.seasons.forEach(function (s) { var o = document.createElement('option'); o.value = s; o.textContent = 'Season: ' + s; season.appendChild(o); });
+    season.addEventListener('change', function () { herbert.setSeason(season.value); note('setSeason(\'' + season.value + '\')'); });
+    var pendingCount = 0;
+    document.getElementById('pending').addEventListener('click', function () {
+        pendingCount = (pendingCount + 1) % 5; herbert.setPending(pendingCount); this.textContent = 'Pending: ' + pendingCount; note('setPending(' + pendingCount + ')');
+    });
+    var busy = false;
+    document.getElementById('busy').addEventListener('click', function () { busy = !busy; herbert.setBusy(busy); this.textContent = 'Busy: ' + (busy ? 'on' : 'off'); note('setBusy(' + busy + ')'); });
+    document.getElementById('think').addEventListener('click', function () { herbert.think('Hmm… what if calendars could fly?'); });
+    document.getElementById('name-form').addEventListener('submit', function (e) {
+        e.preventDefault(); var n = document.getElementById('user-name').value.trim(); herbert.setUserName(n); note('setUserName(' + JSON.stringify(n) + ')'); herbert.greet();
     });
     document.getElementById('encourage').addEventListener('click', function () {
         if (herbert.getState() === 'asleep') herbert.setState('idle', { quiet: true });

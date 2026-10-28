@@ -53,36 +53,61 @@ const herbert = createHerbert(panelElement, {
     greet: true,            // say the time-of-day greeting shortly after creation (default true)
     greetDelay: 900,        // ms
     encourageEvery: 20 * 60 * 1000, // ms between encouragements (default 20 minutes)
+    lifeEvery: 4 * 60 * 1000,       // how often his small life may do something (default 4 minutes)
+    drowsyAfter: 10 * 60 * 1000,    // no activity for this long: he gets drowsy (not asleep)
+    awayAfter: 15 * 60 * 1000,      // activity after this long away: "welcome back"
+    userName: '',           // used in his lines as {name}; without it ", {name}" just disappears
+    userBirthday: null,     // 'MM-DD'
+    chattiness: 1,          // 0 silent (faces only), 1 normal, 2 chatty
+    quietHours: null,       // e.g. [22, 7]: nothing spontaneous between 22:00 and 07:00
+    season: 'auto',         // or 'none', 'christmas', 'newyear', 'halloween', 'valentine', 'birthday', 'winter', 'summer'
+    typewriter: true,       // letters appear one by one
     texts: HERBERT_TEXTS,   // the text table; the app passes translated strings here
 });
 
 herbert.setState('idle');            // 'idle' | 'curious' | 'talking' | 'asleep' | 'worried' | 'content'
-herbert.setState('worried');         // also says the "something went wrong" line
-herbert.setState('content');         // also says the "all is well" line
+herbert.setState('worried');         // also says a "something went wrong" line
+herbert.setState('content');         // also says an "all is well" line (a relief line after trouble)
 herbert.setState('worried', { quiet: true });    // the face only, no line
 herbert.setState('content', { text: '…' });      // the face with a line of your own
 herbert.getState();                  // the current state name
 
-herbert.say('Delivered!');           // speech bubble; hides itself (about 60 ms per character, 3–10 s)
-herbert.say('…', { duration: 5000 });
-herbert.hush();                      // hide the bubble now
+herbert.say('Delivered!');           // speech bubble; queues (up to 3) behind what he is saying
+herbert.say('…', { duration: 5000, now: true }); // now: replaces what he is saying
+herbert.think('Hmm…');               // thought bubble
+herbert.hush();                      // hide the bubble and empty the queue
 
-herbert.lookAt(x, y);                // page coordinates; he glances there for ~2 s, then back to the pointer
-herbert.lookAt(x, y, 5000);          // hold longer
-herbert.greet();                     // the greeting for the current hour
-herbert.greet(14);                   // the greeting for a given hour (demo)
-herbert.encourage();                 // one encouragement, with sparkles
 herbert.react('delivered');          // a short reaction to something the bridge did (list below)
 herbert.react('refused', { text: '…', duration: 4000 });
+herbert.react('milestone', { vars: { n: 10 } });  // {n} in the line
+herbert.touch('nose');               // what a click on a part of him does: nose, ear, horn, bag, tail, belly, face
 herbert.reactions                    // the list of reaction names
 
+herbert.lookAt(x, y);                // page coordinates; he glances there for ~2 s, then back to the pointer
+herbert.greet();                     // the greeting for the current hour (+ the weekday, once a day)
+herbert.greet(14);                   // the greeting for a given hour (demo)
+herbert.encourage();                 // one encouragement, with sparkles
+herbert.liveALittle();               // one thing from his small life, now (demo)
+
+herbert.setPending(3);               // a badge on the bag; the bag shakes while something waits
+herbert.setBusy(true);               // a small spinner on the bag, the rainbow pulses
+herbert.setEnabled(false);           // the off switch: he leaves; a small horn button brings him back
+herbert.setSize('compact');          // 'normal' | 'compact' (for small windows)
+herbert.setChattiness(0 | 1 | 2);
+herbert.setQuietHours([22, 7]);
+herbert.setUserName('Tobi');
+herbert.setSeason('christmas');      // try a season on; 'auto' follows the date
+
 herbert.on('state', ({ state, previous }) => …);
-herbert.on('say', ({ text, duration }) => …);
+herbert.on('say', ({ text, duration, thought }) => …);
 herbert.on('react', ({ reaction, text, duration }) => …);
+herbert.on('milestone', ({ deliveries }) => …);
+herbert.on('enabled', ({ enabled }) => …);
 herbert.off('state', fn);
+herbert.stats                        // { deliveries, pokes, coffees, encouragements, reactions }
 herbert.destroy();                   // remove him and all timers and listeners
 
-herbert.element                      // the .herbert <div>, 219 × 250 px
+herbert.element                      // the .herbert <div>, 219 × 250 px (focusable; Enter pokes him)
 herbert.states                       // the list of state names
 ```
 
@@ -116,7 +141,91 @@ Herbert himself is a poke.
 | `poke` | you clicked Herbert | giggles, wiggles |
 | `thanks` | the Pro Version was unlocked | happy, a heart, a hop |
 
-The encouragements (25 lines) are said in a shuffled round, every line once before any repeats.
+Every key in the text table may hold a list of lines; he says each line once, in random order, before
+any repeats (there are 11 per greeting and per reaction, 25 encouragements). `{name}` is the person's
+name when the app knows it.
+
+### His small life and his touches
+
+| Name | When | What he does |
+| --- | --- | --- |
+| `coffee` | now and then while idle | raises a cup, sips, steam rises (14 s) |
+| `snack` | now and then while idle | an apple, crunch, a bite mark |
+| `stretch` | now and then, and at every full hour | a yawn and a stretch, no line |
+| `sneeze` | now and then | head back, "Achoo!" |
+| `daydream` | now and then | a thought bubble with a tiny rainbow |
+| `hum` | now and then | notes, no line |
+| `letter` | now and then | reads a letter from his bag |
+| `trivia` | now and then | "Did you know?" |
+| `wish` | at night, rarely | a shooting star; he makes a wish |
+| `welcomeBack` | activity after a long absence | waves |
+| `relief` | content after a worried spell | "Phew!" |
+| `milestone` | the 10th, 25th, 50th, 100th, 250th delivery | confetti and the count |
+| `lunch`, `evening`, `weekend` | once a day, at the right time | a gentle nudge |
+| `birthday`, `userBirthday` | 28 October; the person's birthday | party hat, confetti, a dance |
+| `sleepyLove` | poked while asleep | a mumbled encouragement, a heart, no waking |
+| `dance` | double-click | hooves up, notes |
+| `pet` | press and hold | hearts, "that's nice" |
+| `boop`, `earTickle`, `hornTap`, `bagPeek`, `tailPull`, `belly` | a click on that part | each its own face and line |
+| `dizzy` | swirling the pointer over him | spiral eyes, wobble |
+| `shy` | being hovered for 5 s | blushes, looks away |
+| `typing` | a long burst of typing | cheers you on (at most every 5 minutes) |
+| `party` | typing the word "herbert" | confetti and a dance |
+
+### Fifty small things that make him Herbert
+
+1. Coffee breaks while idle, cup in hoof, steam rising.
+2. Snacks: an apple, with a bite mark after the first crunch.
+3. Stretches now and then, and at every full hour.
+4. Sneezes.
+5. Daydreams in a thought bubble with a tiny rainbow.
+6. Hums to himself with little notes.
+7. Ear twitches.
+8. Tail flicks.
+9. Reads a letter from his bag.
+10. Unicorn trivia.
+11. Gets drowsy after long inactivity (not asleep: that is for the connection) and wakes on activity.
+12. Welcomes you back after a long absence.
+13. Looks up at his own speech bubble before he speaks.
+14. Lines appear letter by letter.
+15. Lines queue up (three at most) instead of cutting each other off.
+16. Thought bubbles, `think()`, dashed and italic.
+17. Clicking the bubble dismisses it; hovering it keeps it on screen.
+18. The ears follow the pointer a little.
+19. Hovering him perks his ears, widens his eyes and makes him blink more often.
+20. Staring at him for five seconds makes him shy.
+21. A nose boop scrunches his face.
+22. Ear tickles make the ear flick.
+23. A tap on the horn: "Careful, that's sharp!"
+24. A click on the bag peeks inside and tells you how many changes are waiting.
+25. A tail pull.
+26. A belly tickle.
+27. Pressing and holding is petting: hearts, "that's nice".
+28. Double-click: a dance.
+29. Swirling the pointer over him makes him dizzy, spiral eyes and all.
+30. He watches you type, and cheers a long burst.
+31. Typing "herbert" anywhere throws a party.
+32. Poked while asleep (the internet is gone), he mumbles an encouragement without waking.
+33. Eleven greetings per time of day, and the weekday in the first greeting of the day.
+34. Eleven lines per reaction, each said once before any repeats.
+35. Twenty-five encouragements in a shuffled round.
+36. Your name in his lines, `setUserName`.
+37. A relief line when things are fine again after trouble.
+38. Delivery milestones with confetti; `stats` counts deliveries, pokes, coffees.
+39. A lunch nudge, once a day.
+40. An evening wind-down, once a day.
+41. A weekend remark, once.
+42. Night: stars in the frame and a softly glowing horn.
+43. Shooting stars at night; he makes a wish.
+44. A nightcap when he sleeps at night.
+45. Seasons: a Santa hat in December, a party hat on New Year's Day, a pumpkin at Halloween, a hearts crown on Valentine's Day, a scarf in winter, sunglasses on summer afternoons.
+46. His birthday, 28 October, and yours.
+47. A pending-changes badge on the bag; the bag shakes while something waits.
+48. A busy spinner on the bag and a pulsing rainbow while a sync runs.
+49. Chattiness (silent, normal, chatty), quiet hours, and an off switch that lets him leave with a small horn button to bring him back.
+50. A compact size for small windows, keyboard focus (Enter pokes him), and reduced-motion respected throughout.
+
+
 
 Rules he keeps on his own: while asleep he does not follow the pointer, does not blink and says
 nothing (`say` is ignored, encouragements wait); a state change hides nothing that is being said but
@@ -137,5 +246,5 @@ when a sync fails, `setState('content')` when a sync succeeds after trouble, `se
 - **Translations**: the texts are English only and live in `herbert-texts.js`. When he moves into
   the app they go through the six catalogs in `src/locales/` and `i18n.js`, and `createHerbert`
   gets the translated table through `options.texts`.
-- No sounds, no settings (an "I'd rather not" switch will be needed for people who find him
-  distracting), no version bump, no CHANGELOG entry: this is a prototype outside the app.
+- No sounds, no version bump, no CHANGELOG entry: this is a prototype outside the app. The once-a-day
+  lines remember the day in `localStorage` (key `herbert-once`); the app will keep that in its own settings.

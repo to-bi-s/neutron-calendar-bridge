@@ -94,6 +94,74 @@
             </section>
 
             <section class="card">
+                <h2>His small life</h2>
+                <p>Left alone and idle he does these on his own, now and then (every 25 seconds on this page; the API default is four minutes): coffee breaks, snacks, stretches, a sneeze, daydreams, humming, reading a letter, a bit of trivia, ear twitches and tail flicks. Once a day: the weekday in the first greeting, a lunch nudge, an evening wind-down, a weekend remark, a wish on a shooting star at night, his birthday. He gets drowsy after long inactivity and welcomes you back after a long absence.</p>
+                <div class="row">
+                    <button class="btn" type="button" data-react="coffee">Coffee break</button>
+                    <button class="btn" type="button" data-react="snack">Snack</button>
+                    <button class="btn" type="button" data-react="stretch">Stretch</button>
+                    <button class="btn" type="button" data-react="sneeze">Sneeze</button>
+                    <button class="btn" type="button" data-react="daydream">Daydream</button>
+                    <button class="btn" type="button" data-react="hum">Hum</button>
+                    <button class="btn" type="button" data-react="letter">Read a letter</button>
+                    <button class="btn" type="button" data-react="trivia">Trivia</button>
+                    <button class="btn" type="button" data-react="wish">Shooting star</button>
+                    <button class="btn" type="button" data-react="welcomeBack">Welcome back</button>
+                    <button class="btn" type="button" data-react="relief">Relief</button>
+                    <button class="btn" type="button" data-react="milestone">Milestone</button>
+                    <button class="btn" type="button" data-react="lunch">Lunch nudge</button>
+                    <button class="btn" type="button" data-react="evening">Evening</button>
+                    <button class="btn" type="button" data-react="weekend">Weekend</button>
+                    <button class="btn" type="button" data-react="birthday">His birthday</button>
+                    <button class="btn" type="button" data-react="userBirthday">Your birthday</button>
+                    <button class="btn" type="button" data-react="typing">Typing cheer</button>
+                    <button class="btn" type="button" id="live">Something, now</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Touch him</h2>
+                <p>Click his nose, ears, horn, bag, tail or belly; press and hold to pet him; double-click for a dance; swirl the pointer over him to make him dizzy; stare (hover) for five seconds; type the word <kbd>herbert</kbd> anywhere. Click the speech bubble to dismiss it, hover it to keep it. He is keyboard-focusable: <kbd>Tab</kbd> to him, <kbd>Enter</kbd> pokes. Put him to sleep and poke him: the internet may be gone, but he still tells you that you’re amazing.</p>
+                <div class="row">
+                    <button class="btn" type="button" data-react="dance">Dance (double-click)</button>
+                    <button class="btn" type="button" data-react="pet">Pet (press & hold)</button>
+                    <button class="btn" type="button" data-react="boop">Nose boop</button>
+                    <button class="btn" type="button" data-react="earTickle">Ear tickle</button>
+                    <button class="btn" type="button" data-react="hornTap">Horn tap</button>
+                    <button class="btn" type="button" data-react="bagPeek">Bag peek</button>
+                    <button class="btn" type="button" data-react="tailPull">Tail pull</button>
+                    <button class="btn" type="button" data-react="belly">Belly tickle</button>
+                    <button class="btn" type="button" data-react="dizzy">Dizzy (swirl)</button>
+                    <button class="btn" type="button" data-react="shy">Shy (stare 5 s)</button>
+                    <button class="btn" type="button" data-react="party">Party (type "herbert")</button>
+                    <button class="btn" type="button" data-react="sleepyLove">Poke while asleep</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Settings the app will have</h2>
+                <p>Chattiness, quiet hours, your name in his lines, a season to try on, the bag's pending count, the busy spinner, compact size, and the off switch (he leaves; a small horn brings him back).</p>
+                <div class="row">
+                    <span class="seg" role="group" aria-label="Chattiness">
+                        <button type="button" data-chat="0">Silent</button><button type="button" data-chat="1" class="is-on">Normal</button><button type="button" data-chat="2">Chatty</button>
+                    </span>
+                    <button class="btn" type="button" id="quiet-hours">Quiet hours now: off</button>
+                    <button class="btn" type="button" id="compact">Compact</button>
+                    <button class="btn" type="button" id="enabled">Send him away</button>
+                </div>
+                <div class="row">
+                    <select class="btn" id="season" aria-label="Season"></select>
+                    <button class="btn" type="button" id="pending">Pending: 0</button>
+                    <button class="btn" type="button" id="busy">Busy: off</button>
+                    <button class="btn" type="button" id="think">Think</button>
+                </div>
+                <form class="say-form" id="name-form">
+                    <input id="user-name" type="text" placeholder="Your name, for his lines (optional)" autocomplete="off">
+                    <button class="btn" type="submit">Use</button>
+                </form>
+            </section>
+
+            <section class="card">
                 <h2>Appearance</h2>
                 <p>As in the app: the panel stays dark purple, the page and Herbert's speech bubble follow the theme.</p>
                 <div class="seg" role="group" aria-label="Theme">
