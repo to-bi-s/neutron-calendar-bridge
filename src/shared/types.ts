@@ -129,6 +129,8 @@ export interface BridgeConfig {
     notificationTitles: boolean;
     /** 1.0.2: check GitHub Releases for a newer version a minute after starting and then daily (default on). */
     autoUpdate: boolean;
+    /** 1.0.6: the Pro Version (a thank-you for donors): Herbert in the side panel and a golden tag. Unlocked with the donors' password. */
+    proUnlocked: boolean;
     /** Developer option: bridge.log with titles, addresses, subjects and email text (default off; see private-log.ts). */
     detailedLogging: DetailedLogging;
     /** detailedLogging '24h': switched off at this time. */
@@ -439,6 +441,7 @@ export interface BridgeState {
     notifications: boolean;
     notificationTitles: boolean;
     autoUpdate: boolean;
+    proUnlocked: boolean;
     detailedLogging: DetailedLogging;
     detailedLoggingUntil: number | null;
 }
@@ -462,6 +465,7 @@ export type BridgeConfigPatch = Partial<
         | 'notifications'
         | 'notificationTitles'
         | 'autoUpdate'
+        | 'proUnlocked'
         | 'detailedLogging'
     >
 >;
@@ -552,4 +556,6 @@ export interface RendererBridgeApi {
     deleteLogs(): Promise<void>;
     /** The CalDAV password to the clipboard (removed again after 90 s if still there). */
     copyCalDAVPassword(accountId: string): Promise<void>;
+    /** 1.0.6: the donors' password unlocks the Pro Version; true when it was right (then proUnlocked is on). */
+    unlockPro(password: string): Promise<boolean>;
 }

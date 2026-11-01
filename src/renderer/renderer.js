@@ -127,6 +127,12 @@ const elements = {
     settingDeveloperMode: document.getElementById('setting-developer-mode'),
     settingNotifications: document.getElementById('setting-notifications'),
     settingAutoUpdate: document.getElementById('setting-auto-update'),
+    settingPro: document.getElementById('setting-pro'),
+    proUnlock: document.getElementById('pro-unlock'),
+    proPassword: document.getElementById('pro-password'),
+    proUnlockCancel: document.getElementById('pro-unlock-cancel'),
+    proUnlockError: document.getElementById('pro-unlock-error'),
+    herbertHome: document.getElementById('herbert-home'),
     checkForUpdates: document.getElementById('check-for-updates'),
     installUpdate: document.getElementById('install-update'),
     updateStatus: document.getElementById('update-status'),
@@ -978,6 +984,15 @@ const renderInvitations = (bridgeState) => {
     elements.settingNotificationTitles.checked = bridgeState.notificationTitles !== false;
     elements.settingNotificationTitles.disabled = bridgeState.notifications === false;
     elements.settingAutoUpdate.checked = bridgeState.autoUpdate !== false;
+    // 1.0.6: the Pro Version — the golden switch, and the golden tag next to the version wherever it shows.
+    const pro = Boolean(bridgeState.proUnlocked);
+    elements.settingPro.checked = pro;
+    document.querySelectorAll('[data-pro-tag]').forEach((node) => {
+        node.hidden = !pro;
+    });
+    if (pro) {
+        hideProUnlock();
+    }
 
     // Emails about meetings
     const calendarEmailsSupported = Boolean(bridgeState.calendarEmailsSupported);
@@ -1322,6 +1337,9 @@ const renderState = async () => {
         return;
     }
     state.bridgeState = bridgeState;
+    mountHerbert(bridgeState);
+    herbertBridge?.update(herbertBridge.factsFromBridgeState(app.accounts));
+    queueMicrotask(fitHerbert); // once this render has laid the panel out
     const authState = target ? target.state : bridgeState;
     const caldavDetails = await window.bridgeApi.getCalDAVConfig(selected ? selected.accountId : null);
     await applyLanguage(bridgeState);
@@ -1846,6 +1864,9 @@ elements.settingCalendarEmailsFolder.addEventListener('keydown', (event) => {
 
 // 1.0.2: the Info card's update line and buttons, from the updater's state (main.ts).
 const renderUpdate = (update) => {
+    if (update && (update.status === 'downloading' || update.status === 'downloaded')) {
+        herbertBridge?.updateAvailable(); // 1.0.6: Herbert tells it once per run
+    }
     const status = update?.status || 'unsupported';
     const version = update?.version || '';
     const texts = {
@@ -1881,6 +1902,98 @@ elements.installUpdate.addEventListener('click', async () => {
         setDashboardError(error instanceof Error ? error.message : String(error));
     }
 });
+
+/**
+ * 1.0.6: the Pro Version (a thank-you for donors). Herbert, the courier unicorn, lives in the side panel:
+ * created when the Pro Version is on, gone (with his timers) when it is off. The adapter turns every
+ * bridge state into his mood and reactions; he gets states and counts, never an event's content.
+ */
+let herbert = null;
+let herbertBridge = null;
+/** His frame takes the room the pages and the accounts leave: full (250 px), compact (150 px), or none for now. */
+const fitHerbert = () => {
+    if (!herbert) {
+        return;
+    }
+    const sidebar = elements.herbertHome.parentElement;
+    const list = sidebar.querySelector('.nav-list');
+    list.style.flex = '0 0 auto'; // its content height, not the stretched box
+    const room = sidebar.clientHeight - sidebar.querySelector('.nav-top').offsetHeight - list.offsetHeight - sidebar.querySelector('.nav-footer').offsetHeight;
+    list.style.flex = '';
+    const size = room >= 270 ? 'normal' : room >= 170 ? 'compact' : null;
+    elements.herbertHome.hidden = !size;
+    if (size) {
+        herbert.setSize(size);
+    }
+};
+const mountHerbert = (bridgeState) => {
+    const home = elements.herbertHome;
+    if (!home || typeof createHerbert !== 'function') {
+        return;
+    }
+    if (!bridgeState.proUnlocked) {
+        if (herbert) {
+            herbert.destroy();
+            herbert = null;
+            herbertBridge = null;
+        }
+        home.hidden = true;
+        return;
+    }
+    if (herbert) {
+        return;
+    }
+    home.hidden = false;
+    herbert = createHerbert(home, { texts: window.HERBERT_TEXTS, translate: t, encourageEvery: 20 * 60 * 1000, lifeEvery: 4 * 60 * 1000 });
+    herbertBridge = createHerbertBridge(herbert);
+};
+window.addEventListener('resize', fitHerbert);
+
+/** The switch asks for the donors' password; only the right one turns the Pro Version on. Off needs none. */
+const showProUnlock = () => {
+    elements.proUnlock.hidden = false;
+    elements.proUnlockError.hidden = true;
+    elements.proPassword.value = '';
+    setTimeout(() => elements.proPassword.focus(), 50);
+};
+const hideProUnlock = () => {
+    elements.proUnlock.hidden = true;
+    elements.proUnlockError.hidden = true;
+    elements.proPassword.value = '';
+};
+elements.settingPro.addEventListener('change', async () => {
+    if (elements.settingPro.checked) {
+        elements.settingPro.checked = false; // on only once the password was right
+        showProUnlock();
+        return;
+    }
+    hideProUnlock();
+    try {
+        await window.bridgeApi.updateConfig({ proUnlocked: false });
+        await renderState();
+    } catch (error) {
+        setDashboardError(error instanceof Error ? error.message : String(error));
+    }
+});
+elements.proUnlock.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const password = elements.proPassword.value;
+    elements.proPassword.value = '';
+    try {
+        const unlocked = await window.bridgeApi.unlockPro(password);
+        if (!unlocked) {
+            elements.proUnlockError.hidden = false;
+            elements.proPassword.focus();
+            return;
+        }
+        hideProUnlock();
+        await renderState();
+        herbertBridge?.proUnlocked();
+    } catch (error) {
+        setDashboardError(error instanceof Error ? error.message : String(error));
+    }
+});
+elements.proUnlockCancel.addEventListener('click', () => hideProUnlock());
 
 elements.settingAutoUpdate.addEventListener('change', async () => {
     try {

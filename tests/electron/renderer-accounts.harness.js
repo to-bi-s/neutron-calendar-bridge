@@ -7,7 +7,7 @@
  *   npm run build && xvfb-run -a electron tests/electron/renderer-accounts.harness.js [screenshot-dir]
  */
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { mkdirSync, mkdtempSync, writeFileSync, copyFileSync, readFileSync } = require('node:fs');
+const { mkdirSync, mkdtempSync, writeFileSync, copyFileSync, readFileSync, cpSync } = require('node:fs');
 const { tmpdir } = require('node:os');
 const { join, resolve } = require('node:path');
 
@@ -101,13 +101,14 @@ const calls = [];
 const main = async () => {
     const dir = mkdtempSync(join(tmpdir(), 'renderer-accounts-'));
     for (const file of ['index.html', 'renderer.js', 'i18n.js', 'styles.css']) copyFileSync(join(dist, file), join(dir, file));
+    cpSync(join(dist, 'herbert'), join(dir, 'herbert'), { recursive: true }); // 1.0.6: Herbert's scripts and style
     // A preload with the fake API: every call is recorded; the state is whatever the scenario says.
     writeFileSync(
         join(dir, 'preload.js'),
         `const { contextBridge, ipcRenderer } = require('electron');
 const call = (name) => (...args) => ipcRenderer.invoke('fake', name, args);
 const api = { platform: process.env.HARNESS_PLATFORM || 'darwin' };
-for (const name of ['signIn','completeHumanVerification','cancelHumanVerification','answerSignInPrompt','cancelSignInPrompt','addAccount','cancelAddAccount','signOut','setAccountOrder','getBridgeState','getCalendars','getCalDAVConfig','refreshNow','setUpCalendarApp','openProfilesSettings','getTranslations','setOpenAtLogin','setCalendarSyncEnabled','getSyncStatus','openHumanVerification','openExternal','updateConfig','syncCalendar','syncCategory','getChangelog','deleteLogs','copyCalDAVPassword']) api[name] = call(name);
+for (const name of ['signIn','completeHumanVerification','cancelHumanVerification','answerSignInPrompt','cancelSignInPrompt','addAccount','cancelAddAccount','signOut','setAccountOrder','getBridgeState','getCalendars','getCalDAVConfig','refreshNow','setUpCalendarApp','openProfilesSettings','getTranslations','setOpenAtLogin','setCalendarSyncEnabled','getSyncStatus','openHumanVerification','openExternal','updateConfig','syncCalendar','syncCategory','getChangelog','deleteLogs','copyCalDAVPassword','unlockPro']) api[name] = call(name);
 api.onNavigate = (callback) => ipcRenderer.on('navigate', (_e, page, accountId) => callback(page, accountId));
 api.onStateChanged = (callback) => ipcRenderer.on('state-changed', () => callback());
 contextBridge.exposeInMainWorld('bridgeApi', api);`
@@ -338,6 +339,23 @@ contextBridge.exposeInMainWorld('bridgeApi', api);`
     // 1.0.4: the Help card's links (the feature list became a sentence in the credits).
     check('info: help links to GitHub', (await q('.help-links .external-link')) === 4);
     await shot('14-info');
+    // 1.0.6: the Pro Version — off: no tag, no Herbert; on: the golden switch, the tags, Herbert in the panel.
+    check('pro: off — tags hidden, no Herbert', (await run(`[...document.querySelectorAll('[data-pro-tag]')].every((n) => n.hidden)`)) === true && (await hidden('#herbert-home')) && (await q('.herbert')) === 0);
+    current = { ...scenarios.two, accounts: scenarios.two.accounts.map((a) => ({ ...a, proUnlocked: true })) };
+    await rerender();
+    await navigate('settings');
+    await run(`document.querySelector('#pro-card').scrollIntoView({ block: 'center' })`);
+    await settle();
+    check('pro: on — the golden switch is on', (await run(`document.querySelector('#setting-pro').checked`)) === true);
+    check('pro: on — the tags show', (await run(`[...document.querySelectorAll('[data-pro-tag]')].every((n) => !n.hidden)`)) === true);
+    check('pro: on — Herbert created (the frame shows when the panel has room: compact from 170 px, full from 270 px)', (await q('.herbert')) === 1);
+    await shot('15-pro-settings');
+    await navigate('overview');
+    await shot('16-pro-overview');
+    current = scenarios.two;
+    await rerender();
+    check('pro: off again — Herbert gone', (await hidden('#herbert-home')) && (await q('.herbert')) === 0);
+    await navigate('info');
     // 0.37.1: the manual values always shown; the address card (two addresses) at the bottom of the Calendars page.
     await navigate('setup');
     check('setup: manual values filled (0.49: behind Show Instructions)', (await text('#detail-username')).trim() !== '-' && (await hidden('#manual-setup-body')));

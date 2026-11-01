@@ -2146,3 +2146,73 @@ input[type='checkbox']:disabled {
 
 /* The sidebar is dark in both themes: the bright blue there. */
 .auth-status-card .status-signing-in { color: #7dd3fc; background: rgba(125, 211, 252, 0.16); }
+
+/* ─── 1.0.6: the Pro Version — a golden tag next to the version, the one golden switch, Herbert's frame ── */
+
+/* In the side panels the version tag sits on its own line under the title: a little air between them. */
+.nav-top .brand-mark .app-version:not(:empty),
+.auth-sidebar .brand-mark .app-version:not(:empty),
+.nav-top .brand-mark .pro-tag:not([hidden]),
+.auth-sidebar .brand-mark .pro-tag:not([hidden]) {
+    display: inline-block;
+    margin-top: 6px;
+}
+
+.pro-tag {
+    margin-left: 6px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #3b2a00;
+    background: linear-gradient(135deg, #f6d365 0%, #e9b949 45%, #fbe7a1 100%);
+    box-shadow: inset 0 0 0 1px rgba(120, 85, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.25);
+    vertical-align: middle;
+}
+
+.page-header .pro-tag {
+    font-size: 0.35em;
+}
+
+.card-header .pro-tag {
+    margin-left: 0;
+    align-self: flex-start;
+}
+
+.toggle-gold input[type='checkbox']:checked {
+    background: linear-gradient(135deg, #e9b949 0%, #f6d365 100%);
+}
+
+.toggle-gold input[type='checkbox']:focus-visible {
+    outline-color: #e9b949;
+}
+
+.pro-unlock {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 360px;
+    margin-top: 14px;
+}
+
+.pro-unlock[hidden] {
+    display: none;
+}
+
+.herbert-home {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    margin: 8px 16px 10px;
+    padding: 0;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    -webkit-app-region: no-drag;
+}
+
+.herbert-home[hidden] {
+    display: none;
+}

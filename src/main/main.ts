@@ -1,5 +1,6 @@
 import { app, BrowserWindow, Menu, Notification, Tray, clipboard, ipcMain, nativeImage, dialog, nativeTheme, powerMonitor, shell } from 'electron';
 import type { MenuItemConstructorOptions } from 'electron';
+import { createHash, timingSafeEqual } from 'node:crypto';
 import { chmodSync, createWriteStream, existsSync, mkdirSync, readFileSync, renameSync, rmSync, statSync, writeFileSync, WriteStream } from 'node:fs';
 import { join } from 'node:path';
 import { format } from 'node:util';
@@ -124,6 +125,8 @@ const PANEL_WIDTH = 420;
 const PANEL_HEIGHT = 640;
 
 const VERIFICATION_MESSAGE_PREFIX = '__BRIDGE_VERIFY_MESSAGE__';
+/** 1.0.6: SHA-256 of the donors' password for the Pro Version. */
+const PRO_PASSWORD_SHA256 = Buffer.from('b798dbdda6c094dea4c737000509fc0bd4d1bf6d93b68864dfd4138e76069b9c', 'hex');
 
 const MAX_LOG_BYTES = 5 * 1024 * 1024;
 
@@ -1059,6 +1062,17 @@ const registerIpcHandlers = () => {
         return current.getAppState();
     });
     ipcMain.handle('bridge:get-sync-status', async (_event, accountId: string) => manager().serviceOf(accountId).getSyncStatus());
+    // 1.0.6: the Pro Version. One password for every donor (a thank-you, not a secret): its SHA-256 is
+    // compared in constant time; the password itself is neither stored nor logged.
+    ipcMain.handle('bridge:unlock-pro', async (_event, password: unknown) => {
+        const given = createHash('sha256').update(typeof password === 'string' ? password : '').digest();
+        if (!timingSafeEqual(given, PRO_PASSWORD_SHA256)) {
+            return false;
+        }
+        await manager().updateConfig({ proUnlocked: true }, null);
+        await refreshTrayMenu();
+        return true;
+    });
     ipcMain.handle('bridge:update-config', async (_event, patch, accountId: string | null) => {
         const current = manager();
         const state = await current.updateConfig(patch, accountId);

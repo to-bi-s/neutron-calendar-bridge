@@ -33,6 +33,7 @@ const steps = [
     { name: 'bridge: renderer i18n syntax', cwd: root, command: process.execPath, args: ['--check', 'src/renderer/i18n.js'] },
     { name: 'bridge: texts and catalogs', cwd: root, command: process.execPath, args: ['scripts/extract-strings.mjs', '--check'] },
     { name: 'bridge: tests', cwd: root, command: npm, args: ['test'] },
+    { name: 'herbert: texts and adapter', cwd: root, command: process.execPath, args: ['--test', 'tests/herbert-texts.test.mjs', 'tests/herbert-bridge-adapter.test.mjs'] },
     { name: 'bridge: build', cwd: root, command: npm, args: ['run', 'build'] }
 ];
 

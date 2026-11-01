@@ -518,5 +518,13 @@
   "Only apps on this computer can reach the bridge; a phone or another computer cannot.": "Solo las apps de este ordenador llegan al bridge; un teléfono u otro ordenador, no.",
   "The bridge is a CalDAV server on this computer, so other calendar apps (GNOME Calendar, Evolution, KOrganizer, …) should work with it too. Only Thunderbird has been tried so far on Linux. Click a value to copy it.": "El bridge es un servidor CalDAV en este ordenador, así que otras apps de calendario (Calendario de GNOME, Evolution, KOrganizer, …) también deberían funcionar con él. En Linux hasta ahora solo se ha probado Thunderbird. Haz clic en un valor para copiarlo.",
   "The password is the bridge's, not your Proton password.": "La contraseña es la del bridge, no tu contraseña de Proton.",
-  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": "Con una identidad de correo, Thunderbird envía las invitaciones él mismo, y fallan. Con <strong>Ninguna</strong>, las envía el bridge."
+  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": "Con una identidad de correo, Thunderbird envía las invitaciones él mismo, y fallan. Con <strong>Ninguna</strong>, las envía el bridge.",
+  "Herbert and a Golden Tag": "Herbert y una etiqueta dorada",
+  "Herbert, the courier unicorn, moves into the side panel, and a golden Pro tag sits next to the version. Nothing else changes: every feature of the bridge is free.": "Herbert, el unicornio mensajero, se muda al panel lateral, y junto a la versión aparece una etiqueta Pro dorada. Nada más cambia: todas las funciones del bridge son gratuitas.",
+  "Pro": "Pro",
+  "Pro Version": "Versión Pro",
+  "Pro version": "Versión Pro",
+  "That is not the password.": "Esa no es la contraseña.",
+  "The Pro version can be unlocked by all those amazing people who have supported this project with donations ❤️": "La versión Pro la pueden desbloquear todas esas personas maravillosas que han apoyado este proyecto con donaciones ❤️",
+  "Unlock": "Desbloquear"
 }

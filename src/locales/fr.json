@@ -518,5 +518,13 @@
   "Only apps on this computer can reach the bridge; a phone or another computer cannot.": "Seules les apps de cet ordinateur atteignent le bridge ; un téléphone ou un autre ordinateur, non.",
   "The bridge is a CalDAV server on this computer, so other calendar apps (GNOME Calendar, Evolution, KOrganizer, …) should work with it too. Only Thunderbird has been tried so far on Linux. Click a value to copy it.": "Le bridge est un serveur CalDAV sur cet ordinateur, donc d'autres apps de calendrier (Agenda de GNOME, Evolution, KOrganizer, …) devraient fonctionner avec lui aussi. Sous Linux, seul Thunderbird a été essayé jusqu'ici. Cliquez sur une valeur pour la copier.",
   "The password is the bridge's, not your Proton password.": "Le mot de passe est celui du bridge, pas votre mot de passe Proton.",
-  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": "Avec une identité e-mail, Thunderbird envoie lui-même les invitations, et cela échoue. Avec <strong>Aucune</strong>, le bridge les envoie."
+  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": "Avec une identité e-mail, Thunderbird envoie lui-même les invitations, et cela échoue. Avec <strong>Aucune</strong>, le bridge les envoie.",
+  "Herbert and a Golden Tag": "Herbert et une étiquette dorée",
+  "Herbert, the courier unicorn, moves into the side panel, and a golden Pro tag sits next to the version. Nothing else changes: every feature of the bridge is free.": "Herbert, la licorne coursière, s'installe dans le panneau latéral, et une étiquette Pro dorée apparaît à côté de la version. Rien d'autre ne change : chaque fonction du bridge est gratuite.",
+  "Pro": "Pro",
+  "Pro Version": "Version Pro",
+  "Pro version": "Version Pro",
+  "That is not the password.": "Ce n'est pas le mot de passe.",
+  "The Pro version can be unlocked by all those amazing people who have supported this project with donations ❤️": "La version Pro peut être débloquée par toutes ces personnes formidables qui ont soutenu ce projet par leurs dons ❤️",
+  "Unlock": "Débloquer"
 }

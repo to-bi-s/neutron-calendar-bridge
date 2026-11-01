@@ -56,6 +56,8 @@ What you need: a Proton account (free or paid) and a Mac — Apple silicon or In
 
 The detailed rules — what exactly happens when you answer, invite, move or delete something — are in [docs/BEHAVIOUR.md](docs/BEHAVIOUR.md); every change by version in the [CHANGELOG](CHANGELOG.md).
 
+**The Pro Version** is a thank-you for donors: every feature above is free, and a donation unlocks Herbert, the courier unicorn, in the side panel (he greets you, sleeps when Proton cannot be reached, worries when a sync fails, and now and then reminds you that you are amazing), plus a golden "Pro" tag next to the version. The password comes with the thanks for a donation; Settings → Pro Version.
+
 ## Screenshots
 
 <p align="center"><img src="docs/screenshots/overview.png" width="700" alt="Overview: one card per Proton account with its health, last sync and the invitation emails since the app started"></p>

@@ -531,6 +531,12 @@
   "Help": [
     "index.html"
   ],
+  "Herbert and a Golden Tag": [
+    "index.html"
+  ],
+  "Herbert, the courier unicorn, moves into the side panel, and a golden Pro tag sits next to the version. Nothing else changes: every feature of the bridge is free.": [
+    "index.html"
+  ],
   "Hide {app}": [
     "src/main/main.ts"
   ],
@@ -934,6 +940,15 @@
     "index.html"
   ],
   "Private details already logged stay in the log until you delete it.": [
+    "index.html"
+  ],
+  "Pro": [
+    "index.html"
+  ],
+  "Pro version": [
+    "index.html"
+  ],
+  "Pro Version": [
     "index.html"
   ],
   "Problem": [
@@ -1371,6 +1386,9 @@
   "Test mode is on (Developer Options): emails go only to the allowed addresses.": [
     "src/renderer/renderer.js (map)"
   ],
+  "That is not the password.": [
+    "index.html"
+  ],
   "The account is tied to the profile: to remove it later, remove the profile in System Settings. The profile file is kept in the app's folder for a few minutes only, because it holds the bridge's password.": [
     "index.html"
   ],
@@ -1445,6 +1463,9 @@
   "The password is the bridge's, not your Proton password.": [
     "index.html"
   ],
+  "The Pro version can be unlocked by all those amazing people who have supported this project with donations ❤️": [
+    "index.html"
+  ],
   "The profile shows as \"not verified\": it was made on this Mac by the bridge, not signed by Apple, and holds only the account settings listed under \"Manual Setup\" below.": [
     "index.html"
   ],
@@ -1514,6 +1535,9 @@
   ],
   "Unknown startup error": [
     "src/main/main.ts"
+  ],
+  "Unlock": [
+    "index.html"
   ],
   "Unofficial: not affiliated with or endorsed by Proton AG. Proton and Proton Calendar are trademarks of Proton AG. Free and open source (GPL-3.0).": [
     "index.html"

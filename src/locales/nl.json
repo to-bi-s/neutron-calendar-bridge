@@ -518,5 +518,13 @@
   "Only apps on this computer can reach the bridge; a phone or another computer cannot.": "Alleen apps op deze computer bereiken de bridge; een telefoon of een andere computer niet.",
   "The bridge is a CalDAV server on this computer, so other calendar apps (GNOME Calendar, Evolution, KOrganizer, …) should work with it too. Only Thunderbird has been tried so far on Linux. Click a value to copy it.": "De bridge is een CalDAV-server op deze computer, dus andere agenda-apps (GNOME Agenda, Evolution, KOrganizer, …) zouden er ook mee moeten werken. Op Linux is tot nu toe alleen Thunderbird geprobeerd. Klik op een waarde om die te kopiëren.",
   "The password is the bridge's, not your Proton password.": "Het wachtwoord is dat van de bridge, niet je Proton-wachtwoord.",
-  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": "Met een e-mailidentiteit verstuurt Thunderbird uitnodigingen zelf, en dat mislukt. Met <strong>Geen</strong> verstuurt de bridge ze."
+  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": "Met een e-mailidentiteit verstuurt Thunderbird uitnodigingen zelf, en dat mislukt. Met <strong>Geen</strong> verstuurt de bridge ze.",
+  "Herbert and a Golden Tag": "Herbert en een gouden label",
+  "Herbert, the courier unicorn, moves into the side panel, and a golden Pro tag sits next to the version. Nothing else changes: every feature of the bridge is free.": "Herbert, de koerier-eenhoorn, trekt in het zijpaneel, en naast de versie komt een gouden Pro-label. Verder verandert er niets: elke functie van de bridge is gratis.",
+  "Pro": "Pro",
+  "Pro Version": "Pro-versie",
+  "Pro version": "Pro-versie",
+  "That is not the password.": "Dat is niet het wachtwoord.",
+  "The Pro version can be unlocked by all those amazing people who have supported this project with donations ❤️": "De Pro-versie kan worden ontgrendeld door al die geweldige mensen die dit project met donaties hebben gesteund ❤️",
+  "Unlock": "Ontgrendelen"
 }

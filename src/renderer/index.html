@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neutron Calendar Bridge</title>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./herbert/herbert.css">
 </head>
 <body>
 
@@ -21,7 +22,7 @@
     <main class="page" id="auth-page">
         <section class="auth-shell">
             <aside class="auth-sidebar">
-                <div class="brand-mark">Neutron Calendar Bridge <span class="app-version" data-app-version></span></div>
+                <div class="brand-mark">Neutron Calendar Bridge <span class="app-version" data-app-version></span><span class="pro-tag" data-pro-tag hidden>Pro</span></div>
                 <h1 data-platform="darwin">Bridge Proton Calendar into Calendar.app</h1>
                 <h1 data-platform="linux">Bridge Proton Calendar into your calendar app</h1>
                 <p class="auth-copy">
@@ -117,7 +118,7 @@
             <!-- Left navigation sidebar -->
             <nav class="nav-sidebar">
                 <div class="nav-top">
-                    <div class="brand-mark">Neutron Calendar Bridge <span class="app-version" data-app-version></span></div>
+                    <div class="brand-mark">Neutron Calendar Bridge <span class="app-version" data-app-version></span><span class="pro-tag" data-pro-tag hidden>Pro</span></div>
                 </div>
 
                 <ul class="nav-list" role="list">
@@ -127,6 +128,9 @@
                     <li><button class="nav-item" data-page="settings">Settings</button></li>
                     <li><button class="nav-item" data-page="info">Info</button></li>
                 </ul>
+
+                <!-- 1.0.6: Herbert's frame (the Pro Version); shown once Herbert is created -->
+                <div class="herbert-home" id="herbert-home" hidden></div>
 
                 <div class="nav-footer">
                     <ul class="nav-account-list" id="nav-account-list" role="list"></ul>
@@ -537,6 +541,33 @@
                         <p class="setting-copy setting-hint">A minute after the app starts and then once a day, the app asks GitHub for a newer version and downloads it in the background; you choose when to restart. Off: only the button on the Info page checks.</p>
                     </div>
 
+                    <div class="card" id="pro-card">
+                        <div class="card-header">
+                            <div>
+                                <p class="panel-kicker">Pro Version</p>
+                                <h3>Herbert and a Golden Tag</h3>
+                            </div>
+                            <span class="pro-tag" data-pro-tag hidden>Pro</span>
+                        </div>
+                        <p class="setting-copy">The Pro version can be unlocked by all those amazing people who have supported this project with donations ❤️</p>
+                        <label class="toggle toggle-block toggle-gold">
+                            <input id="setting-pro" type="checkbox">
+                            <span>Pro version</span>
+                        </label>
+                        <p class="setting-copy setting-hint">Herbert, the courier unicorn, moves into the side panel, and a golden Pro tag sits next to the version. Nothing else changes: every feature of the bridge is free.</p>
+                        <form id="pro-unlock" class="pro-unlock" hidden>
+                            <label class="field">
+                                <span>Password</span>
+                                <input id="pro-password" type="password" autocomplete="off">
+                            </label>
+                            <div class="button-row">
+                                <button type="submit" class="primary-button">Unlock</button>
+                                <button type="button" class="secondary-button" id="pro-unlock-cancel">Cancel</button>
+                            </div>
+                            <p class="error-text" id="pro-unlock-error" hidden>That is not the password.</p>
+                        </form>
+                    </div>
+
                     <div class="card" id="developer-card">
                         <div class="card-header">
                             <div>
@@ -588,7 +619,7 @@
                 <!-- Info page -->
                 <section class="nav-page" id="page-info" hidden>
                     <header class="page-header">
-                        <h1>Neutron Calendar Bridge <span class="app-version" data-app-version></span></h1>
+                        <h1>Neutron Calendar Bridge <span class="app-version" data-app-version></span><span class="pro-tag" data-pro-tag hidden>Pro</span></h1>
                         <p class="app-subtitle">Proton Calendar in Calendar.app and Thunderbird</p>
                     </header>
 
@@ -695,6 +726,9 @@
     </dialog>
 
     <script src="./i18n.js"></script>
+    <script src="./herbert/herbert-texts.js"></script>
+    <script src="./herbert/herbert.js"></script>
+    <script src="./herbert/herbert-bridge.js"></script>
     <script src="./renderer.js"></script>
 </body>
 </html>

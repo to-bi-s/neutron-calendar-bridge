@@ -1331,6 +1331,7 @@ export class BridgeService {
             'notifications',
             'notificationTitles',
             'autoUpdate',
+            'proUnlocked',
             'detailedLogging'
         ];
         const patch = Object.fromEntries(
@@ -1352,7 +1353,7 @@ export class BridgeService {
         if (patch.detailedLogging !== undefined && !['off', '24h', 'on'].includes(patch.detailedLogging)) {
             throw new Error(`Unknown choice for detailed logging: ${patch.detailedLogging}`);
         }
-        for (const key of ['applyEmailedAnswers', 'developerMode', 'notifications', 'notificationTitles', 'autoUpdate'] as const) {
+        for (const key of ['applyEmailedAnswers', 'developerMode', 'notifications', 'notificationTitles', 'autoUpdate', 'proUnlocked'] as const) {
             if (patch[key] !== undefined && typeof patch[key] !== 'boolean') {
                 throw new Error(`${key} must be true or false`);
             }
@@ -1896,6 +1897,7 @@ export class BridgeService {
             calendarEmailsStatus: config.calendarEmailsAfter === 'leave' ? null : this.calendarEmailsStatus,
             notifications: config.notifications,
             autoUpdate: config.autoUpdate,
+            proUnlocked: config.proUnlocked,
             notificationTitles: config.notificationTitles,
             detailedLogging: config.detailedLogging,
             detailedLoggingUntil: config.detailedLogging === '24h' ? config.detailedLoggingUntil : null,

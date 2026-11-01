@@ -518,5 +518,13 @@
   "Only apps on this computer can reach the bridge; a phone or another computer cannot.": "Nur Apps auf diesem Rechner erreichen die Bridge; ein Telefon oder ein anderer Rechner nicht.",
   "The bridge is a CalDAV server on this computer, so other calendar apps (GNOME Calendar, Evolution, KOrganizer, …) should work with it too. Only Thunderbird has been tried so far on Linux. Click a value to copy it.": "Die Bridge ist ein CalDAV-Server auf diesem Rechner, also sollten auch andere Kalender-Apps (GNOME Kalender, Evolution, KOrganizer, …) mit ihr funktionieren. Unter Linux ist bisher nur Thunderbird ausprobiert. Klicke auf einen Wert, um ihn zu kopieren.",
   "The password is the bridge's, not your Proton password.": "Das Passwort ist das der Bridge, nicht dein Proton-Passwort.",
-  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": "Mit einer E-Mail-Identität verschickt Thunderbird Einladungen selbst, und das schlägt fehl. Mit <strong>Keine</strong> verschickt sie die Bridge."
+  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": "Mit einer E-Mail-Identität verschickt Thunderbird Einladungen selbst, und das schlägt fehl. Mit <strong>Keine</strong> verschickt sie die Bridge.",
+  "Herbert and a Golden Tag": "Herbert und ein goldenes Etikett",
+  "Herbert, the courier unicorn, moves into the side panel, and a golden Pro tag sits next to the version. Nothing else changes: every feature of the bridge is free.": "Herbert, das Kurier-Einhorn, zieht in die Seitenleiste ein, und neben der Version sitzt ein goldenes Pro-Etikett. Sonst ändert sich nichts: Jede Funktion der Bridge ist kostenlos.",
+  "Pro": "Pro",
+  "Pro Version": "Pro-Version",
+  "Pro version": "Pro-Version",
+  "That is not the password.": "Das ist nicht das Passwort.",
+  "The Pro version can be unlocked by all those amazing people who have supported this project with donations ❤️": "Die Pro-Version können all die wunderbaren Menschen freischalten, die dieses Projekt mit Spenden unterstützt haben ❤️",
+  "Unlock": "Freischalten"
 }
