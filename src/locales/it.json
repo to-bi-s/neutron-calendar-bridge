@@ -241,6 +241,7 @@
   "Queued — click to take {name} off the queue": "In coda: fai clic per togliere {name} dalla coda",
   "Quiet": "Silenzioso",
   "Quit Bridge": "Esci dal bridge",
+  "Quit the app; calendar apps cannot reach your calendars until it runs again": "Chiude l’app; le app di calendario non raggiungono i tuoi calendari finché non è di nuovo in esecuzione",
   "Read-only ({reason})": "Sola lettura ({reason})",
   "Reading an event": "Lettura di un evento",
   "Reading the calendar": "Lettura del calendario",

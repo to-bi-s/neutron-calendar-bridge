@@ -2231,15 +2231,15 @@ input[type='checkbox']:disabled {
 
 .nav-actions {
     position: relative;
-    justify-content: flex-start;
 }
 
+/* The three share the panel's width between them, whatever it is. */
 .nav-icon-btn {
-    flex: 0 0 auto;
+    flex: 1 1 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
+    min-width: 36px;
     min-height: 32px;
     padding: 0;
 }

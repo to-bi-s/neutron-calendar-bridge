@@ -137,7 +137,7 @@
 
                 <div class="nav-footer">
                     <ul class="nav-account-list" id="nav-account-list" role="list"></ul>
-                    <!-- 1.0.6: icons instead of words (the German labels did not fit side by side); the box under the pointer says what each does -->
+                    <!-- 1.0.6: icons instead of words (the German labels did not fit side by side), sharing the panel's width; the box under the pointer says what each does -->
                     <div class="nav-actions">
                         <button type="button" class="nav-btn nav-icon-btn" id="refresh-button" aria-label="Refresh">
                             <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 10a6.5 6.5 0 0 1-11.4 4.3M3.5 10a6.5 6.5 0 0 1 11.4-4.3"/><path d="M15 2.5v3.4h-3.4M5 17.5v-3.4h3.4"/></svg>
@@ -146,6 +146,10 @@
                         <button type="button" class="nav-btn nav-icon-btn" id="add-account-button" aria-label="Add Account">
                             <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8" cy="6.5" r="3.2"/><path d="M2.5 16.5c0-3 2.5-5 5.5-5 1 0 1.9.2 2.7.6"/><path d="M15 11.5v6M12 14.5h6"/></svg>
                             <span class="nav-tip" role="tooltip"><strong>Add Account</strong><span>Sign in to another Proton account</span></span>
+                        </button>
+                        <button type="button" class="nav-btn nav-icon-btn" id="quit-button" aria-label="Quit Bridge">
+                            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5v7"/><path d="M6 5.2a6.5 6.5 0 1 0 8 0"/></svg>
+                            <span class="nav-tip" role="tooltip"><strong>Quit Bridge</strong><span>Quit the app; calendar apps cannot reach your calendars until it runs again</span></span>
                         </button>
                     </div>
                     <p class="error-text" id="dashboard-error" hidden></p>

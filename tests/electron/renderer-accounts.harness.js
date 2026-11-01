@@ -108,7 +108,7 @@ const main = async () => {
         `const { contextBridge, ipcRenderer } = require('electron');
 const call = (name) => (...args) => ipcRenderer.invoke('fake', name, args);
 const api = { platform: process.env.HARNESS_PLATFORM || 'darwin' };
-for (const name of ['signIn','completeHumanVerification','cancelHumanVerification','answerSignInPrompt','cancelSignInPrompt','addAccount','cancelAddAccount','signOut','setAccountOrder','getBridgeState','getCalendars','getCalDAVConfig','refreshNow','setUpCalendarApp','openProfilesSettings','getTranslations','setOpenAtLogin','setCalendarSyncEnabled','getSyncStatus','openHumanVerification','openExternal','updateConfig','syncCalendar','syncCategory','getChangelog','deleteLogs','copyCalDAVPassword','unlockPro']) api[name] = call(name);
+for (const name of ['signIn','completeHumanVerification','cancelHumanVerification','answerSignInPrompt','cancelSignInPrompt','addAccount','cancelAddAccount','signOut','setAccountOrder','getBridgeState','getCalendars','getCalDAVConfig','refreshNow','setUpCalendarApp','openProfilesSettings','getTranslations','setOpenAtLogin','setCalendarSyncEnabled','getSyncStatus','openHumanVerification','openExternal','updateConfig','syncCalendar','syncCategory','getChangelog','deleteLogs','copyCalDAVPassword','unlockPro','quit']) api[name] = call(name);
 api.onNavigate = (callback) => ipcRenderer.on('navigate', (_e, page, accountId) => callback(page, accountId));
 api.onStateChanged = (callback) => ipcRenderer.on('state-changed', () => callback());
 contextBridge.exposeInMainWorld('bridgeApi', api);`
@@ -353,7 +353,10 @@ contextBridge.exposeInMainWorld('bridgeApi', api);`
     await navigate('overview');
     await shot('16-pro-overview');
     // 1.0.6: the panel's buttons are icons with a hover box; the panel's right edge can be dragged (200–420 px, 251 by default).
-    check('panel: icon buttons with a hover box (1.0.6)', (await q('.nav-actions .nav-icon-btn svg')) === 2 && (await q('.nav-actions .nav-tip')) === 2 && (await text('#refresh-button .nav-tip strong')).trim() === 'Refresh' && (await text('#add-account-button .nav-tip strong')).trim() === 'Add Account');
+    check('panel: three icon buttons with a hover box (1.0.6)', (await q('.nav-actions .nav-icon-btn svg')) === 3 && (await q('.nav-actions .nav-tip')) === 3 && (await text('#refresh-button .nav-tip strong')).trim() === 'Refresh' && (await text('#add-account-button .nav-tip strong')).trim() === 'Add Account' && (await text('#quit-button .nav-tip strong')).trim() === 'Quit Bridge');
+    check('panel: the buttons share the panel\'s width', (await run(`(() => { const row = document.querySelector('.nav-actions').getBoundingClientRect(); const b = [...document.querySelectorAll('.nav-actions .nav-icon-btn')].map((x) => x.getBoundingClientRect()); return Math.abs(b[0].left - row.left) < 1 && Math.abs(b[2].right - row.right) < 1 && b.every((r) => Math.abs(r.width - b[0].width) < 1) && b[0].width > 60; })()`)) === true);
+    await run(`document.querySelector('#quit-button').click()`);
+    check('panel: Quit asks the bridge', calls.some((entry) => entry[0] === 'quit'));
     const dragPanel = (dx) => run(`(() => { const r = document.querySelector('#sidebar-resizer'); const x = r.getBoundingClientRect().left + 4; const ev = (type, cx) => r.dispatchEvent(new PointerEvent(type, { clientX: cx, clientY: 300, button: 0, pointerId: 1, bubbles: true })); ev('pointerdown', x); ev('pointermove', x + ${dx}); ev('pointerup', x + ${dx}); return Math.round(document.querySelector('.nav-sidebar').getBoundingClientRect().width); })()`);
     check('panel: dragging the edge widens it and remembers the width', (await dragPanel(60)) === 311 && (await run(`localStorage.getItem('sidebar-width')`)) === '311');
     check('panel: not narrower than 200 px', (await dragPanel(-400)) === 200);

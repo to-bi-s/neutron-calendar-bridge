@@ -558,4 +558,6 @@ export interface RendererBridgeApi {
     copyCalDAVPassword(accountId: string): Promise<void>;
     /** 1.0.6: the donors' password unlocks the Pro Version; true when it was right (then proUnlocked is on). */
     unlockPro(password: string): Promise<boolean>;
+    /** 1.0.6: the side panel's Quit button; the same as Quit Bridge in the menu-bar menu. */
+    quit(): void;
 }

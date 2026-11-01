@@ -1064,6 +1064,8 @@ const registerIpcHandlers = () => {
     ipcMain.handle('bridge:get-sync-status', async (_event, accountId: string) => manager().serviceOf(accountId).getSyncStatus());
     // 1.0.6: the Pro Version. One password for every donor (a thank-you, not a secret): its SHA-256 is
     // compared in constant time; the password itself is neither stored nor logged.
+    // 1.0.6: the Quit button in the side panel (the same as Quit Bridge in the menu-bar menu)
+    ipcMain.on('bridge:quit', () => app.quit());
     ipcMain.handle('bridge:unlock-pro', async (_event, password: unknown) => {
         const given = createHash('sha256').update(typeof password === 'string' ? password : '').digest();
         if (!timingSafeEqual(given, PRO_PASSWORD_SHA256)) {

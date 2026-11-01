@@ -26,6 +26,7 @@ const elements = {
     password: document.getElementById('password'),
     refreshButton: document.getElementById('refresh-button'),
     addAccountButton: document.getElementById('add-account-button'),
+    quitButton: document.getElementById('quit-button'),
     addAccountSettings: document.getElementById('add-account-settings'),
     settingsAccountList: document.getElementById('settings-account-list'),
     navCalendarTabs: document.getElementById('nav-calendar-tabs'),
@@ -1573,6 +1574,7 @@ const addAccount = async () => {
     }
 };
 elements.addAccountButton.addEventListener('click', () => void addAccount());
+elements.quitButton.addEventListener('click', () => window.bridgeApi.quit()); // 1.0.6
 elements.addAccountSettings.addEventListener('click', () => void addAccount());
 
 elements.cancelAddAccount.addEventListener('click', async () => {

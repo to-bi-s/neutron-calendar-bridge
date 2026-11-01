@@ -241,6 +241,7 @@
   "Queued — click to take {name} off the queue": "In de wachtrij — klik om {name} er weer uit te halen",
   "Quiet": "Stil",
   "Quit Bridge": "Stop Bridge",
+  "Quit the app; calendar apps cannot reach your calendars until it runs again": "Sluit de app af; agenda-apps bereiken je agenda’s pas weer als hij draait",
   "Read-only ({reason})": "Alleen-lezen ({reason})",
   "Reading an event": "Lezen van een afspraak",
   "Reading the calendar": "Lezen van de agenda",

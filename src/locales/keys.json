@@ -2380,8 +2380,13 @@
     "src/renderer/herbert/herbert-texts.js"
   ],
   "Quit Bridge": [
+    "index.html",
+    "index.html (attribute)",
     "src/main/main.ts",
     "src/main/tray-menu.ts"
+  ],
+  "Quit the app; calendar apps cannot reach your calendars until it runs again": [
+    "index.html"
   ],
   "Rainbow boogie!": [
     "src/renderer/herbert/herbert-texts.js"

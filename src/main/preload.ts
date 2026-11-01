@@ -41,7 +41,8 @@ const api: RendererBridgeApi = {
     installUpdate: () => ipcRenderer.invoke('bridge:install-update'),
     deleteLogs: () => ipcRenderer.invoke('bridge:delete-logs'),
     copyCalDAVPassword: (accountId) => ipcRenderer.invoke('bridge:copy-caldav-password', accountId),
-    unlockPro: (password) => ipcRenderer.invoke('bridge:unlock-pro', password)
+    unlockPro: (password) => ipcRenderer.invoke('bridge:unlock-pro', password),
+    quit: () => ipcRenderer.send('bridge:quit')
 };
 
 contextBridge.exposeInMainWorld('bridgeApi', api);

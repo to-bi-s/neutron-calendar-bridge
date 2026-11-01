@@ -80,7 +80,7 @@ Emails go out like from Proton Calendar. Every email (sent, blocked, dry run, fa
 
 ## The window's side panel (1.0.6)
 
-The side panel is 251 px wide by default (as wide as Proton Calendar's); its right edge can be dragged between 200 and 420 px, like a side panel in Claude, and a double-click on the edge puts it back. The width is remembered per window (local storage, not config.json) and applied before first paint. In the panel's title row the version tag and the golden "Pro" tag sit centred on each other. The panel's two buttons, Refresh and Add Account, are icons; a box above them says what each does when the pointer rests on it (or the button has keyboard focus).
+The side panel is 251 px wide by default (as wide as Proton Calendar's); its right edge can be dragged between 200 and 420 px, like a side panel in Claude, and a double-click on the edge puts it back. The width is remembered per window (local storage, not config.json) and applied before first paint. In the panel's title row the version tag and the golden "Pro" tag sit centred on each other. The panel's three buttons, Refresh, Add Account and Quit Bridge, are icons that share the panel's width; a box above them says what each does when the pointer rests on it (or the button has keyboard focus). Quit is the same as Quit Bridge in the menu-bar menu.
 
 ## Herbert and the Pro Version (1.0.6)
 
