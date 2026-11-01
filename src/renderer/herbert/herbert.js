@@ -33,6 +33,7 @@
         // the bridge
         delivered:       { face: 'content', prop: 'envelope', motion: 'hop', gaze: [160, 110] },
         incoming:        { face: 'curious', prop: 'mark', gaze: [130, 140] },
+        synced:          { face: 'content', prop: 'sparkles', motion: 'wiggle', gaze: [30, 90] }, // 1.0.6: every finished sync
         invitation:      { face: 'content', prop: 'mark', motion: 'bounce' },
         answered:        { face: 'content', prop: 'envelope', motion: 'wave' },
         cancelled:       { face: 'soft', motion: 'tilt' },
@@ -121,11 +122,14 @@
         '<ellipse class="ground" cx="100" cy="163" rx="46" ry="5"/>' +
         '<g class="pumpkin"><ellipse cx="42" cy="156" rx="13" ry="10"/><path class="pumpkin-rib" d="M36 147 C33 152 33 160 36 165 M48 147 C51 152 51 160 48 165"/><path class="pumpkin-stem" d="M42 146 C42 142 44 141 46 140"/><path class="pumpkin-face" d="M36 153 l3 3 l-6 0 z M45 153 l3 3 l-6 0 z M35 160 q7 5 14 0"/></g>' +
 
+        // 1.0.6: about half as big again and thicker inwards (bands 10 wide, radii 90–55.5 instead of 66–48 at 5;
+        // the outer edge stays clear of the frame's corners, the inner one comes close to his shoulders),
+        // a touch brighter, with a glow (herbert.css)
         '<g class="rainbow">' +
-        '<path d="M34 150 A66 66 0 0 1 166 150" stroke="#ff8fab"/>' +
-        '<path d="M40 150 A60 60 0 0 1 160 150" stroke="#ffd166"/>' +
-        '<path d="M46 150 A54 54 0 0 1 154 150" stroke="#8ad1ff"/>' +
-        '<path d="M52 150 A48 48 0 0 1 148 150" stroke="#c9a8ff"/>' +
+        '<path d="M10 150 A90 90 0 0 1 190 150" stroke="#ff9dba"/>' +
+        '<path d="M21.5 150 A78.5 78.5 0 0 1 178.5 150" stroke="#ffd977"/>' +
+        '<path d="M33 150 A67 67 0 0 1 167 150" stroke="#9adbff"/>' +
+        '<path d="M44.5 150 A55.5 55.5 0 0 1 155.5 150" stroke="#d3b6ff"/>' +
         '</g>' +
 
         '<g class="pose"><g class="jitter">' +

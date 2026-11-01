@@ -131,7 +131,7 @@ contextBridge.exposeInMainWorld('bridgeApi', api);`
         }
     });
 
-    const window = new BrowserWindow({ show: true, width: 1060, height: 720, webPreferences: { contextIsolation: true, backgroundThrottling: false, preload: join(dir, 'preload.js') } });
+    const window = new BrowserWindow({ show: true, width: 1060, height: Number(process.env.HARNESS_HEIGHT) || 720, webPreferences: { contextIsolation: true, backgroundThrottling: false, preload: join(dir, 'preload.js') } });
     const errors = [];
     window.webContents.on('console-message', (event) => {
         if (event.level === 'error') errors.push(event.message);

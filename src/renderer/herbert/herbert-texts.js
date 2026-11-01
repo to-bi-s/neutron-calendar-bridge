@@ -152,6 +152,20 @@
             'Proton has your change. All good.',
             'One more delivery for the books.',
         ],
+        // 1.0.6: every finished sync (the adapter sees the last successful sync move on).
+        synced: [
+            'Sync done. Your calendars are up to date.',
+            'All synced! Proton and your app agree.',
+            'Fresh from Proton. Everything matches.',
+            'Synced. Nothing missing, nothing extra.',
+            'Another round done. All calendars current.',
+            'Checked with Proton: all in order.',
+            'Sync complete. The bridge holds.',
+            'Up to date, {name}. Carry on.',
+            'Done syncing. Not a single event left behind.',
+            'Proton and I had a word. All agreed.',
+            'Synced across the rainbow. Smooth run.',
+        ],
         incoming: [
             'New mail for your calendar.',
             'Something new came in from Proton.',

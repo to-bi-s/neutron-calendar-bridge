@@ -9,7 +9,7 @@
  */
 
 .herbert {
-    --herbert-ink: #3a2a66;
+    --herbert-ink: #241a45; /* 1.0.6: darker, so he stands out from the rainbow behind him (was #3a2a66) */
     --herbert-body: #ffffff;
     --herbert-pink: #ffb3c7;
     --herbert-hoof: #b48cff;
@@ -92,13 +92,19 @@
 
 .herbert .rainbow path {
     fill: none;
-    stroke-width: 5;
+    stroke-width: 10;
     stroke-linecap: round;
 }
 .herbert .rainbow {
-    opacity: 0.5;
+    opacity: 0.55;
     animation: herbert-shimmer 7s ease-in-out infinite;
+    /* 1.0.6: a soft glow around the bands; stronger while he syncs (below) */
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.35));
 }
+.herbert .rainbow path:nth-child(1) { filter: drop-shadow(0 0 3px rgba(255, 157, 186, 0.9)); }
+.herbert .rainbow path:nth-child(2) { filter: drop-shadow(0 0 3px rgba(255, 217, 119, 0.9)); }
+.herbert .rainbow path:nth-child(3) { filter: drop-shadow(0 0 3px rgba(154, 219, 255, 0.9)); }
+.herbert .rainbow path:nth-child(4) { filter: drop-shadow(0 0 3px rgba(211, 182, 255, 0.9)); }
 
 .herbert .body,
 .herbert .face,
@@ -336,8 +342,12 @@
     50% { transform: rotate(5deg); }
 }
 @keyframes herbert-shimmer {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.6; }
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 0.65; }
+}
+@keyframes herbert-shimmer-busy {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 0.95; }
 }
 @keyframes herbert-twinkle {
     0%, 100% { transform: scale(0.6) rotate(0deg); opacity: 0.5; }
@@ -592,7 +602,7 @@
 .herbert .busy circle { fill: #ffffff; stroke: var(--herbert-ink); stroke-width: 1.2; }
 .herbert .busy-arc { fill: none; stroke: var(--primary, #6d4aff); stroke-width: 1.8; stroke-linecap: round; transform-box: fill-box; transform-origin: center; animation: herbert-tick 1s linear infinite; }
 .herbert.is-busy .busy { opacity: 1; }
-.herbert.is-busy .rainbow { animation: herbert-shimmer 1.2s ease-in-out infinite; }
+.herbert.is-busy .rainbow { animation: herbert-shimmer-busy 1.2s ease-in-out infinite; filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.55)); }
 .herbert.is-busy .rainbow path:nth-child(2) { animation: herbert-shimmer 1.2s ease-in-out 0.3s infinite; }
 
 /* ---- held things: a cup, an apple, a letter ------------------------------- */

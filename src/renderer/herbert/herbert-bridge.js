@@ -64,8 +64,9 @@
             if (f.refreshing && !p.refreshing) return 'refresh';
             if (f.pendingChanges < p.pendingChanges && f.lastDirection === 'push') return 'delivered';
             if (f.incoming > p.incoming) return 'incoming';
+            if (f.lastSuccessfulSyncAt > p.lastSuccessfulSyncAt) return 'synced'; // 1.0.6: a sync finished
             if (f.appWasConnected && f.appLastRequestAt && now() - f.appLastRequestAt > DAY && oncePerDay('appMissing')) return 'appMissing';
-            if (f.lastSuccessfulSyncAt && f.lastSuccessfulSyncAt === p.lastSuccessfulSyncAt && now() - f.lastSuccessfulSyncAt > 6 * 60 * 60 * 1000 && oncePerDay('quiet') && !f.offline) return 'quiet';
+            if (f.lastSuccessfulSyncAt && now() - f.lastSuccessfulSyncAt > 6 * 60 * 60 * 1000 && oncePerDay('quiet') && !f.offline) return 'quiet';
             return null;
         }
 

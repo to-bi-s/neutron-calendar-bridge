@@ -414,6 +414,9 @@
   "All set! Your calendars are on their way.": [
     "src/renderer/herbert/herbert-texts.js"
   ],
+  "All synced! Proton and your app agree.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "An apple a day. Crunch.": [
     "src/renderer/herbert/herbert-texts.js"
   ],
@@ -437,6 +440,9 @@
   ],
   "Another app": [
     "src/renderer/renderer.js"
+  ],
+  "Another round done. All calendars current.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Answer": [
     "src/renderer/renderer.js"
@@ -661,6 +667,9 @@
   ],
   "Checked automatically a minute after start and then daily; new versions come from GitHub Releases.": [
     "src/renderer/renderer.js"
+  ],
+  "Checked with Proton: all in order.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Checking every calendar from the top.": [
     "src/renderer/herbert/herbert-texts.js"
@@ -890,6 +899,9 @@
   "Done for today? You’ve earned it.": [
     "src/renderer/herbert/herbert-texts.js"
   ],
+  "Done syncing. Not a single event left behind.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Done! Proton has it.": [
     "src/renderer/herbert/herbert-texts.js"
   ],
@@ -1085,6 +1097,9 @@
     "index.html (html)"
   ],
   "Fresh events, straight from Proton.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Fresh from Proton. Everything matches.": [
     "src/renderer/herbert/herbert-texts.js"
   ],
   "Full check-up, every corner of every calendar.": [
@@ -2180,6 +2195,9 @@
   "Proton Accounts": [
     "index.html"
   ],
+  "Proton and I had a word. All agreed.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Proton answers, but refused the calendar list: {message}. The bridge keeps trying with every sync.": [
     "src/main/bridge-service.ts"
   ],
@@ -2764,6 +2782,12 @@
   "Sync {name} to Calendar.app": [
     "src/renderer/renderer.js"
   ],
+  "Sync complete. The bridge holds.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Sync done. Your calendars are up to date.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Sync every ticked calendar in {group}": [
     "src/renderer/renderer.js"
   ],
@@ -2782,10 +2806,16 @@
   "Sync Schedule": [
     "index.html"
   ],
+  "Synced across the rainbow. Smooth run.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Synced when the bridge signs in and every day at midnight; the arrows sync one now.": [
     "src/renderer/renderer.js (map)"
   ],
   "Synced, sorted, smiling.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Synced. Nothing missing, nothing extra.": [
     "src/renderer/herbert/herbert-texts.js"
   ],
   "Syncing": [
@@ -3175,6 +3205,9 @@
     "src/renderer/herbert/herbert-texts.js"
   ],
   "Up late, {name}? I’ll keep watch. Rest when you can.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Up to date, {name}. Carry on.": [
     "src/renderer/herbert/herbert-texts.js"
   ],
   "Update": [

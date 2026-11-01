@@ -38,6 +38,15 @@ test('a delivered change: pending drops after a push', () => {
     assert.ok(h.calls.includes('pending:2') && h.calls.includes('pending:0'));
 });
 
+test('a finished sync: the last successful sync moves on (1.0.6)', () => {
+    const h = fake(); const a = createHerbertBridge(h, { now: noon });
+    a.update(a.factsFromBridgeState([account({ health: 'syncing' })]));
+    a.update(a.factsFromBridgeState([account({ lastSuccessfulSyncAt: noon() })]));
+    a.update(a.factsFromBridgeState([account({ lastSuccessfulSyncAt: noon() })])); // the same state again: nothing
+    assert.deepEqual(h.reactions(), ['react:synced']);
+    assert.ok(h.calls.includes('busy:true') && h.calls.includes('busy:false'));
+});
+
 test('an error makes him worried, the recovery content', () => {
     const h = fake(); const a = createHerbertBridge(h, { now: noon });
     a.update(a.factsFromBridgeState([account()]));

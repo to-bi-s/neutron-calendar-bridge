@@ -2002,9 +2002,9 @@ const mountHerbert = (bridgeState) => {
         return;
     }
     home.hidden = false;
-    // 1.0.6: chattier — when nothing happens he says something kind every 2 minutes, and a line stays up to a
-    // minute (a click anywhere in the window takes it away once it has been read).
-    herbert = createHerbert(home, { texts: window.HERBERT_TEXTS, translate: t, encourageEvery: 2 * 60 * 1000, lifeEvery: 4 * 60 * 1000, bubbleHold: 60 * 1000 });
+    // 1.0.6: chattier — when nothing happens he says something kind every minute, and a line stays up to a
+    // minute (a click anywhere in the window takes it away once it has been read; news from the bridge replaces it).
+    herbert = createHerbert(home, { texts: window.HERBERT_TEXTS, translate: t, encourageEvery: 60 * 1000, lifeEvery: 4 * 60 * 1000, bubbleHold: 60 * 1000 });
     herbertBridge = createHerbertBridge(herbert);
 };
 window.addEventListener('resize', fitHerbert);
