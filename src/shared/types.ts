@@ -498,6 +498,8 @@ export interface BridgeAppState {
 export type AccountRef = string | null;
 
 export interface RendererBridgeApi {
+    /** 1.0.6: 'darwin' or 'linux' — what the window shows for setting up a calendar app follows it. */
+    platform: NodeJS.Platform;
     /** The sign-in calls address the account being added (or restored: `accountId` for a background prompt). */
     signIn(credentials: ProtonCredentials, accountId?: AccountRef): Promise<BridgeAppState>;
     completeHumanVerification(submission?: HumanVerificationSubmission): Promise<BridgeAppState>;

@@ -224,6 +224,9 @@
   "Bridge Proton Calendar into Calendar.app": [
     "index.html"
   ],
+  "Bridge Proton Calendar into your calendar app": [
+    "index.html"
+  ],
   "Building and Developing": [
     "index.html"
   ],
@@ -418,6 +421,9 @@
   "Each account shows up as its own account in Calendar.app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this Mac.": [
     "index.html"
   ],
+  "Each account shows up as its own account in your calendar app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this computer.": [
+    "index.html"
+  ],
   "Email or username": [
     "index.html"
   ],
@@ -478,6 +484,9 @@
   ],
   "Failed to sign in to Proton": [
     "src/main/bridge-service.ts"
+  ],
+  "File": [
+    "src/main/main.ts"
   ],
   "Finish sign-in": [
     "src/main/main.ts"
@@ -857,6 +866,9 @@
   ],
   "Only Accept, Maybe and Decline can be sent to the organizer. Answer in Proton Calendar instead.": [
     "src/main/recurrence.ts"
+  ],
+  "Only apps on this computer can reach the bridge; a phone or another computer cannot.": [
+    "index.html"
   ],
   "Only apps on this Mac can reach the bridge; a phone or another computer cannot.": [
     "index.html"
@@ -1368,6 +1380,9 @@
   "The bridge can tidy your Inbox like Outlook does: invitations and updates once you have answered them, cancellations once they are in your calendar, guests' answers once Proton has them.": [
     "index.html"
   ],
+  "The bridge is a CalDAV server on this computer, so other calendar apps (GNOME Calendar, Evolution, KOrganizer, …) should work with it too. Only Thunderbird has been tried so far on Linux. Click a value to copy it.": [
+    "index.html"
+  ],
   "The bridge is a CalDAV server on this Mac, so other calendar apps (BusyCal, Fantastical, …) should work with it too. Only Calendar.app and Thunderbird have been tried so far. Click a value to copy it.": [
     "index.html"
   ],
@@ -1425,6 +1440,9 @@
     "src/renderer/renderer.js"
   ],
   "The password is the bridge's (the one Calendar.app uses), not your Proton password.": [
+    "index.html"
+  ],
+  "The password is the bridge's, not your Proton password.": [
     "index.html"
   ],
   "The profile shows as \"not verified\": it was made on this Mac by the bridge, not signed by Apple, and holds only the account settings listed under \"Manual Setup\" below.": [
@@ -1567,6 +1585,9 @@
     "src/main/main.ts"
   ],
   "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them, as for Calendar.app.": [
+    "index.html (html)"
+  ],
+  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": [
     "index.html (html)"
   ],
   "With Reminders left on, Reminders keeps asking the bridge for a task list (refused, harmless).": [

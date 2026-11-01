@@ -511,5 +511,12 @@
   "The app's home is its GitHub repository: the manual, the detailed rules, everything about building it, the changelog and the place to report a problem. The links open in your browser.": "La casa dell’app è il suo repository GitHub: il manuale, le regole nel dettaglio, tutto su come compilarla, il registro delle modifiche e il posto dove segnalare un problema. I link si aprono nel browser.",
   "Unofficial: not affiliated with or endorsed by Proton AG. Proton and Proton Calendar are trademarks of Proton AG. Free and open source (GPL-3.0).": "Non ufficiale: non affiliato a Proton AG né da essa approvato. Proton e Proton Calendar sono marchi di Proton AG. Libero e open source (GPL-3.0).",
   "What the Bridge Does, in Detail": "Cosa fa il bridge, nel dettaglio",
-  "What This App Does": "Cosa fa questa app"
+  "What This App Does": "Cosa fa questa app",
+  "Bridge Proton Calendar into your calendar app": "Porta Proton Calendar nella tua app di calendario",
+  "Each account shows up as its own account in your calendar app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this computer.": "Ogni account compare come account a sé nella tua app di calendario; l'ordine scelto qui vale in tutta l'app. Esci lascia l'account in elenco per accedere di nuovo. Rimuovi lo elimina da questo computer con le sue impostazioni.",
+  "File": "File",
+  "Only apps on this computer can reach the bridge; a phone or another computer cannot.": "Solo le app su questo computer raggiungono il bridge; un telefono o un altro computer no.",
+  "The bridge is a CalDAV server on this computer, so other calendar apps (GNOME Calendar, Evolution, KOrganizer, …) should work with it too. Only Thunderbird has been tried so far on Linux. Click a value to copy it.": "Il bridge è un server CalDAV su questo computer, quindi anche altre app di calendario (Calendario di GNOME, Evolution, KOrganizer, …) dovrebbero funzionarci. Su Linux finora è stato provato solo Thunderbird. Fai clic su un valore per copiarlo.",
+  "The password is the bridge's, not your Proton password.": "La password è quella del bridge, non la tua password Proton.",
+  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": "Con un'identità email Thunderbird invia gli inviti da sé, e non riescono. Con <strong>Nessuna</strong> li invia il bridge."
 }

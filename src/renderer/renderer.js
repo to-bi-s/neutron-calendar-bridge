@@ -2066,7 +2066,21 @@ const requestRender = async () => {
     }
 };
 
+/**
+ * 1.0.6: the window follows the platform — an element marked data-platform="darwin" or "linux" stays only
+ * there (Calendar.app and its Auto Setup are macOS; the Linux texts name Thunderbird and "your calendar app").
+ */
+const applyPlatform = () => {
+    const platform = window.bridgeApi.platform === 'linux' ? 'linux' : 'darwin';
+    for (const element of document.querySelectorAll('[data-platform]')) {
+        if (element.dataset.platform !== platform) {
+            element.remove();
+        }
+    }
+};
+
 const bootstrap = async () => {
+    applyPlatform();
     initNav();
     window.bridgeApi.onStateChanged?.(() => void requestRender());
     await renderState();

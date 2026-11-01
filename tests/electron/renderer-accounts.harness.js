@@ -106,7 +106,7 @@ const main = async () => {
         join(dir, 'preload.js'),
         `const { contextBridge, ipcRenderer } = require('electron');
 const call = (name) => (...args) => ipcRenderer.invoke('fake', name, args);
-const api = {};
+const api = { platform: process.env.HARNESS_PLATFORM || 'darwin' };
 for (const name of ['signIn','completeHumanVerification','cancelHumanVerification','answerSignInPrompt','cancelSignInPrompt','addAccount','cancelAddAccount','signOut','setAccountOrder','getBridgeState','getCalendars','getCalDAVConfig','refreshNow','setUpCalendarApp','openProfilesSettings','getTranslations','setOpenAtLogin','setCalendarSyncEnabled','getSyncStatus','openHumanVerification','openExternal','updateConfig','syncCalendar','syncCategory','getChangelog','deleteLogs','copyCalDAVPassword']) api[name] = call(name);
 api.onNavigate = (callback) => ipcRenderer.on('navigate', (_e, page, accountId) => callback(page, accountId));
 api.onStateChanged = (callback) => ipcRenderer.on('state-changed', () => callback());

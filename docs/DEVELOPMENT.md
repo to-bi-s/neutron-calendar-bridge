@@ -75,6 +75,21 @@ npm run package:mac:quick     # for testing: this Mac's architecture only, the D
 
 The app is signed with the hardened runtime and `resources/entitlements.mac.plist` (only what Electron's JavaScript engine needs; library validation stays on, since every native module is signed with the same certificate). `NEUTRON_NOTARY_PROFILE` picks another profile name. Notarization usually takes a few minutes per upload. Builds given to others go through the full release. CI builds stay unsigned.
 
+## Linux builds (1.0.6)
+
+```bash
+npm run package:linux   # on Linux: release/<name>-<version>-<arch>.AppImage and .deb, x64 and arm64 (add --arm64 or --x64 after `electron-builder --linux` for one)
+```
+
+Both come from the same `package.json` (`build.linux`: AppImage and .deb, x64 and arm64, Office category, the maintainer, a description without Calendar.app). What differs from the Mac:
+
+- **Build on Linux.** electron-builder packages the other architecture too, with a downloaded SQLCipher build; what was tried: arm64 on an arm64 VM (`npx electron-builder --linux --arm64 --publish never` after `npm run build`). An Apple-silicon Mac's Parallels VM is arm64; CI's `ubuntu-24.04` runners are x64, `ubuntu-24.04-arm` arm64.
+- **The .deb on arm64 needs the system `fpm`**: electron-builder's bundled one is x86 only. `sudo apt install ruby ruby-dev rubygems build-essential && sudo gem install fpm --no-document`, then `USE_SYSTEM_FPM=true npm run package:linux`.
+- **The launcher** (`scripts/after-pack.cjs`): the executable is a shell script in front of the real one (`neutron-calendar-bridge.bin`). Inside an AppImage it adds `--no-sandbox`: on Ubuntu 24.04 and later AppArmor keeps unprivileged user namespaces from the app and the SUID sandbox helper cannot be used from an AppImage mount, so Chromium aborted before the app showed anything. The .deb's install script sets the helper up, so the sandbox stays on there.
+- **No signing**: nothing to notarize; the files are attached to the GitHub Release as they are. electron-updater updates an AppImage from `latest-linux.yml` (the .deb is updated by hand).
+- **Running the AppImage from a terminal**: `./neutron-calendar-bridge-<version>-<arch>.AppImage` (needs `libfuse2t64` on Ubuntu 24.04). The app's folder is `~/.config/neutron-calendar-bridge/` (logs in `logs/`).
+- **Try it in a VM**: `systemd-run --user --unit=ncb <path to the AppImage>` starts it inside the desktop session from an SSH shell; `journalctl --user -u ncb` has its output. GNOME refuses screenshots over D-Bus; Print in the VM saves to `~/Pictures/Screenshots/`.
+
 ## Releasing
 
 Two repositories: this public one (`main` = the published history, starting at 1.0.0) and a private one with the full history before 1.0.0. Work happens on the private `main`; a release carries the new commits to the public branch:

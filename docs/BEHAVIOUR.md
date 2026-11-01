@@ -78,6 +78,10 @@ The invitation emails use Proton's own wording and Proton's own translations (34
 
 Emails go out like from Proton Calendar. Every email (sent, blocked, dry run, failed) is listed on the Overview page and written to `bridge.log`. Emails are only sent for something you did in your calendar app, never during a sync. Recipients' keys are taken from Proton's key server (and your contacts) without Proton's extra key-transparency check. Developers can switch the emails off (dry run) under Settings → Developer Options; see [DEVELOPMENT.md](DEVELOPMENT.md#developer-options-in-the-app).
 
+## On Linux (1.0.6)
+
+The same app, with these differences. There is no Calendar.app, so the Setup page shows Thunderbird and the manual CalDAV setup for other apps (GNOME Calendar, Evolution, KOrganizer; only Thunderbird is tried). The saved login and the key of the local copy are encrypted with the desktop's password store (GNOME Keyring or KWallet, through Electron's safeStorage); when that store is locked — a login keyring whose password is no longer the login password, say — the desktop asks to unlock it during sign-in, and the sign-in waits for that. Without any password store the login is kept with a built-in key only; a later version will say so on the Setup page. The app's menu (File, Edit, View) shows while Alt is held; the menu-bar icon needs an indicator extension on GNOME (Ubuntu has one). Starting at login is not available yet. The AppImage runs without Chromium's sandbox (see DEVELOPMENT.md); the .deb keeps it.
+
 ## Privacy, in one place
 
 - The local copy of your calendars is encrypted (SQLCipher, with a random key kept with the saved login in the Keychain). The calendars are decrypted in the app's memory while it runs.

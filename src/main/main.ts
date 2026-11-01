@@ -17,7 +17,7 @@ import type { BridgeAppState } from '../shared/types';
 import { PROFILE_FILE_NAME } from './caldav-profile';
 import { catalogFor, currentLanguage, resolveLanguage, setLanguage, t, tn } from './i18n';
 import { Updater } from './updater';
-import type { CalendarAppSetupResult } from '../shared/types';
+import type { CalendarAppSetupResult, HumanVerificationSubmission } from '../shared/types';
 
 /** The name people see (menus, window, Dock, About, notifications). */
 const APP_DISPLAY_NAME = 'Neutron Calendar Bridge';
@@ -38,6 +38,7 @@ let verificationLoading = false;
 let tray: Tray | null = null;
 /** What the menu-bar menu was last built from (rebuilt only when it changes). */
 let trayMenuKey: string | null = '';
+let trayToolTip = '';
 /** The items the native menu was last built from: what an open menu shows (updated in place by the spinner module). */
 let lastTrayItems: TrayMenuItem[] = [];
 /**
@@ -352,6 +353,7 @@ const ensureWindow = async () => {
         backgroundColor: windowBackground(),
         titleBarStyle: 'hiddenInset',
         trafficLightPosition: { x: 16, y: 18 },
+        autoHideMenuBar: true, // 1.0.6: Linux — the menu shows while Alt is pressed
         title: APP_DISPLAY_NAME,
         webPreferences: {
             preload: join(__dirname, 'preload.js'),
@@ -603,6 +605,35 @@ const renderVerificationHostPage = async (window: BrowserWindow, token: string) 
     );
 };
 
+/**
+ * 1.0.6: Proton's token reaches the main process twice — from the verification window's preload (the
+ * frame's message) and from the host page (a console line); whichever comes first finishes the sign-in,
+ * the other is ignored. The window closes at once either way (0.49.11): before, the preload's path kept
+ * it open until the whole sign-in was through, so after an authenticator code the second verification
+ * window stayed. A further step Proton asks for (another verification after the code) is no error: the
+ * Setup page shows it, with its button to open the window again.
+ */
+const completeVerification = async (submission: HumanVerificationSubmission) => {
+    const verifying = verifyingService();
+    if (!verifying || completingVerification) {
+        return;
+    }
+    completingVerification = true;
+    verificationWindow?.close();
+    try {
+        await verifying.completeHumanVerification(submission);
+        await refreshTrayMenu();
+    } catch (error) {
+        await refreshTrayMenu();
+        if (verifying.getPendingHumanVerification()) {
+            return;
+        }
+        dialog.showErrorBox(t('Verification Error'), error instanceof Error ? error.message : t('Proton verification failed'));
+    } finally {
+        completingVerification = false;
+    }
+};
+
 /** 0.36: the account Proton asks to verify: one restoring its session, else the one being signed in. */
 const verifyingService = (): BridgeService | null =>
     accounts ? (accounts.list().find((service) => service.getPendingHumanVerification()) ?? accounts.pendingService()) : null;
@@ -666,24 +697,9 @@ const openVerificationWindow = async () => {
             if (data?.type !== 'pm_captcha' || typeof data.token !== 'string') {
                 return;
             }
-
-            completingVerification = true;
-            // 0.49.11: the window has done its part once Proton's token is here; it closes at once instead of
-            // showing "Verification completed" while the sign-in finishes (a failure is told in a dialog).
-            verificationWindow?.close();
-            await verifying.completeHumanVerification({
-                token: data.token,
-                tokenType: 'captcha'
-            });
-            await refreshTrayMenu();
+            await completeVerification({ token: data.token, tokenType: 'captcha' });
         } catch (error) {
-            await refreshTrayMenu();
-            dialog.showErrorBox(
-                t('Verification Error'),
-                error instanceof Error ? error.message : t('Proton verification failed')
-            );
-        } finally {
-            completingVerification = false;
+            console.warn(`[verification] ${error instanceof Error ? error.message : String(error)}`);
         }
     });
 
@@ -769,7 +785,12 @@ const refreshTrayMenu = async () => {
     }
     const state = currentTrayState();
     const message = state ? (state.accounts.length ? state.accounts.map((account) => (state.accounts.length > 1 && account.username ? `${account.username}: ${account.message}` : account.message)).filter(Boolean).join('\n') : state.signingIn?.message) : trayOverallStatus(null).label;
-    tray.setToolTip(`${APP_DISPLAY_NAME} v${app.getVersion()}${message ? ` — ${message}` : ''}`);
+    // 1.0.6: only when it changed — on Linux every setToolTip redraws the indicator (the open menu flickered every 2 s).
+    const toolTip = `${APP_DISPLAY_NAME} v${app.getVersion()}${message ? ` — ${message}` : ''}`;
+    if (toolTip !== trayToolTip) {
+        trayToolTip = toolTip;
+        tray.setToolTip(toolTip);
+    }
     if (accounts && accounts.count() !== menuAccountCount) {
         setApplicationMenu(); // "Refresh Now" / "Refresh All Accounts"
     }
@@ -848,10 +869,39 @@ const installPendingTrayMenu = () => {
  * calendar like in the menu-bar menu, so the window menu's Close has no shortcut.
  */
 const setApplicationMenu = () => {
+    menuAccountCount = accounts?.count() ?? -1;
     if (process.platform !== 'darwin') {
+        // 1.0.6 (Linux): without a menu Electron shows its own (with Reload, which empties the window). The app's
+        // menu, hidden until Alt is pressed (autoHideMenuBar): the shortcuts work, the window stays as it is.
+        Menu.setApplicationMenu(
+            Menu.buildFromTemplate([
+                {
+                    label: t('File'),
+                    submenu: [
+                        { label: t('Settings…'), accelerator: 'CommandOrControl+,', click: () => void openBridge('settings') },
+                        { type: 'separator' },
+                        { label: t('Quit Bridge'), accelerator: 'CommandOrControl+Q', click: () => app.quit() }
+                    ]
+                },
+                { role: 'editMenu' },
+                {
+                    label: t('View'),
+                    submenu: [
+                        { label: t('Overview'), accelerator: 'CommandOrControl+F1', click: () => void openBridge('overview') },
+                        { label: t('Calendars'), click: () => void openBridge('calendars') },
+                        { label: t('Setup'), accelerator: 'CommandOrControl+U', click: () => void openBridge('setup') },
+                        { label: t('Info'), accelerator: 'CommandOrControl+I', click: () => void openBridge('info') },
+                        { type: 'separator' },
+                        { label: (accounts?.count() ?? 1) > 1 ? t('Refresh All Accounts') : t('Refresh Now'), accelerator: 'CommandOrControl+R', click: () => void syncNowFromMenu(null) },
+                        { label: t('Web Calendar'), accelerator: 'CommandOrControl+W', click: () => void openWebCalendar('first') },
+                        { type: 'separator' },
+                        { role: 'toggleDevTools' }
+                    ]
+                }
+            ])
+        );
         return;
     }
-    menuAccountCount = accounts?.count() ?? -1;
     Menu.setApplicationMenu(
         Menu.buildFromTemplate([
             {
@@ -1068,27 +1118,8 @@ const registerIpcHandlers = () => {
         verificationWindow.setSize(currentWidth, nextHeight);
     });
 
-    ipcMain.on('bridge:captcha-solved', async (_event, submission) => {
-        const verifying = verifyingService();
-        if (!verifying || completingVerification) {
-            return;
-        }
-
-        completingVerification = true;
-        try {
-            await verifying.completeHumanVerification(submission);
-            verificationWindow?.close();
-            await refreshTrayMenu();
-            void mainWindow?.webContents.send('bridge:verification-complete');
-        } catch (error) {
-            await refreshTrayMenu();
-            dialog.showErrorBox(
-                t('Verification Error'),
-                error instanceof Error ? error.message : t('Proton verification failed')
-            );
-        } finally {
-            completingVerification = false;
-        }
+    ipcMain.on('bridge:captcha-solved', async (_event, submission: HumanVerificationSubmission) => {
+        await completeVerification(submission);
     });
 
     ipcMain.on('bridge:verification-debug', (_event, payload) => {

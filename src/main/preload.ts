@@ -3,6 +3,7 @@ import { contextBridge, ipcRenderer } from 'electron';
 import type { RendererBridgeApi } from '../shared/types';
 
 const api: RendererBridgeApi = {
+    platform: process.platform, // 1.0.6: the Setup page and the texts follow the platform (Calendar.app is macOS only)
     signIn: (credentials, accountId) => ipcRenderer.invoke('bridge:sign-in', credentials, accountId ?? null),
     completeHumanVerification: (submission) => ipcRenderer.invoke('bridge:complete-human-verification', submission),
     cancelHumanVerification: () => ipcRenderer.invoke('bridge:cancel-human-verification'),

@@ -511,5 +511,12 @@
   "The app's home is its GitHub repository: the manual, the detailed rules, everything about building it, the changelog and the place to report a problem. The links open in your browser.": "La maison de l’app est son dépôt GitHub : le manuel, les règles en détail, tout sur sa compilation, le journal des modifications et l’endroit où signaler un problème. Les liens s’ouvrent dans votre navigateur.",
   "Unofficial: not affiliated with or endorsed by Proton AG. Proton and Proton Calendar are trademarks of Proton AG. Free and open source (GPL-3.0).": "Non officiel : sans lien avec Proton AG, ni approuvé par elle. Proton et Proton Calendar sont des marques de Proton AG. Libre et open source (GPL-3.0).",
   "What the Bridge Does, in Detail": "Ce que fait le bridge, en détail",
-  "What This App Does": "Ce que fait cette app"
+  "What This App Does": "Ce que fait cette app",
+  "Bridge Proton Calendar into your calendar app": "Amener Proton Calendar dans votre app de calendrier",
+  "Each account shows up as its own account in your calendar app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this computer.": "Chaque compte apparaît comme un compte distinct dans votre app de calendrier ; l'ordre choisi ici vaut dans toute l'app. Se déconnecter garde le compte dans la liste pour pouvoir se reconnecter. Retirer l'efface de cet ordinateur avec ses réglages.",
+  "File": "Fichier",
+  "Only apps on this computer can reach the bridge; a phone or another computer cannot.": "Seules les apps de cet ordinateur atteignent le bridge ; un téléphone ou un autre ordinateur, non.",
+  "The bridge is a CalDAV server on this computer, so other calendar apps (GNOME Calendar, Evolution, KOrganizer, …) should work with it too. Only Thunderbird has been tried so far on Linux. Click a value to copy it.": "Le bridge est un serveur CalDAV sur cet ordinateur, donc d'autres apps de calendrier (Agenda de GNOME, Evolution, KOrganizer, …) devraient fonctionner avec lui aussi. Sous Linux, seul Thunderbird a été essayé jusqu'ici. Cliquez sur une valeur pour la copier.",
+  "The password is the bridge's, not your Proton password.": "Le mot de passe est celui du bridge, pas votre mot de passe Proton.",
+  "With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.": "Avec une identité e-mail, Thunderbird envoie lui-même les invitations, et cela échoue. Avec <strong>Aucune</strong>, le bridge les envoie."
 }

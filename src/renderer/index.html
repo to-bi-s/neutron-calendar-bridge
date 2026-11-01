@@ -22,7 +22,8 @@
         <section class="auth-shell">
             <aside class="auth-sidebar">
                 <div class="brand-mark">Neutron Calendar Bridge <span class="app-version" data-app-version></span></div>
-                <h1>Bridge Proton Calendar into Calendar.app</h1>
+                <h1 data-platform="darwin">Bridge Proton Calendar into Calendar.app</h1>
+                <h1 data-platform="linux">Bridge Proton Calendar into your calendar app</h1>
                 <p class="auth-copy">
                     Sign in once, keep a warm Proton session, and mirror each Proton calendar as a local CalDAV collection.
                 </p>
@@ -179,7 +180,7 @@
 
                     <div class="account-switcher" id="setup-account-switcher" hidden></div>
 
-                    <div class="card setup-card" id="calendar-app-card">
+                    <div class="card setup-card" id="calendar-app-card" data-platform="darwin">
                         <div class="card-header">
                             <div>
                                 <p class="panel-kicker">Apple Calendar</p>
@@ -300,13 +301,15 @@
                         </ol>
                         <div class="setup-note">
                             <p class="panel-kicker">Email: None</p>
-                            <p class="setup-note-text" data-i18n-html>With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them, as for Calendar.app.</p>
+                            <p class="setup-note-text" data-i18n-html data-platform="darwin">With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them, as for Calendar.app.</p>
+                            <p class="setup-note-text" data-i18n-html data-platform="linux">With an email identity, Thunderbird sends invitations itself, and they fail. With <strong>None</strong>, the bridge sends them.</p>
                         </div>
                         <details class="setup-details">
                             <summary>More Details</summary>
                             <ul class="setup-details-list">
                                 <li>Thunderbird checks every 30 minutes; under Properties, "Refresh Calendar: Every minute" shows changes sooner.</li>
-                                <li>The password is the bridge's (the one Calendar.app uses), not your Proton password.</li>
+                                <li data-platform="darwin">The password is the bridge's (the one Calendar.app uses), not your Proton password.</li>
+                                <li data-platform="linux">The password is the bridge's, not your Proton password.</li>
                                 <li>Guests' answers show as small icons next to each attendee when you open a meeting.</li>
                                 <li>Thunderbird's warning to assign an email identity can be closed: the bridge takes care of invitations.</li>
                                 <li>Proton has no categories, attachments or links field, and no privacy setting: those are dropped on save. Links in the description and "Show time as free" are kept; a Tentative status is not (Proton has none).</li>
@@ -324,7 +327,8 @@
                             <span class="status-pill status-connecting" id="other-apps-pill">Untested</span>
                         </div>
                         <p class="panel-copy setup-status" id="other-apps-status" hidden></p>
-                        <p class="panel-copy">The bridge is a CalDAV server on this Mac, so other calendar apps (BusyCal, Fantastical, …) should work with it too. Only Calendar.app and Thunderbird have been tried so far. Click a value to copy it.</p>
+                        <p class="panel-copy" data-platform="darwin">The bridge is a CalDAV server on this Mac, so other calendar apps (BusyCal, Fantastical, …) should work with it too. Only Calendar.app and Thunderbird have been tried so far. Click a value to copy it.</p>
+                        <p class="panel-copy" data-platform="linux">The bridge is a CalDAV server on this computer, so other calendar apps (GNOME Calendar, Evolution, KOrganizer, …) should work with it too. Only Thunderbird has been tried so far on Linux. Click a value to copy it.</p>
                         <div class="detail-grid other-apps-grid">
                             <article class="detail-card other-apps-url">
                                 <span>Server URL</span>
@@ -365,8 +369,10 @@
                         <details class="setup-details">
                             <summary>More Details</summary>
                             <ul class="setup-details-list">
-                                <li>The password is the bridge's (the one Calendar.app uses), not your Proton password.</li>
-                                <li>Only apps on this Mac can reach the bridge; a phone or another computer cannot.</li>
+                                <li data-platform="darwin">The password is the bridge's (the one Calendar.app uses), not your Proton password.</li>
+                                <li data-platform="linux">The password is the bridge's, not your Proton password.</li>
+                                <li data-platform="darwin">Only apps on this Mac can reach the bridge; a phone or another computer cannot.</li>
+                                <li data-platform="linux">Only apps on this computer can reach the bridge; a phone or another computer cannot.</li>
                                 <li>Proton Calendar has no tasks: a task list (VTODO) is refused. Events, repeats, alerts, invitations and answers are supported.</li>
                             </ul>
                         </details>
@@ -388,7 +394,8 @@
                             <button type="button" class="secondary-button" id="add-account-settings">Add Account</button>
                         </div>
                         <ul class="account-list" id="settings-account-list" role="list"></ul>
-                        <p class="setting-copy setting-hint">Each account shows up as its own account in Calendar.app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this Mac.</p>
+                        <p class="setting-copy setting-hint" data-platform="darwin">Each account shows up as its own account in Calendar.app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this Mac.</p>
+                        <p class="setting-copy setting-hint" data-platform="linux">Each account shows up as its own account in your calendar app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this computer.</p>
                     </div>
 
                     <div class="card">
