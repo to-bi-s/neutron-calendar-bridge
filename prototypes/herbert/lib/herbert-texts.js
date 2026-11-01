@@ -7,7 +7,7 @@
  * in random order, before any repeats. "{name}" is the person's name when the
  * app knows it (options.userName); ", {name}" disappears when it does not.
  */
-window.HERBERT_TEXTS = {
+(typeof window !== 'undefined' ? window : globalThis).HERBERT_TEXTS = {
     // Said once when the window opens, by the hour of the day.
     greetingMorning: [
         'Good morning, {name}! Herbert reporting for duty.',
@@ -103,14 +103,6 @@ window.HERBERT_TEXTS = {
         'A sync didn’t work. I’ll keep trying; the app has the details.',
     ],
 
-    // After trouble, when things are fine again.
-    relief: [
-        'Phew! All is well again.',
-        'Back on track. That was a bumpy one.',
-        'Sorted! Thank you for your patience.',
-        'We’re good again. Deep breath.',
-        'Fixed! The bridge is steady again.',
-    ],
 
     // A sample line for the demo's "Talking" button.
     talkingSample: 'Express delivery, straight across the rainbow bridge!',
@@ -423,6 +415,15 @@ window.HERBERT_TEXTS = {
             '…I’d wake up for you… almost… zzz.',
         ],
 
+        // After trouble, when things are fine again.
+        relief: [
+            'Phew! All is well again.',
+            'Back on track. That was a bumpy one.',
+            'Sorted! Thank you for your patience.',
+            'We’re good again. Deep breath.',
+            'Fixed! The bridge is steady again.',
+        ],
+
         // Herbert's own small life while he is idle.
         coffee: [
             'Coffee break. Back in a moment.',
@@ -575,3 +576,4 @@ window.HERBERT_TEXTS = {
         },
     },
 };
+if (typeof module !== 'undefined' && module.exports) module.exports = globalThis.HERBERT_TEXTS; // for the offline tests and the key list

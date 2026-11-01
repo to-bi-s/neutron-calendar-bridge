@@ -36,15 +36,21 @@ twenty) says something kind, but only when he is idle or content and nothing els
 
 | File | What |
 | --- | --- |
-| `herbert.js` | The drawing (inline SVG), the behaviour and the reaction table; exposes `createHerbert(container, options)`. |
-| `herbert.css` | Looks and all motion: breathing, blinking, gaze, every state's face, keyframes. Honors `prefers-reduced-motion`. |
-| `herbert-texts.js` | Every line he says, in one table (`window.HERBERT_TEXTS`). English only for now. |
-| `index.html`, `demo.css`, `demo.js` | The demo page and its mock of the app window. Not part of the later integration. |
-| `styles.html` | The three style candidates Herbert was chosen from (A cartoon pony, B plush front view, C flat bust). B is the one in `herbert.js`; the page stays as a reference. |
+| `lib/herbert.js` | The drawing (inline SVG), the behaviour and the reaction table; exposes `createHerbert(container, options)`. |
+| `lib/herbert.css` | Looks and all motion: breathing, blinking, gaze, every state's face, props, seasons, keyframes. Honors `prefers-reduced-motion`. |
+| `lib/herbert-texts.js` | Every line he says, in one table (`window.HERBERT_TEXTS`). English only. |
+| `lib/herbert-bridge.js` | The adapter: the app's bridge state in, Herbert calls out (`createHerbertBridge(herbert)`). |
+| `locales/herbert-keys.json` | The 617 English lines, flat and sorted, for the translation work (`node scripts/herbert-keys.mjs` regenerates it). |
+| `test/texts.test.mjs`, `test/bridge-adapter.test.mjs` | Offline checks: `node --test prototypes/herbert/test/*.test.mjs`. |
+| `test/screenshots.js` | Pictures of every pose at 3x, with a contact sheet: `npx electron prototypes/herbert/test/screenshots.js <dir>`. |
+| `INTEGRATION.md` | How the app takes him over: what moves where, what the main process exposes, the unlock, the catalogs. |
+| `index.html`, `demo.css`, `demo.js` | The demo page and its mock of the app window. Not part of the integration. |
+| `styles.html` | The three style candidates Herbert was chosen from (A cartoon pony, B plush front view, C flat bust). B is the one in `lib/herbert.js`. |
 
-Only the first three files move into the app. They use the app's own tokens where sensible
-(`--font-sans`, `--page`, `--text`, `--line-strong` for the bubble) and fall back to plain values
-when those are missing, so the frame also works on its own.
+Only `lib/` moves into the app. The files use the app's own tokens where sensible (`--font-sans`,
+`--page`, `--text`, `--line-strong` for the bubble) and fall back to plain values when those are
+missing, so the frame also works on its own. Every line goes through `options.translate` (the app's
+`t()`), the English line being the key, as everywhere in the app.
 
 ## The API the app will call
 
@@ -236,15 +242,22 @@ How the app would use it, roughly: `setState('asleep')` when Proton is unreachab
 when a sync fails, `setState('content')` when a sync succeeds after trouble, `setState('idle')` otherwise;
 `lookAt` from the renderer's click handler (or leave it: he already listens for clicks on the document).
 
+## Taking him into the app
+
+`INTEGRATION.md` has the recipe: the four files, the mount point in the side panel, the adapter call
+in the render path, the facts the main process still has to expose, the Pro unlock and settings
+(a configuration change, Tobi decides the shape), the 617 lines for the six catalogs, and the checks
+and docs the commit needs.
+
 ## Deliberately not done yet
 
 - **The Pro-Version unlock** by a static donor password: no password, no check, no settings UI. The
   prototype is always "unlocked".
 - **Integration into the panel**: nothing in `src/` changes. The frame is sized for the panel
-  (219 px wide inside the panel's 16 px margins) and uses the app's tokens, but it is not wired to
-  the sync engine, the renderer or the window harness.
-- **Translations**: the texts are English only and live in `herbert-texts.js`. When he moves into
-  the app they go through the six catalogs in `src/locales/` and `i18n.js`, and `createHerbert`
-  gets the translated table through `options.texts`.
+  (219 px wide inside the panel's 16 px margins) and uses the app's tokens; the adapter is written
+  and tested against the state objects the renderer already gets, but nothing is wired yet.
+- **Translations**: English only. The 617 lines are listed in `locales/herbert-keys.json`; the app's
+  catalogs in `src/locales/` need them in five languages, and `extract-strings.mjs` has to learn
+  the texts file as a source (see `INTEGRATION.md`, section 6).
 - No sounds, no version bump, no CHANGELOG entry: this is a prototype outside the app. The once-a-day
   lines remember the day in `localStorage` (key `herbert-once`); the app will keep that in its own settings.

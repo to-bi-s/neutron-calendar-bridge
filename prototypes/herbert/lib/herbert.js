@@ -15,7 +15,8 @@
  *
  * Everything that moves is CSS (herbert.css); this file flips classes, sets a few
  * custom properties for the gaze, and runs the timers (blink, idle glances, his
- * small life, the greeting, the occasional encouragement). Texts: herbert-texts.js.
+ * small life, the greeting, the occasional encouragement). Texts: herbert-texts.js;
+ * the app's state becomes calls on this API through herbert-bridge.js.
  */
 (function (global) {
     'use strict';
@@ -259,6 +260,7 @@
             userBirthday: options.userBirthday || null,  // 'MM-DD'
             season: options.season || 'auto',           // or one of: none, christmas, newyear, halloween, valentine, birthday, winter, summer
             typewriter: options.typewriter !== false,
+            translate: typeof options.translate === 'function' ? options.translate : function (x) { return x; }, // the app passes its t()
             birthday: '10-28',                           // Herbert's own
         };
 
@@ -343,6 +345,7 @@
         }
         function fill(text, vars) {
             vars = vars || {};
+            text = settings.translate(text) || text;
             if (settings.userName) text = text.replace(/\{name\}/g, settings.userName);
             else text = text.replace(/, \{name\}/g, '').replace(/\{name\}/g, 'you');
             Object.keys(vars).forEach(function (k) { text = text.replace(new RegExp('\\{' + k + '\\}', 'g'), vars[k]); });
@@ -608,7 +611,7 @@
                 else if (!r.inSleep) { pulse('did-notice', 900); return api; } // a stir in his sleep, nothing more
             }
             clearReaction();
-            var vars = opts.vars || {};
+            var vars = Object.assign({ n: name === 'bagPeek' ? pending : stats.deliveries }, opts.vars); // {n} in the line
             var text = opts.text !== undefined ? opts.text : (r.quiet && !opts.text ? '' : line('reactions.' + name, vars));
             if (settings.chattiness === 0) text = '';
             var duration = opts.duration || r.duration || (text ? bubbleDuration(text) : 3200);
@@ -917,5 +920,8 @@
         return api;
     }
 
+    createHerbert.REACTIONS = REACTIONS;
+    createHerbert.STATES = STATES;
     global.createHerbert = createHerbert;
-})(window);
+    if (typeof module !== 'undefined' && module.exports) module.exports = createHerbert; // for the offline tests
+})(typeof window !== 'undefined' ? window : globalThis);
