@@ -2149,13 +2149,23 @@ input[type='checkbox']:disabled {
 
 /* ─── 1.0.6: the Pro Version — a golden tag next to the version, the one golden switch, Herbert's frame ── */
 
-/* In the side panels the version tag sits on its own line under the title: a little air between them. */
-.nav-top .brand-mark .app-version:not(:empty),
-.auth-sidebar .brand-mark .app-version:not(:empty),
-.nav-top .brand-mark .pro-tag:not([hidden]),
-.auth-sidebar .brand-mark .pro-tag:not([hidden]) {
-    display: inline-block;
-    margin-top: 6px;
+/* In the side panels the title and its tags are a wrapping row: the tags share a line under the title
+   (a little air between them) and sit centred on each other (1.0.6: the version tag hung lower than the Pro tag). */
+.nav-top .brand-mark,
+.auth-sidebar .brand-mark {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 6px;
+    row-gap: 6px;
+}
+
+.nav-top .brand-mark .app-version,
+.auth-sidebar .brand-mark .app-version,
+.nav-top .brand-mark .pro-tag,
+.auth-sidebar .brand-mark .pro-tag {
+    margin-left: 0;
+    line-height: 1.4;
 }
 
 .pro-tag {
@@ -2215,4 +2225,136 @@ input[type='checkbox']:disabled {
 
 .herbert-home[hidden] {
     display: none;
+}
+
+/* ─── 1.0.6: the panel's two buttons are icons with a hover box (German labels did not fit); the panel's width ── */
+
+.nav-actions {
+    position: relative;
+    justify-content: flex-start;
+}
+
+.nav-icon-btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    min-height: 32px;
+    padding: 0;
+}
+
+.nav-icon-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* While it works: the spinner in place of the icon, not over it (the text buttons hid their label instead). */
+.nav-icon-btn.loading {
+    color: inherit;
+}
+
+.nav-icon-btn.loading svg {
+    display: none;
+}
+
+.nav-icon-btn.loading::after {
+    position: static;
+    margin: 0;
+}
+
+/* The hover box: the button's name, then what it does; above the buttons, after a short pause. */
+.nav-tip {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(100% + 8px);
+    z-index: 5;
+    display: grid;
+    gap: 3px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: var(--page, #ffffff);
+    color: var(--text, #262a33);
+    border: 1px solid var(--line-strong, rgba(110, 89, 202, 0.26));
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    white-space: normal;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity 120ms ease, transform 120ms ease, visibility 0s linear 120ms;
+    pointer-events: none;
+}
+
+.nav-tip strong {
+    font-weight: 700;
+}
+
+.nav-tip span {
+    color: var(--label, #7c72a0);
+}
+
+.nav-icon-btn:hover .nav-tip,
+.nav-icon-btn:focus-visible .nav-tip {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 350ms;
+}
+
+.nav-icon-btn:disabled .nav-tip {
+    display: none;
+}
+
+/* The panel's width can be dragged at its right edge, like a side panel in Claude: 200 to 420 px,
+   remembered per window (localStorage), a double-click puts it back to 251 px. */
+.app-shell {
+    grid-template-columns: var(--sidebar-width, 251px) 1fr;
+}
+
+.nav-sidebar {
+    position: relative;
+}
+
+.sidebar-resizer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -4px;
+    width: 8px;
+    z-index: 30;
+    cursor: col-resize;
+    -webkit-app-region: no-drag;
+}
+
+.sidebar-resizer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 3px;
+    width: 2px;
+    background: var(--primary, #6e59ca);
+    opacity: 0;
+    transition: opacity 120ms ease 150ms;
+}
+
+.sidebar-resizer:hover::after,
+.sidebar-resizer.is-dragging::after {
+    opacity: 0.8;
+}
+
+body.is-resizing-sidebar,
+body.is-resizing-sidebar * {
+    cursor: col-resize !important;
+    user-select: none;
 }

@@ -211,6 +211,64 @@ const applyTheme = (preference) => {
 
 systemDark.addEventListener('change', () => applyTheme(themePreference));
 
+// ─── Side panel width (1.0.6) ────────────────────────────────────────────────
+
+/**
+ * The panel's right edge can be dragged, like a side panel in Claude: 200 to 420 px, 251 px by default
+ * (as wide as Proton Calendar's, 1.0.4). The width is remembered in localStorage and read before first
+ * paint by the inline script in index.html; a double-click on the edge puts it back.
+ */
+const SIDEBAR_WIDTH = { min: 200, max: 420, default: 251 };
+const setSidebarWidth = (width) => {
+    const px = Math.round(Math.min(SIDEBAR_WIDTH.max, Math.max(SIDEBAR_WIDTH.min, width)));
+    document.documentElement.style.setProperty('--sidebar-width', `${px}px`);
+    return px;
+};
+const rememberSidebarWidth = (px) => {
+    try {
+        if (px === SIDEBAR_WIDTH.default) localStorage.removeItem('sidebar-width');
+        else localStorage.setItem('sidebar-width', String(px));
+    } catch {
+        // Storage unavailable: the width lasts for this window.
+    }
+};
+const sidebarResizer = document.getElementById('sidebar-resizer');
+if (sidebarResizer) {
+    let drag = null;
+    sidebarResizer.addEventListener('pointerdown', (event) => {
+        if (event.button !== 0) return;
+        const sidebar = sidebarResizer.parentElement;
+        drag = { startX: event.clientX, startWidth: sidebar.getBoundingClientRect().width, width: null };
+        try {
+            sidebarResizer.setPointerCapture(event.pointerId);
+        } catch {
+            // a synthetic event (the window harness) has no pointer to capture
+        }
+        sidebarResizer.classList.add('is-dragging');
+        document.body.classList.add('is-resizing-sidebar');
+        event.preventDefault();
+    });
+    sidebarResizer.addEventListener('pointermove', (event) => {
+        if (!drag) return;
+        drag.width = setSidebarWidth(drag.startWidth + event.clientX - drag.startX);
+        fitHerbert(); // a narrower panel wraps the title onto more lines and leaves Herbert less room
+    });
+    const endDrag = () => {
+        if (!drag) return;
+        if (drag.width !== null) rememberSidebarWidth(drag.width);
+        drag = null;
+        sidebarResizer.classList.remove('is-dragging');
+        document.body.classList.remove('is-resizing-sidebar');
+        updateStatusPopover();
+    };
+    sidebarResizer.addEventListener('pointerup', endDrag);
+    sidebarResizer.addEventListener('pointercancel', endDrag);
+    sidebarResizer.addEventListener('dblclick', () => {
+        rememberSidebarWidth(setSidebarWidth(SIDEBAR_WIDTH.default));
+        fitHerbert();
+    });
+}
+
 // ─── Navigation ──────────────────────────────────────────────────────────────
 
 let currentPage = 'overview';
@@ -1944,7 +2002,9 @@ const mountHerbert = (bridgeState) => {
         return;
     }
     home.hidden = false;
-    herbert = createHerbert(home, { texts: window.HERBERT_TEXTS, translate: t, encourageEvery: 20 * 60 * 1000, lifeEvery: 4 * 60 * 1000 });
+    // 1.0.6: chattier — when nothing happens he says something kind every 2 minutes, and a line stays up to a
+    // minute (a click anywhere in the window takes it away once it has been read).
+    herbert = createHerbert(home, { texts: window.HERBERT_TEXTS, translate: t, encourageEvery: 2 * 60 * 1000, lifeEvery: 4 * 60 * 1000, bubbleHold: 60 * 1000 });
     herbertBridge = createHerbertBridge(herbert);
 };
 window.addEventListener('resize', fitHerbert);

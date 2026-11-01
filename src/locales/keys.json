@@ -345,6 +345,7 @@
   ],
   "Add Account": [
     "index.html",
+    "index.html (attribute)",
     "src/renderer/renderer.js"
   ],
   "Additional verification required to finish signing in.": [
@@ -897,6 +898,9 @@
   ],
   "Downloading update {version}…": [
     "src/main/tray-menu.ts"
+  ],
+  "Drag to change the panel's width; double-click to reset it": [
+    "index.html (attribute)"
   ],
   "Dreaming with my eyes open.": [
     "src/renderer/herbert/herbert-texts.js"
@@ -2389,7 +2393,8 @@
     "src/renderer/herbert/herbert-texts.js"
   ],
   "Refresh": [
-    "index.html"
+    "index.html",
+    "index.html (attribute)"
   ],
   "Refresh All Accounts": [
     "src/main/main.ts"
@@ -2576,7 +2581,7 @@
     "index.html"
   ],
   "Sign in to another Proton account": [
-    "index.html (attribute)"
+    "index.html"
   ],
   "Sign In to Proton": [
     "index.html",
@@ -2763,7 +2768,7 @@
     "src/renderer/renderer.js"
   ],
   "Sync every ticked calendar now (public holidays are synced daily on their own)": [
-    "index.html (attribute)"
+    "index.html"
   ],
   "Sync failed": [
     "src/main/bridge-service.ts"

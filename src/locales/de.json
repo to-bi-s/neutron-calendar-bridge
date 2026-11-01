@@ -489,6 +489,7 @@
   "Checking for updates…": "Suche nach Updates…",
   "Downloading {version}… {percent}%": "Lade {version}… {percent} %",
   "Downloading update {version}…": "Update {version} wird geladen…",
+  "Drag to change the panel's width; double-click to reset it": "Ziehen ändert die Breite der Seitenleiste; Doppelklick stellt sie zurück",
   "Restart to Update": "Neu starten und aktualisieren",
   "The check failed: {error}": "Die Prüfung ist fehlgeschlagen: {error}",
   "Update to {version} — Restart to Update": "Update auf {version} — Neu starten und aktualisieren",

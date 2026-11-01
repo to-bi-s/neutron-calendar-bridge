@@ -489,6 +489,7 @@
   "Checking for updates…": "Recherche de mises à jour…",
   "Downloading {version}… {percent}%": "Téléchargement de {version}… {percent} %",
   "Downloading update {version}…": "Téléchargement de la mise à jour {version}…",
+  "Drag to change the panel's width; double-click to reset it": "Glisser modifie la largeur du panneau latéral ; un double-clic la rétablit",
   "Restart to Update": "Redémarrer pour mettre à jour",
   "The check failed: {error}": "La vérification a échoué : {error}",
   "Update to {version} — Restart to Update": "Mise à jour vers {version} — Redémarrer pour mettre à jour",

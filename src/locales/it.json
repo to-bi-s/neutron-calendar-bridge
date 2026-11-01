@@ -489,6 +489,7 @@
   "Checking for updates…": "Ricerca aggiornamenti…",
   "Downloading {version}… {percent}%": "Scaricamento di {version}… {percent}%",
   "Downloading update {version}…": "Scaricamento dell’aggiornamento {version}…",
+  "Drag to change the panel's width; double-click to reset it": "Trascina per cambiare la larghezza del pannello laterale; doppio clic lo ripristina",
   "Restart to Update": "Riavvia per aggiornare",
   "The check failed: {error}": "Il controllo non è riuscito: {error}",
   "Update to {version} — Restart to Update": "Aggiorna a {version} — Riavvia per aggiornare",

@@ -352,6 +352,17 @@ contextBridge.exposeInMainWorld('bridgeApi', api);`
     await shot('15-pro-settings');
     await navigate('overview');
     await shot('16-pro-overview');
+    // 1.0.6: the panel's buttons are icons with a hover box; the panel's right edge can be dragged (200–420 px, 251 by default).
+    check('panel: icon buttons with a hover box (1.0.6)', (await q('.nav-actions .nav-icon-btn svg')) === 2 && (await q('.nav-actions .nav-tip')) === 2 && (await text('#refresh-button .nav-tip strong')).trim() === 'Refresh' && (await text('#add-account-button .nav-tip strong')).trim() === 'Add Account');
+    const dragPanel = (dx) => run(`(() => { const r = document.querySelector('#sidebar-resizer'); const x = r.getBoundingClientRect().left + 4; const ev = (type, cx) => r.dispatchEvent(new PointerEvent(type, { clientX: cx, clientY: 300, button: 0, pointerId: 1, bubbles: true })); ev('pointerdown', x); ev('pointermove', x + ${dx}); ev('pointerup', x + ${dx}); return Math.round(document.querySelector('.nav-sidebar').getBoundingClientRect().width); })()`);
+    check('panel: dragging the edge widens it and remembers the width', (await dragPanel(60)) === 311 && (await run(`localStorage.getItem('sidebar-width')`)) === '311');
+    check('panel: not narrower than 200 px', (await dragPanel(-400)) === 200);
+    await run(`document.querySelector('#refresh-button').focus()`);
+    await new Promise((resolve) => setTimeout(resolve, 600)); // the hover box comes after a short pause
+    check('panel: the hover box shows on focus', (await run(`getComputedStyle(document.querySelector('#refresh-button .nav-tip')).visibility`)) === 'visible');
+    await shot('17-pro-narrow-panel-tip');
+    await run(`document.querySelector('#refresh-button').blur()`);
+    check('panel: a double-click on the edge puts it back', (await run(`(() => { document.querySelector('#sidebar-resizer').dispatchEvent(new MouseEvent('dblclick', { bubbles: true })); return Math.round(document.querySelector('.nav-sidebar').getBoundingClientRect().width); })()`)) === 251 && (await run(`localStorage.getItem('sidebar-width')`)) === null);
     current = scenarios.two;
     await rerender();
     check('pro: off again — Herbert gone', (await hidden('#herbert-home')) && (await q('.herbert')) === 0);

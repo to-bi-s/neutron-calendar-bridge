@@ -4,7 +4,7 @@
  * createHerbert(container, options) draws him into `container` and returns the
  * API the app will call later (the README lists it all):
  *   herbert.setState(name, { quiet, text })     'idle' | 'curious' | 'talking' | 'asleep' | 'worried' | 'content'
- *   herbert.say(text, { duration, now })        speech bubble; hides itself; queues behind what he is saying
+ *   herbert.say(text, { duration, now })        speech bubble; stays up to options.bubbleHold; queues behind what he is saying
  *   herbert.think(text)                         thought bubble
  *   herbert.react(name, { text, duration })     a short reaction (REACTIONS below)
  *   herbert.lookAt(x, y, holdMs)                page coordinates
@@ -254,6 +254,7 @@
             chattiness: typeof options.chattiness === 'number' ? options.chattiness : 1, // 0 silent, 1 normal, 2 chatty
             quietHours: options.quietHours || null,       // e.g. [22, 7]: no spontaneous lines between 22:00 and 07:00
             encourageEvery: options.encourageEvery || 20 * 60 * 1000,
+            bubbleHold: options.bubbleHold || 0,          // ms a line stays after he has said it (0: it goes at once); a click elsewhere takes it away
             lifeEvery: options.lifeEvery || 4 * 60 * 1000,  // how often his small life may do something
             drowsyAfter: options.drowsyAfter || 10 * 60 * 1000,
             awayAfter: options.awayAfter || 15 * 60 * 1000,
@@ -297,6 +298,8 @@
         var enabled = true;
         var queue = [];       // lines waiting behind the one on screen
         var bubbleHeld = false;
+        var bubbleShownAt = 0; // when the line on screen appeared
+        var bubbleRead = false; // he has finished saying it; the bubble only lingers now
         var onceToday = {};   // lunch / evening / weekend / weekday / birthdays, per day
         var stats = { deliveries: 0, pokes: 0, coffees: 0, encouragements: 0, reactions: 0 };
         var timers = { bubble: null, blink: null, wander: null, gaze: null, encourage: null, reaction: null, life: null, hold: null, minute: null, typing: null, typeChars: null, pulse: {} };
@@ -470,6 +473,7 @@
             clearInterval(timers.typeChars);
             bubble.classList.remove('is-visible');
             root.classList.remove('is-speaking', 'is-sparkling');
+            bubbleRead = false;
             if (queue.length) {
                 var next = queue.shift();
                 timers.bubble = setTimeout(function () { say(next.text, { duration: next.duration, now: true, thought: next.thought }); }, 350);
@@ -481,22 +485,46 @@
             return api;
         }
         function bubbleDuration(text) { return clamp(2600 + text.length * 60, 3200, 10000); }
+        // Is he saying something right now (the line's reading time has not passed)? A lingering line does not count.
+        function talking() { return bubble.classList.contains('is-visible') && !bubbleRead; }
+        // The reading time is over: he stops moving his mouth; the next queued line comes, or the line
+        // lingers for bubbleHold (a click elsewhere in the window takes it away) and then goes.
+        function afterRead() {
+            bubbleRead = true;
+            root.classList.remove('is-speaking', 'is-sparkling');
+            if (queue.length) { hideBubble(); return; }
+            var linger = settings.bubbleHold - (Date.now() - bubbleShownAt);
+            if (linger > 0) { timers.bubble = setTimeout(finishBubble, linger); return; }
+            finishBubble();
+        }
+        function finishBubble() {
+            if (bubbleHeld) { timers.bubble = setTimeout(finishBubble, 1500); return; } // the pointer rests on it: not yet
+            hideBubble();
+        }
+        // A click somewhere else in the window: the line goes, once it has been up long enough to be seen.
+        function dismissBubble() {
+            if (!bubble.classList.contains('is-visible')) return;
+            queue = [];
+            var shown = Date.now() - bubbleShownAt;
+            if (shown >= 1500) { hideBubble(); return; }
+            clearTimeout(timers.bubble);
+            timers.bubble = setTimeout(hideBubble, 1500 - shown);
+        }
         function say(text, opts) {
             opts = opts || {};
             if (!text) return hush();
             if (state === 'asleep' && !opts.inSleep) return api; // he sleeps; the app wakes him with setState first
             if (!enabled) return api;
             var duration = opts.duration || bubbleDuration(text);
-            if (bubble.classList.contains('is-visible') && !opts.now) {
+            if (talking() && !opts.now) { // a lingering line is simply replaced
                 if (queue.length < 3) queue.push({ text: text, duration: duration, thought: opts.thought });
                 return api;
             }
             clearTimeout(timers.bubble);
+            bubbleShownAt = Date.now();
+            bubbleRead = false;
             showBubble(text, opts.thought);
-            timers.bubble = setTimeout(function () {
-                if (bubbleHeld) { timers.bubble = setTimeout(hideBubble, 1500); return; }
-                hideBubble();
-            }, duration);
+            timers.bubble = setTimeout(afterRead, duration);
             emit('say', { text: text, duration: duration, thought: !!opts.thought });
             return api;
         }
@@ -573,7 +601,7 @@
             clearTimeout(timers.encourage);
             timers.encourage = setTimeout(function () {
                 var calm = state === 'idle' || state === 'content' || state === 'curious';
-                var quiet = !bubble.classList.contains('is-visible') && !reaction;
+                var quiet = !talking() && !reaction;
                 if (calm && quiet && maySpeakUp()) {
                     encourage();
                     scheduleEncouragement(settings.encourageEvery / (settings.chattiness === 2 ? 2 : 1));
@@ -646,7 +674,7 @@
             return true;
         }
         function calm() {
-            return enabled && !reaction && !bubble.classList.contains('is-visible') && !root.classList.contains('is-hovered') &&
+            return enabled && !reaction && !talking() && !root.classList.contains('is-hovered') &&
                 (state === 'idle' || state === 'content' || state === 'curious');
         }
         function liveALittle() {
@@ -774,6 +802,7 @@
                 root.setAttribute('data-press', part);
                 return;
             }
+            dismissBubble(); // clicking around in the window: what he said goes
             if (state === 'asleep') return;
             lookAt(e.clientX, e.clientY, 2600);
             pulse('did-notice', 900);
