@@ -9,6 +9,7 @@
  *   node scripts/extract-strings.mjs [--check]
  */
 import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -78,6 +79,16 @@ for (const file of [...listFiles(join(root, 'src', 'main'), /\.ts$/), ...listFil
         }
     }
 }
+
+// 1.0.6: Herbert's lines (src/renderer/herbert/herbert-texts.js): every string in the table is a key — he
+// translates each line through t() before filling {name} and {n}.
+const herbertTexts = createRequire(import.meta.url)(join(root, 'src', 'renderer', 'herbert', 'herbert-texts.js'));
+const walkTexts = (value, where) => {
+    if (typeof value === 'string') add(value, where);
+    else if (Array.isArray(value)) value.forEach((entry) => walkTexts(entry, where));
+    else if (value && typeof value === 'object') Object.values(value).forEach((entry) => walkTexts(entry, where));
+};
+walkTexts(herbertTexts, 'src/renderer/herbert/herbert-texts.js');
 
 // index.html: text-only elements, data-i18n-html blocks, attributes.
 const html = readFileSync(join(root, 'src', 'renderer', 'index.html'), 'utf8').replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '');

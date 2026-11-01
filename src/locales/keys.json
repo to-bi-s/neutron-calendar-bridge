@@ -1,4 +1,16 @@
 {
+  "…dreaming of your calendar… it’s lovely… zzz.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "…five more minutes… you’re great, though… zzz.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "…I’d wake up for you… almost… zzz.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "…still proud of you… zzz.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "\"{address}\" is not one of this account's addresses": [
     "src/main/bridge-service.ts"
   ],
@@ -77,6 +89,15 @@
   "{minutes}m ago": [
     "src/renderer/renderer.js"
   ],
+  "{n} changes delivered today. Hooves of steel.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "{n} deliveries! Shall we celebrate?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "{n} deliveries! The bag is proud.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "{seconds}s ago": [
     "src/renderer/renderer.js"
   ],
@@ -132,6 +153,9 @@
     "src/main/bridge-service.ts",
     "src/renderer/renderer.js"
   ],
+  "A calendar app connected. We’re in business.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "A Calendar Fails — See Calendars": [
     "src/main/tray-menu.ts"
   ],
@@ -141,14 +165,143 @@
   "A calendar needs a name.": [
     "src/main/bridge-service.ts"
   ],
+  "A cancellation came in. All tidied up.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A cancellation. Some days bring gifts.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A change from Proton. Already in your app.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A clear day. Rest, or play, or both.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A complete look at all your calendars.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A crowded calendar. I believe in you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A delivery got stuck. Please look at the app.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A donation! I’m blushing.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A falling star. Wish granted, probably.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "A folder name can have at most 100 characters": [
     "src/main/bridge-service.ts"
+  ],
+  "A free day, {name}. You earned it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A free day! Do something nice.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A fresh day, a fresh page. Good morning!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A full day today. One thing at a time.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A gift! From you! Thank you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A happy dance for you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A letter from the other side of the bridge.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A letter in my bag. Let me see…": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A letter! Oh, it’s for you. Already delivered.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A little jig. Why not.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A little snack. Everyone needs one.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A little stretch. Try it, {name}.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A meeting went away. Enjoy the gap.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "A minute after the app starts and then once a day, the app asks GitHub for a newer version and downloads it in the background; you choose when to restart. Off: only the button on the Info page checks.": [
     "index.html"
   ],
+  "A new account! I love a new account.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A new version came in. Want to try it?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A nice letter. People are kind.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A packed day. I’ll keep it all in order.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A quick apple. Keeps the vet away.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A quick coffee. Rainbow roast.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A quick sign-in, please. Then I carry on.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A quick stretch. Highly recommended.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A quiet little dream…": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A quiet stretch. Humming a little tune.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "A recurring invitation is answered from the occurrence you open; the bridge passes that on as your answer for the whole series, as Proton Calendar does (Proton takes one answer per series). The Attendance entries in the context menu stay empty without an email identity.": [
     "index.html"
+  ],
+  "A shooting star! I made a wish. It’s about you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A short pause; Proton needs a moment.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A small daydream. Back soon.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A small reminder that you’re doing great.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A star fell. I wished you’d sleep well.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A stretch keeps the mail moving.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A sync didn’t work. I’ll keep trying; the app has the details.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A sync error, {name}. Have a look when you can.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A unicorn believes in you. That’s official.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A weekend. Do something that isn’t work.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "A wish on a star, for you.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "About {app}": [
     "src/main/main.ts"
@@ -162,6 +315,30 @@
   ],
   "Accounts": [
     "index.html"
+  ],
+  "Achoo! Bless me.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Achoo! Excuse me.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Achoo! Hay fever.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Achoo! Must be the glitter.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Achoo! Pardon me.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Achoo! Rainbow dust.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Achoo! Sorry!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Achoo! Still a unicorn.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Active": [
     "src/renderer/renderer.js"
@@ -182,8 +359,80 @@
   "Adds the \"{account}\" account (your Proton calendars, served on this Mac by {app}) to Calendar.app. Made by the bridge on this Mac; remove it to remove the account.": [
     "src/main/bridge-service.ts"
   ],
+  "Afternoon, {name}! Steady as a unicorn goes.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Afternoon, {name}. Have you had lunch? Just asking.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Afternoon! A good time for a small win.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Afternoon! Half the day done, and done well.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Afternoon! Let’s keep the good part of the day going.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Ah… ah… achoo!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Ahh. Coffee. Carry on without me for a minute.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Ahh. Right there.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Ahh. Stretch. Carry on.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Ahh… lovely.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "All calm on the bridge.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "All clear! Every calendar matches Proton.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "All good here. The mail is where it should be.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "All is well on the bridge.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "All is well. Everything is in sync.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "All quiet and all correct.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "All quiet. I’m humming to myself.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "All set! Your calendars are on their way.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "An apple a day. Crunch.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "an event": [
     "src/renderer/renderer.js"
+  ],
+  "An invitation arrived. Accept, maybe, or decline, your call.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "An invitation! Shall I fetch a tie? No? Fine.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "An invitation! Someone wants you there.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "An update is waiting whenever you like.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "An update! New hooves, maybe.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Another app": [
     "src/renderer/renderer.js"
@@ -194,8 +443,17 @@
   "Answer by email": [
     "src/renderer/renderer.js (map)"
   ],
+  "Answer sent. They’ll know in a moment.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Answered! That’s one less thing.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Appearance": [
     "index.html"
+  ],
+  "Apple break! Crunch, crunch.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Apple Calendar": [
     "index.html"
@@ -203,17 +461,74 @@
   "Applied": [
     "src/renderer/renderer.js (map)"
   ],
+  "Atchoo! Oops.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Auto Setup": [
     "index.html"
   ],
   "Automatic checks are off (Settings → General); the button checks now.": [
     "src/renderer/renderer.js"
   ],
+  "Awake! Mostly. Checking the calendars.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Back again! The bridge held.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Back on the bridge. Sorting the backlog.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Back on track. That was a bumpy one.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Back online, {name}. All caught up soon.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Back online! Catching up now.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Back to your accounts": [
     "index.html"
   ],
+  "Bag check: all clear.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Belly tickles! Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Big day! I’ll keep the mail moving.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Birthday unicorn! One year older, same horn.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Blank page today. Fill it with something good.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Blocked": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Boo! Just a pumpkin. Happy Halloween.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Boogie on the bridge!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Boop received.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Boop!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Boop! Again!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Boop. Fair.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Boop. Hello.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Bridge connected": [
     "src/main/bridge-service.ts"
@@ -233,8 +548,29 @@
   "Built On": [
     "index.html"
   ],
+  "Busy calendar. Deep breath, then go.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Busy day ahead. I’ve got your back.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Busy hooves, I mean fingers.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Busy one today. Pace yourself.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Cake day! It’s my birthday.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Calendar": [
     "index.html (attribute)"
+  ],
+  "Calendar app connected. Deliveries can begin.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Calendar app online. Serving the mail.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Calendar home": [
     "index.html"
@@ -267,6 +603,30 @@
   ],
   "Cancellation": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Cancelled! Free time appeared.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Cancelled. I’ll tidy the calendar.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Cancelled. Your calendar just got lighter.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Careful with that.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Careful, I’m ticklish.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Careful, that’s sharp!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Celebrate!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Change delivered, no detours.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Change failed": [
     "src/main/bridge-service.ts"
@@ -301,14 +661,26 @@
   "Checked automatically a minute after start and then daily; new versions come from GitHub Releases.": [
     "src/renderer/renderer.js"
   ],
+  "Checking every calendar from the top.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Checking for updates…": [
     "src/renderer/renderer.js"
+  ],
+  "Checking the bag… nope, all sent.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Checking the mail. All sorted.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Checks & Window": [
     "index.html"
   ],
   "Choose <strong>Advanced</strong> and enter the values above.": [
     "index.html (html)"
+  ],
+  "Clack clack clack. Love it.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Click Set Up Calendar.app and follow the steps.": [
     "index.html",
@@ -327,8 +699,23 @@
     "index.html",
     "src/renderer/renderer.js"
   ],
+  "Coffee break, unicorn style.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Coffee break. Back in a moment.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Coffee time! Still watching the mail, of course.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Coffee! The bridge runs on it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Complete Proton's verification step below. The bridge will finish signing in automatically.": [
     "src/main/main.ts"
+  ],
+  "Confetti for you!": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Connect Bridge": [
     "index.html",
@@ -340,6 +727,12 @@
   ],
   "Connected to Proton again": [
     "src/main/bridge-service.ts"
+  ],
+  "Connected to your calendar app. Hooves up!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Connected! Delivering what piled up.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Connecting": [
     "src/renderer/renderer.js (map)"
@@ -354,6 +747,9 @@
   "Connection Limited": [
     "src/main/tray-menu.ts"
   ],
+  "Connection’s back. On it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Continue": [
     "index.html"
   ],
@@ -367,11 +763,44 @@
   "Copy the password:": [
     "index.html"
   ],
+  "Could you sign in again? Proton asked.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Couldn’t deliver that one. Proton doesn’t do it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Credits": [
     "index.html"
   ],
+  "Crunch. Delicious.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Crunch. Fuel for the bridge.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Crunch. Okay, back to work.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Dance break!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Dance! Nobody’s watching. Except you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Dancing! Join me?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Dancing! Pure joy.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Dark": [
     "index.html"
+  ],
+  "Daydreaming about rainbows…": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Daydreaming. It’s allowed.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Declined": [
     "src/renderer/renderer.js (map)"
@@ -389,6 +818,15 @@
   "Deleting the calendar": [
     "src/renderer/renderer.js (map)"
   ],
+  "Delivered across the rainbow bridge.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Delivered! Your change is in Proton.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Delivery number {n}. Not bad.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Detailed logging": [
     "index.html",
     "index.html (attribute)"
@@ -399,15 +837,69 @@
   "Developer Options": [
     "index.html"
   ],
+  "Did you know? A calendar is just a map of your time.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you know? A good nap fixes most things. Not syncs.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you know? A rainbow has no end. I checked.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you know? Hooves are great for stamping letters.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you know? I can count to a thousand. In events.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you know? I was born on 28 October 2026.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you know? My horn is for pointing at good news.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you know? Unicorns can’t whistle. Tried.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you know? Unicorns dream in colour. Seven colours.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you know? Unicorns never lose mail. Never.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you know? You’ve been amazing this whole time.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Did you see that? Wished for a good week for you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Disconnected": [
     "index.html",
     "src/renderer/renderer.js (map)"
+  ],
+  "Dizzy unicorn. One moment.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Dizzy! Give me a second.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Dizzy! Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Done for today? You’ve earned it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Done! Proton has it.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Downloading {version}… {percent}%": [
     "src/renderer/renderer.js"
   ],
   "Downloading update {version}…": [
     "src/main/tray-menu.ts"
+  ],
+  "Dreaming with my eyes open.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Dry run": [
     "src/renderer/renderer.js (map)"
@@ -424,6 +916,15 @@
   "Each account shows up as its own account in your calendar app; the order set here is used throughout the app. Sign Out keeps the account listed so you can sign in again. Remove deletes it and its settings from this computer.": [
     "index.html"
   ],
+  "Ear tickle! Hee.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Ears are off limits! Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Eat something, then conquer the afternoon.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Email or username": [
     "index.html"
   ],
@@ -439,8 +940,14 @@
   "Emails Waiting for Proton": [
     "src/renderer/renderer.js"
   ],
+  "Empty calendar. What a gift.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Enable developer options": [
     "index.html"
+  ],
+  "Enough for today? I think so.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Enter it when Calendar.app asks for the password of the bridge account, or in Calendar.app → <strong>Settings → Accounts</strong> → the bridge account → <strong>Server Settings</strong> → <strong>Password</strong>.": [
     "index.html (html)"
@@ -464,6 +971,42 @@
   "Error": [
     "src/renderer/renderer.js (map)"
   ],
+  "Even unicorns have off days. You’re still amazing.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Evening, {name}! You made it through. Well done.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Evening, {name}. Rest is productive too.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Evening, {name}. Time to slow down a little?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Evening! Nice work today, whatever it was.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Evening! Put your hooves up, I’m on duty.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Evening! The day is winding down. You can too.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Evening. Put the hooves up.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Evening. Whatever got done, got done.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Everything is in order. I checked twice.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Everything, again, carefully.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Everything’s where it belongs. Nice.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Excluded from Sync": [
     "src/renderer/renderer.js"
   ],
@@ -472,6 +1015,12 @@
   ],
   "Expires soon": [
     "src/renderer/renderer.js"
+  ],
+  "Express delivery, complete.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Express delivery, straight across the rainbow bridge!": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Failed": [
     "src/renderer/renderer.js (map)"
@@ -498,11 +1047,26 @@
   "First active address ({address})": [
     "src/renderer/renderer.js"
   ],
+  "First request from your app. Lovely.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Fixed! The bridge is steady again.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Flick flick. Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Flick! Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Folder": [
     "index.html"
   ],
   "Follow system": [
     "index.html"
+  ],
+  "Food o’clock.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "For each new calendar: right-click it → <strong>Properties</strong> → <strong>Email: None</strong>.": [
     "index.html (html)"
@@ -510,14 +1074,101 @@
   "For testing and troubleshooting. The bridge works fully without them; while this is off, none of them is active.": [
     "index.html"
   ],
+  "Found a letter in my bag. Warm words.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Free software: you may run, study, share and change it under the terms of the <a href=\"#\" class=\"external-link\" data-href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU General Public License v3</a>. Copyright © 2026 Tactless Autist (original work) and Tobi (modifications). Unofficial: not affiliated with or endorsed by Proton AG.": [
     "index.html (html)"
+  ],
+  "Fresh events, straight from Proton.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Full check-up, every corner of every calendar.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Full day ahead. Don’t forget to eat.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Full history: ~/Library/Logs/neutron-calendar-bridge/bridge.log": [
     "src/renderer/renderer.js"
   ],
+  "Full listing in progress. Back in a moment.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Full refresh! Sweeping the whole bridge.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "General": [
     "index.html"
+  ],
+  "Giggle. Can’t help it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Go, {name}, go!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good afternoon, {name}! Your calendars are in good hooves.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good afternoon! All deliveries on time.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good afternoon! Nothing slipped past me so far.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good afternoon! Still here, still delivering.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good afternoon! The mail is flowing, the bridge is holding.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good afternoon! The sun’s on the bridge today.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good day’s work. Time to wind down.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good evening, {name}! Still delivering, same as always.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good evening! I’ll keep an eye on things tonight.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good evening! One more look at tomorrow, then rest.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good evening! Quiet on the bridge. Just how I like it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good evening! The bridge is lit, the mail is sorted.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good evening! Tomorrow is already sorted on my side.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good morning, {name}! Herbert reporting for duty.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good morning! Coffee first, calendars second. I’ll handle the second.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good morning! I kept watch all night. Nothing escaped.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good morning! Stretch, breathe, go. I’ve got the rest.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good morning! The early unicorn gets the mail.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good night! Or good very-late evening. I’m here either way.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good night! Stars over the rainbow bridge tonight.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Good to be back. Let me catch up.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "GPL-3.0-only": [
     "index.html"
@@ -525,8 +1176,146 @@
   "Guests' answers show as small icons next to each attendee when you open a meeting.": [
     "index.html"
   ],
+  "Haha, careful!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Haha! Okay okay.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Haha! Stop! No, don’t.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hahaha!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy birthday to me! Confetti!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy birthday, {name}! Confetti for you!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy birthday, {name}! Extra hearts today.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy birthday! Best day on the calendar.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy Friday, {name}! You made it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy Monday! Fresh week, fresh hooves.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy new year! Fresh calendar, fresh me.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy Saturday! The bridge runs, you don’t have to.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy Sunday, {name}. Rest counts as progress.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy Thursday! Almost the weekend.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy Tuesday! A good day for quiet progress.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy Valentine’s! You’re loved, you know.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Happy Wednesday! Halfway there, {name}.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Have you eaten? Just checking.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Haven’t heard from your calendar app in a while.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Head in the clouds for a moment.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Healthy": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Hee, that tickles.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hee! My ear!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hee! Ticklish.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe, careful.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe, my nose!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe, nice.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe, nose.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe, that tickles.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe, that’s my snoot.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe, the horn tickles too.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe, ticklish ears.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe, ticklish!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe! Again?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe! My tummy!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe. Hello.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe. You found me.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehe… stop it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehehe, enough!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehehe!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hehehe! Belly!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hello again! I kept the mail warm.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hello to you too!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hello, calendar app! Mail is ready.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hello, new account! Fetching your calendars.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hello? Calendar app? I have mail for you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hello… hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Help": [
     "index.html"
@@ -534,8 +1323,32 @@
   "Herbert and a Golden Tag": [
     "index.html"
   ],
+  "Herbert mode: maximum!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Herbert, the courier unicorn, moves into the side panel, and a golden Pro tag sits next to the version. Nothing else changes: every feature of the bridge is free.": [
     "index.html"
+  ],
+  "Hey! Careful back there.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hey! Hands off the tail.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hey! That tickles, actually.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hey! That’s my tail.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hi! Missed you a little.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hi! Need anything?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hi… hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Hide {app}": [
     "src/main/main.ts"
@@ -545,6 +1358,24 @@
   ],
   "Hide Password": [
     "src/renderer/renderer.js"
+  ],
+  "Hmm, a sync failed. Could you check the app?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hmm, Proton won’t take that one.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Ho ho ho! A hat for the season.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Holding the mail for a moment. Proton’s request.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hooves in the air!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Hooves up!": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "How often the bridge looks for changes while things are happening; after 10 quiet minutes it checks every 5 minutes. It also checks right away when your Mac wakes up or you change something in Calendar.app.": [
     "index.html"
@@ -559,8 +1390,23 @@
   "Human Verification": [
     "index.html"
   ],
+  "I couldn’t finish a sync. Please check the app.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "I feel seen.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "I need you for a moment: sign in again, please.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "I was dreaming of rainbows. Anyway, hello!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "If the app can send invitations itself (an email identity or an \"invitations via\" setting), switch that off: the bridge emails invitations and answers through Proton.": [
     "index.html"
+  ],
+  "If today is heavy, tomorrow gets a fresh page.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "If you had added the bridge to Calendar.app by hand before, remove that account (Calendar.app → Settings → Accounts) so the calendars are not listed twice. (An account added by hand can be named there; the one from the profile cannot be renamed.)": [
     "index.html"
@@ -580,8 +1426,17 @@
   "In Sync": [
     "src/renderer/renderer.js (map)"
   ],
+  "In sync, {name}. Nothing to worry about.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "In sync. You can forget about me for a while.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "In the app, add a <strong>CalDAV</strong> account (often called \"Other CalDAV\", \"Generic CalDAV\" or \"On the Network\") with the server URL, username and password above.": [
     "index.html (html)"
+  ],
+  "In the bag and out again. Delivered.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "In Thunderbird's calendar: <strong>New Calendar → On the Network</strong>. Enter the username and location, click <strong>Find Calendars</strong>, and give the password when asked.": [
     "index.html (html)"
@@ -589,13 +1444,22 @@
   "In your Inbox: {waiting} waiting for your answer or for Proton, {left} left for you (reasons in bridge.log).": [
     "src/renderer/renderer.js"
   ],
+  "Incoming! Your calendar just changed.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Info": [
     "index.html",
     "src/main/main.ts",
     "src/main/tray-menu.ts"
   ],
+  "Internet’s back. So am I.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Invitation": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Invitation delivered. The organizer is waiting.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Invitation emails": [
     "index.html"
@@ -612,11 +1476,62 @@
   "Invitations: Accept, Maybe and Decline in Calendar.app email your answer to the organizer, and meetings you organize email your guests, like from Proton Calendar. The language of the emails is under <strong>Settings → Emails</strong>.": [
     "index.html (html)"
   ],
+  "Is your calendar app still around? I’m right here.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "It’s calm. Good moment for a breath.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "It’s evening. You can close the lid.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "It’s late, {name}. Nothing here that can’t wait till morning.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "It’s my birthday! Cake for everyone!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "It’s quiet. Is your calendar app running?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "It’s the weekend, {name}. Calendar can wait.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "It’s the weekend. Why is the bridge running? Fine, I’m here.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "It’s your birthday! Cake, now.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Just a little cup. Want one?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "just now": [
     "src/renderer/renderer.js"
   ],
   "Just now": [
     "src/renderer/renderer.js"
+  ],
+  "Just reading an old letter. Sweet one.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Just so you know: you’re amazing.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Just stretching. Nothing to see.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Just the mail. All good.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Just thinking of something nice.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Keys flying. Impressive.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Kindness like yours is rarer than unicorns.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Language": [
     "index.html"
@@ -636,6 +1551,9 @@
   ],
   "Last Sync Detail": [
     "src/renderer/renderer.js"
+  ],
+  "Late night, {name}. Be gentle with yourself.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Leave <strong>SSL/TLS</strong> off: the bridge listens only on <strong>127.0.0.1</strong>. If the app asks for server, port and path separately, use the second row; if it finds no calendars from the server URL, try the calendar home.": [
     "index.html (html)"
@@ -673,11 +1591,41 @@
   "Location": [
     "index.html"
   ],
+  "Look at you go!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Lookahead": [
     "index.html"
   ],
   "Lookback": [
     "index.html"
+  ],
+  "Looking… all delivered.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Lost in thought. Nice thoughts.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Lots of meetings. Lots of you to go round.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Lots on today. You’ll manage, {name}.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Lunch break. Highly recommended.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Lunch time. The mail can wait.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Lunch, {name}? Don’t skip it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Lunch! Even unicorns stop for lunch.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Lunch! I’ll hold the fort.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "macOS did not let the app read its saved login (Keychain), which holds the password {app} knows. Quit and reopen the app and choose \"Always Allow\".": [
     "src/main/bridge-service.ts"
@@ -697,6 +1645,15 @@
   "Made while Proton could not be reached, refused now that it is back — the calendar shows Proton's version again: {error}": [
     "src/main/bridge-service.ts"
   ],
+  "Mail from the other side of the bridge.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mail with a bow on it: an invitation.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mail? Let me check… all delivered.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Mailbox password": [
     "src/renderer/renderer.js"
   ],
@@ -715,14 +1672,95 @@
   "Manual Setup": [
     "index.html"
   ],
+  "Many events today. I’ll keep them tidy.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Maybe": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Meeting cancelled. I took it out for you.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Methods: {methods}": [
     "src/renderer/renderer.js"
   ],
+  "Midday! Eat something nice.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Midday. Fuel up.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mind the horn!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmh, stretch. All limber again.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmh. Good stretch.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmh… did I miss anything? Looking.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmh… even offline, you’re wonderful.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmh… good to see you again.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmh… no connection, all my affection… zzz.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmh… the Mac woke me. Let’s see what’s new.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmh… you matter… zzz.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmh… you’re amazing… zzz.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmm, apple. Don’t mind the noise.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmm, coffee. Don’t mind me.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmm. Five more minutes.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmm. Just a bite.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmm. That’s the good stuff.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmm. You’re kind.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmm… rainbows…": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmm… thank you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Mmm… that’s nice.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "More Details": [
     "index.html"
+  ],
+  "Morning, {name}. I’ve already checked the mail twice.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Morning! Shall we make today a good one?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Morning! The rainbow bridge is open and I’m on it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Morning? Evening? Doesn’t matter, I’m up.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Move Down": [
     "src/renderer/renderer.js"
@@ -739,8 +1777,32 @@
   "Move Up": [
     "src/renderer/renderer.js"
   ],
+  "My bag has {n} things waiting.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "My bag! Nothing waiting right now.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "My birthday! Thank you for being here.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "My Calendars": [
     "src/renderer/renderer.js (map)"
+  ],
+  "My ear! Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "My hooves are shaking. Thank you!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "My horn! Mind the point.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "My nose! Boop.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "My tail! Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Needs Attention": [
     "src/renderer/renderer.js (map)"
@@ -761,6 +1823,33 @@
   "New calendars can be made here or in Proton. Deleting a calendar in Calendar.app only takes it out of Calendar.app (it stays in Proton; the Calendars page ticks it again).": [
     "index.html"
   ],
+  "New delivery for you, from Proton.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "New in your calendar. Have a look.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "New invitation. No pressure, I just deliver.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "New mail for your calendar.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "New version available. Shiny.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "New version! Fresh paint on the bridge.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Nice work today. Remember to stop at some point.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Night owl? Me too. But only one of us needs sleep.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Night shift! I don’t mind. You should sleep, though.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "No {provider} link could be made: {error}": [
     "src/main/bridge-service.ts"
   ],
@@ -769,6 +1858,9 @@
   ],
   "No answer yet": [
     "src/renderer/renderer.js (map)"
+  ],
+  "No calendar app has asked lately. Just saying.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "No calendar could be synced": [
     "src/main/bridge-service.ts"
@@ -791,11 +1883,32 @@
   "No connection to Proton. Signing in as soon as it can be reached.": [
     "src/main/bridge-service.ts"
   ],
+  "No events today. Unicorn-approved.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "No invitation emails from Calendar.app or guests' emailed answers since the app started.": [
     "src/renderer/renderer.js"
   ],
+  "No mail for a while. Enjoying the view.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "No meetings! The day is yours.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "No requests in a while. Maybe check your app?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "normal email": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Nose boop. Classic.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Not a change in sight. I don’t mind.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Not all mail arrived. The app will tell you why.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Not applied": [
     "src/renderer/renderer.js (map)"
@@ -805,6 +1918,12 @@
   ],
   "Not every guest was emailed": [
     "src/main/bridge-service.ts"
+  ],
+  "Not everything is urgent. You’re allowed to breathe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Not possible in Proton, I’m afraid.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "not sent": [
     "src/main/bridge-service.ts"
@@ -822,6 +1941,9 @@
   "Not synced (unticked)": [
     "src/main/sync-schedule.ts"
   ],
+  "Not the horn! Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Not Working — See Overview": [
     "src/main/tray-menu.ts"
   ],
@@ -831,8 +1953,32 @@
   "Note from {guest}: {note}": [
     "src/main/bridge-service.ts"
   ],
+  "Nothing in the bag. Everything’s through.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Nothing is lost: changes wait until then.": [
     "src/main/bridge-service.ts"
+  ],
+  "Nothing new for hours. Peaceful.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Nothing on the calendar. I approve.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Nothing on today. Enjoy it!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Nothing planned today. Perfect.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Nothing scheduled. Breathe it in.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Nothing’s happening. That’s allowed.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Oats secured. Thank you so much!": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Off": [
     "index.html"
@@ -842,6 +1988,27 @@
   ],
   "Off: notifications show no event names, calendars or addresses — useful if others can see your screen.": [
     "index.html"
+  ],
+  "Oh hello! Good to see you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Oh no, a sync went wrong. Please have a look at the app.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Oh! Hello. Just a quick nap.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Oh! You’re back. Hello, {name}!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Oi, the tail!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Oi! The tail is attached.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Old mail. Still lovely.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "On for 24 hours": [
     "index.html"
@@ -869,6 +2036,18 @@
   ],
   "once|{count} times": [
     "src/renderer/renderer.js"
+  ],
+  "One meeting fewer. Breathe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "One more delivery for the books.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "One small coffee. Then onwards.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Online again! Catching up, hooves flying.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Only Accept, Maybe and Decline can be sent to the organizer. Answer in Proton Calendar instead.": [
     "src/main/recurrence.ts"
@@ -927,14 +2106,38 @@
     "index.html",
     "src/main/main.ts"
   ],
+  "Party time!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "PARTY! You found the secret!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Password": [
     "index.html"
+  ],
+  "Peek! Just old letters.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Peeking in the bag… all tidy.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Perfect sync. Not a crumb out of place.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Pets! My favourite.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "PGP": [
     "src/renderer/renderer.js (map)"
   ],
+  "Phew! All is well again.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Please tell what worked and what did not at <a href=\"#\" class=\"external-link\" data-href=\"https://github.com/to-bi-s/neutron-calendar-bridge/issues\">github.com/to-bi-s/neutron-calendar-bridge</a>. Detailed logging (Settings) shows every request in the log; mind that it then holds private details.": [
     "index.html (html)"
+  ],
+  "Poke accepted. Hello, {name}.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Port": [
     "index.html"
@@ -976,6 +2179,12 @@
   "Proton answers, but refused the calendar list: {message}. The bridge keeps trying with every sync.": [
     "src/main/bridge-service.ts"
   ],
+  "Proton asked for a breather. Waiting politely.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Proton asked me to wait. Humming meanwhile.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Proton asked to slow down": [
     "src/main/bridge-service.ts"
   ],
@@ -987,6 +2196,9 @@
   ],
   "Proton asked to slow down. Syncing again at {when}.": [
     "src/main/bridge-service.ts"
+  ],
+  "Proton asks for a sign-in. Mail waits meanwhile.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Proton asks for your authenticator code": [
     "src/main/bridge-service.ts"
@@ -1012,6 +2224,9 @@
   "Proton Calendar on the Web": [
     "src/main/main.ts"
   ],
+  "Proton can’t do that one. Sorry!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Proton cannot be reached": [
     "src/main/bridge-service.ts"
   ],
@@ -1021,8 +2236,20 @@
   "Proton ended the session. Sign in again.": [
     "src/main/bridge-service.ts"
   ],
+  "Proton forgot who we are. A sign-in will fix it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Proton has no categories, attachments or links field, and no privacy setting: those are dropped on save. Links in the description and \"Show time as free\" are kept; a Tentative status is not (Proton has none).": [
     "index.html"
+  ],
+  "Proton has no place for that. Have a look at the app.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Proton has your change. All good.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Proton is busy. I’ll try again shortly.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Proton is not asking for anything right now.": [
     "src/main/bridge-service.ts"
@@ -1030,8 +2257,14 @@
   "Proton keeps the reminders of this series for all its events: an occurrence that was not changed on its own has no reminders of its own. Set the reminder on all events instead.": [
     "src/main/recurrence.ts"
   ],
+  "Proton needs a fresh sign-in. The app shows where.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Proton no longer accepts this version": [
     "src/main/bridge-service.ts"
+  ],
+  "Proton refused that one. Not my hooves’ fault.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Proton requested additional verification for this sign-in attempt.": [
     "src/main/bridge-service.ts"
@@ -1045,6 +2278,18 @@
   "Proton requested an additional verification step for this sign-in attempt.": [
     "index.html",
     "src/renderer/renderer.js"
+  ],
+  "Proton said no to that edit. Sorry.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Proton says thanks. Well, I do.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Proton says: easy now. We’ll wait a moment.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Proton sent something. It’s in your calendar now.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Proton sent the calendar list again.": [
     "src/main/bridge-service.ts"
@@ -1061,11 +2306,26 @@
   "Proton verification failed": [
     "src/main/main.ts"
   ],
+  "Proton wants a little quiet. Fine by me.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Proton wants to see you. Sign in when you can.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Proton would like you to sign in again.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Proton, end-to-end": [
     "src/renderer/renderer.js (map)"
   ],
+  "Proton’s a bit swamped. Back soon.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Proton's open-source <a href=\"#\" class=\"external-link\" data-href=\"https://github.com/ProtonMail/WebClients\">WebClients</a> code for login, keys and event encryption, vendored into the client library.": [
     "index.html (html)"
+  ],
+  "Proud of you. No reason needed.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Public Holidays": [
     "src/renderer/renderer.js (map)"
@@ -1075,6 +2335,9 @@
   ],
   "Pulled from Proton": [
     "src/renderer/renderer.js"
+  ],
+  "Purr… do unicorns purr? This one does.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Pushed to Proton": [
     "src/renderer/renderer.js"
@@ -1088,18 +2351,42 @@
   "Quiet": [
     "src/renderer/renderer.js"
   ],
+  "Quiet day. I counted the clouds.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Quiet hours. Even unicorns like those.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Quit Bridge": [
     "src/main/main.ts",
     "src/main/tray-menu.ts"
   ],
+  "Rainbow boogie!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Read-only ({reason})": [
     "src/renderer/renderer.js"
+  ],
+  "Reading all the mail again, just to be sure.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Reading an event": [
     "src/renderer/renderer.js (map)"
   ],
+  "Reading everything again. Thorough mode.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Reading the calendar": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Reading the mail. Someone’s having a party.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Reading. Hmm, interesting.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Reconnected. Nothing was lost.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Refresh": [
     "index.html"
@@ -1110,6 +2397,12 @@
   "Refresh Now": [
     "src/main/main.ts",
     "src/main/tray-menu.ts"
+  ],
+  "Refresh! Every event gets a second look.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Refreshing it all. Hooves rolled up.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Refreshing…": [
     "src/main/tray-menu.ts"
@@ -1127,6 +2420,15 @@
     "src/main/sync-schedule.ts",
     "src/renderer/renderer.js"
   ],
+  "Reply delivered, across the bridge.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Reply delivered. Good manners, {name}.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Reply on its way, express.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Report a Problem": [
     "index.html",
     "src/main/main.ts"
@@ -1134,8 +2436,14 @@
   "Requests to Proton": [
     "index.html"
   ],
+  "Rest is part of the work. You’ve earned some.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Restart to Update": [
     "index.html"
+  ],
+  "Rise and shine! Your calendars slept well.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Same as macOS": [
     "index.html",
@@ -1150,6 +2458,12 @@
   ],
   "Same as Proton Calendar ({language})": [
     "src/renderer/renderer.js"
+  ],
+  "Saturday or Sunday, either way: rest.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Saved to Proton. Smooth as silk.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Saved without {guests}; the other changes went through. Fix the address or the allowlist and add them again.": [
     "src/main/bridge-service.ts"
@@ -1166,6 +2480,9 @@
   "Saving the calendar": [
     "src/renderer/renderer.js (map)"
   ],
+  "Secret unlocked. Dance!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Security": [
     "index.html"
   ],
@@ -1177,6 +2494,9 @@
   ],
   "Sent": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Sent your answer. Hooves crossed it suits them.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Server address": [
     "index.html"
@@ -1208,6 +2528,24 @@
   ],
   "Shared with Me": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Sharp end, {name}.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Shooting star over the bridge. Made a wish.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Shooting star! My wish: easy syncs and easy days.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Shooting star! Quick, wish!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Shooting star! Wish made.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Short break, Proton’s orders.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Show event titles in notifications": [
     "index.html"
@@ -1260,6 +2598,24 @@
   "Sign out of Proton? Calendar.app will stop syncing until you sign back in.": [
     "src/renderer/renderer.js"
   ],
+  "Sign-in needed. Nothing is lost, I promise.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Sign-in required. I’ll wait right here.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Signed in and syncing. Nice to meet you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Signed in! Let the deliveries begin.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Signed in. I’ve already started.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Signed in. The bridge just got busier. Lovely.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Signed out": [
     "index.html",
     "src/main/bridge-service.ts",
@@ -1298,6 +2654,69 @@
   "Since the app started: {count} email moved to {destination}.|Since the app started: {count} emails moved to {destination}.": [
     "src/renderer/renderer.js"
   ],
+  "Sipping. Thinking. Mostly sipping.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Slow down, says Proton. So I sit.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Snack time! Crunch.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Snack! Want half? No? More for me.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Sniff… achoo!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Snort! Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Somebody is glad you exist. I’m one of them.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Somebody planned something with you in it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Someone remembers something nice you did. Promise.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Something changed in Proton. Synced.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Something didn’t go through. The app knows more.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Something new came in from Proton.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Something new to install. Exciting!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Something went wrong with a sync. I’m sorry.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Something’s off with a sync. Please take a look.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Sorted! Thank you for your patience.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Special delivery: an invitation.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Spinning… wait…": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Star! I wished for good mail.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Star! Wished for you. Shh.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Staring contest? You win.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Starts with the next sync.": [
     "src/renderer/renderer.js"
   ],
@@ -1306,6 +2725,27 @@
   ],
   "Status": [
     "src/renderer/renderer.js"
+  ],
+  "Still awake? The calendars are fine. You could rest.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Still here, still quiet, still happy.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Stretch break. Shoulders down, {name}.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Stretch… and back to work.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Stretch… and back.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Stretch… that’s better.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Stretching my hooves. Join me?": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Subscribed Calendars": [
     "src/renderer/renderer.js (map)"
@@ -1339,6 +2779,9 @@
   ],
   "Synced when the bridge signs in and every day at midnight; the arrows sync one now.": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Synced, sorted, smiling.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Syncing": [
     "src/renderer/renderer.js",
@@ -1374,6 +2817,12 @@
   "Tag of this account in bridge.log": [
     "src/renderer/renderer.js"
   ],
+  "Tail! Hehe, careful.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Take a breath. You’re wonderful.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Test": [
     "src/renderer/renderer.js (map)"
   ],
@@ -1386,17 +2835,89 @@
   "Test mode is on (Developer Options): emails go only to the allowed addresses.": [
     "src/renderer/renderer.js (map)"
   ],
+  "Thank you for keeping me in oats!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Thank you! I’ll deliver extra carefully.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Thank you! Pro Version unlocked, heart included.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Thank you! The bridge runs on kindness like yours.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That change can’t go through. The app says why.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That edit stays here; Proton won’t take it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "That is not the password.": [
     "index.html"
+  ],
+  "That means a lot. Thank you, {name}.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That meeting is gone. No tears here.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That meeting is off. More time for you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That one bounced off Proton. Sorry!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That one’s off. Do something nice with the hour.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That one’s through. Next!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That’s {n} deliveries today!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That’s a lot of typing. Good work.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That’s my spot! Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That’s my tail, {name}.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That’s not something Proton allows. I tried.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That’s the spot.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "That’s very good. Carry on.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "The account is tied to the profile: to remove it later, remove the profile in System Settings. The profile file is kept in the app's folder for a few minutes only, because it holds the bridge's password.": [
     "index.html"
   ],
+  "The app can update. Ooh.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "The app hasn’t asked for a while. All kept safe here.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "The app's home is its GitHub repository: the manual, the detailed rules, everything about building it, the changelog and the place to report a problem. The links open in your browser.": [
     "index.html"
   ],
+  "The bag is empty. Good sign.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "The bag! Full of rainbow dust.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "The bridge can tidy your Inbox like Outlook does: invitations and updates once you have answered them, cancellations once they are in your calendar, guests' answers once Proton has them.": [
     "index.html"
+  ],
+  "The bridge has a new version. Same unicorn.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "The bridge is a CalDAV server on this computer, so other calendar apps (GNOME Calendar, Evolution, KOrganizer, …) should work with it too. Only Thunderbird has been tried so far on Linux. Click a value to copy it.": [
     "index.html"
@@ -1406,6 +2927,12 @@
   ],
   "The bridge is not started yet.": [
     "src/main/main.ts"
+  ],
+  "The bridge is open again! Fetching the mail.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "The bridge is quiet at night. Peaceful, isn’t it?": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "The bridge is signing in again in the background; syncing waits until then.": [
     "src/renderer/renderer.js"
@@ -1431,12 +2958,18 @@
   "The code was not accepted. Codes change every 30 seconds: enter the current one.": [
     "src/renderer/renderer.js"
   ],
+  "The day is done. Nicely.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "The emails use Proton's own texts. \"Same as Proton Calendar\" follows the invitation language set in Proton Calendar.": [
     "index.html",
     "src/renderer/renderer.js"
   ],
   "The folder needs a name": [
     "src/main/bridge-service.ts"
+  ],
+  "The horn is for good news only.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "The linked proton-calendar-client cannot do this yet. Rebuild it with patch 20.": [
     "index.html"
@@ -1454,8 +2987,14 @@
     "index.html",
     "src/renderer/renderer.js (constant)"
   ],
+  "The magic word! Confetti!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "The mailbox password was not accepted.": [
     "src/renderer/renderer.js"
+  ],
+  "The organizer has your answer.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "The password is the bridge's (the one Calendar.app uses), not your Proton password.": [
     "index.html"
@@ -1472,11 +3011,41 @@
   "The reminders could not be saved in Proton: {error}": [
     "src/main/bridge-service.ts"
   ],
+  "The session ended. The app has a Sign in button.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "The verification window is open. The bridge finishes signing in by itself once the verification succeeds.": [
     "src/renderer/renderer.js"
   ],
+  "The way you keep going is quietly heroic.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "The world’s asleep. I’m not. Whatever you need.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "There is no pending verification challenge to complete.": [
     "src/main/bridge-service.ts"
+  ],
+  "There you are, {name}. All good here.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "There you are, internet. Missed you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "There you are! Everything’s fine here.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "There’s a new version waiting. Fancy!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "There’s your app! Handing over the calendars.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Thinking about clouds.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Thinking about you, actually. Good thoughts.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "This account is signed out. Its calendars are listed again once you sign in.": [
     "src/renderer/renderer.js"
@@ -1520,8 +3089,35 @@
   "Tick to sync this calendar": [
     "src/renderer/renderer.js"
   ],
+  "Tickles! Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Time for food. Go on.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Ting! Careful.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Ting! Magic, probably.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Ting. Still pointy.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Told the organizer. Done.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Top to bottom check. Nothing escapes.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Tried another app?": [
     "index.html"
+  ],
+  "Trouble on the bridge. The app has the details.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Twitch. Hehe.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Two-Factor Authentication": [
     "index.html",
@@ -1529,6 +3125,24 @@
   ],
   "Two-Password Mode": [
     "src/renderer/renderer.js"
+  ],
+  "Typing away! Nice rhythm.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Typing storm! I’ll stay out of the way.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Um. Hello there.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Um. Yes?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Um… are you staring?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Unicorn dance. Patent pending.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Unknown error": [
     "src/main/main.ts"
@@ -1549,8 +3163,23 @@
   "Untick to stop syncing this calendar": [
     "src/renderer/renderer.js"
   ],
+  "Up again! Hooves on the bridge.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Up and at it! Good morning, {name}.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Up late, {name}? I’ll keep watch. Rest when you can.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Update": [
     "src/renderer/renderer.js (map)"
+  ],
+  "Update available. I’m curious too.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Update ready. I hear it’s good.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Update to {version} — Restart to Update": [
     "src/main/tray-menu.ts"
@@ -1589,9 +3218,63 @@
   "View": [
     "src/main/main.ts"
   ],
+  "Waiting for Proton. Patience is a virtue.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Waiting for your calendar app. No rush.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "We’re good again. Deep breath.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "We’re online! Let me see what I missed.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "Web Calendar": [
     "src/main/main.ts",
     "src/main/tray-menu.ts"
+  ],
+  "Weekend duty. I don’t mind. You should rest.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Weekend mode. Minimal mail, maximal rest.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Weekend watch, reporting. You: relax.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Weekend! Even the mail is slower.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Weekend! Go outside. I’ll stay.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Weekend! Rainbow bridge is open, you’re off duty.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Weekend. I’ll be quiet. Enjoy it.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Welcome aboard the rainbow bridge!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Welcome aboard!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Welcome back! Nothing broke while you were away.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Welcome back! Want a summary? Everything’s fine.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Welcome back. Quiet while you were gone.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Welcome, {name}! Hooves at the ready.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Welcome! I’ll take good care of these.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "What the Bridge Does, in Detail": [
     "index.html"
@@ -1599,11 +3282,47 @@
   "What This App Does": [
     "index.html"
   ],
+  "What? Something on my face?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Whatever that is, it’s coming along.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Whatever today brings, you’ve got this.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Whatever you’re working on is lucky to have you.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "When a change from Calendar.app could not be saved, when Proton cannot be reached for 5 minutes, and for mailbox problems.": [
     "index.html"
   ],
   "Who Made This": [
     "index.html"
+  ],
+  "Whoa, slow down!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Whoa! Not the tail.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Whoa! Tail!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Whoa! Too fast!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Whoa. Steady now.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Whoa… spinning…": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Wiggle wiggle!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Wind-down time. I’ll keep watch.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Window": [
     "src/main/main.ts"
@@ -1617,19 +3336,151 @@
   "With Reminders left on, Reminders keeps asking the bridge for a task list (refused, harmless).": [
     "index.html"
   ],
+  "Woah… rainbows everywhere.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Woo… I’m fine… I think.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Woo… the room is turning.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Woohoo! Party on the bridge!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Working late? I’ll hold the fort. Go easy.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Writing something good, I bet.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Yawn… right, checking the mail.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Yes? I’m listening.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You did enough today. Truly.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You did that? Thank you, {name}!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You don’t need to be perfect to be wonderful.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You handle more than most people ever see.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "You have the newest version.": [
     "src/renderer/renderer.js"
+  ],
+  "You know my name! Hooray!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You make this little bridge worth running.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You notice things other people miss. That’s a gift.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You said my name! Party!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You showed up today. That already counts.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You type fast!": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "You were invited to this event, so only its organizer can change it.": [
     "src/main/recurrence.ts"
   ],
+  "You’re back! All synced meanwhile.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You’re doing better than you think.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You’re looking. I noticed.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You’re not behind. You’re exactly where the day is.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You’re too kind. Thank you!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You’re wanted at a meeting. Lucky them.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You’ve been invited somewhere!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You’ve got an invite!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "You’ve made it through every hard day so far. Full score.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your answer is on its way to the organizer.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your answer went out. Nicely done.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your app and I are now friends.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your app checked in. All is flowing.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your app hasn’t called. I’m keeping the mail warm.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your app is talking to me. Excellent.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your app went quiet. Is it still open?": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your best is enough. It always was.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your birthday! I’m so glad you were born.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
   "your calendar app": [
     "src/main/caldav-client.ts"
+  ],
+  "Your calendar app found me. Hello!": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your calendar app seems to be away. I’m not.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your calendar grew a little.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your calendar is full because people want you there.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Your reply is out. Sealed and sent.": [
+    "src/renderer/herbert/herbert-texts.js"
   ],
   "Zoom is not connected to your Proton account, so no Zoom link could be made. Connect it in Proton Calendar's settings, or type \"Proton Meet\" as the location.": [
     "src/main/bridge-service.ts"
   ],
   "Zoom links are not included in your Proton plan, so no Zoom link could be made. Type \"Proton Meet\" as the location instead.": [
     "src/main/bridge-service.ts"
+  ],
+  "Zzz… the internet is gone, you are not… zzz.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Zzz… whoever is poking me is amazing… zzz.": [
+    "src/renderer/herbert/herbert-texts.js"
+  ],
+  "Zzz… you’ve got this… I’ve got the nap.": [
+    "src/renderer/herbert/herbert-texts.js"
   ]
 }

@@ -111,6 +111,8 @@ GitHub Actions (`.github/workflows/`): **Check** on every push and pull request 
 
 ## Translations
 
+Herbert's lines (1.0.6) are keys too: `scripts/extract-strings.mjs` walks `src/renderer/herbert/herbert-texts.js`, so a new line needs its five translations like any other text. `src/locales/herbert-keys.json` is the flat list of his lines (regenerated with `node prototypes/herbert/scripts/herbert-keys.mjs` and copied over; the Herbert test checks it matches). Keep translations short: the bubble is 200 px wide, and the English lines stay under 90 characters.
+
 The app's own texts come in English, German, Dutch, French, Spanish and Italian. English is the source text; the other languages are catalogs in `src/locales/<code>.json` (English text → translation, `{name}` placeholders kept, plurals as `one|other`). A missing entry falls back to English. `npm run strings` collects the texts from the code and the window into `src/locales/keys.json` and reports what each catalog is missing; `npm run check` fails on a missing or mismatched entry; `npm run test:i18n` applies every catalog to the built window in Electron and reports anything that stayed English. The invitation emails are a separate matter: they use Proton's own translations in 34 languages, taken from Proton's open-source web app (Settings → Emails → Language of the emails). Developer statistics and the library's own error texts stay English.
 
 ## Developer options in the app
