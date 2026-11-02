@@ -5,7 +5,7 @@
  * its own local copy, that the CalDAV server tells the two principals apart (each password opens
  * its own account only), that an app-wide setting reaches both, and that signing out keeps the
  * account while removing deletes it.
- *   NEUTRON_TEST_ACCOUNTS=~/Proton/.neutron-test-accounts.json npx tsx tests/live/accounts.live.ts
+ *   NEUTRON_TEST_ACCOUNTS=~/github/.neutron-test-accounts.json npx tsx tests/live/accounts.live.ts
  * Credentials never leave the process; nothing of them is printed.
  *
  * 0.50: the accounts are signed in by resuming the sessions seeded with `npm run seed:sessions`

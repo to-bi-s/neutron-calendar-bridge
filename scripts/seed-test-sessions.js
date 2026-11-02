@@ -15,7 +15,7 @@
  * ends it. Run again when a run says the session is gone (Proton ends sessions that were not used
  * for long, or when you signed out of the account elsewhere).
  *
- * Accounts: NEUTRON_TEST_ACCOUNTS (default ~/Proton/.neutron-test-accounts.json). Test accounts only:
+ * Accounts: NEUTRON_TEST_ACCOUNTS (default ~/github/.neutron-test-accounts.json). Test accounts only:
  * the usernames must contain "test". Passwords and tokens are never printed. The library's state goes
  * to NEUTRON_TEST_STATE (default ~/.cache/neutron-live-tests), where the live tests keep theirs.
  */
@@ -31,7 +31,7 @@ const args = process.argv.slice(process.defaultApp ? 2 : 1).filter((arg) => arg 
 const force = args.includes('--force');
 const chosenRoles = args.filter((arg) => !arg.startsWith('--'));
 const ROLES = ['organizer', 'protonGuest', 'twoFactor'];
-const ACCOUNTS_PATH = process.env.NEUTRON_TEST_ACCOUNTS || join(homedir(), 'Proton', '.neutron-test-accounts.json');
+const ACCOUNTS_PATH = process.env.NEUTRON_TEST_ACCOUNTS || join(homedir(), 'github', '.neutron-test-accounts.json');
 const STATE_DIR = process.env.NEUTRON_TEST_STATE || join(homedir(), '.cache', 'neutron-live-tests');
 process.env.PROTON_CALENDAR_CLIENT_STATE_DIR = STATE_DIR;
 const LIBRARY = join(__dirname, '..', 'client', 'dist', 'index.mjs');

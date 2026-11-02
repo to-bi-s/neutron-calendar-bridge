@@ -12,7 +12,7 @@
  * Exit code: 0 all passed; 1 a check failed; 3 inconclusive (checks skipped because Proton held
  * back emails, see below); 2 wrong use or a run already going.
  *
- * Accounts: NEUTRON_TEST_ACCOUNTS (default ~/Proton/.neutron-test-accounts.json), with `organizer`
+ * Accounts: NEUTRON_TEST_ACCOUNTS (default ~/github/.neutron-test-accounts.json), with `organizer`
  * and `protonGuest` ({ username, password, session }) and, for `outside`, `outsideGuest.address`.
  * Test accounts only: the Proton usernames must contain "test". Passwords and tokens are never printed.
  *
@@ -77,7 +77,7 @@ for (const name of chosen) {
 }
 let scenarios = flags.has('--cleanup') ? [] : chosen.length ? chosen : DEFAULT;
 
-const ACCOUNTS_PATH = process.env.NEUTRON_TEST_ACCOUNTS || join(homedir(), 'Proton', '.neutron-test-accounts.json');
+const ACCOUNTS_PATH = process.env.NEUTRON_TEST_ACCOUNTS || join(homedir(), 'github', '.neutron-test-accounts.json');
 const STATE_DIR = process.env.NEUTRON_TEST_STATE || join(homedir(), '.cache', 'neutron-live-tests');
 // The library reads its state folder when it is loaded; never an inherited one (e.g. the bridge's).
 process.env.PROTON_CALENDAR_CLIENT_STATE_DIR = STATE_DIR;
