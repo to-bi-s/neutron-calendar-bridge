@@ -10,8 +10,8 @@ Unofficial: not affiliated with or endorsed by Proton AG (Proton, Proton Calenda
 
 ## Support
 
-DockPin is free and Open Source software — and will always be. I am investing a lot of love and time into making my apps, and love to share them with the world.\
-By supporting me a with a tip, you encourage me to keep my apps up to date and running, and to fix in case an external dependency or system update breaks them.
+Neutron Calendar Bridge is free and Open Source software — and will always be. I am investing a lot of love and time into making my apps, and love to share them with the world.\
+By supporting me with a tip, you encourage me to keep my apps up to date and running, and to fix in case an external dependency or system update breaks them.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P2U529ZTW5)
 
