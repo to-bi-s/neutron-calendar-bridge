@@ -8,6 +8,21 @@ If you use Proton Calendar and have been waiting for it to show up in Calendar.a
 
 Unofficial: not affiliated with or endorsed by Proton AG (Proton, Proton Calendar and Proton Mail are trademarks of Proton AG). It talks to Proton's servers the way Proton's own apps do, under its own name. Free and open source (GPL-3.0), a fork of [proton-calendar-sync](https://github.com/TactlessAutist/proton-calendar-sync) and the [proton-calendar-client](https://github.com/TactlessAutist/proton-calendar-client) library it builds on by [**Tactless Autist**](https://github.com/TactlessAutist).
 
+## Support
+
+DockPin is free and Open Source software — and will always be. I am investing a lot of love and time into making my apps, and love to share them with the world.\
+By supporting me a with a tip, you encourage me to keep my apps up to date and running, and to fix in case an external dependency or system update breaks them.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P2U529ZTW5)
+
+My gratitude for your donation will include:
+
+- for 5€ or more: Proof of your amazingness - Unlocks the Pro version of my app
+- for 10€ or more: 1 Premium Support Ticket - Whenever you have an issue with my app, I will fix it for you
+- for 20€ or more: 1 Feature Request for any of my apps
+
+Thank You & Stay Amazing ❤️
+
 ## Install
 
 <p align="center">
