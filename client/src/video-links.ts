@@ -12,7 +12,7 @@
  * PGP-encrypted to the user's primary key (so Proton's own apps can read the link back), and an SRP
  * verifier of the password for the room's door. See createProtonMeet in proton-calendar-api.ts.
  */
-import type { VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar';
+import type { VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar/VcalModel';
 
 export type VideoConferenceProvider = 1 | 2;
 export const VIDEO_PROVIDER_ZOOM: VideoConferenceProvider = 1;

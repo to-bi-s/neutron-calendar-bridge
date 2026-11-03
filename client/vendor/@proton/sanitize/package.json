@@ -9,20 +9,25 @@
     },
     "scripts": {
         "check:types": "tsc --checkers 1",
-        "lint": "eslint --quiet",
+        "lint": "oxlint --quiet",
         "test": "jest",
         "test:ci": "pnpm run test --ci --runInBand --logHeapUsage",
         "test:watch": "pnpm run test --watch"
     },
     "dependencies": {
-        "dompurify": "^3.4.16"
+        "dompurify": "catalog:"
     },
     "devDependencies": {
         "@proton/jest-swc-preset": "workspace:^",
-        "@typescript/native": "npm:typescript@^7.0.2",
-        "eslint": "^10.11.0",
-        "jest": "^30.5.2",
-        "jest-environment-jsdom": "^30.5.2",
-        "typescript": "npm:@typescript/typescript6@^6.0.2"
+        "@proton/oxlint-config": "workspace:^",
+        "@types/jest": "catalog:",
+        "@types/node": "catalog:",
+        "@types/webpack-env": "catalog:",
+        "@typescript/native": "catalog:",
+        "jest": "catalog:",
+        "jest-environment-jsdom": "catalog:",
+        "oxlint": "catalog:",
+        "oxlint-tsgolint": "catalog:",
+        "typescript": "catalog:"
     }
 }

@@ -25,7 +25,7 @@ import { getIsPropertyAllDay } from '@proton/shared/lib/calendar/vcalHelper';
 import { propertyToUTCDate } from '@proton/shared/lib/calendar/vcalConverter';
 import { getMillisecondsFromTriggerString, parse as parseVcal, serialize } from '@proton/shared/lib/calendar/vcal';
 import { convertUTCDateTimeToZone, fromUTCDate } from '@proton/shared/lib/date/timezone';
-import type { VcalDateOrDateTimeProperty, VcalValarmComponent, VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar';
+import type { VcalDateOrDateTimeProperty, VcalValarmComponent, VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar/VcalModel';
 
 /** A Proton notification as the API stores it. */
 export interface ApiNotification {

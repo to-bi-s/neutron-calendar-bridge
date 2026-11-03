@@ -22,7 +22,7 @@ import { dateParamsFor, inInvitationLanguage, prepareInvitationLanguage } from '
 import type { InvitationDateFormat } from './invitation-language';
 import type { InvitationLanguageChoice, PreparedInvitationLanguage } from './invitation-language';
 import { serverTime } from '@protontech/crypto';
-import getPublicKeysEmailHelper from '@proton/key-transparency/lib/keys/getPublicKeysEmailHelper';
+import getPublicKeysEmailHelper from '@proton/key-transparency/keys/getPublicKeysEmailHelper';
 import getPublicKeysVcardHelper from '@proton/shared/lib/api/helpers/getPublicKeysVcardHelper';
 import { getMailSettings } from '@proton/shared/lib/api/mailSettings';
 import { sendMessageDirect } from '@proton/shared/lib/api/messages';
@@ -54,22 +54,17 @@ import { APPS, MIME_TYPES, RECIPIENT_TYPES } from '@proton/shared/lib/constants'
 import { getIsAddressActive, getSelfSendAddresses } from '@proton/shared/lib/helpers/address';
 import { canonicalizeEmail, canonicalizeInternalEmail } from '@proton/shared/lib/helpers/email';
 import { omit, pick } from '@proton/shared/lib/helpers/object';
-import type { Address, Api, DecryptedAddressKey, DecryptedKey, KTUserContext } from '@proton/shared/lib/interfaces';
-import { KT_VERIFICATION_STATUS, KeyTransparencyActivation } from '@proton/shared/lib/interfaces';
-import type {
-    CalendarEvent,
-    DecryptedCalendarKey,
-    VcalAttendeeProperty,
-    VcalVeventComponent,
-    VcalVtimezoneComponent,
-} from '@proton/shared/lib/interfaces/calendar';
-import {
-    getActiveAddressKeys,
-    getKeyHasFlagsToEncrypt,
-    getPrimaryActiveAddressKeyForEncryption,
-    getPrimaryAddressKeysForSigning,
-    splitKeys,
-} from '@proton/shared/lib/keys';
+import type { Address } from '@proton/shared/lib/interfaces/Address';
+import type { Api } from '@proton/shared/lib/interfaces/Api';
+import type { DecryptedAddressKey, DecryptedKey } from '@proton/shared/lib/interfaces/Key';
+import { KT_VERIFICATION_STATUS, KeyTransparencyActivation, type KTUserContext } from '@proton/shared/lib/interfaces/KeyTransparency';
+import type { DecryptedCalendarKey } from '@proton/shared/lib/interfaces/calendar/CalendarKey';
+import type { CalendarEvent } from '@proton/shared/lib/interfaces/calendar/Event';
+import type { VcalAttendeeProperty, VcalVeventComponent, VcalVtimezoneComponent } from '@proton/shared/lib/interfaces/calendar/VcalModel';
+import { getActiveAddressKeys } from '@proton/shared/lib/keys/getActiveKeys';
+import { getPrimaryActiveAddressKeyForEncryption, getPrimaryAddressKeysForSigning } from '@proton/shared/lib/keys/getPrimaryKey';
+import { getKeyHasFlagsToEncrypt } from '@proton/shared/lib/keys/keyFlags';
+import { splitKeys } from '@proton/shared/lib/keys/keys';
 import { getContactPublicKeyModel, getKeyEncryptionCapableStatus } from '@proton/shared/lib/keys/publicKeys';
 import { getSupportedPlusAlias } from '@proton/shared/lib/mail/addresses';
 import { MESSAGE_FLAGS } from '@proton/shared/lib/mail/constants';

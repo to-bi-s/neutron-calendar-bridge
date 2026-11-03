@@ -36,13 +36,12 @@ import { getVeventParts } from '@proton/shared/lib/calendar/veventHelper';
 import { getHasSharedKeyPacket, getHasSharedEventContent } from '@proton/shared/lib/calendar/apiModels';
 import { getDecryptedAddressKeysHelper } from '@proton/shared/lib/keys/getDecryptedAddressKeys';
 import { getDecryptedUserKeysHelper } from '@proton/shared/lib/keys/getDecryptedUserKeys';
-import { getPrimaryKeyWithSalt } from '@proton/shared/lib/keys/keys';
+import { getPrimaryKeyWithSalt, splitKeys } from '@proton/shared/lib/keys/keys';
 import { getPrimaryKey } from '@proton/shared/lib/keys/getPrimaryKey';
 
 // Import calendar key decryption functions
 import { decryptPassphrase, decryptPassphraseSessionKey, getDecryptedCalendarKeys } from '@proton/shared/lib/calendar/crypto/keys/calendarKeys';
 import { getAddressesMembersMap } from '@proton/shared/lib/calendar/crypto/keys/helpers';
-import { splitKeys } from '@proton/shared/lib/keys';
 import {
     DEFAULT_INVITATION_EMAIL_POLICY,
     InvitationActionError,

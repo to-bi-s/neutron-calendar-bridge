@@ -74,12 +74,25 @@ const collectStrings = () => {
     return wanted;
 };
 
+/** date-fns' locale folder. In this workspace npm hoists date-fns to the repository's node_modules, so look upwards. */
+const dateFnsLocaleDir = (() => {
+    for (let dir = clientRoot; ; dir = path.dirname(dir)) {
+        const candidate = path.join(dir, 'node_modules', 'date-fns', 'locale');
+        if (existsSync(candidate)) {
+            return candidate;
+        }
+        if (path.dirname(dir) === dir) {
+            throw new Error(`date-fns not found in a node_modules folder above ${clientRoot}`);
+        }
+    }
+})();
+
 /** Proton's locale code → the date-fns locale (date-fns 2 folder name), or null when date-fns has none. */
 const dateFnsLocaleFor = (code) => {
     const [language, region] = code.split('_');
     const candidates = [`${language}-${region}`, language];
     for (const candidate of candidates) {
-        if (existsSync(path.join(clientRoot, 'node_modules', 'date-fns', 'locale', candidate, 'index.js'))) {
+        if (existsSync(path.join(dateFnsLocaleDir, candidate, 'index.js'))) {
             return candidate;
         }
     }

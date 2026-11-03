@@ -80,8 +80,9 @@ import {
     validateEmailAddress,
 } from '@proton/shared/lib/helpers/email';
 import { omit } from '@proton/shared/lib/helpers/object';
-import type { Address } from '@proton/shared/lib/interfaces';
-import type { CalendarEvent, VcalAttendeeProperty, VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar';
+import type { Address } from '@proton/shared/lib/interfaces/Address';
+import type { CalendarEvent } from '@proton/shared/lib/interfaces/calendar/Event';
+import type { VcalAttendeeProperty, VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar/VcalModel';
 import getSendPreferences from '@proton/shared/lib/mail/send/getSendPreferences';
 import chunk from '@proton/utils/chunk';
 

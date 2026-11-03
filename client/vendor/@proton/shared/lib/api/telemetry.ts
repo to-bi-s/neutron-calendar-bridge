@@ -1,4 +1,4 @@
-import type { SimpleMap } from '../interfaces';
+import type { SimpleMap } from '../interfaces/utils';
 
 // Reminder: both auth & un-auth measurement groups need to be whitelisted by the back-end. Make sure to specify it to the back-end or your measurement will be silently ignored.
 export enum TelemetryMeasurementGroups {
@@ -14,9 +14,11 @@ export enum TelemetryMeasurementGroups {
     accountDashboard = 'account.web.dashboard',
     accountUpgradePage = 'account.web.upgrade_page',
     easySwitch = 'any.web.easy_switch',
+    easySwitchCreationFunnel = 'any.web.easy_switch_creation_funnel',
     referralDiscover = 'any.web.referral_discover',
     alwaysOnUpsell = 'any.web.always_on_upsell',
     calendarIcsSurgery = 'calendar.web.ics_surgery',
+    calendarClient = 'calendar.client',
     calendarTimeZoneSelector = 'calendar.web.timezone_selector',
     calendarVideoConferencing = 'calendar.web.video_conferencing',
     meetFunnelTelemetry = 'meet.web.meet_funnel_telemetry',
@@ -31,7 +33,7 @@ export enum TelemetryMeasurementGroups {
     calendarInvite = 'any.web.calendar_invite',
     keyTransparency = 'any.web.key_transparency',
     subscriptionModal = 'any.web.subscription_modal',
-    mailOnboarding = 'mail.web.onboarding',
+    oldMailOnboarding = 'mail.web.onboarding',
     paidUsersNudge = 'any.web.paid_users_nudge',
     mailPrivacyDropdown = 'mail.web.privacy_dropdown',
     mailSelectAll = 'mail.web.select_all',
@@ -50,12 +52,16 @@ export enum TelemetryMeasurementGroups {
     mailPagingControls = 'mail.web.paging_controls',
     mailExpandBlockquotes = 'mail.web.expand_blockquotes',
     categoriesView = 'mail.any.categories_view',
+    mailOnboarding = 'mail.any.signup_onboarding',
+    /** Temporary (DAWG-99): validates the unauthenticated to authenticated switch of the signup. Replaced by `mailOnboarding` once Data confirms. */
+    mailSignupOnboardingPoc = 'mail.any.signup_onboarding_account_poc',
     passNudge = 'mail.web.pass_nudge',
     /** Shared with mobile clients: compares Encrypted Search (searchVersion 'v1') against Content Search (searchVersion 'v2') */
     contentSearch = 'mail.any.search',
     /** Shared with mobile clients: indexing telemetry for the same v1/v2 comparison as `contentSearch` */
     contentSearchIndex = 'mail.any.search_index',
     mailNewsletterSubscriptions = 'mail.web.newsletter_subscriptions',
+    mailComposerBookings = 'mail.web.composer_bookings',
     unlimitedOffer2025 = 'any.web.unlimited_offer_2025',
     unlimitedToDuoOffer = 'any.web.unlimited_to_duo_offer',
     unlimitedToDuoDiscountedOffer = 'any.web.unlimited_to_duo_discounted_offer',
@@ -75,6 +81,10 @@ export enum TelemetryMeasurementGroups {
     clientSearch = 'any.web.client_search',
     b2bOnboarding = 'any.web.b2b_onboarding',
     bringYourOwnEmail = 'any.web.bring_your_own_email',
+    mailBringYourOwnEmail = 'mail.any.bring_your_own_email',
+    byoeCreationFunnel = 'any.web.byoe_creation_funnel',
+    /** BYOE and Easy Switch flows, modelled like `mailOnboarding` (flow, step, action) */
+    accountImportFlow = 'any.web.account_import_flow',
     appSwitcher = 'any.web.app_switcher',
     accountExploreApps = 'account.web.explore_apps',
     preventWasmLoading = 'any.web.prevent_wasm_loading',
@@ -89,7 +99,7 @@ export enum TelemetryMeasurementGroups {
     mailForegroundActivity = 'mail.common.foreground_activity',
 }
 
-export enum TelemetryMailOnboardingEvents {
+export enum OldTelemetryMailOnboardingEvents {
     start_onboarding_modals = 'start_onboarding_modals',
     finish_onboarding_modals = 'finish_onboarding_modals',
     select_theme = 'select_theme',
@@ -125,6 +135,23 @@ export enum TelemetryEasySwitchEvents {
     byoeAddressLinkedModalAction = 'byoe_address_linked_modal_action',
 }
 
+export enum TelemetryMailOnboardingEvents {
+    stepLoad = 'step_load',
+    stepCompleted = 'step_completed',
+    stepInteracted = 'step_interacted',
+    flowFinished = 'flow_finished',
+    flowDismissed = 'flow_dismissed',
+}
+
+export enum TelemetryEasySwitchCreationFunnelEvents {
+    creationStarted = 'creation_started',
+    productsSubmitted = 'products_submitted',
+    instructionsViewed = 'instructions_viewed',
+    prepareImportViewed = 'prepare_import_viewed',
+    importerCreated = 'importer_created',
+    creationError = 'creation_error',
+}
+
 export enum TelemetryMailPagingControlsEvents {
     move_to_previous_page = 'move_to_previous_page',
     move_to_next_page = 'move_to_next_page',
@@ -146,6 +173,10 @@ export enum TelemetryListSetting {
 export enum TelemetryCalendarEvents {
     change_temporary_time_zone = 'change_temporary_time_zone',
     answer_invite = 'answer_invite',
+}
+
+export enum TelemetryCalendarClientEvents {
+    legacy_signature_fallback = 'legacy_signature_fallback',
 }
 
 export enum TelemetryCalendarVideoConferencing {
@@ -440,6 +471,7 @@ export enum TelemetryMailLumoEvents {
     tool_end = 'tool_end',
     confirm_answered = 'confirm_answered',
     debug_report_opened = 'debug_report_opened',
+    assistant_disabled = 'assistant_disabled',
 }
 
 export enum TelemetryCategoriesOnboardingEvents {
@@ -595,6 +627,31 @@ export enum TelemetryBringYourOwnEmailEvents {
     claim_proton_address = 'claim_proton_address',
 }
 
+export enum TelemetryMailBringYourOwnEmailEvents {
+    settingsView = 'settings_view',
+    settingsListOnlyShown = 'settings_list_only_shown',
+    connectStarted = 'connect_started',
+    connectSucceeded = 'connect_succeeded',
+    connectFailed = 'connect_failed',
+}
+
+export enum TelemetryBYOECreationFunnelEvents {
+    creationStarted = 'creation_started',
+    googleSignInClicked = 'google_sign_in_clicked',
+    authenticated = 'authenticated',
+    upsellModalViewed = 'upsell_modal_viewed',
+    importerCreated = 'importer_created',
+    creationError = 'creation_error',
+}
+
+export enum TelemetryAccountImportFlowEvents {
+    stepLoad = 'step_load',
+    stepInteracted = 'step_interacted',
+    stepCompleted = 'step_completed',
+    flowFinished = 'flow_finished',
+    flowError = 'flow_error',
+}
+
 // Offers telemetry events
 export enum TelemetryMailDrivePostSignupOneDollarEvents {
     automaticModalOpen = 'automatic_modal_open',
@@ -623,6 +680,16 @@ export enum TelemetryPassNudgeEvents {
     banner_display = 'banner_display',
     banner_interaction = 'banner_interaction',
     pass_cta_click = 'pass_cta_click',
+}
+
+export enum TelemetryComposerBookingsEvents {
+    booking_action_click = 'booking_action_click',
+    booking_page_inserted = 'booking_page_inserted',
+    create_booking_page_click = 'create_booking_page_click',
+    booking_upsell_displayed = 'booking_upsell_displayed',
+    booking_upsell_dismissed = 'booking_upsell_dismissed',
+    booking_upsell_subscribed = 'booking_upsell_subscribed',
+    booking_limit_displayed = 'booking_limit_displayed',
 }
 
 export enum TelemetryPassExtensionEvents {
@@ -723,7 +790,7 @@ export type TelemetryEvents =
     | TelemetryMailSelectAllEvents
     | TelemetryMailComposerAssistantEvents
     | TelemetryMailLumoEvents
-    | TelemetryMailOnboardingEvents
+    | OldTelemetryMailOnboardingEvents
     | TelemetryMailPagingControlsEvents
     | TelemetryMailBlockquotes
     | TelemetryMailForegroundEvents
@@ -743,12 +810,16 @@ export type TelemetryEvents =
     | TelemetryDocsEvents
     | TelemetryDocsEditorEvents
     | TelemetryDocsHomepageEvents
+    | TelemetryCalendarClientEvents
     | TelemetryCalendarVideoConferencing
     | TelemetryEncryptedSearchEvents
     | TelemetryContentSearchEvents
     | TelemetryContentSearchIndexEvents
     | TelemetryB2BOnboardingEvents
     | TelemetryBringYourOwnEmailEvents
+    | TelemetryMailBringYourOwnEmailEvents
+    | TelemetryBYOECreationFunnelEvents
+    | TelemetryAccountImportFlowEvents
     | TelemetryPostSubscriptionTourEvents
     | TelemetryMailDrivePostSignupOneDollarEvents
     | TelemetryPaidUsersNudge
@@ -778,7 +849,10 @@ export type TelemetryEvents =
     | TelemetryMeetActionsEvents
     | TelemetryMeetDashboardEvents
     | TelemetryMeetPerformanceEvents
-    | TelemetryEasySwitchEvents;
+    | TelemetryEasySwitchEvents
+    | TelemetryEasySwitchCreationFunnelEvents
+    | TelemetryMailOnboardingEvents
+    | TelemetryComposerBookingsEvents;
 
 export interface TelemetryReport {
     measurementGroup: TelemetryMeasurementGroups;

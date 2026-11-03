@@ -54,8 +54,9 @@ import { fromUTCDate } from '@proton/shared/lib/date/timezone';
 import { getIsAddressActive } from '@proton/shared/lib/helpers/address';
 import { canonicalizeEmailByGuess } from '@proton/shared/lib/helpers/email';
 import { omit } from '@proton/shared/lib/helpers/object';
-import type { Address } from '@proton/shared/lib/interfaces';
-import type { CalendarEvent, VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar';
+import type { Address } from '@proton/shared/lib/interfaces/Address';
+import type { CalendarEvent } from '@proton/shared/lib/interfaces/calendar/Event';
+import type { VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar/VcalModel';
 
 import {
     InvitationActionError,

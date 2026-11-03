@@ -9,7 +9,7 @@
  * whole days only.
  */
 import { convertUTCDateTimeToZone, convertZonedDateTimeToUTC } from '@proton/shared/lib/date/timezone';
-import type { VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar';
+import type { VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar/VcalModel';
 
 interface DurationValue {
     weeks?: number;

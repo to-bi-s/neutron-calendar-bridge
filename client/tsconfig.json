@@ -15,6 +15,9 @@
     "moduleResolution": "bundler",
     "noEmit": true,
     "paths": {
+      "@proton/key-transparency/*": [
+        "vendor/@proton/key-transparency/lib/*"
+      ],
       "@proton/sanitize/*": [
         "vendor/@proton/sanitize/src/*"
       ],

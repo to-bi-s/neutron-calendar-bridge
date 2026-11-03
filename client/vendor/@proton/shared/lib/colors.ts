@@ -4,7 +4,7 @@ import { c } from 'ttag';
 
 import randomIntFromInterval from '@proton/utils/randomIntFromInterval';
 
-import type { SimpleMap } from './interfaces';
+import type { SimpleMap } from './interfaces/utils';
 
 export const ACCENT_COLORS_MAP = {
     purple: { color: '#8080FF', getName: () => c('color').t`purple` },
@@ -45,7 +45,7 @@ export const getRandomAccentColor = () => ACCENT_COLORS[randomIntFromInterval(0,
 
 // Euclidean distance between colors
 const getColorDistance = (color1: ColorFormats.RGBA, color2: ColorFormats.RGBA): number => {
-    return Math.sqrt((color1.r - color2.r) ** 2 + (color2.g - color2.g) ** 2 + (color1.b - color2.b) ** 2);
+    return Math.sqrt((color1.r - color2.r) ** 2 + (color1.g - color2.g) ** 2 + (color1.b - color2.b) ** 2);
 };
 
 export const getClosestProtonColor = (inputColor: string): string | undefined => {

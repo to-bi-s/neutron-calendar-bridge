@@ -1,7 +1,7 @@
 import type { enums } from '@protontech/crypto';
 
 import { Product } from './ProductEnum';
-import type { KeyGenConfig, KeyGenConfigV6 } from './interfaces';
+import type { KeyGenConfig, KeyGenConfigV6 } from './interfaces/KeyGenConfig';
 
 export const DEFAULT_TIMEOUT = 30000; // default fetch timeout
 export const RETRY_DELAY_MAX = 10; // seconds
@@ -443,6 +443,7 @@ export const SSO_PATHS = {
     PASS_SIGNUP_B2B: '/pass/signup/business',
     PASS_SIGN_IN: '/pass',
     PASS_EXTENSION_ONBOARDING: '/pass/extension-onboarding',
+    PASS_ACCOUNT_ONBOARDING: '/pass/account-onboarding',
     DOCS_SIGNUP: '/docs/signup',
     DOCS_SIGN_IN: '/docs',
     WALLET_SIGNUP: '/wallet/signup',

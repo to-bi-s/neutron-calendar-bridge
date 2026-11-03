@@ -11,7 +11,7 @@
  */
 import { getSupportedTimezone } from '@proton/shared/lib/date/timezone';
 import { FALLBACK_ALLOWED_SUPPORTED_TIMEZONES_LIST } from '@proton/shared/lib/date/timezoneDatabase';
-import type { VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar';
+import type { VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar/VcalModel';
 
 const ALLOWED = new Set<string>(FALLBACK_ALLOWED_SUPPORTED_TIMEZONES_LIST);
 

@@ -1,9 +1,9 @@
 {
   "upstream": {
     "repository": "https://github.com/ProtonMail/WebClients",
-    "commit": "775c785f4153735b7a66b2a539f2f2963257eca2",
-    "date": "2026-10-12",
-    "note": "Refreshed 2026-10-12 from 46dfd76cb9 (2026-10-08) with scripts/refresh-proton.mjs."
+    "commit": "01c27d31baf7b76ef1391eecd756a23c3697a811",
+    "date": "2026-10-30",
+    "note": "Refreshed 2026-11-01 from 01c27d31ba (2026-10-30) with scripts/refresh-proton.mjs."
   },
   "trims": [
     "vendor/@proton/key-transparency/lib/helpers/utils.ts",
@@ -16,7 +16,7 @@
     "vendor/@proton/shared/lib/i18n/dateFnsLocaleMap.ts"
   ],
   "packageCount": 4,
-  "fileCount": 292,
+  "fileCount": 183,
   "packages": [
     {
       "name": "@proton/key-transparency",
@@ -31,12 +31,12 @@
     {
       "name": "@proton/shared",
       "path": "@proton/shared",
-      "fileCount": 252
+      "fileCount": 146
     },
     {
       "name": "@proton/utils",
       "path": "@proton/utils",
-      "fileCount": 18
+      "fileCount": 15
     }
   ],
   "refreshes": [
@@ -58,6 +58,24 @@
       "added": 0,
       "removed": 0,
       "pruned": 0
+    },
+    {
+      "at": "2026-10-31T01:02:30.625Z",
+      "from": "775c785f41",
+      "to": "01c27d31ba",
+      "conflicts": 2,
+      "added": 16,
+      "removed": 6,
+      "pruned": 0
+    },
+    {
+      "at": "2026-11-01T00:47:47.300Z",
+      "from": "01c27d31ba",
+      "to": "01c27d31ba",
+      "conflicts": 0,
+      "added": 0,
+      "removed": 0,
+      "pruned": 120
     }
   ],
   "additions": [

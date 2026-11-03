@@ -1,6 +1,6 @@
 import type { APP_NAMES } from '@proton/shared/lib/constants';
 import { APPS } from '@proton/shared/lib/constants';
-import type { KTLocalStorageAPI } from '@proton/shared/lib/interfaces';
+import type { KTLocalStorageAPI } from '@proton/shared/lib/interfaces/KeyTransparency';
 
 import { getDefaultKTLS } from '../shared/defaults';
 

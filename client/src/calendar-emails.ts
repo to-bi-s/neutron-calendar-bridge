@@ -49,7 +49,8 @@ import { getIsPropertyAllDay, getIsVeventCancelled } from '@proton/shared/lib/ca
 import { getHasModifiedDateTimes, propertyToUTCDate } from '@proton/shared/lib/calendar/vcalConverter';
 import { getIsEventCancelled, getIsRecurring } from '@proton/shared/lib/calendar/veventHelper';
 import { getSupportedTimezone } from '@proton/shared/lib/date/timezone';
-import type { CalendarEvent, VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar';
+import type { CalendarEvent } from '@proton/shared/lib/interfaces/calendar/Event';
+import type { VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar/VcalModel';
 
 import {
     ICAL_MIME_TYPE,

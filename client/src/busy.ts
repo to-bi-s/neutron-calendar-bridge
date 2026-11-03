@@ -9,7 +9,7 @@ import { getOccurrences, getOccurrencesBetween } from '@proton/shared/lib/calend
 import { getDtendProperty, propertyToUTCDate } from '@proton/shared/lib/calendar/vcalConverter';
 import { getIsPropertyAllDay } from '@proton/shared/lib/calendar/vcalHelper';
 import { durationToMilliseconds, parse as parseVcal } from '@proton/shared/lib/calendar/vcal';
-import type { VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar';
+import type { VcalVeventComponent } from '@proton/shared/lib/interfaces/calendar/VcalModel';
 
 import { withDtendFromDuration } from './duration';
 
