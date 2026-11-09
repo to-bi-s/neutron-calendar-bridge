@@ -1,0 +1,48 @@
+# 1.0.7: the Intel (x64) Linux build. The Linux builds are made on Linux (DEVELOPMENT.md → Linux builds);
+# Tobi's Linux machine is an ARM VM, so the x64 AppImage and .deb come from this x64 runner: started by
+# hand (Actions → Linux → Run workflow) or by a release tag, the files are the run's artifact, downloaded
+# with `gh run download` and attached to the GitHub Release next to the ARM ones from the VM.
+name: Linux
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  x64:
+    name: AppImage and .deb (x64)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Cache Electron download
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/electron
+          key: electron-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: electron-${{ runner.os }}-
+      - name: Install (lock file only)
+        run: npm ci --no-audit --no-fund
+      - name: Build
+        run: npm run build
+      - name: Package (AppImage and .deb, x64)
+        run: npx electron-builder --linux AppImage deb --x64 --publish never
+      - name: The files
+        run: ls -la release/*.AppImage release/*.deb release/latest-linux*.yml
+      - uses: actions/upload-artifact@v6
+        with:
+          name: linux-x64
+          path: |
+            release/*.AppImage
+            release/*.deb
+            release/latest-linux*.yml
+          retention-days: 7
+          if-no-files-found: error

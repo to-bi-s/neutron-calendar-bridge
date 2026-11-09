@@ -10,7 +10,8 @@ Neutron Calendar Bridge — Bridge for Proton Calendar, a fork of proton-calenda
 - **Info → Credits**: both names open their GitHub pages, and both of Tactless Autist's repositories (proton-calendar-sync and the proton-calendar-client library) are linked instead of one account link.
 - **The side panel's hover boxes** say only Refresh, Add Account or Quit Bridge, and show at once (they waited a third of a second; the hints on the Calendars page do not).
 - Linux: GNOME shows the menu-bar icon through its AppIndicator extension (on by default on Ubuntu; in a desktop without it, the app is reached through the dock and the window). The README has an Install paragraph for Linux now; BEHAVIOUR.md and DEVELOPMENT.md describe the icon and the shutdown.
-- Updating: `git am` the patches, `npm run check`, `npm run package:mac:release`; for Linux `npm run package:linux` on a Linux machine.
+- **An Intel (x64) Linux build**, made by a GitHub Actions job on an x64 runner (`.github/workflows/linux.yml`; started by hand or by a release tag), attached to the release next to the ARM build from the VM. The release has both Linux architectures from 1.0.7 on.
+- Updating: `git am` the patches, `npm run check`, `npm run package:mac:release`; for Linux `npm run package:linux` on a Linux machine, or the Linux workflow for x64.
 
 ## 1.0.6 (Herbert and the Pro Version; first Linux builds; three things from the first run on Ubuntu)
 - **The Pro Version, a thank-you for donors.** Settings → Pro Version: a golden switch asks for the donors' password, and with the right one Herbert moves in and a golden "Pro" tag sits next to the version number (side panel, Info page). Nothing else changes: every feature of the bridge is free, the password is one for all donors (a thank-you, not a secret; the app keeps only its fingerprint and never logs it), and the switch turns it off again without a password.
