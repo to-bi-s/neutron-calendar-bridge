@@ -41,7 +41,7 @@ The app updates itself: it checks GitHub for a newer version a minute after star
 
 What you need: a Proton account (free or paid) and a Mac — Apple silicon or Intel, macOS 11 or newer (developed on macOS 26) — or a Linux desktop (see below). No Proton Bridge, no paid plan, no terminal.
 
-**Linux (since 1.0.6):** download the `.AppImage` or the `.deb` for your machine (`x64` for Intel and AMD, `arm64` for ARM) from the [newest release](https://github.com/to-bi-s/neutron-calendar-bridge/releases/latest). The AppImage runs after `chmod +x` and updates itself; the .deb installs with `sudo apt install ./neutron-calendar-bridge-<version>-<arch>.deb` and puts the app into the app grid. Tried on Ubuntu 24.04. The menu-bar icon needs GNOME's AppIndicator extension (on by default on Ubuntu). Thunderbird and other CalDAV apps work as on the Mac; there is no Calendar.app, so no Auto Setup.
+**Linux (since 1.0.6):** download the `.AppImage` or the `.deb` for your machine (`x86_64` and `amd64` for Intel and AMD, `arm64` for ARM) from the [newest release](https://github.com/to-bi-s/neutron-calendar-bridge/releases/latest). The AppImage runs after `chmod +x` and updates itself; the .deb installs with `sudo apt install ./neutron-calendar-bridge-<version>-<arch>.deb` and puts the app into the app grid. Tried on Ubuntu 24.04. The menu-bar icon needs GNOME's AppIndicator extension (on by default on Ubuntu). Thunderbird and other CalDAV apps work as on the Mac; there is no Calendar.app, so no Auto Setup.
 
 ## What you get
 
