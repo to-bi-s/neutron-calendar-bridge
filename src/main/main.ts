@@ -1093,8 +1093,8 @@ const registerIpcHandlers = () => {
         return appStateWithUpdate(state);
     });
     ipcMain.handle('bridge:open-external', async (_event, url: unknown) => {
-        // Only web links, and only ones the app itself put on the page.
-        if (typeof url === 'string' && /^https:\/\/(github\.com|proton\.me|www\.gnu\.org)\//.test(url)) {
+        // Only web links, and only ones the app itself put on the page (1.0.7: the Ko-fi button in Settings).
+        if (typeof url === 'string' && /^https:\/\/(github\.com|proton\.me|www\.gnu\.org|ko-fi\.com)\//.test(url)) {
             await shell.openExternal(url);
         }
     });

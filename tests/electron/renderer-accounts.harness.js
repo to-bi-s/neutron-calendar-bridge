@@ -102,6 +102,7 @@ const main = async () => {
     const dir = mkdtempSync(join(tmpdir(), 'renderer-accounts-'));
     for (const file of ['index.html', 'renderer.js', 'i18n.js', 'styles.css']) copyFileSync(join(dist, file), join(dir, file));
     cpSync(join(dist, 'herbert'), join(dir, 'herbert'), { recursive: true }); // 1.0.6: Herbert's scripts and style
+    cpSync(join(dist, 'assets'), join(dir, 'assets'), { recursive: true }); // 1.0.7: the Ko-fi button
     // A preload with the fake API: every call is recorded; the state is whatever the scenario says.
     writeFileSync(
         join(dir, 'preload.js'),
@@ -360,9 +361,12 @@ contextBridge.exposeInMainWorld('bridgeApi', api);`
     const dragPanel = (dx) => run(`(() => { const r = document.querySelector('#sidebar-resizer'); const x = r.getBoundingClientRect().left + 4; const ev = (type, cx) => r.dispatchEvent(new PointerEvent(type, { clientX: cx, clientY: 300, button: 0, pointerId: 1, bubbles: true })); ev('pointerdown', x); ev('pointermove', x + ${dx}); ev('pointerup', x + ${dx}); return Math.round(document.querySelector('.nav-sidebar').getBoundingClientRect().width); })()`);
     check('panel: dragging the edge widens it and remembers the width', (await dragPanel(60)) === 311 && (await run(`localStorage.getItem('sidebar-width')`)) === '311');
     check('panel: not narrower than 200 px', (await dragPanel(-400)) === 200);
-    await run(`document.querySelector('#refresh-button').focus()`);
-    await new Promise((resolve) => setTimeout(resolve, 600)); // the hover box comes after a short pause
-    check('panel: the hover box shows on focus', (await run(`getComputedStyle(document.querySelector('#refresh-button .nav-tip')).visibility`)) === 'visible');
+    // 1.0.7: the hover box shows at once under the pointer (a real mouse move, so :hover applies), and says the name only.
+    const refreshRect = await run(`(() => { const r = document.querySelector('#refresh-button').getBoundingClientRect(); return { x: Math.round(r.left + r.width / 2), y: Math.round(r.top + r.height / 2) }; })()`);
+    window.webContents.sendInputEvent({ type: 'mouseMove', x: refreshRect.x, y: refreshRect.y });
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    check('panel: the hover box shows at once under the pointer', (await run(`getComputedStyle(document.querySelector('#refresh-button .nav-tip')).visibility`)) === 'visible');
+    check('panel: the hover box says the name only', (await text('#refresh-button .nav-tip')).trim() === 'Refresh');
     await shot('17-pro-narrow-panel-tip');
     await run(`document.querySelector('#refresh-button').blur()`);
     check('panel: a double-click on the edge puts it back', (await run(`(() => { document.querySelector('#sidebar-resizer').dispatchEvent(new MouseEvent('dblclick', { bubbles: true })); return Math.round(document.querySelector('.nav-sidebar').getBoundingClientRect().width); })()`)) === 251 && (await run(`localStorage.getItem('sidebar-width')`)) === null);
