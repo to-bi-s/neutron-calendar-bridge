@@ -358,6 +358,8 @@ const ensureWindow = async () => {
         trafficLightPosition: { x: 16, y: 18 },
         autoHideMenuBar: true, // 1.0.6: Linux — the menu shows while Alt is pressed
         title: APP_DISPLAY_NAME,
+        // 1.0.7: Linux — the window's own icon (dock, task bar, app switcher), the same as the launcher's.
+        ...(process.platform === 'linux' ? { icon: iconPath('linux', '256x256.png') } : {}),
         webPreferences: {
             preload: join(__dirname, 'preload.js'),
             contextIsolation: true,
@@ -1225,7 +1227,21 @@ app.on('activate', () => {
     void showWindow();
 });
 
-app.on('will-quit', async () => {
+/**
+ * 1.0.7: the shutdown is waited for. Electron does not wait for an async will-quit handler: the process
+ * ended while the local copies were still being closed, and on Linux that ended in a crash (the
+ * SQLCipher module throwing into a JavaScript world that was already gone: "napi_throw", SIGABRT).
+ * Now quitting is held back until the CalDAV server and the accounts are closed — at most
+ * SHUTDOWN_GRACE_MS, in case a connection or a request hangs — and then the process exits.
+ */
+const SHUTDOWN_GRACE_MS = 5_000;
+let shutdownStarted = false;
+app.on('will-quit', (event) => {
+    if (shutdownStarted) {
+        return;
+    }
+    shutdownStarted = true;
+    event.preventDefault();
     updater?.stop();
     if (pendingTrayMenuTimer) {
         clearInterval(pendingTrayMenuTimer);
@@ -1235,10 +1251,28 @@ app.on('will-quit', async () => {
         clearInterval(trayRefreshTimer);
         trayRefreshTimer = null;
     }
-    try {
+    const started = Date.now();
+    const closeEverything = async () => {
         await caldavServer?.stop();
         await accounts?.shutdown();
-    } catch (error) {
-        dialog.showErrorBox(t('Shutdown Error'), error instanceof Error ? error.message : t('Unknown error'));
-    }
+        console.log(`[app] quit: the CalDAV server and the local copies closed in ${Date.now() - started} ms`);
+    };
+    const grace = new Promise<void>((resolve) =>
+        setTimeout(() => {
+            console.warn(`[app] quit: still closing after ${SHUTDOWN_GRACE_MS} ms — quitting anyway`);
+            resolve();
+        }, SHUTDOWN_GRACE_MS).unref()
+    );
+    void Promise.race([closeEverything(), grace])
+        .catch((error) => {
+            dialog.showErrorBox(t('Shutdown Error'), error instanceof Error ? error.message : t('Unknown error'));
+        })
+        .finally(() => app.exit(0));
 });
+
+// 1.0.7: a terminate signal — logging out of a Linux desktop, a service manager stopping the app, Ctrl-C in
+// a terminal — quits the way the menu does, so the local copies are closed first. Without this the
+// signal ended the process half-way through (see will-quit).
+for (const signal of ['SIGTERM', 'SIGINT', 'SIGHUP'] as const) {
+    process.on(signal, () => app.quit());
+}

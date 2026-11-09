@@ -531,6 +531,9 @@ export class CalDAVServer {
             return;
         }
 
+        // 1.0.7: close() alone waits for every open connection to end, and calendar apps keep theirs
+        // open (keep-alive) — the quit would wait on them. Open connections are cut first.
+        this.server.closeAllConnections();
         await new Promise<void>((resolve, reject) => {
             this.server?.close((error) => {
                 if (error) {

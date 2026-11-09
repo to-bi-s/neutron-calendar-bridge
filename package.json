@@ -1,6 +1,6 @@
 {
   "name": "neutron-calendar-bridge",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Neutron Calendar Bridge — Bridge for Proton Calendar: a local CalDAV bridge between Proton Calendar and Calendar.app (unofficial)",
   "private": true,
   "workspaces": [
@@ -26,7 +26,8 @@
     "package:mac:quick": "node scripts/package-mac-release.mjs --quick",
     "package:linux": "npm run build && electron-builder --linux --publish never && npm rebuild @journeyapps/sqlcipher",
     "build:native": "node scripts/build-native.mjs --force",
-    "icon:tahoe": "node scripts/compile-tahoe-icon.mjs"
+    "icon:tahoe": "node scripts/compile-tahoe-icon.mjs",
+    "icon:linux": "node scripts/render-linux-icon.mjs"
   },
   "dependencies": {
     "@journeyapps/sqlcipher": "6.0.0",
@@ -117,7 +118,7 @@
         }
       ],
       "artifactName": "${name}-${version}-${arch}.${ext}",
-      "icon": "resources/icons/app-icon.png",
+      "icon": "resources/icons/linux",
       "category": "Office",
       "maintainer": "Tobi <t0-b1-s@pm.me>",
       "description": "Bridge for Proton Calendar: a local CalDAV bridge between Proton Calendar and your calendar app (unofficial)"
